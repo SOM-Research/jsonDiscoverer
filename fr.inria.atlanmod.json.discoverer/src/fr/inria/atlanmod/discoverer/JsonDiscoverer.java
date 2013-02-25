@@ -1,0 +1,286 @@
+package fr.inria.atlanmod.discoverer;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+
+import fr.inria.atlanmod.JsonStandaloneSetup;
+import fr.inria.atlanmod.json.ArrayValue;
+import fr.inria.atlanmod.json.BooleanValue;
+import fr.inria.atlanmod.json.JsonObject;
+import fr.inria.atlanmod.json.JsonObjectValue;
+import fr.inria.atlanmod.json.Model;
+import fr.inria.atlanmod.json.NumberValue;
+import fr.inria.atlanmod.json.Pair;
+import fr.inria.atlanmod.json.StringValue;
+import fr.inria.atlanmod.json.Value;
+
+
+/**
+ * Main class to discover a metamodel from a json definition
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
+public class JsonDiscoverer {
+	public static String TEST_FILE = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1A.json";
+	public static String RESULT_TEST_FILE = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1B.ecore";
+	
+	public static String TEST_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1B.json";
+	public static String RESULT_TEST_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1B.ecore";
+
+
+	HashMap<String, EClass> eClasses = new HashMap<String, EClass>();
+
+	public static void main(String[] args) {
+		JsonStandaloneSetup.doSetup();
+
+		JsonDiscoverer discoverer = new JsonDiscoverer();
+		EPackage ePackage = discoverer.discoverMetamodel(new File(TEST_FILE));
+		
+		ResourceSet rset = new ResourceSetImpl();
+		Resource res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
+		res2.getContents().add(ePackage);
+		try {
+			res2.save(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("\nRefining\n");
+		
+		discoverer = new JsonDiscoverer();
+		EPackage ePackage2 = discoverer.refineMetamodel(new File(TEST_FILE_2), new File(RESULT_TEST_FILE));
+
+		res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
+		res2.getContents().add(ePackage2);
+		try {
+			res2.save(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Discover a metamodel from scratch using an existing json file
+	 * 
+	 * @param sourceFile
+	 * @return
+	 */
+	public EPackage discoverMetamodel(File sourceFile) {
+		ResourceSet rset = new ResourceSetImpl();
+		Resource res = rset.getResource(URI.createFileURI(sourceFile.getAbsolutePath()), true);
+
+		try {
+			res.load(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Model model = (Model) res.getContents().get(0);
+		discoverMetaclasses(model.getObjects());
+
+		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
+		ePackage.setName("DiscoveredPackage");
+		ePackage.setNsURI("http://fr.inria.atlanmod/discovered");
+		ePackage.setNsPrefix("disco");
+
+		ePackage.getEClassifiers().addAll(geteClasses().values());
+
+		return ePackage;
+	}
+	
+	/**
+	 * Refines an exisiting metamodel from a json file
+	 * 
+	 * @param sourceFile
+	 * @param existingMetamodel
+	 * @return
+	 */
+	public EPackage refineMetamodel(File sourceFile, File existingMetamodel) {
+		ResourceSet rset = new ResourceSetImpl();
+		Resource res = rset.getResource(URI.createFileURI(existingMetamodel.getAbsolutePath()), true);
+		
+		try {
+			res.load(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		EPackage ePackage = (EPackage) res.getContents().get(0);
+		
+		return refineMetamodel(sourceFile, ePackage);
+	}
+	
+	public EPackage refineMetamodel(File sourceFile, EPackage ePackage) {	
+		for(EClassifier eClassifier : ePackage.getEClassifiers()) {
+			if (eClassifier instanceof EClass) {
+				EClass eClass = (EClass) eClassifier;
+				eClasses.put(eClass.getName(), eClass);
+				System.out.println("added " + eClass.getName());
+			}
+		}
+		
+		return discoverMetamodel(sourceFile);
+	}
+	
+
+	public void discoverMetaclasses(List<JsonObject> jsonObjects) {
+		for(JsonObject jsonObject : jsonObjects) {
+			discoverMetaclass("Root", jsonObject);
+		}
+	}
+
+	public EClass discoverMetaclass(String id, JsonObject jsonObject) {
+		EClass eClass = eClasses.get(id);
+		if(eClass != null) {
+			eClass = refineMetaclass(eClass, jsonObject);
+		} else {
+			eClass = createMetaclass(id, jsonObject);
+		}
+		return eClass;
+	}
+
+
+	/**
+	 * Refines the attributes and references of an existing eclass
+	 * from a new jsonObject definition. 
+	 * 
+	 * @param eClass
+	 * @param jsonObject
+	 */
+	private EClass refineMetaclass(EClass eClass, JsonObject jsonObject) {
+		System.out.println("Refining metaclass " + eClass.getName());
+		
+		for(Pair pair : jsonObject.getPairs()) {
+			String pairId = pair.getString();
+			Value value = pair.getValue();
+
+			EStructuralFeature eStructuralFeature = null;
+			if((eStructuralFeature = eClass.getEStructuralFeature(pairId)) != null) {
+				if (eStructuralFeature instanceof EAttribute) {
+					EAttribute eAttribute = (EAttribute) eStructuralFeature;
+					if(eAttribute.getEType() != mapType(pairId, value)) {
+						System.out.println("Attribute " + eAttribute.getName() + " typed to String due to conflicts");
+						eAttribute.setEType(EcorePackage.Literals.ESTRING);
+					} else {
+						System.out.println("No conflicts with attribute " + eAttribute.getName());
+					}
+				} else if (eStructuralFeature instanceof EReference) {
+					
+				}
+			} else {
+				createStructuralFeature(pairId, value, 0, eClass);
+			}
+		}
+
+		return eClass;
+	}
+
+	/**
+	 * Creates a new metaclass form scratch. Takes a jsonobject as input and 
+	 * an identifier.
+	 * 
+	 * @param id
+	 * @param jsonObject
+	 */
+	private EClass createMetaclass(String id, JsonObject jsonObject) {
+		EClass eClass = EcoreFactory.eINSTANCE.createEClass();
+		eClass.setName(id);
+
+		eClasses.put(id, eClass);
+
+		System.out.println("Metaclass created with name " + id);
+		for(Pair pair : jsonObject.getPairs()) {
+			String pairId = pair.getString();
+			Value value = pair.getValue();
+
+			createStructuralFeature(pairId, value, 1, eClass);
+		}
+		return eClass;
+	}
+
+	/**
+	 * Creates a new structuralFeature out from a pairId/Value
+	 * 
+	 * @param pairId
+	 * @param value
+	 * @param eClass
+	 */
+	private void createStructuralFeature(String pairId, Value value, int lowerBound, EClass eClass) {
+		EStructuralFeature eStructuralFeature = null;
+		EClassifier type = mapType(pairId, value);
+		
+		if(type instanceof EDataType) {
+			eStructuralFeature = EcoreFactory.eINSTANCE.createEAttribute();
+		} else {
+			eStructuralFeature = EcoreFactory.eINSTANCE.createEReference();
+			((EReference) eStructuralFeature).setContainment(true);
+		}
+		
+		if(value instanceof ArrayValue) {
+			eStructuralFeature.setUpperBound(-1);
+		}
+
+		if(eStructuralFeature != null) {
+			eStructuralFeature.setName(pairId);
+			eStructuralFeature.setLowerBound(lowerBound);
+			eStructuralFeature.setEType(mapType(pairId, value)); 
+			eClass.getEStructuralFeatures().add(eStructuralFeature);
+			System.out.println(eStructuralFeature.getClass().getSimpleName() + " created with name " + pairId + " type " + eStructuralFeature.getEType().getName() + " and lower bound " + lowerBound);
+		}
+	}
+
+	/**
+	 * Maps json types into ecore types
+	 * 
+	 * @param id
+	 * @param value
+	 * @return
+	 */
+	private EClassifier mapType(String id, Value value) {
+		if (value instanceof StringValue) {
+			return EcorePackage.Literals.ESTRING; 
+		} else if (value instanceof NumberValue) {
+			return EcorePackage.Literals.EINT; 
+		} else if (value instanceof BooleanValue) {
+			return EcorePackage.Literals.EBOOLEAN; 
+		} else if (value instanceof ArrayValue) {
+			ArrayValue arrayValue = (ArrayValue) value;
+			return mapType(digestId(id), arrayValue.getValue().get(0)); // TODO: Consider all the list
+		} else if (value instanceof JsonObjectValue) {
+			return discoverMetaclass(digestId(id), ((JsonObjectValue) value).getValue());
+		} else {
+		}
+		return EcorePackage.Literals.ESTRING;
+	}
+
+	private String digestId(String id) {
+		String result = id;
+		if(result.endsWith("s")) 
+			result = result.substring(0, result.length()-1);
+		result = result.substring(0, 1).toUpperCase() + result.substring(1, result.length()); 
+		return result;
+	}
+
+	public HashMap<String, EClass> geteClasses() {
+		return eClasses;
+	}
+
+
+}
