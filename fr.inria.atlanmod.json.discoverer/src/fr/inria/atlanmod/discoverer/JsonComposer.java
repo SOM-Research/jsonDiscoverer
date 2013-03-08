@@ -69,7 +69,7 @@ public class JsonComposer {
 					EClass eClass = (EClass) classifier;
 					EClass registryElement = registry.get(eClass.getName());
 					if(registryElement == null) {
-						EClass duplicatedEClass = duplicateEClass(eClass);
+						EClass duplicatedEClass = duplicateEClass(eClass, coverageCreator);
 						registry.put(eClass.getName(), duplicatedEClass);
 						eClass = duplicatedEClass;
 						coverageCreator.createConceptMapping(eClass, duplicatedEClass);
@@ -161,7 +161,7 @@ public class JsonComposer {
 		return newReference;		
 	}
 	
-	private EClass duplicateEClass(EClass otherClass) {
+	private EClass duplicateEClass(EClass otherClass, CoverageCreator coverageCreator) {
 		EClass newClass = EcoreFactory.eINSTANCE.createEClass();
 		newClass.setName(otherClass.getName());
 		newClass.setAbstract(otherClass.isAbstract());
@@ -170,9 +170,11 @@ public class JsonComposer {
 			if (otherFeature instanceof EReference) {
 				EReference duplicatedReference = duplicateReference((EReference) otherFeature);
 				newClass.getEStructuralFeatures().add(duplicatedReference);
+				coverageCreator.createRefMapping((EReference) otherFeature, duplicatedReference);	
 			} else if (otherFeature instanceof EAttribute) {
 				EAttribute duplicatedAttribute = duplicateAttribute((EAttribute) otherFeature);
 				newClass.getEStructuralFeatures().add(duplicatedAttribute);
+				coverageCreator.createAttMapping((EAttribute) otherFeature, duplicatedAttribute);
 			}
 		}
 		return newClass;
