@@ -5,6 +5,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="mappings" lowerBound="1"
         upperBound="-1" eType="#//CoverageMapping" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="input" eType="ecore:EClass platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="service" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CoverageMapping" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="AttMapping" eSuperTypes="#//CoverageMapping">

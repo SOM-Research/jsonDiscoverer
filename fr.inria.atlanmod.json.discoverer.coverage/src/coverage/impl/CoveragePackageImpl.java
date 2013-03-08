@@ -10,6 +10,7 @@ import coverage.CoverageMapping;
 import coverage.CoveragePackage;
 import coverage.RefMapping;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -155,6 +156,15 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getCoverage_Service() {
+		return (EAttribute)coverageEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCoverageMapping() {
 		return coverageMappingEClass;
 	}
@@ -271,6 +281,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 		coverageEClass = createEClass(COVERAGE);
 		createEReference(coverageEClass, COVERAGE__MAPPINGS);
 		createEReference(coverageEClass, COVERAGE__INPUT);
+		createEAttribute(coverageEClass, COVERAGE__SERVICE);
 
 		coverageMappingEClass = createEClass(COVERAGE_MAPPING);
 
@@ -326,6 +337,7 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 		initEClass(coverageEClass, Coverage.class, "Coverage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCoverage_Mappings(), this.getCoverageMapping(), null, "mappings", null, 1, -1, Coverage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCoverage_Input(), theEcorePackage.getEAttribute(), null, "input", null, 0, 1, Coverage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCoverage_Service(), ecorePackage.getEString(), "service", null, 0, 1, Coverage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(coverageMappingEClass, CoverageMapping.class, "CoverageMapping", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

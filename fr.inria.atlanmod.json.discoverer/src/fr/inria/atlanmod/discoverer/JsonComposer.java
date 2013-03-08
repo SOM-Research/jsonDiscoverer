@@ -19,6 +19,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
+import coverage.ConceptMapping;
+import coverage.Coverage;
+import coverage.CoverageFactory;
+import coverage.util.CoverageCreator;
+
 import fr.inria.atlanmod.JsonStandaloneSetup;
 
 public class JsonComposer {
@@ -54,16 +59,22 @@ public class JsonComposer {
 
 		registry = new HashMap<String, EClass>();
 		List<EReference> referencesToCheck = new ArrayList<EReference>();
+		List<CoverageCreator> coverageCreators = new ArrayList<CoverageCreator>();
 		for(File file: files) {
+			CoverageCreator coverageCreator = new CoverageCreator(file);
+			
 			EPackage singlePackage = loadEPackage(file);
 			for(EClassifier classifier : singlePackage.getEClassifiers()) {
 				if (classifier instanceof EClass) {
 					EClass eClass = (EClass) classifier;
 					EClass registryElement = registry.get(eClass.getName());
 					if(registryElement == null) {
-						registry.put(eClass.getName(), eClass);
+						EClass duplicatedEClass = duplicateEClass(eClass);
+						registry.put(eClass.getName(), duplicatedEClass);
+						eClass = duplicatedEClass;
+						coverageCreator.createConceptMapping(eClass, duplicatedEClass);
 					} else {
-						composeAttributes(registryElement, eClass);
+						composeAttributes(registryElement, eClass, coverageCreator);
 					}
 					for(EStructuralFeature otherFeature : eClass.getEStructuralFeatures()) 
 						if (otherFeature instanceof EReference) 
@@ -71,6 +82,8 @@ public class JsonComposer {
 
 				}
 			}
+			
+			coverageCreators.add(coverageCreator);
 		}
 
 
@@ -101,13 +114,16 @@ public class JsonComposer {
 		if(unknownUsed) {
 			finalPackage.getEClassifiers().add(unknown);
 		}
-
+		
 
 		saveEPackage(finalPackage, resultPath);
+		
+		for(CoverageCreator coverageCreator : coverageCreators) 
+			coverageCreator.save(resultPath);
 
 	}
 
-	private void composeAttributes(EClass existingClass, EClass otherClass) {
+	private void composeAttributes(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) {
 		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
 			if (otherFeature instanceof EAttribute) {
 				EAttribute otherAttribute = (EAttribute) otherFeature;
@@ -116,10 +132,12 @@ public class JsonComposer {
 					EAttribute newAttribute = duplicateAttribute(otherAttribute);
 					existingClass.getEStructuralFeatures().add(newAttribute);
 					System.out.println("Attribute " + newAttribute.getName() + " added");
+					existingFeature = newAttribute;
 				} else {
 					existingFeature.setEType(EcorePackage.Literals.ESTRING);
 					System.out.println("Attribute " + existingFeature.getName() + " refined to String");
 				}				
+				coverageCreator.createAttMapping(otherAttribute, (EAttribute) existingFeature);
 			}
 		}
 
@@ -132,6 +150,32 @@ public class JsonComposer {
 		newAttribute.setUpperBound(otherAttribute.getUpperBound());
 		newAttribute.setLowerBound(otherAttribute.getLowerBound());
 		return newAttribute;
+	}
+	
+	private EReference duplicateReference(EReference otherReference) {
+		EReference newReference = EcoreFactory.eINSTANCE.createEReference();
+		newReference.setName(otherReference.getName());
+		newReference.setEType(otherReference.getEType());
+		newReference.setUpperBound(otherReference.getUpperBound());
+		newReference.setLowerBound(otherReference.getLowerBound());
+		return newReference;		
+	}
+	
+	private EClass duplicateEClass(EClass otherClass) {
+		EClass newClass = EcoreFactory.eINSTANCE.createEClass();
+		newClass.setName(otherClass.getName());
+		newClass.setAbstract(otherClass.isAbstract());
+		
+		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
+			if (otherFeature instanceof EReference) {
+				EReference duplicatedReference = duplicateReference((EReference) otherFeature);
+				newClass.getEStructuralFeatures().add(duplicatedReference);
+			} else if (otherFeature instanceof EAttribute) {
+				EAttribute duplicatedAttribute = duplicateAttribute((EAttribute) otherFeature);
+				newClass.getEStructuralFeatures().add(duplicatedAttribute);
+			}
+		}
+		return newClass;
 	}
 
 	private EPackage loadEPackage(File file) {

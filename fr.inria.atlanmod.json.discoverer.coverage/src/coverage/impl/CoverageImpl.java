@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link coverage.impl.CoverageImpl#getMappings <em>Mappings</em>}</li>
  *   <li>{@link coverage.impl.CoverageImpl#getInput <em>Input</em>}</li>
+ *   <li>{@link coverage.impl.CoverageImpl#getService <em>Service</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,6 +58,26 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	 * @ordered
 	 */
 	protected EAttribute input;
+
+	/**
+	 * The default value of the '{@link #getService() <em>Service</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getService()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SERVICE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getService() <em>Service</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getService()
+	 * @generated
+	 * @ordered
+	 */
+	protected String service = SERVICE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -132,6 +153,27 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getService() {
+		return service;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setService(String newService) {
+		String oldService = service;
+		service = newService;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, CoveragePackage.COVERAGE__SERVICE, oldService, service));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -154,6 +196,8 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 			case CoveragePackage.COVERAGE__INPUT:
 				if (resolve) return getInput();
 				return basicGetInput();
+			case CoveragePackage.COVERAGE__SERVICE:
+				return getService();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -174,6 +218,9 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 			case CoveragePackage.COVERAGE__INPUT:
 				setInput((EAttribute)newValue);
 				return;
+			case CoveragePackage.COVERAGE__SERVICE:
+				setService((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -192,6 +239,9 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 			case CoveragePackage.COVERAGE__INPUT:
 				setInput((EAttribute)null);
 				return;
+			case CoveragePackage.COVERAGE__SERVICE:
+				setService(SERVICE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -208,8 +258,26 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 				return mappings != null && !mappings.isEmpty();
 			case CoveragePackage.COVERAGE__INPUT:
 				return input != null;
+			case CoveragePackage.COVERAGE__SERVICE:
+				return SERVICE_EDEFAULT == null ? service != null : !SERVICE_EDEFAULT.equals(service);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (service: ");
+		result.append(service);
+		result.append(')');
+		return result.toString();
 	}
 
 } //CoverageImpl

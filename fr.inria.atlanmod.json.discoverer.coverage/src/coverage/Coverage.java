@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link coverage.Coverage#getMappings <em>Mappings</em>}</li>
  *   <li>{@link coverage.Coverage#getInput <em>Input</em>}</li>
+ *   <li>{@link coverage.Coverage#getService <em>Service</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,5 +67,31 @@ public interface Coverage extends EObject {
 	 * @generated
 	 */
 	void setInput(EAttribute value);
+
+	/**
+	 * Returns the value of the '<em><b>Service</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Service</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Service</em>' attribute.
+	 * @see #setService(String)
+	 * @see coverage.CoveragePackage#getCoverage_Service()
+	 * @model
+	 * @generated
+	 */
+	String getService();
+
+	/**
+	 * Sets the value of the '{@link coverage.Coverage#getService <em>Service</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Service</em>' attribute.
+	 * @see #getService()
+	 * @generated
+	 */
+	void setService(String value);
 
 } // Coverage

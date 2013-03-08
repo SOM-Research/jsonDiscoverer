@@ -2,6 +2,7 @@
  */
 package coverage;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -83,13 +84,22 @@ public interface CoveragePackage extends EPackage {
 	int COVERAGE__INPUT = 1;
 
 	/**
+	 * The feature id for the '<em><b>Service</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COVERAGE__SERVICE = 2;
+
+	/**
 	 * The number of structural features of the '<em>Coverage</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COVERAGE_FEATURE_COUNT = 2;
+	int COVERAGE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link coverage.impl.CoverageMappingImpl <em>Mapping</em>}' class.
@@ -255,6 +265,17 @@ public interface CoveragePackage extends EPackage {
 	EReference getCoverage_Input();
 
 	/**
+	 * Returns the meta object for the attribute '{@link coverage.Coverage#getService <em>Service</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Service</em>'.
+	 * @see coverage.Coverage#getService()
+	 * @see #getCoverage()
+	 * @generated
+	 */
+	EAttribute getCoverage_Service();
+
+	/**
 	 * Returns the meta object for class '{@link coverage.CoverageMapping <em>Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -407,6 +428,14 @@ public interface CoveragePackage extends EPackage {
 		 * @generated
 		 */
 		EReference COVERAGE__INPUT = eINSTANCE.getCoverage_Input();
+
+		/**
+		 * The meta object literal for the '<em><b>Service</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COVERAGE__SERVICE = eINSTANCE.getCoverage_Service();
 
 		/**
 		 * The meta object literal for the '{@link coverage.impl.CoverageMappingImpl <em>Mapping</em>}' class.
