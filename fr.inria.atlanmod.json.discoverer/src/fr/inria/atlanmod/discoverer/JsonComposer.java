@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
@@ -25,27 +26,54 @@ import coverage.CoverageFactory;
 import coverage.util.CoverageCreator;
 
 import fr.inria.atlanmod.JsonStandaloneSetup;
+import fr.inria.atlanmod.json.JsonObject;
+import fr.inria.atlanmod.json.JsonObjectValue;
+import fr.inria.atlanmod.json.Model;
+import fr.inria.atlanmod.json.NumberValue;
+import fr.inria.atlanmod.json.Pair;
+import fr.inria.atlanmod.json.StringValue;
 
 public class JsonComposer {
 	public static String TEST_FILE_1 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1.ecore";
+	public static String TEST_JSON_FILE_1 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1A.json";
 	public static String TEST_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.ecore";
+	public static String TEST_JSON_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.json";
 	public static String RESULT = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan-composed.ecore";
 
 	private List<File> files;
 	private HashMap<String, EClass> registry;
-
+	HashMap<File, List<File>> jsonFiles;
+	HashMap<EAttribute, List<Object>> cacheValues;
+	
 	public static void main(String[] args) {
 		JsonStandaloneSetup.doSetup();
 
 		ArrayList<File> fileList = new ArrayList<File>();
-		fileList.add(new File(TEST_FILE_1));
-		fileList.add(new File(TEST_FILE_2));
-		JsonComposer composer = new JsonComposer(fileList);
+		File file1 = new File(TEST_FILE_1);
+		fileList.add(file1);
+		File file2 = new File(TEST_FILE_2);
+		fileList.add(file2);
+
+		HashMap<File, List<File>> examples = new HashMap<File, List<File>>();
+		List<File> list1 = new ArrayList<File>();
+		list1.add(new File(TEST_JSON_FILE_1));
+		examples.put(file1, list1);
+		List<File> list2 = new ArrayList<File>();
+		list2.add(new File(TEST_JSON_FILE_2));
+		examples.put(file2, list2);
+
+		JsonComposer composer = new JsonComposer(fileList, examples);
 		composer.compose(new File(RESULT));
 	}
 
 	public JsonComposer(List<File> files) {
 		this.files = files;
+		this.cacheValues = new HashMap<EAttribute, List<Object>>();
+	}
+
+	public JsonComposer(List<File> files, HashMap<File, List<File>> jsonFiles) {
+		this(files);
+		this.jsonFiles = jsonFiles;
 	}
 
 	public void compose(File resultPath) {
@@ -62,7 +90,7 @@ public class JsonComposer {
 		List<CoverageCreator> coverageCreators = new ArrayList<CoverageCreator>();
 		for(File file: files) {
 			CoverageCreator coverageCreator = new CoverageCreator(file);
-			
+
 			EPackage singlePackage = loadEPackage(file);
 			for(EClassifier classifier : singlePackage.getEClassifiers()) {
 				if (classifier instanceof EClass) {
@@ -82,10 +110,9 @@ public class JsonComposer {
 
 				}
 			}
-			
+
 			coverageCreators.add(coverageCreator);
 		}
-
 
 		for(EClass eClass : registry.values()) {
 			finalPackage.getEClassifiers().add(eClass);
@@ -110,14 +137,14 @@ public class JsonComposer {
 				}
 			}
 		}
-		
+
 		if(unknownUsed) {
 			finalPackage.getEClassifiers().add(unknown);
 		}
-		
+
 
 		saveEPackage(finalPackage, resultPath);
-		
+
 		for(CoverageCreator coverageCreator : coverageCreators) 
 			coverageCreator.save(resultPath);
 
@@ -129,10 +156,16 @@ public class JsonComposer {
 				EAttribute otherAttribute = (EAttribute) otherFeature;
 				EStructuralFeature existingFeature = existingClass.getEStructuralFeature(otherAttribute.getName());
 				if(existingFeature == null) {
-					EAttribute newAttribute = duplicateAttribute(otherAttribute);
-					existingClass.getEStructuralFeatures().add(newAttribute);
-					System.out.println("Attribute " + newAttribute.getName() + " added");
-					existingFeature = newAttribute;
+					EAttribute similarAttribute = lookForSimilarAttribute(existingClass, otherAttribute, coverageCreator);
+					if(similarAttribute == null) {
+						EAttribute newAttribute = duplicateAttribute(otherAttribute);
+						existingClass.getEStructuralFeatures().add(newAttribute);
+						System.out.println("Attribute " + newAttribute.getName() + " added");
+						existingFeature = newAttribute;
+					} else {
+						System.out.println("Attribute similar found: " + similarAttribute.getName());
+						existingFeature = similarAttribute;
+					}
 				} else {
 					existingFeature.setEType(EcorePackage.Literals.ESTRING);
 					System.out.println("Attribute " + existingFeature.getName() + " refined to String");
@@ -143,6 +176,7 @@ public class JsonComposer {
 
 	}
 
+
 	private EAttribute duplicateAttribute(EAttribute otherAttribute) {
 		EAttribute newAttribute = EcoreFactory.eINSTANCE.createEAttribute();
 		newAttribute.setName(otherAttribute.getName());
@@ -151,7 +185,7 @@ public class JsonComposer {
 		newAttribute.setLowerBound(otherAttribute.getLowerBound());
 		return newAttribute;
 	}
-	
+
 	private EReference duplicateReference(EReference otherReference) {
 		EReference newReference = EcoreFactory.eINSTANCE.createEReference();
 		newReference.setName(otherReference.getName());
@@ -160,12 +194,12 @@ public class JsonComposer {
 		newReference.setLowerBound(otherReference.getLowerBound());
 		return newReference;		
 	}
-	
+
 	private EClass duplicateEClass(EClass otherClass, CoverageCreator coverageCreator) {
 		EClass newClass = EcoreFactory.eINSTANCE.createEClass();
 		newClass.setName(otherClass.getName());
 		newClass.setAbstract(otherClass.isAbstract());
-		
+
 		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
 			if (otherFeature instanceof EReference) {
 				EReference duplicatedReference = duplicateReference((EReference) otherFeature);
@@ -175,9 +209,74 @@ public class JsonComposer {
 				EAttribute duplicatedAttribute = duplicateAttribute((EAttribute) otherFeature);
 				newClass.getEStructuralFeatures().add(duplicatedAttribute);
 				coverageCreator.createAttMapping((EAttribute) otherFeature, duplicatedAttribute);
+				cacheValues.put(duplicatedAttribute, getJSONValues(duplicatedAttribute.getName(), coverageCreator.getFile()));
 			}
 		}
 		return newClass;
+	}
+
+
+	private EAttribute lookForSimilarAttribute(EClass existingClass, EAttribute otherAttribute, CoverageCreator coverageCreator) {
+		List<Object> jsonValues = getJSONValues(otherAttribute.getName(), coverageCreator.getFile());
+		
+		Iterator<EAttribute> it = cacheValues.keySet().iterator();
+		while(it.hasNext()) {
+			EAttribute eAttribute = it.next();
+			for(Object o : cacheValues.get(eAttribute)) {
+				if (o instanceof String) {
+					String stringValue = (String) o;
+					for(Object o2 : jsonValues) {
+						if (o2 instanceof String) {
+							String stringValue2 = (String) o2;
+							if(stringValue.equals(stringValue2)) 
+								return eAttribute;
+						}
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	private List<Object> getJSONValues(String name, File service) {
+		List<Object> result = new ArrayList<Object>();
+		if(jsonFiles == null) return result;
+		
+		ResourceSet rset = new ResourceSetImpl();
+		List<File> files = jsonFiles.get(service);
+		if(files == null) return result;
+		
+		File file = files.get(0);
+		Resource res = rset.getResource(URI.createFileURI(file.getAbsolutePath()), true);
+
+		try {
+			res.load(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Model model = (Model) res.getContents().get(0);
+		
+		for(JsonObject jsonObject : model.getObjects()) {
+			for(Pair pair : jsonObject.getPairs()) {
+				String key = pair.getString();
+				if(key.equals(name) && pair.getValue() instanceof StringValue) {
+					result.add(((StringValue) pair.getValue()).getValue());
+				} else if (pair.getValue() instanceof JsonObjectValue) {
+					JsonObject jsonObject2 = ((JsonObjectValue) pair.getValue()).getValue();
+					for(Pair pair2 : jsonObject2.getPairs()) {
+						String key2 = pair2.getString();
+						if(key2.equals(name) && pair2.getValue() instanceof StringValue) {
+							result.add(((StringValue) pair2.getValue()).getValue());
+						} // TODO make this recursive!						
+					}
+				}
+				
+			}
+		}
+		
+		return result;
 	}
 
 	private EPackage loadEPackage(File file) {

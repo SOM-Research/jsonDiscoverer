@@ -52,6 +52,10 @@ public class CoverageCreator {
 		return coverage;
 	}
 	
+	public File getFile() {
+		return file;
+	}
+	
 	public void save(File composite) {
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res1 = rset.getResource(URI.createFileURI(file.getAbsolutePath()), true);
