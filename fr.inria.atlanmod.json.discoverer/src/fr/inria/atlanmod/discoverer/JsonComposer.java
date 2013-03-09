@@ -44,7 +44,7 @@ public class JsonComposer {
 	private HashMap<String, EClass> registry;
 	HashMap<File, List<File>> jsonFiles;
 	HashMap<EAttribute, List<Object>> cacheValues;
-	
+
 	public static void main(String[] args) {
 		JsonStandaloneSetup.doSetup();
 
@@ -102,7 +102,10 @@ public class JsonComposer {
 						coverageCreator.createConceptMapping(eClass, duplicatedEClass);
 						eClass = duplicatedEClass;
 					} else {
+						coverageCreator.createConceptMapping(eClass, registryElement);
 						composeAttributes(registryElement, eClass, coverageCreator);
+						composeReferences(registryElement, eClass, coverageCreator);
+						eClass = registryElement;
 					}
 					for(EStructuralFeature otherFeature : eClass.getEStructuralFeatures()) 
 						if (otherFeature instanceof EReference) 
@@ -176,6 +179,22 @@ public class JsonComposer {
 
 	}
 
+	private void composeReferences(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) {
+		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
+			if (otherFeature instanceof EReference) {
+				EReference otherReference = (EReference) otherFeature;
+				EStructuralFeature existingFeature = existingClass.getEStructuralFeature(otherReference.getName());
+				if(existingFeature == null) {
+					EReference newReference = duplicateReference(otherReference);
+					existingClass.getEStructuralFeatures().add(newReference);
+					System.out.println("Reference " + newReference.getName() + " added");
+					existingFeature = newReference;
+					coverageCreator.createRefMapping(otherReference, (EReference) existingFeature);
+				} 			
+			}
+		}
+
+	}
 
 	private EAttribute duplicateAttribute(EAttribute otherAttribute) {
 		EAttribute newAttribute = EcoreFactory.eINSTANCE.createEAttribute();
@@ -218,7 +237,7 @@ public class JsonComposer {
 
 	private EAttribute lookForSimilarAttribute(EClass existingClass, EAttribute otherAttribute, CoverageCreator coverageCreator) {
 		List<Object> jsonValues = getJSONValues(otherAttribute.getName(), coverageCreator.getFile());
-		
+
 		Iterator<EAttribute> it = cacheValues.keySet().iterator();
 		while(it.hasNext()) {
 			EAttribute eAttribute = it.next();
@@ -235,18 +254,18 @@ public class JsonComposer {
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	private List<Object> getJSONValues(String name, File service) {
 		List<Object> result = new ArrayList<Object>();
 		if(jsonFiles == null) return result;
-		
+
 		ResourceSet rset = new ResourceSetImpl();
 		List<File> files = jsonFiles.get(service);
 		if(files == null) return result;
-		
+
 		File file = files.get(0);
 		Resource res = rset.getResource(URI.createFileURI(file.getAbsolutePath()), true);
 
@@ -257,7 +276,7 @@ public class JsonComposer {
 		}
 
 		Model model = (Model) res.getContents().get(0);
-		
+
 		for(JsonObject jsonObject : model.getObjects()) {
 			for(Pair pair : jsonObject.getPairs()) {
 				String key = pair.getString();
@@ -272,10 +291,10 @@ public class JsonComposer {
 						} // TODO make this recursive!						
 					}
 				}
-				
+
 			}
 		}
-		
+
 		return result;
 	}
 
