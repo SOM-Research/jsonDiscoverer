@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import coverage.Coverage;
+
 import fr.inria.atlanmod.JsonStandaloneSetup;
 import fr.inria.atlanmod.json.ArrayValue;
 import fr.inria.atlanmod.json.BooleanValue;
@@ -67,7 +69,7 @@ public class JsonInjector {
 		saveModel(targetFile, eObjects);
 	}
 
-	private EObject instantiateEClassifier(EClassifier eClassifier, JsonObject jsonObject) {
+	protected EObject instantiateEClassifier(EClassifier eClassifier, JsonObject jsonObject) {
 		EObject result = null;
 
 		if (eClassifier instanceof EClass) {
@@ -94,7 +96,7 @@ public class JsonInjector {
 		return result;
 	}
 
-	private void setStructuralFeature(EObject result, EStructuralFeature eStructuralFeature, Value value) {
+	protected void setStructuralFeature(EObject result, EStructuralFeature eStructuralFeature, Value value) {
 		if (eStructuralFeature instanceof EAttribute) {
 			EAttribute eAttribute = (EAttribute) eStructuralFeature;
 			if(eStructuralFeature.getUpperBound() == -1) {
@@ -124,7 +126,7 @@ public class JsonInjector {
 	
 	
 
-	private Object digestValue(Value value) {
+	protected Object digestValue(Value value) {
 		if (value instanceof StringValue) {
 			StringValue stringValue = (StringValue) value;
 			return stringValue.getValue();
@@ -139,7 +141,7 @@ public class JsonInjector {
 		}
 	}
 
-	private void saveModel(File targetFile, List<EObject> eObjects) {
+	protected void saveModel(File targetFile, List<EObject> eObjects) {
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.createResource(URI.createFileURI(targetFile.getAbsolutePath()));
 
@@ -153,7 +155,7 @@ public class JsonInjector {
 		}
 	}
 
-	private Model loadJson(File jsonFile) {
+	protected Model loadJson(File jsonFile) {
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.getResource(URI.createFileURI(jsonFile.getAbsolutePath()), true);
 
@@ -166,7 +168,7 @@ public class JsonInjector {
 		return (Model) res.getContents().get(0);
 	}
 
-	private EPackage loadMetamodel(File metamodelFile) {
+	protected EPackage loadMetamodel(File metamodelFile) {
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.getResource(URI.createFileURI(metamodelFile.getAbsolutePath()), true);
 
@@ -178,4 +180,5 @@ public class JsonInjector {
 
 		return (EPackage) res.getContents().get(0);
 	}
+
 }
