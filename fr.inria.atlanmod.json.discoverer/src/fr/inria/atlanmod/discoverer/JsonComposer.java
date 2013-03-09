@@ -99,8 +99,8 @@ public class JsonComposer {
 					if(registryElement == null) {
 						EClass duplicatedEClass = duplicateEClass(eClass, coverageCreator);
 						registry.put(eClass.getName(), duplicatedEClass);
-						eClass = duplicatedEClass;
 						coverageCreator.createConceptMapping(eClass, duplicatedEClass);
+						eClass = duplicatedEClass;
 					} else {
 						composeAttributes(registryElement, eClass, coverageCreator);
 					}

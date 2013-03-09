@@ -98,7 +98,6 @@ public class JsonMultiInjector {
 			EClass compositeEClass = (EClass) findCompositeEClass(eClass, coverage);
 			EObject existingCompositeEObject = findExistingEObject(eClass, jsonObject, compositeEClass, coverage, metamodel);
 			if(existingCompositeEObject != null) {
-				System.out.println("found");
 				return existingCompositeEObject;
 			}
 
