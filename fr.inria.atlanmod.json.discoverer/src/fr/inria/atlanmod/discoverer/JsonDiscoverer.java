@@ -32,7 +32,7 @@ import fr.inria.atlanmod.json.Value;
 
 
 /**
- * Main class to discover a metamodel from a json definition
+ * Main class to discover/refine metamodels (ecore file) from json definitions (json file).
  * 
  * @author Javier Canovas (javier.canovas@inria.fr)
  *
@@ -47,6 +47,11 @@ public class JsonDiscoverer {
 
 	HashMap<String, EClass> eClasses = new HashMap<String, EClass>();
 
+	/**
+	 * Just for testing purposes
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		JsonStandaloneSetup.doSetup();
 
@@ -79,8 +84,8 @@ public class JsonDiscoverer {
 	/**
 	 * Discover a metamodel from scratch using an existing json file
 	 * 
-	 * @param sourceFile
-	 * @return
+	 * @param sourceFile (the json file)
+	 * @return EPackage containing the EClasses discovered
 	 */
 	public EPackage discoverMetamodel(File sourceFile) {
 		ResourceSet rset = new ResourceSetImpl();
@@ -93,8 +98,10 @@ public class JsonDiscoverer {
 		}
 
 		Model model = (Model) res.getContents().get(0);
+		// Launching discoverer
 		discoverMetaclasses(model.getObjects());
 
+		// Default package
 		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
 		ePackage.setName("DiscoveredPackage");
 		ePackage.setNsURI("http://fr.inria.atlanmod/discovered");
@@ -106,7 +113,7 @@ public class JsonDiscoverer {
 	}
 	
 	/**
-	 * Refines an exisiting metamodel from a json file
+	 * Refines an exisiting metamodel (giving the file) from a json file
 	 * 
 	 * @param sourceFile
 	 * @param existingMetamodel
@@ -127,6 +134,13 @@ public class JsonDiscoverer {
 		return refineMetamodel(sourceFile, ePackage);
 	}
 	
+	/**
+	 * Refines an exisiting metamodel (giving the EPackage) from a json file
+	 * 
+	 * @param sourceFile
+	 * @param ePackage
+	 * @return
+	 */
 	public EPackage refineMetamodel(File sourceFile, EPackage ePackage) {	
 		for(EClassifier eClassifier : ePackage.getEClassifiers()) {
 			if (eClassifier instanceof EClass) {
@@ -140,17 +154,31 @@ public class JsonDiscoverer {
 	}
 	
 
+	/**
+	 * Discover the metaclasses for a list of JsonObjects
+	 * 
+	 * @param jsonObjects
+	 */
 	public void discoverMetaclasses(List<JsonObject> jsonObjects) {
 		for(JsonObject jsonObject : jsonObjects) {
 			discoverMetaclass("Root", jsonObject);
 		}
 	}
 
+	/**
+	 * Discover the metaclass for a JsonObject
+	 * 
+	 * @param id Unique identifier for the JsonObject 
+	 * @param jsonObject the JsonObject
+	 * @return Discovered EClass
+	 */
 	public EClass discoverMetaclass(String id, JsonObject jsonObject) {
 		EClass eClass = eClasses.get(id);
 		if(eClass != null) {
+			// If already created, refine
 			eClass = refineMetaclass(eClass, jsonObject);
 		} else {
+			// If it's first time, create
 			eClass = createMetaclass(id, jsonObject);
 		}
 		return eClass;
