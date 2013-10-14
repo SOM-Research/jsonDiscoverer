@@ -1,7 +1,9 @@
 package fr.inria.atlanmod.discoverer;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class JsonDiscoverer {
 	public static String TEST_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1B.json";
 	public static String RESULT_TEST_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1B.ecore";
 
+	public static String JSON_TEST = " { \"codeLieu\":\"CRQU4\", \"libelle\":\"Place du Cirque\" }";
 
 	HashMap<String, EClass> eClasses = new HashMap<String, EClass>();
 
@@ -56,8 +59,10 @@ public class JsonDiscoverer {
 		JsonStandaloneSetup.doSetup();
 
 		JsonDiscoverer discoverer = new JsonDiscoverer();
-		EPackage ePackage = discoverer.discoverMetamodel(new File(TEST_FILE));
+		EPackage ePackage = discoverer.discoverMetamodel(JSON_TEST);
 		
+//		EPackage ePackage = discoverer.discoverMetamodel(new File(TEST_FILE));
+
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
 		res2.getContents().add(ePackage);
@@ -66,21 +71,42 @@ public class JsonDiscoverer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("\nRefining\n");
-		
-		discoverer = new JsonDiscoverer();
-		EPackage ePackage2 = discoverer.refineMetamodel(new File(TEST_FILE_2), new File(RESULT_TEST_FILE));
+//		
+//		System.out.println("\nRefining\n");
+//		
+//		discoverer = new JsonDiscoverer();
+//		EPackage ePackage2 = discoverer.refineMetamodel(new File(TEST_FILE_2), new File(RESULT_TEST_FILE));
 
-		res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
-		res2.getContents().add(ePackage2);
-		try {
-			res2.save(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
+//		res2.getContents().add(ePackage2);
+//		try {
+//			res2.save(null);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
+	/**
+	 * Discover a metamodel from scratch using a json String
+	 * 
+	 * @param jsonString The json text
+	 * @return The JSON model
+	 */
+	public EPackage discoverMetamodel(String jsonString) {
+		ResourceSet rset = new ResourceSetImpl();
+		Resource res = rset.createResource(URI.createURI("dummy:/example.json"));
+		InputStream in = new ByteArrayInputStream(jsonString.getBytes());
+
+		try {
+			res.load(in, rset.getLoadOptions());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		
+		Model model = (Model) res.getContents().get(0);
+		return discoverMetamodel(model);
+	}
+	
 	/**
 	 * Discover a metamodel from scratch using an existing json file
 	 * 
@@ -98,6 +124,16 @@ public class JsonDiscoverer {
 		}
 
 		Model model = (Model) res.getContents().get(0);
+		return discoverMetamodel(model);
+	}
+	
+	/**
+	 * Launches the metamodel discoverer from a JSON model
+	 * 
+	 * @param model The JSON model
+	 * @return the Epackage (Ecore model)
+	 */
+	private EPackage discoverMetamodel(Model model) {
 		// Launching discoverer
 		discoverMetaclasses(model.getObjects());
 
