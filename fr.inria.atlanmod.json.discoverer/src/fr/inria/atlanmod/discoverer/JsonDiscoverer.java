@@ -229,7 +229,7 @@ public class JsonDiscoverer {
 	 * @param jsonObject
 	 */
 	private EClass refineMetaclass(EClass eClass, JsonObject jsonObject) {
-		System.out.println("Refining metaclass " + eClass.getName());
+//		System.out.println("Refining metaclass " + eClass.getName());
 		
 		for(Pair pair : jsonObject.getPairs()) {
 			String pairId = pair.getString();
@@ -240,10 +240,10 @@ public class JsonDiscoverer {
 				if (eStructuralFeature instanceof EAttribute) {
 					EAttribute eAttribute = (EAttribute) eStructuralFeature;
 					if(eAttribute.getEType() != mapType(pairId, value)) {
-						System.out.println("Attribute " + eAttribute.getName() + " typed to String due to conflicts");
+//						System.out.println("Attribute " + eAttribute.getName() + " typed to String due to conflicts");
 						eAttribute.setEType(EcorePackage.Literals.ESTRING);
 					} else {
-						System.out.println("No conflicts with attribute " + eAttribute.getName());
+//						System.out.println("No conflicts with attribute " + eAttribute.getName());
 					}
 				} else if (eStructuralFeature instanceof EReference) {
 					
@@ -269,7 +269,7 @@ public class JsonDiscoverer {
 
 		eClasses.put(id, eClass);
 
-		System.out.println("Metaclass created with name " + id);
+//		System.out.println("Metaclass created with name " + id);
 		for(Pair pair : jsonObject.getPairs()) {
 			String pairId = pair.getString();
 			Value value = pair.getValue();
@@ -306,7 +306,7 @@ public class JsonDiscoverer {
 			eStructuralFeature.setLowerBound(lowerBound);
 			eStructuralFeature.setEType(mapType(pairId, value)); 
 			eClass.getEStructuralFeatures().add(eStructuralFeature);
-			System.out.println(eStructuralFeature.getClass().getSimpleName() + " created with name " + pairId + " type " + eStructuralFeature.getEType().getName() + " and lower bound " + lowerBound);
+//			System.out.println(eStructuralFeature.getClass().getSimpleName() + " created with name " + pairId + " type " + eStructuralFeature.getEType().getName() + " and lower bound " + lowerBound);
 		}
 	}
 
