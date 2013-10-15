@@ -1,0 +1,21 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.jumbotron img {
+    float: right;
+    width: 300px;
+}
+
+.jumbotron h1 {
+    font-size: 50px;
+}
+
+textarea {
+    width: 100%;
+}
+
+img {
+    padding-top: 30px;
+}
