@@ -61,7 +61,7 @@ $('#json').on("keyup input change", function () {
 var discover = function (jsonData) {
 	$.ajax({
 		type : "POST",
-		url : "http://json.jlcanovas.es/discover",
+		url : "http://localhost:8080/fr.inria.atlanmod.json.web/discover",
 		data : { json : jsonData },
 		beforeSend : function() {
 			var image = document.getElementById('result');
