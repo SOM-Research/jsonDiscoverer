@@ -73,7 +73,8 @@ var discover = function (jsonData) {
 			//$('#refineDomainModel').prop({ disabled: false });
 			//$('#refineDomainModel').addClass("btn-primary");
 			//$('#discoverDomainModel').removeClass("btn-primary");
-			$('#json').val() = "";
+			$('#json').prop('value', "");
+			$('#discoverDomainModel').prop('disabled', !$('#json').val());
 		},
 		dataType : "text"
 	});

@@ -48,7 +48,6 @@ public class JsonDiscovererServlet extends HttpServlet {
 	public static String dotExePath = null;
 	private static String jsonParam = null;
 	private static final long serialVersionUID = 1L;
-	
 	       
     public JsonDiscovererServlet() {
         super();
