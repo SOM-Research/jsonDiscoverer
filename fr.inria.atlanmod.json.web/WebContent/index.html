@@ -32,21 +32,38 @@
 
 
     <div class="row">
-    <div class="col-md-6">
+	<div class="col-md-12">
+	<h3>Your JSON definition</h3>
+	<p>Copy/Paste your JSON text file here:</p>
+	</div>
+    <div class="col-md-8">
 	<form role="form">
 		<div class="form-group">
-			<h2>Your JSON definition</h2>
-			<p>Copy/Paste your JSON text file here:</p>
-			<p><textarea rows="25" id="json" resiable="false"></textarea></p>
-			<p class="text-center"><button id="discoverDomainModel" class="btn btn-primary" type="button" onclick="discover(document.getElementById('json').value)" disabled>Discover domain model</button>
-			<!--<button id="refineDomainModel" class="btn" type="button" onclick="discover(document.getElementById('json').value)" disabled>Refine domain model</button>--></p>
+			<p><textarea rows="10" id="json" resiable="false"></textarea></p>			
 		</div>
 	</form>
 	</div>
+	<div class="col-md-4">
+		<p class="text-center">
+			<div class="btn-group">
+				<button id="discoverDomainModel" class="btn btn-primary" type="button" onclick="discover(document.getElementById('json').value)" disabled>Discover domain model</button>
+				<button id="refineDomainModel" class="btn" type="button" onclick="discover(document.getElementById('json').value)" disabled>Refine domain model</button>
+			</div>
+		</p>
+		<p class="text-center">
+			<button id="refineDomainModel" class="btn" type="button" onclick="discover(document.getElementById('json').value)" disabled>Reset</button>
+		</p>
+	</div>
+	</div>
 
+    <div class="row">
 	<div class="col-md-6">
-		<h2>Your Domain Model</h2>
-    	<p class="text-center"><img id="result" src="" class="img-rounded"></p>
+		<h3>Your Domain Model</h3>
+    	<p class="text-center"><img id="metamodel" src="" class="img-rounded"></p>
+	</div>
+	<div class="col-md-6">
+		<h3>Your Instance Model</h3>
+    	<p class="text-center"><img id="model" src="" class="img-rounded"></p>
 	</div>
 	</div>
 </div>
@@ -61,20 +78,35 @@ $('#json').on("keyup input change", function () {
 var discover = function (jsonData) {
 	$.ajax({
 		type : "POST",
-		url : "http://localhost:8080/fr.inria.atlanmod.json.web/discover",
+		url : "http://localhost:8080/fr.inria.atlanmod.json.web/discoverMetamodel",
 		data : { json : jsonData },
 		beforeSend : function() {
-			var image = document.getElementById('result');
+			var image = document.getElementById('metamodel');
 			image.src = "images/loading.gif";
 		},
 		success : function(data) {
-			var image = document.getElementById('result');
+			var image = document.getElementById('metamodel');
 			image.src = "data:image/jpg;base64," + data;
 			//$('#refineDomainModel').prop({ disabled: false });
 			//$('#refineDomainModel').addClass("btn-primary");
 			//$('#discoverDomainModel').removeClass("btn-primary");
 			$('#json').prop('value', "");
 			$('#discoverDomainModel').prop('disabled', !$('#json').val());
+		},
+		dataType : "text"
+	});
+
+	$.ajax({
+		type : "POST",
+		url : "http://localhost:8080/fr.inria.atlanmod.json.web/injectModel",
+		data : { json : jsonData },
+		beforeSend : function() {
+			var image = document.getElementById('model');
+			image.src = "images/loading.gif";
+		},
+		success : function(data) {
+			var image = document.getElementById('model');
+			image.src = "data:image/jpg;base64," + data;
 		},
 		dataType : "text"
 	});

@@ -42,11 +42,8 @@ import fr.inria.atlanmod.discoverer.JsonDiscoverer;
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
-@WebServlet("/discover")
-public class JsonDiscovererServlet extends HttpServlet {
-	public static File workingDir = null;
-	public static String dotExePath = null;
-	private static String jsonParam = null;
+@WebServlet("/discoverMetamodel")
+public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 1L;
 	       
     public JsonDiscovererServlet() {
@@ -57,24 +54,6 @@ public class JsonDiscovererServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
     	super.init();
-
-    	JsonStandaloneSetup.doSetup();
-    	
-    	// Getting configuration
-    	String workingDirString = null;
-    	try {
-        	Properties properties = new Properties();
-			properties.load(getServletContext().getResourceAsStream("/WEB-INF/config.properties"));
-			workingDirString = properties.getProperty("workingDir");
-			dotExePath = properties.getProperty("dotExePath");
-			jsonParam = properties.getProperty("parameter");
-		} catch (IOException e) {
-			throw new ServletException("Discover servlet could not find the configuration");
-		}
-    	
-    	// We need a File (not a String)
-		workingDir = new File(workingDirString);
-		if(!workingDir.isDirectory()) throw new ServletException("The working dir does not exist");
     }
 
 	/* 
@@ -104,24 +83,9 @@ public class JsonDiscovererServlet extends HttpServlet {
 		EPackage discoveredModel = discoverer.discoverMetamodel(jsonCode);
 		
 		// Drawing the discovered model
-		EcorePackage.eINSTANCE.eClass();
-		GraphdescPackage.eINSTANCE.eClass();
-				
 		List<EObject> toDraw= new ArrayList<EObject>();
-		toDraw.add(discoveredModel);		
-
-		File resultPath;
-		try {
-			resultPath = File.createTempFile("temp", ".jpg", workingDir);
-		} catch (IOException e1) {
-			throw new ServletException("Not possible to acces to temp dir");
-		}
-		
-		try {
-			StandaloneProcessor.process(toDraw, null, workingDir, resultPath.getAbsolutePath(), null, null, dotExePath, true, false, "UTF-8", null, null, null);
-		} catch (CoreException e) {
-			throw new ServletException("Not possible to generate the image");
-		}
+		toDraw.add(discoveredModel);	
+		File resultPath = drawModel(toDraw);
 
 		return resultPath;
 	}
@@ -142,35 +106,9 @@ public class JsonDiscovererServlet extends HttpServlet {
 		} catch (IOException e) {
 			throw new ServletException("Not possible to encode");
 		}
-		resultPath.delete();
+		resultPath.delete(); 
 		return resultImage;
 	}
 	
-	/**
-	 * Encodes a JPG picture into the BASE64 format
-	 * 
-	 * @param imagePath
-	 * @return
-	 * @throws IOException
-	 */
-	private String encodeToString(File imagePath) throws IOException {
-		BufferedImage image = ImageIO.read(imagePath);
-		
-	    String imageString = null;
-	    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
-	    try {
-	        ImageIO.write(image, "JPG", bos);
-	        byte[] imageBytes = bos.toByteArray();
-
-	        BASE64Encoder encoder = new BASE64Encoder();
-	        imageString = encoder.encode(imageBytes);
-
-	        bos.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    return imageString;
-	}
 	
 }
