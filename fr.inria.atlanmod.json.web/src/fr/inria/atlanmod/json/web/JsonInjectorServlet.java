@@ -37,7 +37,7 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 		List<EObject> eObjects = injector.inject(jsonCode, discoveredMetamodel);
 		
 		// 3. Get the picture
-		File resultPath = drawModel(eObjects);		
+		File resultPath = drawModel(eObjects, "injector");		
 		String resultImage = encodeToString(resultPath);
 		resultPath.delete();
 		

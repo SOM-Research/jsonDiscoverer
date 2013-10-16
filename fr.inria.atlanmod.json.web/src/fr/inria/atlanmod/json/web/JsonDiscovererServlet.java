@@ -85,7 +85,7 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 		// Drawing the discovered model
 		List<EObject> toDraw= new ArrayList<EObject>();
 		toDraw.add(discoveredModel);	
-		File resultPath = drawModel(toDraw);
+		File resultPath = drawModel(toDraw, "discoverer");
 
 		return resultPath;
 	}

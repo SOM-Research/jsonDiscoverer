@@ -80,19 +80,22 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	    return imageString;
 	}
 	
-	File drawModel(List<EObject> elements) throws ServletException {
+	File drawModel(List<EObject> elements, String uniqueId) throws ServletException {
 		EcorePackage.eINSTANCE.eClass();
 		GraphdescPackage.eINSTANCE.eClass();
-				
+		
+		File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
+		if(!uniqueWorkingDir.isDirectory()) throw new ServletException("The working dir does not exist");
+		
 		File resultPath;
 		try {
-			resultPath = File.createTempFile("temp", ".jpg", workingDir);
+			resultPath = File.createTempFile("temp", ".jpg", uniqueWorkingDir);
 		} catch (IOException e1) {
 			throw new ServletException("Not possible to access to temp dir");
 		}
 		
 		try {
-			StandaloneProcessor.process(elements, null, workingDir, resultPath.getAbsolutePath(), null, null, dotExePath, true, true, "UTF-8", null, null, null);
+			StandaloneProcessor.process(elements, null, uniqueWorkingDir, resultPath.getAbsolutePath(), null, null, dotExePath, true, false, "UTF-8", null, null, null);
 		} catch (CoreException e) {
 			e.printStackTrace();
 			throw new ServletException("Not possible to generate the image");
