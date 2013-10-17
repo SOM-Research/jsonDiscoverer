@@ -1,7 +1,9 @@
 package fr.inria.atlanmod.discoverer;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,47 +16,50 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import coverage.Coverage;
-
-import fr.inria.atlanmod.JsonStandaloneSetup;
 import fr.inria.atlanmod.json.ArrayValue;
 import fr.inria.atlanmod.json.BooleanValue;
 import fr.inria.atlanmod.json.JsonObject;
 import fr.inria.atlanmod.json.JsonObjectValue;
-import fr.inria.atlanmod.json.JsonPackage;
 import fr.inria.atlanmod.json.Model;
 import fr.inria.atlanmod.json.NumberValue;
 import fr.inria.atlanmod.json.Pair;
 import fr.inria.atlanmod.json.StringValue;
 import fr.inria.atlanmod.json.Value;
 
+/**
+ * This class performs the injection process (obtaining models from JSON files)
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
 public class JsonInjector {
-	public static String INPUT_FILE = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.json";
-	public static String OUTPUT_FILE = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.json.xmi";
-	public static String METAMODEL_FILE = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.ecore";
-
 	EPackage metamodel = null;
-	
-	public static void main(String[] args) {
-		JsonStandaloneSetup.doSetup();
-
-		JsonInjector injector = new JsonInjector();
-		injector.inject(new File(INPUT_FILE), new File(METAMODEL_FILE), new File(OUTPUT_FILE));
-	}
 
 	/**
-	 * Discover a metamodel from scratch using an existing json file
+	 * Injects the model conforming to a metamodel from a JSON file and 
+	 * stores it into a File
 	 * 
 	 * @param sourceFile
 	 * @return
 	 */
 	public void inject(File jsonFile, File metamodelFile, File targetFile) {
+		List<EObject> eObjects = inject(jsonFile, metamodelFile);
+		saveModel(targetFile, eObjects);
+	}
+
+	/**
+	 * Injects the model conforming to a metamodel from a JSON file
+	 * 
+	 * @param jsonFile
+	 * @param metamodelFile
+	 * @return
+	 */
+	public List<EObject> inject(File jsonFile, File metamodelFile) {
 		Model jsonModel = loadJson(jsonFile);
 		metamodel = loadMetamodel(metamodelFile);
 
@@ -66,7 +71,37 @@ public class JsonInjector {
 			eObjects.add(eObject);
 		}
 
-		saveModel(targetFile, eObjects);
+		return eObjects;
+	}
+
+	/**
+	 * Injects the model conforming to a metamodel from a JSON file
+	 * 
+	 * @param jsonFile
+	 * @param metamodelFile
+	 * @return
+	 */
+	public List<EObject> inject(String jsonString, EPackage ePackage) {
+		ResourceSet rset = new ResourceSetImpl();
+		Resource res = rset.createResource(URI.createURI("dummy:/example.json"));
+		InputStream in = new ByteArrayInputStream(jsonString.getBytes());
+		try {
+			res.load(in, rset.getLoadOptions());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		Model jsonModel = (Model) res.getContents().get(0);
+
+		metamodel = ePackage;
+		EClassifier eClassifier = metamodel.getEClassifier("Root");
+
+		List<EObject> eObjects = new ArrayList<EObject>();
+		for(JsonObject jsonObject : jsonModel.getObjects()) {
+			EObject eObject = instantiateEClassifier(eClassifier, jsonObject);
+			eObjects.add(eObject);
+		}
+
+		return eObjects;
 	}
 
 	protected EObject instantiateEClassifier(EClassifier eClassifier, JsonObject jsonObject) {
@@ -123,8 +158,6 @@ public class JsonInjector {
 			}
 		}
 	}
-	
-	
 
 	protected Object digestValue(Value value) {
 		if (value instanceof StringValue) {

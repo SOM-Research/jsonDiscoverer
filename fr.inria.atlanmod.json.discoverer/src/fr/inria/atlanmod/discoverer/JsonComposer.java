@@ -20,51 +20,24 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-import coverage.ConceptMapping;
-import coverage.Coverage;
-import coverage.CoverageFactory;
 import coverage.util.CoverageCreator;
-
-import fr.inria.atlanmod.JsonStandaloneSetup;
 import fr.inria.atlanmod.json.JsonObject;
 import fr.inria.atlanmod.json.JsonObjectValue;
 import fr.inria.atlanmod.json.Model;
-import fr.inria.atlanmod.json.NumberValue;
 import fr.inria.atlanmod.json.Pair;
 import fr.inria.atlanmod.json.StringValue;
 
+/**
+ * Performs a composition between metamodels obtained from JSON files
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
 public class JsonComposer {
-	public static String TEST_FILE_1 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1.ecore";
-	public static String TEST_JSON_FILE_1 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1A.json";
-	public static String TEST_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.ecore";
-	public static String TEST_JSON_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.json";
-	public static String RESULT = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan-composed.ecore";
-
 	private List<File> files;
 	private HashMap<String, EClass> registry;
 	HashMap<File, List<File>> jsonFiles;
 	HashMap<EAttribute, List<Object>> cacheValues;
-
-	public static void main(String[] args) {
-		JsonStandaloneSetup.doSetup();
-
-		ArrayList<File> fileList = new ArrayList<File>();
-		File file1 = new File(TEST_FILE_1);
-		fileList.add(file1);
-		File file2 = new File(TEST_FILE_2);
-		fileList.add(file2);
-
-		HashMap<File, List<File>> examples = new HashMap<File, List<File>>();
-		List<File> list1 = new ArrayList<File>();
-		list1.add(new File(TEST_JSON_FILE_1));
-		examples.put(file1, list1);
-		List<File> list2 = new ArrayList<File>();
-		list2.add(new File(TEST_JSON_FILE_2));
-		examples.put(file2, list2);
-
-		JsonComposer composer = new JsonComposer(fileList, examples);
-		composer.compose(new File(RESULT));
-	}
 
 	public JsonComposer(List<File> files) {
 		this.files = files;

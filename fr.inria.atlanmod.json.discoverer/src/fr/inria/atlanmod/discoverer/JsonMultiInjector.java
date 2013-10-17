@@ -27,8 +27,6 @@ import coverage.Coverage;
 import coverage.CoverageMapping;
 import coverage.CoveragePackage;
 import coverage.RefMapping;
-
-import fr.inria.atlanmod.JsonStandaloneSetup;
 import fr.inria.atlanmod.json.ArrayValue;
 import fr.inria.atlanmod.json.BooleanValue;
 import fr.inria.atlanmod.json.JsonObject;
@@ -40,28 +38,7 @@ import fr.inria.atlanmod.json.StringValue;
 import fr.inria.atlanmod.json.Value;
 
 public class JsonMultiInjector {
-	public static String INPUT_FILE1 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.json";
-	public static String METAMODEL_FILE1 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.ecore";
-	public static String COVERAGE_FILE1 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan2.coverage.xmi";
-
-	public static String INPUT_FILE2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1A.json";
-	public static String METAMODEL_FILE2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1.ecore";
-	public static String COVERAGE_FILE2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1.coverage.xmi";
-
-	public static String COMPOSITE_METAMODEL_FILE = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan-composed.ecore";
-	public static String COMPOSITE_OUTPUT_FILE = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan-composed.xmi";
-
 	private List<EObject> currentModel;
-
-	public static void main(String[] args) {
-		JsonStandaloneSetup.doSetup();
-
-		JsonMultiInjector injector = new JsonMultiInjector();
-		injector.multiInject(new File(INPUT_FILE1), new File(METAMODEL_FILE1), new File(COVERAGE_FILE1),
-				new File(INPUT_FILE2), new File(METAMODEL_FILE2), new File(COVERAGE_FILE2),
-				new File(COMPOSITE_METAMODEL_FILE), new File(COMPOSITE_OUTPUT_FILE));
-	}
-
 
 	public void multiInject(File jsonFile1, File metamodelFile1, File coverageFile1, File jsonFile2, File metamodelFile2, File coverageFile2, File compositeMetamodelFile, File compositeTargetFile) {
 		Coverage coverage1 = loadCoverage(coverageFile1);
@@ -243,26 +220,6 @@ public class JsonMultiInjector {
 		rset.getPackageRegistry().put(CoveragePackage.eNS_URI, CoveragePackage.eINSTANCE);
 		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
-
-		// Testing
-		Resource aux1 = rset.getResource(URI.createFileURI(METAMODEL_FILE1), true);
-		try {
-			aux1.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Resource aux2 = rset.getResource(URI.createFileURI(METAMODEL_FILE2), true);
-		try {
-			aux2.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Resource aux3 = rset.getResource(URI.createFileURI(COMPOSITE_METAMODEL_FILE), true);
-		try {
-			aux3.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		Resource res = rset.getResource(URI.createFileURI(file.getAbsolutePath()), true);
 
