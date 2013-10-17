@@ -18,8 +18,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Text;
 
-import fr.inria.atlanmod.discoverer.JsonComposer;
-
 public class FileListComposite extends AbstractCellEditorComposite<IFileList> {
 
 	private final Button button;
@@ -77,8 +75,8 @@ public class FileListComposite extends AbstractCellEditorComposite<IFileList> {
 	@Override
 	public IFileList getValue() {
 		ArrayList<File> fileList = new ArrayList<File>();
-		fileList.add(new File(JsonComposer.TEST_FILE_1));
-		fileList.add(new File(JsonComposer.TEST_FILE_2));
+//		fileList.add(new File(JsonComposerTest.TEST_FILE_1)); 
+//		fileList.add(new File(JsonComposerTest.TEST_FILE_2));
 		return (IFileList) fileList;
 	}
 

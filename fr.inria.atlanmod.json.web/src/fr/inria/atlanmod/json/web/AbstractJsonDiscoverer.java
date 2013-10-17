@@ -80,6 +80,15 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	    return imageString;
 	}
 	
+	/**
+	 * Draws a model into a picture. To avoid file access problems, an unique id has to be 
+	 * provided. A new directory using such id will be created.
+	 * 
+	 * @param elements Elements to be drawn
+	 * @param uniqueId Id of the process asking for the generation 
+	 * @return
+	 * @throws ServletException
+	 */
 	File drawModel(List<EObject> elements, String uniqueId) throws ServletException {
 		EcorePackage.eINSTANCE.eClass();
 		GraphdescPackage.eINSTANCE.eClass();
