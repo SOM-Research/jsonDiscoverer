@@ -1,0 +1,5 @@
+fr.inria.atlanmod.json.discoverer.coverage/bin/**/*
+fr.inria.atlanmod.json.discoverer.tests/bin/**/*
+fr.inria.atlanmod.json.discoverer.ui/bin/**/*
+fr.inria.atlanmod.json.discoverer/bin/**/*
+fr.inria.atlanmod.json.web/build/**/*
