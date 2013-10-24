@@ -1,0 +1,136 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON discoverer</title>
+    <meta name="description" content="JSON discoverer">
+    <meta name="author" content="Javier Canovas">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css" media="screen">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+    <div class="jumbotron">
+    	<div class="container">  
+	    	<div class="row">
+	    		<div class="col-md-9">
+			    	<img style="float:left; width:175px; padding-right:30px;" src="images/icon.png">
+			    	<h1>JSON discoverer</h1> 
+			   	 	<h2>Discover domain models from JSON files</h2>
+			   	</div>
+			   	<div class="col-md-3">			   	
+			   		<div class="text-center">
+			   		<div class="btn-group-vertical btn-group-lg">
+				   		<button class="btn" onclick="location.href='simple.html'">Simple Discoverer</button>
+				   		<button class="btn" onclick="location.href='advanced.html'">Advanced Discoverer</button>
+				   	</div>
+				   	</div>
+			   	</div>
+	   	 	</div>
+   		</div>
+    </div>
+    </div>
+
+    <div class="row">
+    <h2>How it works</h2>
+    <p>The simple JSON discoverer allows you to get the domain model defined in your JSON definition.</p>
+    <p>To use it you only have to provide your JSON definition.</p>
+    </div>
+
+
+	<div class="row">
+	<h2>Try it out!</h2>
+	</div>
+
+    <div class="row">
+	<div class="col-md-12">
+	<h3>Your JSON definition</h3>
+	<p>Copy/Paste your JSON text file here:</p>
+	</div>
+    <div class="col-md-8">
+	<form role="form">
+		<div class="form-group">
+			<p><textarea rows="10" id="json" resiable="false"></textarea></p>			
+		</div>
+	</form>
+	</div>
+	<div class="col-md-4">
+		<p class="text-center">
+			<button id="discoverDomainModel" class="btn btn-primary" type="button" onclick="discover(document.getElementById('json').value)" disabled>Discover domain model</button>
+		</p>
+	</div>
+	</div>
+
+    <div class="row">
+	<div class="col-md-6">
+		<h3>Your Domain Model</h3>
+    	<p class="text-center"><img id="metamodel" src="" class="img-rounded"></p>
+	</div>
+	<div class="col-md-6">
+		<h3>Your Instance Model</h3>
+    	<p class="text-center"><img id="model" src="" class="img-rounded"></p>
+	</div>
+	</div>
+</div>
+
+    <footer>
+		<div class="container">
+  			<div class="row">
+  				<div class="col-md-12">  
+  					<p class="text-center"><small>The JSON discoverer is a tool that allows you to get a UML class diagram out of your JSON files.</small> </p>
+					<p class="text-center"><small>Code licensed under the <a href="http://www.eclipse.org/legal/epl-v10.html">Eclipse Public License</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</small></p>
+					<p class="text-center"><small><a href="http://www.emn.fr/z-info/atlanmod/index.php/Main_Page">AtlanMod</a></small></p>
+  				</div>
+  			</div>
+		</div>
+	</footer>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+$('#json').on("keyup input change", function () {
+	$('#discoverDomainModel').prop('disabled', !$('#json').val());
+});
+
+var discover = function (jsonData) {
+	$.ajax({
+		type : "POST",
+		url : "/fr.inria.atlanmod.json.web/discoverMetamodel",
+		data : { json : jsonData },
+		beforeSend : function() {
+			var image = document.getElementById('metamodel');
+			image.src = "images/loading.gif";
+		},
+		success : function(data) {
+			var image = document.getElementById('metamodel');
+			image.src = "data:image/jpg;base64," + data;
+			$('#json').prop('value', "");
+			$('#discoverDomainModel').prop('disabled', !$('#json').val());
+		},
+		dataType : "text"
+	});
+
+	$.ajax({
+		type : "POST",
+		url : "/fr.inria.atlanmod.json.web/injectModel",
+		data : { json : jsonData },
+		beforeSend : function() {
+			var image = document.getElementById('model');
+			image.src = "images/loading.gif";
+		},
+		success : function(data) {
+			var image = document.getElementById('model');
+			image.src = "data:image/jpg;base64," + data;
+		},
+		dataType : "text"
+	});
+};
+</script>
+
+</body>
+</html>
