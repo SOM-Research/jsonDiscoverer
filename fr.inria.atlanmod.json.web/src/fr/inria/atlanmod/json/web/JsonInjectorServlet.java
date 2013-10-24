@@ -20,6 +20,7 @@ import fr.inria.atlanmod.discoverer.JsonInjector;
 @WebServlet("/injectModel")
 public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 1L;
+	private static final String INJECTOR_ID = "IdInjector";
 
 	/* 
 	 * Performs a POST call and returns the a picture in BASE64 representing the model
@@ -27,6 +28,7 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String jsonCode = request.getParameter(jsonParam);
+		if(jsonCode == null || jsonCode.equals("")) throw new ServletException("No json data in the call");
 		
 		// 1. Get first the metamodel
 		JsonDiscoverer discoverer = new JsonDiscoverer();
@@ -37,7 +39,10 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 		List<EObject> eObjects = injector.inject(jsonCode, discoveredMetamodel);
 		
 		// 3. Get the picture
-		File resultPath = drawModel(eObjects, "injector");		
+		String id = properties.getProperty(INJECTOR_ID);
+		if(id == null) throw new ServletException("ID for injector not found in properties");
+		
+		File resultPath = drawModel(eObjects, id);		
 		String resultImage = encodeToString(resultPath);
 		resultPath.delete();
 		

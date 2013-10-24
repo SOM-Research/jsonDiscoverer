@@ -29,6 +29,8 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	public static String dotExePath = null;
 	static String jsonParam = null;
 
+	Properties properties = null;
+
     @Override
     public void init() throws ServletException {
     	super.init();
@@ -38,7 +40,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
     	// Getting configuration
     	String workingDirString = null;
     	try {
-        	Properties properties = new Properties();
+        	properties = new Properties();
 			properties.load(getServletContext().getResourceAsStream("/WEB-INF/config.properties"));
 			workingDirString = properties.getProperty("workingDir");
 			dotExePath = properties.getProperty("dotExePath");

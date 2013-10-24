@@ -45,6 +45,7 @@ import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 @WebServlet("/discoverMetamodel")
 public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 1L;
+	private static final String DISCOVERER_ID = "IdDiscoverer";
 	       
     public JsonDiscovererServlet() {
         super();
@@ -64,6 +65,7 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String jsonCode = request.getParameter(jsonParam);
+		if(jsonCode == null || jsonCode.equals("")) throw new ServletException("No json data in the call");
 		String resultImage = discoverMetamodelBase64(jsonCode);
 		PrintWriter out = response.getWriter();
         out.print(resultImage);
@@ -85,7 +87,11 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 		// Drawing the discovered model
 		List<EObject> toDraw= new ArrayList<EObject>();
 		toDraw.add(discoveredModel);	
-		File resultPath = drawModel(toDraw, "discoverer");
+		
+		String id = properties.getProperty(DISCOVERER_ID);
+		if(id == null) throw new ServletException("ID for discoverer not found in properties");
+		
+		File resultPath = drawModel(toDraw, id);
 
 		return resultPath;
 	}
