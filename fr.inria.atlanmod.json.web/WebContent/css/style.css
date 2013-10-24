@@ -19,3 +19,18 @@ textarea {
 img {
     padding-top: 0px;
 }
+
+.modal {
+  display: block; 
+}
+
+.modal-big {
+	width: 500px;
+}
+
+.modal-title {
+	padding: 19px 20px 20px;
+	margin-top: 5px;
+	border-bottom: 1px solid #e5e5e5;
+}
+

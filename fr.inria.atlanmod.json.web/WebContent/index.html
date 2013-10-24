@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
     <title>JSON discoverer</title>
@@ -7,16 +7,16 @@
     <meta name="author" content="Javier Canovas">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <!--<link rel="stylesheet" href="css/bootstrap-theme.css">-->
     <link rel="stylesheet" href="css/style.css" media="screen">
 </head>
-<body>
+<body ng-app="jsonDiscoverer">
 
 <div class="container">
 
     <div class="row">
     <div class="jumbotron">
-    	<div class="container">
+    	<div class="container">  
     	<h1>JSON discoverer</h1>
    	 	<h2>Discover your domain models from JSON files</h2>
    		</div>
@@ -25,93 +25,144 @@
 
     <div class="row">
     <h2>What is this?</h2>
-    <p>The JSON discoverer is a tool that allows you to <trong>get a UML class diagram out of your JSON files</strong>.</p>
-    <p>The tool is inspired in the research paper <a href="http://hal.inria.fr/docs/00/81/89/45/PDF/icwe2013-CanovasCabot.pdf"><em>Discovering Implicit Schemas in JSON Data</em></a> published in the <a href="http://icwe2013.webengineering.org/">ICWE'13 conference</a>.</p>
+    <p>The JSON discoverer is a tool that allows you to <trong>get a UML class diagram out of your JSON files</strong>. The tool is inspired in the research paper <a href="http://hal.inria.fr/docs/00/81/89/45/PDF/icwe2013-CanovasCabot.pdf"><em>Discovering Implicit Schemas in JSON Data</em></a> published in the <a href="http://icwe2013.webengineering.org/">ICWE'13 conference</a>.</p>
     <p> So far, this web implementation performs the first step consisting in getting a domain model out of the JSON files. We plan to incorporate the rest of the phases in the coming weeks.<p>
     </div>
 
+    <div class="row">
+    <h2>How it works?</h2>
+    <p>The following figure illustrates the process applied to get the domain of your JSON files.</p>
+    <ul>
+    	<li><strong>Step 1. Provision.</strong> You can provide one or more JSON definitions.</li>
+    	<li><strong>Step 2. Discovery.</strong> For each JSON definition you provided, we will discover the domain. This means that we will extract the class diagram including the concepts used in your JSON file. Furthermore, we will also provide the object model representing the data of your JSON</li>
+    	<li><strong>Step 3. Composition.</strong> The previously discovered domain models will be composed to get a general domain model. In this step we will give you a class diagram representing the overall domain defined by the set of JSON definitions.</li>
+    </ul>
+	</div>
+
+	<div class="row">
+	<h2>Try it out!</h2>
+	</div>
 
     <div class="row">
 	<div class="col-md-12">
-	<h3>Your JSON definition</h3>
-	<p>Copy/Paste your JSON text file here:</p>
-	</div>
-    <div class="col-md-8">
-	<form role="form">
-		<div class="form-group">
-			<p><textarea rows="10" id="json" resiable="false"></textarea></p>			
-		</div>
-	</form>
-	</div>
-	<div class="col-md-4">
-		<p class="text-center">
-			<div class="btn-group">
-				<button id="discoverDomainModel" class="btn btn-primary" type="button" onclick="discover(document.getElementById('json').value)" disabled>Discover domain model</button>
-				<button id="refineDomainModel" class="btn" type="button" onclick="discover(document.getElementById('json').value)" disabled>Refine domain model</button>
+	<h3>Step 1. Providing your JSON definitions</h3>
+	<div ng-controller="JsonListCtrl">
+
+		<div class="col-md-3">
+		<script type="text/ng-template" id="jsonProvisionModal.html">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="model-header">
+						<h3 class="modal-title">Provide your JSON definition</h3>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<label for="inputName" class="col-md-1 control-label">Name</label>
+								<div class="col-md-11">
+									<input type="text" class="form-control" id="inputName" placeholder="Meaningful name for your JSON excerpt" ng-model="json.name">
+								</div>
+							</div>		
+							<div class="form-group">
+								<label for="inputJson" class="col-md-12">Copy/Paste your JSON here:</label>
+								<div class="col-md-12">
+									<textarea rows="12" id="inputJson" ng-model="json.text" resizable="false"></textarea>
+								</div>			
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" ng-click="ok()">OK</button>
+						<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+					</div>
+				</div>
+			</div>			
+		</script>
+		<button class="btn btn-block" ng-click="open()">Provide JSON</button>
+    	<div ng-show="selected">Selection from a modal: {{ jsonDef }}</div>
+    	</div>
+
+		<div class="col-md-9">
+		<div ng-repeat="jsonDef in defs">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-md-1"><strong>Name</strong></div>
+					<div class="col-md-11">{{jsonDef.name}}</div>
+				</div>
 			</div>
-		</p>
-		<p class="text-center">
-			<button id="refineDomainModel" class="btn" type="button" onclick="discover(document.getElementById('json').value)" disabled>Reset</button>
-		</p>
+		</div>
+		</div>
+	</div>
+
 	</div>
 	</div>
 
     <div class="row">
-	<div class="col-md-6">
-		<h3>Your Domain Model</h3>
-    	<p class="text-center"><img id="metamodel" src="" class="img-rounded"></p>
+	<div class="col-md-12">
+	<h3>Step 2. Discovery of domain models</h3>
+	<div ng-controller="DiscoveryCtrl">
+		<div class="col-md-3">
+			<button class="btn btn-block" ng-click="discover()">Discover Domain Models</button>
+		</div>
+		<div class="col-md-9">
+		<div ng-repeat="jsonDomain in domains">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="col-md-1"><strong>Name</strong></div>
+					<div class="col-md-5">{{jsonDomain.name}}</div>
+					<div class="col-md-3"><button class="btn btn-xs"ng-click="viewModel(jsonDomain.metamodel)">View Domain Model</button></div>
+					<div class="col-md-3"><button class="btn btn-xs"ng-click="viewModel(jsonDomain.model)">View Instance Model</button></div>
+					<script type="text/ng-template" id="viewModelModal.html">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="model-header">
+									<h3 class="modal-title">This is your Model</h3>
+								</div>
+								<div class="modal-body">
+									<p class="text-center">
+										<img ng-src="{{imageSrc}}">
+									</p>
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-primary" ng-click="ok()">OK</button>
+								</div>
+							</div>
+						</div>			
+					</script>
+				</div>
+			</div>
+		</div>
+		</div>
 	</div>
-	<div class="col-md-6">
-		<h3>Your Instance Model</h3>
-    	<p class="text-center"><img id="model" src="" class="img-rounded"></p>
+
+	</div>
+	</div>
+
+    <div class="row">
+	<div class="col-md-12">
+	<h3>Step 3. Composition</h3>
+	</div>
 	</div>
 	</div>
 </div>
 
 <script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script>
+<!--<script src="js/jquery-2.0.3.min.map"></script>-->
+<!--<script src="js/bootstrap.js"></script>-->
+<!--<script src="js/angular.js"></script>
+<script src="js/ui-bootstrap-0.6.0.js"></script>-->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+<script src="js/script.js"></script>
+
+
+<!--<script>
+
 $('#json').on("keyup input change", function () {
 	$('#discoverDomainModel').prop('disabled', !$('#json').val());
 });
 
-var discover = function (jsonData) {
-	$.ajax({
-		type : "POST",
-		url : "http://localhost:8080/fr.inria.atlanmod.json.web/discoverMetamodel",
-		data : { json : jsonData },
-		beforeSend : function() {
-			var image = document.getElementById('metamodel');
-			image.src = "images/loading.gif";
-		},
-		success : function(data) {
-			var image = document.getElementById('metamodel');
-			image.src = "data:image/jpg;base64," + data;
-			//$('#refineDomainModel').prop({ disabled: false });
-			//$('#refineDomainModel').addClass("btn-primary");
-			//$('#discoverDomainModel').removeClass("btn-primary");
-			$('#json').prop('value', "");
-			$('#discoverDomainModel').prop('disabled', !$('#json').val());
-		},
-		dataType : "text"
-	});
-
-	$.ajax({
-		type : "POST",
-		url : "http://localhost:8080/fr.inria.atlanmod.json.web/injectModel",
-		data : { json : jsonData },
-		beforeSend : function() {
-			var image = document.getElementById('model');
-			image.src = "images/loading.gif";
-		},
-		success : function(data) {
-			var image = document.getElementById('model');
-			image.src = "data:image/jpg;base64," + data;
-		},
-		dataType : "text"
-	});
-};
-</script>
+</script>-->
 
 </body>
 </html>
