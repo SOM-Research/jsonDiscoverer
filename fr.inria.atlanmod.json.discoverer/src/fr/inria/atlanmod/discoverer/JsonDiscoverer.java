@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.spec.ECParameterSpec;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,6 +49,17 @@ public class JsonDiscoverer {
 	 * @return The JSON model
 	 */
 	public EPackage discoverMetamodel(String jsonString) {
+		Model model = getModel(jsonString);
+		return discoverMetamodel(model);
+	}
+
+	/**
+	 * Objtains a Json Model from a JSON string
+	 * 
+	 * @param jsonString
+	 * @return
+	 */
+	private Model getModel(String jsonString) {
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.createResource(URI.createURI("dummy:/example.json"));
 		InputStream in = new ByteArrayInputStream(jsonString.getBytes());
@@ -59,7 +71,7 @@ public class JsonDiscoverer {
 		}		
 		
 		Model model = (Model) res.getContents().get(0);
-		return discoverMetamodel(model);
+		return model;
 	}
 	
 	/**
@@ -123,6 +135,24 @@ public class JsonDiscoverer {
 		EPackage ePackage = (EPackage) res.getContents().get(0);
 		
 		return refineMetamodel(sourceFile, ePackage);
+	}
+	
+	/**
+	 * Refines an exisiting metamodel (giving the EPackage) from a json string
+	 * 
+	 * @param toRefine
+	 * @param newPackage
+	 * @return
+	 */
+	public EPackage refineMetamodel(String jsonString, EPackage toRefine) {
+		for(EClassifier eClassifier : toRefine.getEClassifiers()) {
+			if (eClassifier instanceof EClass) {
+				EClass eClass = (EClass) eClassifier;
+				eClasses.put(eClass.getName(), eClass);
+				System.out.println("added " + eClass.getName());
+			}
+		}
+		return discoverMetamodel(jsonString);
 	}
 	
 	/**

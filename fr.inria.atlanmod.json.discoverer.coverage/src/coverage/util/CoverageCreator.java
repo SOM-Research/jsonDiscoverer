@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -19,12 +20,18 @@ import coverage.RefMapping;
 
 public class CoverageCreator {
 	private Coverage coverage;
+	private EPackage ePackage;
 	private File file;
 	
 	public CoverageCreator(File file) {
 		coverage = CoverageFactory.eINSTANCE.createCoverage();
 		coverage.setService(file.getName());
 		this.file = file;
+	}
+	
+	public CoverageCreator(EPackage ePackage) {
+		coverage = CoverageFactory.eINSTANCE.createCoverage();
+		this.ePackage = ePackage;
 	}
 	
 	public void createConceptMapping(EClass source, EClass target) {
@@ -57,6 +64,7 @@ public class CoverageCreator {
 	}
 	
 	public void save(File composite) {
+		if(file == null) return;
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res1 = rset.getResource(URI.createFileURI(file.getAbsolutePath()), true);
 		try {

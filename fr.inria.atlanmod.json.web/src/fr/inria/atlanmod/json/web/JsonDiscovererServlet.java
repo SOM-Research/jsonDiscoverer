@@ -47,17 +47,7 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 1L;
 	private static final String DISCOVERER_ID = "IdDiscoverer";
 	       
-    public JsonDiscovererServlet() {
-        super();
-    	
-    }
-    
-    @Override
-    public void init() throws ServletException {
-    	super.init();
-    }
-
-	/* 
+    /* 
 	 * Performs a POST call to this servlet. The JSON_CODE parameter is queried to get the JSON code to
 	 * be discovered. The Discovered model is then transformed into a BASE64 image to be used in the web.
 	 * 

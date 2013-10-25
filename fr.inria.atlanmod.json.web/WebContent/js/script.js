@@ -8,10 +8,11 @@ var jsonDiscovererFilters = angular.module("jsonDiscoverer.filter", []);
 
 var jsonDiscovererModule = angular.module("jsonDiscoverer", ["jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
 
-jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$log",
-    function($scope, $rootScope, $modal, $log) {
+jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$http", "$log",
+    function($scope, $rootScope, $modal, $http, $log) {
         $scope.defs = {} ;
         $scope.name = "";
+        $scope.metamodel = "";
 
         $scope.newSource = function() {
             $scope.defs[$scope.name] = { name : $scope.name, jsonDefs : [] };
@@ -36,6 +37,20 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
         };
+
+        $scope.discover = function() {
+            $scope.metamodel = "images/loading.gif";
+            var dataToSend = $.param({ sources : $scope.defs });
+
+            $http({
+                    method : 'POST',
+                    url : "compose",
+                    data : dataToSend,
+                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(function(data) {
+                    $scope.metamodel = "data:image/jpg;base64," + data
+                });
+        }
     }
 ]);
 

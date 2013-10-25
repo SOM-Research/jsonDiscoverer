@@ -1,12 +1,9 @@
 package fr.inria.atlanmod.json.web;
 
-import static fr.inria.atlanmod.json.web.AbstractJsonDiscoverer.jsonParam;
-
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -21,13 +18,13 @@ import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.processor.core.StandaloneProcessor;
 
 import sun.misc.BASE64Encoder;
-
 import fr.inria.atlanmod.JsonStandaloneSetup;
 
 public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	public static File workingDir = null;
 	public static String dotExePath = null;
 	static String jsonParam = null;
+	static String sourcesParam = null;
 
 	Properties properties = null;
 
@@ -44,7 +41,8 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			properties.load(getServletContext().getResourceAsStream("/WEB-INF/config.properties"));
 			workingDirString = properties.getProperty("workingDir");
 			dotExePath = properties.getProperty("dotExePath");
-			jsonParam = properties.getProperty("parameter");
+			jsonParam = properties.getProperty("JsonParameter");
+			sourcesParam = properties.getProperty("SourcesParameter");
 		} catch (IOException e) {
 			throw new ServletException("Discover servlet could not find the configuration");
 		}

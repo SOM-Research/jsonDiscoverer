@@ -34,24 +34,51 @@ import fr.inria.atlanmod.json.StringValue;
  *
  */
 public class JsonComposer {
-	private List<File> files;
+	private List<EPackage> ePackages;
 	private HashMap<String, EClass> registry;
+	private List<CoverageCreator> coverageCreators;
 	HashMap<File, List<File>> jsonFiles;
 	HashMap<EAttribute, List<Object>> cacheValues;
 
-	public JsonComposer(List<File> files) {
-		this.files = files;
+	public JsonComposer(List elements) {
+		this.ePackages = new ArrayList<EPackage>();
+		
+		// Limitation of Java. I would need two constructors: one for each type of element lists
+		if(elements != null && elements.size() > 0) {
+			Object object = elements.get(0);
+			if (object instanceof File) {
+				List<File> files = (List<File>) elements;
+				for(File file : files)
+					this.ePackages.add(loadEPackage(file));				
+			} else if (object instanceof EPackage) {
+				List<EPackage> ePackages = (List<EPackage>) elements;
+				this.ePackages = ePackages;
+			} else {
+				throw new UnsupportedOperationException("The input type does not match with required");
+			}
+		}
 		this.cacheValues = new HashMap<EAttribute, List<Object>>();
 	}
-
+	
 	public JsonComposer(List<File> files, HashMap<File, List<File>> jsonFiles) {
 		this(files);
 		this.jsonFiles = jsonFiles;
 	}
 
-	public void compose(File resultPath) {
-		if(files.size() == 0) 
-			return;
+	public void saveCoverage(File resultPath) {
+		for(CoverageCreator coverageCreator : coverageCreators) 
+			coverageCreator.save(resultPath);
+	}
+	
+	public EPackage compose(File resultPath) {
+		EPackage finalPackage = compose();
+		saveEPackage(finalPackage, resultPath);
+		return finalPackage;
+	}
+	
+	public EPackage compose() {
+		if(ePackages.size() == 0) 
+			return null;
 
 		EPackage finalPackage = EcoreFactory.eINSTANCE.createEPackage();
 		finalPackage.setName("composed");
@@ -60,12 +87,11 @@ public class JsonComposer {
 
 		registry = new HashMap<String, EClass>();
 		List<EReference> referencesToCheck = new ArrayList<EReference>();
-		List<CoverageCreator> coverageCreators = new ArrayList<CoverageCreator>();
-		for(File file: files) {
-			CoverageCreator coverageCreator = new CoverageCreator(file);
+		coverageCreators = new ArrayList<CoverageCreator>();
+		for(EPackage ePackage: ePackages) {
+			CoverageCreator coverageCreator = new CoverageCreator(ePackage);
 
-			EPackage singlePackage = loadEPackage(file);
-			for(EClassifier classifier : singlePackage.getEClassifiers()) {
+			for(EClassifier classifier : ePackage.getEClassifiers()) {
 				if (classifier instanceof EClass) {
 					EClass eClass = (EClass) classifier;
 					EClass registryElement = registry.get(eClass.getName());
@@ -118,12 +144,7 @@ public class JsonComposer {
 			finalPackage.getEClassifiers().add(unknown);
 		}
 
-
-		saveEPackage(finalPackage, resultPath);
-
-		for(CoverageCreator coverageCreator : coverageCreators) 
-			coverageCreator.save(resultPath);
-
+		return finalPackage;
 	}
 
 	private void composeAttributes(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) {
