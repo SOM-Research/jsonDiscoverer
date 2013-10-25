@@ -37,9 +37,16 @@
     </div>
 
     <div class="row">
-    <h2>How it works</h2>
-    <p>The simple JSON discoverer allows you to get the domain model defined in your JSON definition.</p>
-    <p>To use it you only have to provide your JSON definition.</p>
+    <h2>How it works?</h2>
+    <div class="col-md-6">
+	    <div class="text-center">
+	        <img style="margin-bottom: 20px;" class="img-thumbnail" src="images/simple.png" alt="Simple discoverer">
+	    </div>
+	</div>
+	<div class="col-md-6">
+	    <p>The simple JSON discoverer allows you to get the domain model defined in your JSON definition. The following figure depicts the proces</p>
+	    <p>To use it you only have to provide your JSON definition.</p>
+	</div>
     </div>
 
 
@@ -52,16 +59,16 @@
 	<h3>Your JSON definition</h3>
 	<p>Copy/Paste your JSON text file here:</p>
 	</div>
-    <div class="col-md-8">
+    <div class="col-md-10">
 	<form role="form">
 		<div class="form-group">
 			<p><textarea rows="10" id="json" resiable="false"></textarea></p>			
 		</div>
 	</form>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-2">
 		<p class="text-center">
-			<button id="discoverDomainModel" class="btn btn-primary" type="button" onclick="discover(document.getElementById('json').value)" disabled>Discover domain model</button>
+			<button id="discoverDomainModel" class="btn" type="button" onclick="discover(document.getElementById('json').value)" disabled>Discover domain model</button>
 		</p>
 	</div>
 	</div>
@@ -76,7 +83,6 @@
     	<p class="text-center"><img id="model" src="" class="img-rounded"></p>
 	</div>
 	</div>
-</div>
 
     <footer>
 		<div class="container">
@@ -89,6 +95,7 @@
   			</div>
 		</div>
 	</footer>
+</div>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>

@@ -6,25 +6,31 @@ var jsonDiscovererDirectives = angular.module("jsonDiscoverer.directive", []);
 
 var jsonDiscovererFilters = angular.module("jsonDiscoverer.filter", []);
 
-var jsonDiscovererModule = angular.module("jsonDiscoverer", ["jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"]).
-    config(function($locationProvider) {
-        $locationProvider.html5Mode(true).hashPrefix('!');
-    });
+var jsonDiscovererModule = angular.module("jsonDiscoverer", ["jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
 
-var JsonListCtrlVar = jsonDiscovererModule.controller("JsonListCtrl", ["$scope", "$rootScope", "$modal", "$log",
+jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$log",
     function($scope, $rootScope, $modal, $log) {
-        $scope.defs = [] ;
+        $scope.defs = {} ;
+        $scope.name = "";
 
-        $scope.open = function () {
+        $scope.newSource = function() {
+            $scope.defs[$scope.name] = { name : $scope.name, jsonDefs : [] };
+            $scope.name = "";
+        }
+
+        $scope.provideJson = function (jsonName) {
             var modalInstance = $modal.open({
                 templateUrl: 'jsonProvisionModal.html',
-                controller: JsonProvisionModalInstanceCtrlVar
+                controller: JsonProvisionModalInstanceCtrlVar,
+                resolve: {
+                    jsonName : function() {
+                        return jsonName;
+                    }},
             });
 
             modalInstance.result.then(
                 function(data) {
-                    $scope.defs.push(data);
-                    $rootScope.$emit("jsonDefsChanged", $scope.defs);
+                    $scope.defs[data.name]["jsonDefs"].push(data.text);
                 }, 
                 function(data) {
                     //$log.info('Modal dismissed at: ' + new Date());
@@ -33,19 +39,17 @@ var JsonListCtrlVar = jsonDiscovererModule.controller("JsonListCtrl", ["$scope",
     }
 ]);
 
-//var JsonProvisionModalInstanceCtrlVar = jsonDiscovererModule.controller("JsonProvisionModalInstanceCtrl", ["$scope", "$modalInstance", "$log", 
-var JsonProvisionModalInstanceCtrlVar = function($scope, $modalInstance, $log) {
-        $scope.json = { name : "aaa", text: '[ { "tan" : 2 } ]' };
+var JsonProvisionModalInstanceCtrlVar = function($scope, $modalInstance, $log, jsonName) {
+    $scope.json = { name: jsonName, text: '[ { "tan" : 2 } ]' };
 
-        $scope.ok = function() {
-            $modalInstance.close({ name : $scope.json.name, text: $scope.json.text });
-        };
+    $scope.ok = function() {
+        $modalInstance.close({ name : jsonName, text: $scope.json.text });
+    };
 
-        $scope.cancel = function() {
-            $modalInstance.dismiss('cancel');
-        };
-    }
-//]);
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+}
 
 var discoveryCtrlVar = jsonDiscovererModule.controller("DiscoveryCtrl", ["$scope", "$rootScope", "$http", "$modal", "$log",
     function($scope, $rootScope, $http, $modal, $log) { 
@@ -117,15 +121,3 @@ var discoveryCtrlVar = jsonDiscovererModule.controller("DiscoveryCtrl", ["$scope
 
     }
 ]);
-
-var viewModelModalInstanceCtrlVar = function($scope, $modalInstance, data) {
-        $scope.imageSrc = data;
-
-        $scope.ok = function() {
-            $modalInstance.close();
-        };
-
-        $scope.cancel = function() {
-            $modalInstance.dismiss('cancel');
-        };
-    }

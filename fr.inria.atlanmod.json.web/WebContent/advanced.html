@@ -35,124 +35,89 @@
     </div>
     </div>
 
-    <div class="container">
     <div class="row">
     <h2>How it works?</h2>
-    <p>The following figure illustrates the process applied in the advance JSON discoverer.</p>
-    <ul>
-    	<li><strong>Step 1. Provision.</strong> You can provide one or more JSON definitions.</li>
-    	<li><strong>Step 2. Discovery.</strong> For each JSON definition you provided, we will discover the domain. This means that we will extract the class diagram including the concepts used in your JSON file. Furthermore, we will also provide the object model representing the data of your JSON</li>
-    	<li><strong>Step 3. Composition.</strong> The previously discovered domain models will be composed to get a general domain model. In this step we will give you a class diagram representing the overall domain defined by the set of JSON definitions.</li>
-    </ul>
+    <div class="col-md-6">
+	    <div class="text-center">
+	        <img style="margin-bottom: 20px;" class="img-thumbnail" src="images/advanced.png" alt="Advanced discoverer">
+	    </div>
 	</div>
+	<div class="col-md-6">
+	    <p>The following figure illustrates the process applied in the advance JSON discoverer.</p>
+	    <ul>
+	    	<li><strong>Step 1. Provision.</strong> You can provide one or more JSON sources. For each source, you can provide one ore more examples.</li>
+	    	<li><strong>Step 2. Discovery and Composition.</strong> For each JSON source we will discover the domain and then they are composed to get a general domain model. In this step we will give you a class diagram representing the overall domain defined by the set of JSON definitions.</li>
+	    </ul>
+	</div>
+    </div>
 
 	<div class="row">
 	<h2>Try it out!</h2>
 	</div>
 
-    <div class="row">
-	<div class="col-md-12">
-	<h3>Step 1. Providing your JSON definitions</h3>
-	<div ng-controller="JsonListCtrl">
-
-		<div class="col-md-3">
-		<script type="text/ng-template" id="jsonProvisionModal.html">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="model-header">
-						<h3 class="modal-title">Provide your JSON definition</h3>
-					</div>
-					<div class="modal-body">
-						<form class="form-horizontal" role="form">
-							<div class="form-group">
-								<label for="inputName" class="col-md-1 control-label">Name</label>
-								<div class="col-md-11">
-									<input type="text" class="form-control" id="inputName" placeholder="Meaningful name for your JSON excerpt" ng-model="json.name">
-								</div>
-							</div>		
-							<div class="form-group">
-								<label for="inputJson" class="col-md-12">Copy/Paste your JSON here:</label>
-								<div class="col-md-12">
-									<textarea rows="12" id="inputJson" ng-model="json.text" resizable="false"></textarea>
+	<div ng-controller="AdvancedDiscovererCtrl">
+	    <div class="row">
+		    <div class="col-md-8">
+				<div ng-repeat="jsonDef in defs">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="col-md-1"><strong>Name:</strong></div>
+							<div class="col-md-5">{{jsonDef.name}}</div>
+							<div class="col-md-3"><strong>JSONs provided:</strong></div>
+							<div class="col-md-1">{{jsonDef.jsonDefs.length}}</div>
+							<div class="col-md-2"><button class="btn btn-xs" ng-click="provideJson(jsonDef.name)">Provide JSON</button></div>
+							<script type="text/ng-template" id="jsonProvisionModal.html">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="model-header">
+											<h3 class="modal-title">Provide your JSON for your {{json.name}} source</h3>
+										</div>
+										<div class="modal-body">
+											<form class="form-horizontal" role="form">
+												<div class="form-group">
+													<label for="inputJson" class="col-md-12">Copy/Paste your JSON here:</label>
+													<div class="col-md-12">
+														<textarea rows="12" id="inputJson" ng-model="json.text" resizable="false"></textarea>
+													</div>			
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button class="btn btn-primary" ng-click="ok()">OK</button>
+											<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+										</div>
+									</div>
 								</div>			
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-primary" ng-click="ok()">OK</button>
-						<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+							</script>
+						</div> 
 					</div>
 				</div>
-			</div>			
-		</script>
-		<button class="btn btn-block" ng-click="open()">Provide JSON</button>
-    	<div ng-show="selected">Selection from a modal: {{ jsonDef }}</div>
-    	</div>
+		    </div>
 
-		<div class="col-md-9">
-		<div ng-repeat="jsonDef in defs">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-md-1"><strong>Name</strong></div>
-					<div class="col-md-11">{{jsonDef.name}}</div>
+		    <div class="col-md-4">
+		    	<h4>Step 1. Providing your JSON sources</h4>
+		    	<div class="row">
+			    	<form class="form-horizontal" role="form">
+			    		<label for="inputName" class="col-md-2 control-label">Name</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="inputName" placeholder="Meaningful name for your JSON excerpt" ng-model="name">
+						</div>
+						<button class="btn col-md-2" ng-click="newSource()">OK</button>
+			    	</form>
+				</div>
+				<h4 style="padding-top: 20px;">Step 2. Discover and Compose </h4>
+				<button class="btn btn-block" ng-click="discover()">Discover Domain Model</button>
+		    </div>
+
+		    <div class="row">
+				<div class="col-md-6">
+					<h3>Your Domain Model</h3>
+			    	<p class="text-center"><img id="metamodel" src="" class="img-rounded"></p>
 				</div>
 			</div>
 		</div>
-		</div>
 	</div>
-
-	</div>
-	</div>
-
-    <div class="row">
-	<div class="col-md-12">
-	<h3>Step 2. Discovery of domain models</h3>
-	<div ng-controller="DiscoveryCtrl">
-		<div class="col-md-3">
-			<button class="btn btn-block" ng-click="discover()">Discover Domain Models</button>
-		</div>
-		<div class="col-md-9">
-		<div ng-repeat="jsonDomain in domains">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-md-1"><strong>Name</strong></div>
-					<div class="col-md-5">{{jsonDomain.name}}</div>
-					<div class="col-md-3"><button class="btn btn-xs"ng-click="viewModel(jsonDomain.metamodel)">View Domain Model</button></div>
-					<div class="col-md-3"><button class="btn btn-xs"ng-click="viewModel(jsonDomain.model)">View Instance Model</button></div>
-					<script type="text/ng-template" id="viewModelModal.html">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="model-header">
-									<h3 class="modal-title">This is your Model</h3>
-								</div>
-								<div class="modal-body">
-									<p class="text-center">
-										<img ng-src="{{imageSrc}}">
-									</p>
-								</div>
-								<div class="modal-footer">
-									<button class="btn btn-primary" ng-click="ok()">OK</button>
-								</div>
-							</div>
-						</div>			
-					</script>
-				</div>
-			</div>
-		</div>
-		</div>
-	</div>
-
-	</div>
-	</div>
-
-    <div class="row">
-	<div class="col-md-12">
-	<h3>Step 3. Composition</h3>
-	</div>
-	</div>
-	</div>
-</div>
-
+	
     <footer>
 		<div class="container">
   			<div class="row">
@@ -164,6 +129,8 @@
   			</div>
 		</div>
 	</footer>
+
+</div>
 
 <script src="js/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.js"></script>
