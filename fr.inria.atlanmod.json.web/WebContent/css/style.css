@@ -4,8 +4,15 @@ body {
 }
 
 .jumbotron {
-  background-color: #858585;
+  background: -webkit-linear-gradient(90deg, #6468b8, #64657a);
+  background: -moz-linear-gradient(90deg, #6468b8, #64657a);
+  background: -o-linear-gradient(90deg, #6468b8, #64657a);
+  background: linear-gradient(90deg, #6468b8, #64657a);
   color: white;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: #3136a8;
 }
 
 .jumbotron img {
@@ -22,10 +29,36 @@ body {
   margin-top: 30px;
 }
 
+.jumbotron .btn, .jumbotron .btn:enabled {
+  background-color: #a1a2ae;
+  border-color : #c8c8c8;
+}
+
+.jumbotron .links-social {
+  margin-top: 1em;  
+  text-align: center;
+  background-color: rgba(245,245,245,0.3);
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(221,221,221,0.3);
+  margin-left: -60px;
+  margin-right: -60px;
+  margin-bottom: -30px;
+}
+
 textarea {
     width: 100%;
 }
 
+.btn:enabled {
+  background-color: #6468b8;
+  color: white;
+}
+
+.btn-warning:enabled {
+  background-color: #64657a;
+  border-color : #c8c8c8;
+  color: white;
+}
 
 .modal {
   display: block; 
@@ -42,11 +75,21 @@ textarea {
 }
 
 footer {
+  background: -webkit-linear-gradient(90deg, #6468b8, #64657a);
+  background: -moz-linear-gradient(90deg, #6468b8, #64657a);
+  background: -o-linear-gradient(90deg, #6468b8, #64657a);
+  background: linear-gradient(90deg, #6468b8, #64657a);
   margin-top: 60px;
   padding-top: 10px;
   padding-bottom: 120px;
   background-color:  #858585;
   border-radius: 5px;
+  color: white;
+}
+
+footer a:link, footer a:visited, footer a:hover, footer a:active {
+  color: white;
+  text-decoration: underline;
 }
 
 footer p {

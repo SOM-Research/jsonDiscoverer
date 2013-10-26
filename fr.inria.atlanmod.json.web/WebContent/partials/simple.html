@@ -1,0 +1,92 @@
+<div ng-controller="SimpleDiscovererCtrl">
+    <div class="row">
+    <h2>How it works?</h2>
+    <div class="col-md-6">
+	    <div class="text-center">
+	        <img style="margin-bottom: 20px;" class="img-thumbnail" src="images/simple.png" alt="Simple discoverer">
+	    </div>
+	</div>
+	<div class="col-md-6">
+	    <p>The simple JSON discoverer allows you to get the domain model defined in your JSON definition. The following figure depicts the proces</p>
+	    <p>To use it you only have to provide your JSON definition.</p>
+	</div>
+    </div>
+
+
+	<div class="row">
+	<h2>Try it out!</h2>
+	</div>
+
+    <div class="row">
+	<div class="col-md-12">
+	<h3>Your JSON definition</h3>
+	<p>Copy/Paste your JSON here:</p>
+	</div>
+    <div class="col-md-10">
+	<form role="form">
+		<div class="form-group">
+			<p><textarea rows="10" id="json" resizable="false" ng-model="json.text"></textarea></p>			
+		</div>
+	</form>
+	</div>
+	<div class="col-md-2">
+		<p class="text-center">
+			<button id="discoverDomainModel" class="btn" type="button" ng-click="discover()" disabled>Discover domain model</button>
+		</p>
+	</div>
+	</div>
+
+    <div class="row">
+	<div class="col-md-6">
+		<h3>Your Domain Model</h3>
+    	<p class="text-center"><img ng-src="metamodel" class="img-rounded"></p>
+	</div>
+	<div class="col-md-6">
+		<h3>Your Instance Model</h3>
+    	<p class="text-center"><img ng-src="model" class="img-rounded"></p>
+	</div>
+	</div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+$('#json').on("keyup input change", function () {
+	$('#discoverDomainModel').prop('disabled', !$('#json').val());
+});
+
+var discover = function (jsonData) {
+	$.ajax({
+		type : "POST",
+		url : "/fr.inria.atlanmod.json.web/discoverMetamodel",
+		data : { json : jsonData },
+		beforeSend : function() {
+			var image = document.getElementById('metamodel');
+			image.src = "images/loading.gif";
+		},
+		success : function(data) {
+			var image = document.getElementById('metamodel');
+			image.src = "data:image/jpg;base64," + data;
+			$('#json').prop('value', "");
+			$('#discoverDomainModel').prop('disabled', !$('#json').val());
+		},
+		dataType : "text"
+	});
+
+	$.ajax({
+		type : "POST",
+		url : "/fr.inria.atlanmod.json.web/injectModel",
+		data : { json : jsonData },
+		beforeSend : function() {
+			var image = document.getElementById('model');
+			image.src = "images/loading.gif";
+		},
+		success : function(data) {
+			var image = document.getElementById('model');
+			image.src = "data:image/jpg;base64," + data;
+		},
+		dataType : "text"
+	});
+};
+</script>
+

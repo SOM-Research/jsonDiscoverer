@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:700' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app="jsonDiscoverer">
 
@@ -31,33 +32,14 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
+    <div class="links-social">
+    Space for social links
     </div>
     </div>
-
-    <div class="row">
-    <h2>What is this?</h2>
-    <p>The JSON discoverer is a tool that allows you to <strong>get a UML class diagram out of your JSON files</strong>. The tool is inspired in the research paper <a href="http://hal.inria.fr/docs/00/81/89/45/PDF/icwe2013-CanovasCabot.pdf"><em>Discovering Implicit Schemas in JSON Data</em></a> published in the <a href="http://icwe2013.webengineering.org/">ICWE'13 conference</a>.</p>
-    <p>So far our discoverer can be used in two modes:</p>.
     </div>
 
-
-    <div class="row">
-    <div class="col-md-6">
-    	<div class="text-center">
-          	<h3>Simple Discoverer</h3>
-          	<a href="simple.html"><img style="margin-bottom: 20px; width:300px;" class="img-thumbnail" src="images/simple.png" alt="Simple discoverer"></a>
-          	<p>We discover the domain model your JSON definition. </p>
-        </div>
-    </div>
-    <div class="col-md-6">
-    	<div class="text-center">
-          	<h3>Advanced Discoverer</h3>
-          	<a href="advanced.html"><img style="margin-bottom: 20px; width:300px;" class="img-thumbnail" src="images/advanced.png" alt="Advanced discoverer"></a>
-          	<p>Given a set of JSON definitions, we discover the common domain model. </p>
-      </div>
-    </div>
-    </div>
+    <div ng-view></div>
 
     <footer>
 		<div class="container">

@@ -3,10 +3,77 @@
 var jsonDiscovererServices = angular.module("jsonDiscoverer.service", []);
 
 var jsonDiscovererDirectives = angular.module("jsonDiscoverer.directive", []);
-
+    
 var jsonDiscovererFilters = angular.module("jsonDiscoverer.filter", []);
 
 var jsonDiscovererModule = angular.module("jsonDiscoverer", ["jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
+
+jsonDiscovererModule.config(["$routeProvider", function($routeProvider) {
+        $routeProvider.
+            when("/", {
+                templateUrl : "partials/main.html",
+                controller : "IndexCtrl"
+            }).
+            when("/simple", {
+                templateUrl : "partials/simple.html",
+                controller : "SimpleDiscovererCtrl"
+            }).
+            when("/advanced", {
+                templateUrl : "partials/advanced.html",
+                controller : "AdvancedDiscovererCtrl"
+            }).
+            otherwise({redirectTo: "/"});
+    }
+]);
+
+jsonDiscovererModule.controller("IndexCtrl", ["$scope", 
+    function($scope) {
+        
+    }
+]);
+
+jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", 
+    function($scope) {
+        $scope.json = { text: '[ { "tan" : 2 } ]' };
+        $scope.metamodel = "";
+        $scope.model = "";
+
+        $scope.discover = function() {
+            discoverMetamodel($scope.json.text);
+            injectModel($scope.json.text);
+        }
+
+        var discoverMetamodel = function(jsonText) {
+            var dataToSend = $.param( {
+                json : jsonText
+            });
+
+            $http({
+                    method : 'POST',
+                    url : "discoverMetamodel",
+                    data : dataToSend,
+                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(function(data) {
+                    $scope.metamodel = "data:image/jpg;base64," + data
+                });
+        }
+
+        var injectModel = function(jsonText) {
+            var dataToSend = $.param( {
+                json : jsonText
+            });
+            
+            $http({
+                    method : 'POST',
+                    url : "injectModel",
+                    data : dataToSend,
+                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+                }).success(function(data) {
+                    $scope.model = "data:image/jpg;base64," + data
+                });
+        }
+    }
+]);
 
 jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$http", "$log",
     function($scope, $rootScope, $modal, $http, $log) {
@@ -65,74 +132,3 @@ var JsonProvisionModalInstanceCtrlVar = function($scope, $modalInstance, $log, j
         $modalInstance.dismiss('cancel');
     };
 }
-
-var discoveryCtrlVar = jsonDiscovererModule.controller("DiscoveryCtrl", ["$scope", "$rootScope", "$http", "$modal", "$log",
-    function($scope, $rootScope, $http, $modal, $log) { 
-        $scope.defs = [];
-        $scope.domains = [] ;
-
-        var unbind = $rootScope.$on("jsonDefsChanged", function(event, data) {
-            $scope.defs = data;
-        });
-
-        $scope.$on('$destroy', unbind);
-
-        $scope.discover = function() {
-            $scope.domains = [];
-            for(var i = 0; i < $scope.defs.length; i++) {
-                $scope.domains[i] = { name: "", metamodel: "images/loading.gif", model: "images/loading.gif"};
-                $scope.domains[i]["name"] = $scope.defs[i].name;
-                discoverMetamodel(i, $scope.defs[i].text);
-                injectModel(i, $scope.defs[i].text);
-            }
-        }
-
-        var discoverMetamodel = function(position, params) {
-            var dataToSend = $.param( {
-                json : params
-            });
-
-            $http({
-                    method : 'POST',
-                    url : "discoverMetamodel",
-                    data : dataToSend,
-                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).success(function(data) {
-                    $scope.domains[position]["metamodel"] = "data:image/jpg;base64," + data
-                });
-        }
-
-        var injectModel = function(position, params) {
-            var dataToSend = $.param( {
-                json : params
-            });
-            
-            $http({
-                    method : 'POST',
-                    url : "injectModel",
-                    data : dataToSend,
-                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).success(function(data) {
-                    $scope.domains[position]["model"] = "data:image/jpg;base64," + data
-                });
-        }
-
-        $scope.viewModel = function (image) {
-            var modalInstance = $modal.open({
-                templateUrl: 'viewModelModal.html',
-                controller: viewModelModalInstanceCtrlVar,
-                resolve: {
-                    data : function() {
-                        return image;
-                    }},
-                windowsClass : "modal-big"
-            });
-
-            modalInstance.result.then(
-                function(data) { }, 
-                function(data) { }
-            );
-        };
-
-    }
-]);
