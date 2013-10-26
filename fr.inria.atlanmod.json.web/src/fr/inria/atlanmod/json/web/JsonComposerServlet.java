@@ -46,14 +46,11 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		System.out.println("Digesting");
 		// 1. Disgesting the params
 		Pattern pattern = Pattern.compile(paramsPattern);
 		HashMap<String, List<String>> sources = new HashMap<String, List<String>>();
 		for (Enumeration<String> e = request.getParameterNames() ; e.hasMoreElements() ;) {
 			String paramName = e.nextElement();
-			System.out.println("Checking " + paramName);
 			Matcher matcher = pattern.matcher(paramName);
 			if(matcher.find()) {
 				String sourceName = matcher.group(1);
@@ -62,14 +59,12 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 				if(sourcesList == null) sources.put(sourceName, (sourcesList = new ArrayList<String>()));
 				for(String valueParam : valuesParam) {
 					sourcesList.add(valueParam);
-					System.out.println("  " + valueParam);
 				}
 
 			}
 		}
 		if(sources.size() == 0) throw new ServletException("No params in the call");
 
-		System.out.println("Discovering");
 		// 2. Discovery
 		List<EPackage> metamodels = new ArrayList<EPackage>();
 		for (String sourceName : sources.keySet()) {
@@ -87,12 +82,10 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 				metamodels.add(metamodel);
 		}
 		
-		System.out.println("Composing");
 		// 3. Composition
 		JsonComposer composer = new JsonComposer(metamodels);
 		EPackage finalMetamodel = composer.compose();
 
-		System.out.println("Drawing");
 		// 4. Get the picture
 		String id = properties.getProperty(COMPOSER_ID);
 		if(id == null) throw new ServletException("ID for composer not found in properties");
@@ -103,23 +96,8 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 		String resultImage = encodeToString(resultPath);
 		resultPath.delete();
 		
-		System.out.println("Sending back");
 		// 4. Write the response
 		PrintWriter out = response.getWriter();
 		out.print(resultImage);
 	}
-
-	private Model jsonAsModel(String jsonString) {
-		ResourceSet rset = new ResourceSetImpl();
-		Resource res = rset.createResource(URI.createURI("dummy:/example.json"));
-		InputStream in = new ByteArrayInputStream(jsonString.getBytes());
-		try {
-			res.load(in, rset.getLoadOptions());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
-		Model jsonModel = (Model) res.getContents().get(0);
-		return jsonModel;
-	}
-
 }

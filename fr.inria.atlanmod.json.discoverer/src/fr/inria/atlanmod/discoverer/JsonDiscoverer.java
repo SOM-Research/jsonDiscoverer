@@ -149,7 +149,7 @@ public class JsonDiscoverer {
 			if (eClassifier instanceof EClass) {
 				EClass eClass = (EClass) eClassifier;
 				eClasses.put(eClass.getName(), eClass);
-				System.out.println("added " + eClass.getName());
+//				System.out.println("added " + eClass.getName());
 			}
 		}
 		return discoverMetamodel(jsonString);
@@ -167,7 +167,7 @@ public class JsonDiscoverer {
 			if (eClassifier instanceof EClass) {
 				EClass eClass = (EClass) eClassifier;
 				eClasses.put(eClass.getName(), eClass);
-				System.out.println("added " + eClass.getName());
+//				System.out.println("added " + eClass.getName());
 			}
 		}
 		

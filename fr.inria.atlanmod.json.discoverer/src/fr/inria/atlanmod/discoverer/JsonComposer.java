@@ -131,11 +131,11 @@ public class JsonComposer {
 				EClass registryElement = registry.get(referredEClass.getName());
 				if(registryElement == null) {
 					reference.setEType(unknown);
-					System.out.println("Reference " + reference.getName() + " with unknown type");
+//					System.out.println("Reference " + reference.getName() + " with unknown type");
 					unknownUsed = true;
 				} else {
 					reference.setEType(registryElement);
-					System.out.println("Reference " + reference.getName() + " re-assigned");
+//					System.out.println("Reference " + reference.getName() + " re-assigned");
 				}
 			}
 		}
@@ -157,15 +157,15 @@ public class JsonComposer {
 					if(similarAttribute == null) {
 						EAttribute newAttribute = duplicateAttribute(otherAttribute);
 						existingClass.getEStructuralFeatures().add(newAttribute);
-						System.out.println("Attribute " + newAttribute.getName() + " added");
+//						System.out.println("Attribute " + newAttribute.getName() + " added");
 						existingFeature = newAttribute;
 					} else {
-						System.out.println("Attribute similar found: " + similarAttribute.getName());
+//						System.out.println("Attribute similar found: " + similarAttribute.getName());
 						existingFeature = similarAttribute;
 					}
 				} else {
 					existingFeature.setEType(EcorePackage.Literals.ESTRING);
-					System.out.println("Attribute " + existingFeature.getName() + " refined to String");
+//					System.out.println("Attribute " + existingFeature.getName() + " refined to String");
 				}				
 				coverageCreator.createAttMapping(otherAttribute, (EAttribute) existingFeature);
 			}
@@ -181,7 +181,7 @@ public class JsonComposer {
 				if(existingFeature == null) {
 					EReference newReference = duplicateReference(otherReference);
 					existingClass.getEStructuralFeatures().add(newReference);
-					System.out.println("Reference " + newReference.getName() + " added");
+//					System.out.println("Reference " + newReference.getName() + " added");
 					existingFeature = newReference;
 					coverageCreator.createRefMapping(otherReference, (EReference) existingFeature);
 				} 			
