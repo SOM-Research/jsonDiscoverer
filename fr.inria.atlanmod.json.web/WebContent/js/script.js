@@ -32,9 +32,9 @@ jsonDiscovererModule.controller("IndexCtrl", ["$scope",
     }
 ]);
 
-jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", 
-    function($scope) {
-        $scope.json = { text: '[ { "tan" : 2 } ]' };
+jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$log", 
+    function($scope, $http, $log) {
+        $scope.json = { text: '' };
         $scope.metamodel = "";
         $scope.model = "";
 
@@ -44,6 +44,8 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope",
         }
 
         var discoverMetamodel = function(jsonText) {
+            $scope.metamodel = "images/loading.gif";
+
             var dataToSend = $.param( {
                 json : jsonText
             });
@@ -59,6 +61,8 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope",
         }
 
         var injectModel = function(jsonText) {
+            $scope.model = "images/loading.gif";
+
             var dataToSend = $.param( {
                 json : jsonText
             });

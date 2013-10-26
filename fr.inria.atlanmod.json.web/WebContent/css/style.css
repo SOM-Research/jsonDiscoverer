@@ -43,6 +43,8 @@ a:link, a:visited, a:hover, a:active {
   margin-left: -60px;
   margin-right: -60px;
   margin-bottom: -30px;
+  padding-top: 18px;
+  height: 60px;
 }
 
 textarea {
