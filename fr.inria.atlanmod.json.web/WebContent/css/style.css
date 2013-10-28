@@ -47,6 +47,10 @@ a:link, a:visited, a:hover, a:active {
   height: 60px;
 }
 
+.jumbotron h2 {
+  border-bottom: 0px solid #6468b8;
+}
+
 h2 {
   border-bottom: 2px solid #6468b8;
   margin-bottom: 20px;
