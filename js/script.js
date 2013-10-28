@@ -32,7 +32,9 @@ jsonDiscovererModule.config(["$routeProvider", function($routeProvider) {
 
 jsonDiscovererModule.controller("IndexCtrl", ["$scope", 
     function($scope) {
-        
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', {'page': $location.path()});    
+        });
     }
 ]);
 
@@ -45,6 +47,10 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$lo
         $scope.alertsGeneral = [ ];
         $scope.alertsSchema = [ ];
         $scope.alertsData = [ ];
+
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', {'page': $location.path()});   
+        });
 
         $scope.closeGeneralAlert = function(index) {
             $scope.alertsGeneral.splice(index, 1);
@@ -114,6 +120,10 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
         $scope.metamodel = "";
 
         $scope.alertsGeneral = [ ];
+
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', {'page': $location.path()});   
+        });
 
         $scope.closeGeneralAlert = function(index) {
             $scope.alertsGeneral.splice(index, 1);
