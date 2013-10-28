@@ -72,6 +72,13 @@ textarea {
   color: white;
 }
 
+.btn-info:enabled {
+  background-color: #FFE499;
+  border-color : #A68527;
+  color: black;
+  margin-bottom: 10px;
+}
+
 .modal {
   display: block; 
 }

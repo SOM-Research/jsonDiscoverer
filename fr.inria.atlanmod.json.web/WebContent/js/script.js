@@ -43,6 +43,9 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$lo
             injectModel($scope.json.text);
         }
 
+        $scope.example = function() {
+            $scope.json = { text : '[\n   {\n      "sens":2,\n      "terminus":"Gare de Pont-Rousseau",\n      "temps":"Closest",\n      "ligne":{\n         "numLigne":"2",\n         "typeLigne":1\n      },\n      "arret":{\n         "codeArret":"CRQU2"\n      }\n   }\n]'};        }
+
         var discoverMetamodel = function(jsonText) {
             $scope.metamodel = "images/loading.gif";
 
