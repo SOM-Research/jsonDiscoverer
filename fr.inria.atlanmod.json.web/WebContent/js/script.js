@@ -8,6 +8,10 @@ var jsonDiscovererFilters = angular.module("jsonDiscoverer.filter", []);
 
 var jsonDiscovererModule = angular.module("jsonDiscoverer", ["jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
 
+jsonDiscovererModule.config(['$httpProvider', function($httpProvider) {
+        delete $httpProvider.defaults.headers.common["X-Requested-With"]
+    }])
+
 jsonDiscovererModule.config(["$routeProvider", function($routeProvider) {
         $routeProvider.
             when("/", {
@@ -71,7 +75,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$lo
 
             $http({
                     method : 'POST',
-                    url : "discoverMetamodel",
+                    url : "http://apps.jlcanovas.es/jsonDiscoverer/discoverMetamodel",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
@@ -91,7 +95,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$lo
             
             $http({
                     method : 'POST',
-                    url : "injectModel",
+                    url : "http://apps.jlcanovas.es/jsonDiscoverer/injectModel",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
@@ -145,7 +149,7 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
 
             $http({
                     method : 'POST',
-                    url : "compose",
+                    url : "http://apps.jlcanovas.es/jsonDiscoverer/compose",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
