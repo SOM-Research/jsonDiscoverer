@@ -30,16 +30,16 @@ jsonDiscovererModule.config(["$routeProvider", function($routeProvider) {
     }
 ]);
 
-jsonDiscovererModule.controller("IndexCtrl", ["$scope", "$window",
-    function($scope, $window) {
+jsonDiscovererModule.controller("IndexCtrl", ["$scope", "$window", "$location",
+    function($scope, $window, $location) {
         $scope.$on('$viewContentLoaded', function(event) {
             $window.ga('send', 'pageview', {'page': $location.path()});    
         });
     }
 ]);
 
-jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$window","$log", 
-    function($scope, $http, $window, $log) {
+jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$window", "$location" ,"$log", 
+    function($scope, $http, $window, $location, $log) {
         $scope.json = { text: '' };
         $scope.metamodel = "";
         $scope.model = "";
@@ -113,8 +113,8 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
     }
 ]);
 
-jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$http", "$window", "$log",
-    function($scope, $rootScope, $modal, $http, $window, $log) {
+jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$http", "$window", "$location","$log",
+    function($scope, $rootScope, $modal, $http, $window, $location, $log) {
         $scope.defs = {} ;
         $scope.name = "";
         $scope.metamodel = "";
