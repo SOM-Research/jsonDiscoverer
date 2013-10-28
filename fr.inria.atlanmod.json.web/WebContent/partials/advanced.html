@@ -79,4 +79,10 @@
 		    	<p class="text-center"><img id="metamodel" ng-src="{{metamodel}}" class="img-rounded"></p>
 			</div>
 		</div>
+
+		<div class="row">
+		<div class="col-md-12">
+			<alert ng-repeat="alert in alertsGeneral" type="alert.type" close="closeGeneralAlert($index)">{{alert.msg}}</alert>
+		</div>
+		</div>
 	</div>

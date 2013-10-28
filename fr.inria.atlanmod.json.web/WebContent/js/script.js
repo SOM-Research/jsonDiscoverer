@@ -38,6 +38,22 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$lo
         $scope.metamodel = "";
         $scope.model = "";
 
+        $scope.alertsGeneral = [ ];
+        $scope.alertsSchema = [ ];
+        $scope.alertsData = [ ];
+
+        $scope.closeGeneralAlert = function(index) {
+            $scope.alertsGeneral.splice(index, 1);
+        };
+
+        $scope.closeSchemaAlert = function(index) {
+            $scope.alertsSchema.splice(index, 1);
+        };
+
+        $scope.closeDataAlert = function(index) {
+            $scope.alertsData.splice(index, 1);
+        };
+
         $scope.discover = function() {
             discoverMetamodel($scope.json.text);
             injectModel($scope.json.text);
@@ -59,7 +75,10 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$lo
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
-                    $scope.metamodel = "data:image/jpg;base64," + data
+                    $scope.metamodel = "data:image/jpg;base64," + data;
+                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please contact us to improve our tool!' });
+                }).error(function(data, status, headers, config) {
+                    $scope.alertsSchema.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 });
         }
 
@@ -76,7 +95,9 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$lo
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
-                    $scope.model = "data:image/jpg;base64," + data
+                    $scope.model = "data:image/jpg;base64," + data;
+                }).error(function(data, status, headers, config) {
+                    $scope.alertsData.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 });
         }
     }
@@ -87,6 +108,12 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
         $scope.defs = {} ;
         $scope.name = "";
         $scope.metamodel = "";
+
+        $scope.alertsGeneral = [ ];
+
+        $scope.closeGeneralAlert = function(index) {
+            $scope.alertsGeneral.splice(index, 1);
+        };
 
         $scope.newSource = function() {
             $scope.defs[$scope.name] = { name : $scope.name, jsonDefs : [] };
@@ -122,14 +149,17 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
-                    $scope.metamodel = "data:image/jpg;base64," + data
+                    $scope.metamodel = "data:image/jpg;base64," + data;
+                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please contact us to improve our tool!' });
+                }).error(function(data, status, headers, config) {
+                    $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 });
         }
     }
 ]);
 
 var JsonProvisionModalInstanceCtrlVar = function($scope, $modalInstance, $log, jsonName) {
-    $scope.json = { name: jsonName, text: '[ { "tan" : 2 } ]' };
+    $scope.json = { name: jsonName, text: '' };
 
     $scope.ok = function() {
         $modalInstance.close({ name : jsonName, text: $scope.json.text });

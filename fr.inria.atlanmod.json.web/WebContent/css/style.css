@@ -115,3 +115,15 @@ footer p {
   margin-bottom: 0px;
 }
 
+.alert-warning {
+  background-color: #FFE499;
+  border-color: #BFAB73;
+  color: #A68527;
+}
+
+.alert-error {
+  background-color: #f2dede;
+  color: #b94a48;
+  border-color: #eed3d7;
+}
+
