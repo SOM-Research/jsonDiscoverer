@@ -9,6 +9,7 @@ body {
   background: -o-linear-gradient(90deg, #6468b8, #9094DC);
   background: linear-gradient(90deg, #6468b8, #9094DC);
   color: white;
+  margin-bottom: 0px;
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -43,8 +44,8 @@ a:link, a:visited, a:hover, a:active {
   margin-left: -60px;
   margin-right: -60px;
   margin-bottom: -30px;
-  padding-top: 18px;
-  height: 60px;
+  padding-top: 10px;
+  height: 43px;
 }
 
 .jumbotron h2 {
@@ -100,7 +101,7 @@ footer {
   background: linear-gradient(90deg, #6468b8, #9094DC);
   margin-top: 60px;
   padding-top: 10px;
-  padding-bottom: 120px;
+  padding-bottom: 20px;
   background-color:  #858585;
   border-radius: 5px;
   color: white;

@@ -6,7 +6,7 @@ var jsonDiscovererDirectives = angular.module("jsonDiscoverer.directive", []);
     
 var jsonDiscovererFilters = angular.module("jsonDiscoverer.filter", []);
 
-var jsonDiscovererModule = angular.module("jsonDiscoverer", ["jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
+var jsonDiscovererModule = angular.module("jsonDiscoverer", ["ngSanitize", "jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
 
 jsonDiscovererModule.config(['$httpProvider', function($httpProvider) {
         delete $httpProvider.defaults.headers.common["X-Requested-With"]
@@ -30,27 +30,22 @@ jsonDiscovererModule.config(["$routeProvider", function($routeProvider) {
     }
 ]);
 
-jsonDiscovererModule.controller("IndexCtrl", ["$scope", "$window", "$location",
-    function($scope, $window, $location) {
-        $scope.$on('$viewContentLoaded', function(event) {
-            $window.ga('send', 'pageview', {'page': $location.path()});    
-        });
+jsonDiscovererModule.controller("IndexCtrl", ["$scope", 
+    function($scope) {
+        
     }
 ]);
 
-jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$window", "$location" ,"$log", 
-    function($scope, $http, $window, $location, $log) {
+jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$log", 
+    function($scope, $http, $log) {
         $scope.json = { text: '' };
         $scope.metamodel = "";
         $scope.model = "";
+        $scope.showTitles = false;
 
         $scope.alertsGeneral = [ ];
         $scope.alertsSchema = [ ];
         $scope.alertsData = [ ];
-
-        $scope.$on('$viewContentLoaded', function(event) {
-            $window.ga('send', 'pageview', {'page': $location.path()});   
-        });
 
         $scope.closeGeneralAlert = function(index) {
             $scope.alertsGeneral.splice(index, 1);
@@ -67,6 +62,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
         $scope.discover = function() {
             discoverMetamodel($scope.json.text);
             injectModel($scope.json.text);
+            $scope.showTitles = true;
         }
 
         $scope.example = function() {
@@ -86,8 +82,9 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
                     $scope.metamodel = "data:image/jpg;base64," + data;
-                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please contact us to improve our tool!' });
+                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="https://github.com/jlcanovas/json-discoverer/issues">contact us</a> to improve our tool!' });
                 }).error(function(data, status, headers, config) {
+                    $scope.metamodel = "";
                     $scope.alertsSchema.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 });
         }
@@ -107,23 +104,34 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
                 }).success(function(data) {
                     $scope.model = "data:image/jpg;base64," + data;
                 }).error(function(data, status, headers, config) {
+                    $scope.model = "";
                     $scope.alertsData.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 });
         }
     }
 ]);
 
-jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$http", "$window", "$location","$log",
-    function($scope, $rootScope, $modal, $http, $window, $location, $log) {
+jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$http", "$log",
+    function($scope, $rootScope, $modal, $http, $log) {
         $scope.defs = {} ;
+        $scope.discoveryPosible = false;
         $scope.name = "";
         $scope.metamodel = "";
+        $scope.showTitles = false;
 
         $scope.alertsGeneral = [ ];
 
-        $scope.$on('$viewContentLoaded', function(event) {
-            $window.ga('send', 'pageview', {'page': $location.path()});   
-        });
+        $scope.defsNumber = function() {
+            return Object.keys($scope.defs);
+        };
+
+        $scope.updateDiscoveryPosible = function() {
+            if(typeof defs === "undefined") $scope.discoveryPosible = false;
+            for(def in $scope.defs) {
+                if($scope.defs[def].jsonDefs.length == 0) $scope.discoveryPosible = false;
+            }
+            $scope.discoveryPosible = true;
+        };
 
         $scope.closeGeneralAlert = function(index) {
             $scope.alertsGeneral.splice(index, 1);
@@ -132,7 +140,7 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
         $scope.newSource = function() {
             $scope.defs[$scope.name] = { name : $scope.name, jsonDefs : [] };
             $scope.name = "";
-        }
+        };
 
         $scope.provideJson = function (jsonName) {
             var modalInstance = $modal.open({
@@ -147,6 +155,7 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
             modalInstance.result.then(
                 function(data) {
                     $scope.defs[data.name]["jsonDefs"].push(data.text);
+                    $scope.updateDiscoveryPosible();
                 }, 
                 function(data) {
                     //$log.info('Modal dismissed at: ' + new Date());
@@ -155,6 +164,8 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
 
         $scope.discover = function() {
             $scope.metamodel = "images/loading.gif";
+            $scope.showTitles = true;
+
             var dataToSend = $.param({ sources : $scope.defs });
 
             $http({
@@ -164,8 +175,9 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
                     $scope.metamodel = "data:image/jpg;base64," + data;
-                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please contact us to improve our tool!' });
+                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="https://github.com/jlcanovas/json-discoverer/issues">contact us</a> to improve our tool!' });
                 }).error(function(data, status, headers, config) {
+                    $scope.metamodel = "";
                     $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 });
         }
