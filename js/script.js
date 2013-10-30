@@ -34,18 +34,32 @@ jsonDiscovererModule.config(["$routeProvider", function($routeProvider) {
     }
 ]);
 
-jsonDiscovererModule.controller("IndexCtrl", ["$scope", 
-    function($scope) {
-        
+jsonDiscovererModule.controller("ContactCtrl", ["$scope", "$window", "$location",
+    function($scope, $window, $location) {
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', {'page': $location.path()});    
+        });
     }
 ]);
 
-jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$log", 
-    function($scope, $http, $log) {
+jsonDiscovererModule.controller("IndexCtrl", ["$scope", "$window", "$location",
+    function($scope, $window, $location) {
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', {'page': $location.path()});    
+        });
+    }
+]);
+
+jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$window", "$location" ,"$log", 
+    function($scope, $http, $window, $location, $log) {
         $scope.json = { text: '' };
         $scope.metamodel = "";
         $scope.model = "";
         $scope.showTitles = false;
+
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', {'page': $location.path()});   
+        });
 
         $scope.alertsGeneral = [ ];
         $scope.alertsSchema = [ ];
@@ -115,8 +129,8 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$lo
     }
 ]);
 
-jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$http", "$log",
-    function($scope, $rootScope, $modal, $http, $log) {
+jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$http", "$window", "$location","$log",
+    function($scope, $rootScope, $modal, $http, $window, $location, $log) {
         $scope.defs = {} ;
         $scope.discoveryPosible = false;
         $scope.name = "";
@@ -124,6 +138,10 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
         $scope.showTitles = false;
 
         $scope.alertsGeneral = [ ];
+
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', {'page': $location.path()});   
+        });
 
         $scope.defsNumber = function() {
             return Object.keys($scope.defs);
