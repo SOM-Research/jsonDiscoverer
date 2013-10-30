@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
     id="jsonDiscovererID" 
     version="3.0">
-  <display-name>jsonDiscoverer</display-name>
+  <display-name>json-Discoverer</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>

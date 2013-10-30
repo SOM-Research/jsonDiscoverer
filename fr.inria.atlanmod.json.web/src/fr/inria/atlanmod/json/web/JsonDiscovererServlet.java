@@ -11,40 +11,20 @@
 
 package fr.inria.atlanmod.json.web;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
-import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
-import org.emftools.emf2gv.graphdesc.GraphdescPackage;
-import org.emftools.emf2gv.processor.core.StandaloneProcessor;
 
-import sun.misc.BASE64Encoder;
-
-import fr.inria.atlanmod.JsonStandaloneSetup;
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 
 /**
@@ -55,9 +35,13 @@ import fr.inria.atlanmod.discoverer.JsonDiscoverer;
  */
 @WebServlet("/discoverMetamodel")
 public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
-	private static final long serialVersionUID = 1L;
+	public static final String version = "1.0";
+	
+	private static final long serialVersionUID = 83L;
+	
+	// The ID for this servlet which will be used to access to the working directory
 	private static final String DISCOVERER_ID = "IdDiscoverer";
-	       
+	
     /* 
 	 * Performs a POST call to this servlet. The JSON_CODE parameter is queried to get the JSON code to
 	 * be discovered. The Discovered model is then transformed into a BASE64 image to be used in the web.

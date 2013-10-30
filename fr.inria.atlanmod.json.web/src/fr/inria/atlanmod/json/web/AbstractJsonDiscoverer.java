@@ -31,12 +31,24 @@ import org.emftools.emf2gv.processor.core.StandaloneProcessor;
 import sun.misc.BASE64Encoder;
 import fr.inria.atlanmod.JsonStandaloneSetup;
 
+/**
+ * Abstract class to factor some common behavior
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
 public abstract class AbstractJsonDiscoverer extends HttpServlet {
+	private static final long serialVersionUID = 69L;
+	
+	// The main path to the working dir (needed for generating the pictures)
 	public static File workingDir = null;
+	
+	// The path to the Graphviz DOT execitable (needed for generating the pictures)
 	public static String dotExePath = null;
+	
+	// The jsonParam used for discovery (where the json code is stored)
 	static String jsonParam = null;
-	static String sourcesParam = null;
-
+	
 	Properties properties = null;
 
     @Override
@@ -53,7 +65,6 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			workingDirString = properties.getProperty("workingDir");
 			dotExePath = properties.getProperty("dotExePath");
 			jsonParam = properties.getProperty("JsonParameter");
-			sourcesParam = properties.getProperty("SourcesParameter");
 		} catch (IOException e) {
 			throw new ServletException("Discover servlet could not find the configuration");
 		}

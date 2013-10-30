@@ -18,7 +18,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,7 +29,10 @@ import fr.inria.atlanmod.discoverer.JsonInjector;
 
 @WebServlet("/injectModel")
 public class JsonInjectorServlet extends AbstractJsonDiscoverer {
-	private static final long serialVersionUID = 1L;
+	public static final String version = "1.0";
+	
+	private static final long serialVersionUID = 6L;
+	// The ID for this servlet which will be used to access to the working directory
 	private static final String INJECTOR_ID = "IdInjector";
 
 	/* 

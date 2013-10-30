@@ -11,10 +11,8 @@
 
 package fr.inria.atlanmod.json.web;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -28,16 +26,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import fr.inria.atlanmod.discoverer.JsonComposer;
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
-import fr.inria.atlanmod.json.Model;
 
 /**
  * Main servlet to provide access to the composer
@@ -47,11 +40,18 @@ import fr.inria.atlanmod.json.Model;
  */
 @WebServlet("/compose")
 public class JsonComposerServlet extends AbstractJsonDiscoverer {
-	private static final long serialVersionUID = 1L;
+	public static final String version = "1.0";
+	
+	private static final long serialVersionUID = 23L;
+	
+	// The ID for this servlet which will be used to access to the working directory
 	private static final String COMPOSER_ID = "IdComposer";
 
+	// This pattern is used to analyze the params
+	// The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?
+	// The important part is the JSON_SOURCE_NAME which provides the name of the parameter
 	private static String paramsPattern = Pattern.quote("sources[") + "([a-zA-Z]*)"+ Pattern.quote("][") + "[\\$a-zA-Z]*" + Pattern.quote("]") + "(" + Pattern.quote("[]") + ")?";
-
+	
 	/* 
 	 * Performs a POST call and returns a String in base64 with the picture of the metamodel
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
