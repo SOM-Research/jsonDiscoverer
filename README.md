@@ -29,7 +29,7 @@ Requirements:
 
 The project fr.inria.atlanmod.json.web is a stand-alone project, meaning that it includes the needed libraries to execute the tool out of Eclipse.
 
-If you have any problem, just contact us.
+If you have any problem, just contact us. 
 
 What is coming next?
 --------------------
