@@ -26,6 +26,10 @@ jsonDiscovererModule.config(["$routeProvider", function($routeProvider) {
                 templateUrl : "partials/advanced.html",
                 controller : "AdvancedDiscovererCtrl"
             }).
+            when("/contact", {
+                templateUrl : "partials/contact.html",
+                controller : "ContactCtrl"
+            }).
             otherwise({redirectTo: "/"});
     }
 ]);
