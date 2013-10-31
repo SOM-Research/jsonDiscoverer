@@ -1,5 +1,4 @@
 
-
 var jsonDiscovererServices = angular.module("jsonDiscoverer.service", []);
 
 var jsonDiscovererDirectives = angular.module("jsonDiscoverer.directive", []);
@@ -100,7 +99,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
                     $scope.metamodel = "data:image/jpg;base64," + data;
-                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="https://github.com/jlcanovas/json-discoverer/issues">contact us</a> to improve our tool!' });
+                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://atlanmod.github.io/json-discoverer/#/contact">contact us</a> to improve our tool!' });
                 }).error(function(data, status, headers, config) {
                     $scope.metamodel = "";
                     $scope.alertsSchema.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
@@ -197,7 +196,7 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
                     $scope.metamodel = "data:image/jpg;base64," + data;
-                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="https://github.com/jlcanovas/json-discoverer/issues">contact us</a> to improve our tool!' });
+                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://atlanmod.github.io/json-discoverer/#/contact">contact us</a> to improve our tool!' });
                 }).error(function(data, status, headers, config) {
                     $scope.metamodel = "";
                     $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
