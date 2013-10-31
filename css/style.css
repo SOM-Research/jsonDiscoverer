@@ -50,6 +50,7 @@ a:link, a:visited, a:hover, a:active {
 
 .jumbotron h2 {
   border-bottom: 0px solid #6468b8;
+  font-size: 100%;
 }
 
 h2 {
