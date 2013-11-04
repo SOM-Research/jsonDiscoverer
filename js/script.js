@@ -127,7 +127,6 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
         }
 
         $scope.obtainJSON = function() {
-            $log.info("Calling with " + $scope.url);
             delete $http.defaults.headers.common['X-Requested-With'];
             $http.defaults.useXDomain = true;
 
