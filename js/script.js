@@ -8,11 +8,8 @@ var jsonDiscovererFilters = angular.module("jsonDiscoverer.filter", []);
 
 var jsonDiscovererModule = angular.module("jsonDiscoverer", ["ngSanitize", "jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
 
-jsonDiscovererModule.config(['$httpProvider', function($httpProvider) {
-        delete $httpProvider.defaults.headers.common["X-Requested-With"]
-    }])
-
-jsonDiscovererModule.config(["$routeProvider", function($routeProvider) {
+jsonDiscovererModule.config(["$routeProvider", "$httpProvider", 
+    function($routeProvider, $httpProvider) {
         $routeProvider.
             when("/", {
                 templateUrl : "partials/main.html",
@@ -31,6 +28,8 @@ jsonDiscovererModule.config(["$routeProvider", function($routeProvider) {
                 controller : "ContactCtrl"
             }).
             otherwise({redirectTo: "/"});
+        delete $httpProvider.defaults.headers.common["X-Requested-With"];
+        $httpProvider.defaults.useXDomain = true;
     }
 ]);
 
@@ -56,6 +55,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
         $scope.metamodel = "";
         $scope.model = "";
         $scope.showTitles = false;
+        $scope.url = ""
 
         $scope.$on('$viewContentLoaded', function(event) {
             $window.ga('send', 'pageview', {'page': $location.path()});   
@@ -125,6 +125,28 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
                     $scope.model = "";
                     $scope.alertsData.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 });
+        }
+
+        $scope.obtainJSON = function() {
+            $log.info("Calling with " + $scope.url);
+            delete $http.defaults.headers.common['X-Requested-With'];
+            $http.defaults.useXDomain = true;
+
+            var dataToSend = $.param( {
+                url : $scope.url
+            });
+        
+            $http({
+                method : 'POST',
+                url : "http://apps.jlcanovas.es/jsonDiscoverer/getJson",
+                data : dataToSend,
+                headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function(data) {
+                $scope.json.text = JSON.stringify(data);
+            }).error(function(data, status, headers, config) {
+                $scope.url = "";
+                $scope.alertsGeneral.push({ type: 'error', msg: 'We could not get anything from that URL. Could you try again?' });
+            });
         }
     }
 ]);
