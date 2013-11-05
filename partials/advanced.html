@@ -60,6 +60,17 @@
 													</div>			
 												</div>
 											</form>
+											<form class="form-horizontal" role="form">
+												<div class="col-md-5">
+													<label for="urlJSON" class="control-label" style="font-weight: normal;">or the URL to obtain the JSON:</label>
+												</div>
+												<div class="col-md-5">
+													<input type="url" class="form-control" id="urlJSON" placeholder="URL returning a JSON" ng-model="url">
+												</div>
+												<div class="col-md-2">
+													<button class="btn" ng-disabled="url == ''" ng-click="obtainJSON()">Obtain</button>
+												</div>
+											</form>
 										</div>
 										<div class="modal-footer">
 											<button class="btn" ng-disabled="json.text == ''" ng-click="ok()">OK</button>

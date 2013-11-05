@@ -95,6 +95,10 @@ textarea {
 	border-bottom: 1px solid #e5e5e5;
 }
 
+.modal-footer {
+  margin-top: 30px;
+}
+
 footer {
   background: -webkit-linear-gradient(90deg, #6468b8, #9094DC);
   background: -moz-linear-gradient(90deg, #6468b8, #9094DC);
