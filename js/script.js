@@ -226,9 +226,8 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
     }
 ]);
 
-var JsonProvisionModalInstanceCtrlVar = function($scope, $modalInstance, $log, $http, jsonName) {
+var JsonProvisionModalInstanceCtrlVar = function($scope, $modalInstance, $log, jsonName) {
     $scope.json = { name: jsonName, text: '' };
-    $scope.url = "";
 
     $scope.ok = function() {
         $modalInstance.close({ name : jsonName, text: $scope.json.text });
@@ -237,24 +236,4 @@ var JsonProvisionModalInstanceCtrlVar = function($scope, $modalInstance, $log, $
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
     };
-
-    $scope.obtainJSON = function() {
-        delete $http.defaults.headers.common['X-Requested-With'];
-        $http.defaults.useXDomain = true;
-
-        var dataToSend = $.param( {
-            url : $scope.url
-        });
-
-        $http({
-            method : 'POST',
-            url : "http://apps.jlcanovas.es/jsonDiscoverer/getJson",
-            data : dataToSend,
-            headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(data) {
-            $scope.json.text = JSON.stringify(data);
-        }).error(function(data, status, headers, config) {
-            $scope.url = "";
-        });
-    }
 }
