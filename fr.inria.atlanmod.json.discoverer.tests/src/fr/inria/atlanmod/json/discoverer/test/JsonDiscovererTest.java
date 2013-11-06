@@ -1,24 +1,27 @@
 package fr.inria.atlanmod.json.discoverer.test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
-import fr.inria.atlanmod.JsonStandaloneSetup;
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 
 public class JsonDiscovererTest {
-	public static String TEST_FILE = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1A.json";
-	public static String RESULT_TEST_FILE = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1B.ecore";
+	public static String TEST_FILE = "./json/group/tan1A.json";
+	public static String RESULT_TEST_FILE = "./result.ecore";
 	
-	public static String TEST_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1B.json";
-	public static String RESULT_TEST_FILE_2 = "C:/Users/useradm/eclipses/eclipse-juno/runtime-JSON/Test/tan1/tan1B.ecore";
+	public static String TEST_FILE_2 = "./json/group/tan1B.json";
+	public static String RESULT_TEST_FILE_2 = "./refined.ecore";
 
 	public static String JSON_TEST = " { \"codeLieu\":\"CRQU4\", \"libelle\":\"Place du Cirque\" }";
 
@@ -29,17 +32,18 @@ public class JsonDiscovererTest {
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		JsonStandaloneSetup.doSetup();
-
+	public static void main(String[] args) throws FileNotFoundException {
 		JsonDiscoverer discoverer = new JsonDiscoverer();
-		EPackage ePackage = discoverer.discoverMetamodel(JSON_TEST);
+		EPackage ePackage = discoverer.discoverMetamodel(new File(TEST_FILE));
 		
 //		EPackage ePackage = discoverer.discoverMetamodel(new File(TEST_FILE));
 
 		ResourceSet rset = new ResourceSetImpl();
+		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+		
 		Resource res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
-		res2.getContents().add(ePackage);
+		res2.getContents().add(ePackage); 
 		try {
 			res2.save(null);
 		} catch (IOException e) {

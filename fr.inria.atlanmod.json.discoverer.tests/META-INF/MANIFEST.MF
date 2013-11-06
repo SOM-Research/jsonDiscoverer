@@ -6,17 +6,5 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: fr.inria.atlanmod.json.discoverer.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: fr.inria.atlanmod.json.discoverer,
- org.eclipse.core.runtime,
- org.eclipse.xtext.junit4,
- org.eclipse.ui.workbench;resolution:=optional,
- fr.inria.atlanmod.json.discoverer.ui;bundle-version="1.0.0"
-Import-Package: org.apache.log4j,
- org.junit;version="4.5.0",
- org.junit.runner;version="4.5.0",
- org.junit.runner.manipulation;version="4.5.0",
- org.junit.runner.notification;version="4.5.0",
- org.junit.runners;version="4.5.0",
- org.junit.runners.model;version="4.5.0",
- org.hamcrest.core
+ org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: fr.inria.atlanmod
