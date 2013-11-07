@@ -36,6 +36,8 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -54,6 +56,11 @@ public class JsonDiscoverer {
 	HashMap<String, EClass> eClasses = new HashMap<String, EClass>();
 	
 	private final static Logger LOGGER = Logger.getLogger(JsonDiscoverer.class.getName());
+	
+	public JsonDiscoverer() {
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
+	}
 	
 	/**
 	 * Discover a metamodel from scratch using a json String
