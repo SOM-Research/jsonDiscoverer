@@ -18,6 +18,12 @@ import coverage.Coverage;
 import coverage.CoverageFactory;
 import coverage.RefMapping;
 
+/**
+ * This class allows managing coverage information for a pair of model/metamodel
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
 public class CoverageCreator {
 	private Coverage coverage;
 	private EPackage ePackage;

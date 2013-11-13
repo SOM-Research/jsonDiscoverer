@@ -16,8 +16,12 @@ public class JsonComposerTest {
 
 	public static String TEST_FILE_1 = "./json/group/tan1.ecore";
 	public static String TEST_JSON_FILE_1 = "./json/group/tan1A.json";
+	public static String COVERAGE_FILE1 = "./json/group/tan1.coverage.xmi";
+	
 	public static String TEST_FILE_2 = "./json/tan2.ecore";
 	public static String TEST_JSON_FILE_2 = "./json/tan2.json";
+	public static String COVERAGE_FILE2 = "./json/tan2.coverage.xmi";
+	
 	public static String RESULT = "./tan-composed.ecore";
 
 	public static void main(String[] args) throws FileNotFoundException  {
@@ -35,6 +39,10 @@ public class JsonComposerTest {
 		List<File> list2 = new ArrayList<File>();
 		list2.add(new File(TEST_JSON_FILE_2));
 		examples.put(file2, list2);
+		
+		List<File> coveragePaths = new ArrayList<File>();
+		coveragePaths.add(new File(COVERAGE_FILE1));
+		coveragePaths.add(new File(COVERAGE_FILE2));
 
 
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
@@ -42,5 +50,6 @@ public class JsonComposerTest {
 		
 		JsonComposer composer = new JsonComposer(fileList, examples);
 		composer.compose(new File(RESULT));
+		composer.saveCoverage(coveragePaths);
 	}
 }

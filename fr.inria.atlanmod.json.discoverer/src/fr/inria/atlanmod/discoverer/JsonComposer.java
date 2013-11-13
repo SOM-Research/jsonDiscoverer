@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.naming.OperationNotSupportedException;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -102,9 +104,15 @@ public class JsonComposer {
 	 * 
 	 * @param resultPath The path where the converage information will be saved
 	 */
-	public void saveCoverage(File resultPath) {
-		for(CoverageCreator coverageCreator : coverageCreators) 
-			coverageCreator.save(resultPath);
+	public void saveCoverage(List<File> resultPaths) {
+		if(resultPaths.size() == coverageCreators.size())
+			for(int i = 0; i < coverageCreators.size(); i++) {
+				CoverageCreator coverageCreator = coverageCreators.get(i); 
+				coverageCreator.save(resultPaths.get(i));
+			}
+		else {
+			throw new IllegalArgumentException("The size of the paths must match the size of coverage files");
+		}
 	}
 	
 	/**
