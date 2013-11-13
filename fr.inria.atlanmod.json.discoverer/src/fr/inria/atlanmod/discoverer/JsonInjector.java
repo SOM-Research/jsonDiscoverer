@@ -11,14 +11,11 @@
 
 package fr.inria.atlanmod.discoverer;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
-import java.security.spec.ECParameterSpec;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -53,7 +50,7 @@ import com.google.gson.stream.JsonReader;
  */
 public class JsonInjector {
 	EPackage metamodel = null;
-	private final static Logger LOGGER = Logger.getLogger(JsonDiscoverer.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(JsonInjector.class.getName());
 
 	/**
 	 * Injects the model conforming to a metamodel from a JSON file
