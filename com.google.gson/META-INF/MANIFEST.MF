@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Gson
+Bundle-SymbolicName: com.google.gson
+Bundle-Version: 2.2.4
+Bundle-Vendor: GOOGLE
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ClassPath: .,
+ lib/gson-2.2.4.jar
+Export-Package: com.google.gson,
+ com.google.gson.annotations,
+ com.google.gson.internal,
+ com.google.gson.internal.bind,
+ com.google.gson.reflect,
+ com.google.gson.stream
