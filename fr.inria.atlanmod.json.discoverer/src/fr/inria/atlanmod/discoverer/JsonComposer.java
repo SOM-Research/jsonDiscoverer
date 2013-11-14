@@ -13,7 +13,6 @@ package fr.inria.atlanmod.discoverer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +20,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import javax.naming.OperationNotSupportedException;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -39,8 +36,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 
 import coverage.util.CoverageCreator;
 
@@ -52,53 +47,37 @@ import coverage.util.CoverageCreator;
  *
  */
 public class JsonComposer {
-	private List<EPackage> ePackages;
+	/**
+	 * Set of sources to compose
+	 */
+	private HashMap<String, JsonSource> sources;
+	
 	private HashMap<String, EClass> registry;
 	private List<CoverageCreator> coverageCreators;
-	HashMap<File, List<File>> jsonFiles;
+	
 	HashMap<EAttribute, List<Object>> cacheValues;
 	
 	private final static Logger LOGGER = Logger.getLogger(JsonComposer.class.getName());
 
-	/**
-	 * Creates a JSON Composer. 
-	 * 
-	 * @param elements List of File elements pointing at ecore files or list of EPackages
-	 */
-	public JsonComposer(List elements) {
-		this.ePackages = new ArrayList<EPackage>();
-		
-		// Limitation of Java. I would need two constructors: one for each type of element lists
-		if(elements != null && elements.size() > 0) {
-			Object object = elements.get(0);
-			if (object instanceof File) {
-				List<File> files = (List<File>) elements;
-				for(File file : files)
-					this.ePackages.add(loadEPackage(file));				
-			} else if (object instanceof EPackage) {
-				List<EPackage> ePackages = (List<EPackage>) elements;
-				this.ePackages = ePackages;
-			} else {
-				throw new UnsupportedOperationException("The input type does not match with required");
+	public JsonComposer(List<JsonSource> sources) {
+		if(sources == null) 
+			throw new IllegalArgumentException("Sources cannot be null");
+		else if(sources.size() == 0) 
+			throw new IllegalArgumentException("At least 1 source is required to compose");
+
+		// All the sources must include the metamodel
+		this.sources = new HashMap<String, JsonSource>();
+		for(JsonSource jsonSource : sources) {
+			if(jsonSource.getMetamodel() == null) {
+				// For those not including the metamodel, it is discovered
+				JsonDiscoverer discoverer = new JsonDiscoverer();
+				discoverer.discoverMetamodel(jsonSource);
 			}
+			this.sources.put(jsonSource.getName(), jsonSource); // TODO deep-clone?
 		}
 		this.cacheValues = new HashMap<EAttribute, List<Object>>();
 	}
-	
-	/**
-	 * Creates a JSON Composer from a set of metamodels. For each metamodel, a set of example models
-	 * can be provided.
-	 * 
-	 * @param files List of File elements pointing at ecore files or list of EPackages
-	 * @param jsonFiles Map of XMI files containing models conforming to the previous metamodels. The key is the path to the
-	 * ecore metamodel
-	 * @deprecated
-	 */
-	public JsonComposer(List<File> files, HashMap<File, List<File>> jsonFiles) {
-		this(files);
-		this.jsonFiles = jsonFiles;
-	}
-
+		
 	/**
 	 * Saves the coverage information
 	 * 
@@ -118,31 +97,38 @@ public class JsonComposer {
 	/**
 	 * Compose the JSON files
 	 * 
+	 * @param resultingName The name for the resulting package metamodel
 	 * @param resultPath The path where the resulting metamodel will be stored
 	 * @return The resulting metamodel as EPackage
+	 * @throws FileNotFoundException
 	 */
-	public EPackage compose(File resultPath) throws FileNotFoundException {
-		EPackage finalPackage = compose();
+	public EPackage compose(String resultingName, File resultPath) throws FileNotFoundException {
+		EPackage finalPackage = compose(resultingName);
 		saveEPackage(finalPackage, resultPath);
 		return finalPackage;
 	}
 	
-	public EPackage compose() throws FileNotFoundException  {
-		if(ePackages.size() == 0) 
-			return null;
-
+	/**
+	 * Compose the JSON sources received when building the object
+	 * 
+	 * @return
+	 * @throws FileNotFoundException
+	 */
+	public EPackage compose(String resultingName) throws FileNotFoundException  {
+		// Creating the resulting metamodel
 		EPackage finalPackage = EcoreFactory.eINSTANCE.createEPackage();
-		finalPackage.setName("composed");
-		finalPackage.setNsPrefix("composed");
-		finalPackage.setNsURI("http://composed");
+		finalPackage.setName(resultingName);
+		finalPackage.setNsPrefix("composed" + resultingName.charAt(0));
+		finalPackage.setNsURI("http://fr.inria.atlanmod/discovered/" + resultingName);
 
+		// Initializing variables
 		registry = new HashMap<String, EClass>();
 		List<EReference> referencesToCheck = new ArrayList<EReference>();
 		coverageCreators = new ArrayList<CoverageCreator>();
-		for(EPackage ePackage: ePackages) {
-			CoverageCreator coverageCreator = new CoverageCreator(ePackage);
+		for(JsonSource jsonSource : getSources()) {
+			CoverageCreator coverageCreator = new CoverageCreator(jsonSource.getName(), jsonSource.getMetamodel(), finalPackage);
 
-			for(EClassifier classifier : ePackage.getEClassifiers()) {
+			for(EClassifier classifier : jsonSource.getMetamodel().getEClassifiers()) {
 				if (classifier instanceof EClass) {
 					EClass eClass = (EClass) classifier;
 					EClass registryElement = registry.get(eClass.getName());
@@ -163,7 +149,6 @@ public class JsonComposer {
 
 				}
 			}
-
 			coverageCreators.add(coverageCreator);
 		}
 
@@ -273,7 +258,7 @@ public class JsonComposer {
 				EAttribute duplicatedAttribute = duplicateAttribute((EAttribute) otherFeature);
 				newClass.getEStructuralFeatures().add(duplicatedAttribute);
 				coverageCreator.createAttMapping((EAttribute) otherFeature, duplicatedAttribute);
-				cacheValues.put(duplicatedAttribute, getJSONValues(duplicatedAttribute.getName(), coverageCreator.getFile()));
+				cacheValues.put(duplicatedAttribute, getJSONValues(duplicatedAttribute.getName(), coverageCreator.getName()));
 			}
 		}
 		return newClass;
@@ -281,7 +266,7 @@ public class JsonComposer {
 
 
 	private EAttribute lookForSimilarAttribute(EClass existingClass, EAttribute otherAttribute, CoverageCreator coverageCreator) throws FileNotFoundException  {
-		List<Object> jsonValues = getJSONValues(otherAttribute.getName(), coverageCreator.getFile());
+		List<Object> jsonValues = getJSONValues(otherAttribute.getName(), coverageCreator.getName());
 
 		Iterator<EAttribute> it = cacheValues.keySet().iterator();
 		while(it.hasNext()) {
@@ -305,24 +290,22 @@ public class JsonComposer {
 
 	/**
 	 * Gets the values for a particular key
-	 * TODO: Change this!!
 	 * 
 	 * @param name
-	 * @param service
+	 * @param sourceName
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	private List<Object> getJSONValues(String name, File service) throws FileNotFoundException {
-		List<Object> result = new ArrayList<Object>();
-		if(jsonFiles == null) return result;
-
-		ResourceSet rset = new ResourceSetImpl();
-		List<File> files = jsonFiles.get(service);
-		if(files == null) return result;
-
-		File file = files.get(0);
+	private List<Object> getJSONValues(String name, String sourceName) throws FileNotFoundException {
+		if(name == null || name.equals("")) 
+			throw new IllegalArgumentException("Name cannot be null or empty");
+		if(sourceName == null || sourceName.equals("")) 
+			throw new IllegalArgumentException("sourceName cannot be null or empty");
 		
-		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(file)));
+		List<Object> result = new ArrayList<Object>();
+		List<JsonElement> jsonDefs = sources.get(sourceName).getJsonDefs();
+		if(jsonDefs.size() == 0) return result;
+		JsonElement rootElement = jsonDefs.get(0); // TODO Consider all of them!
 		
 		List<JsonObject> elements = new ArrayList<JsonObject>();
 		if (rootElement.isJsonArray()) {
@@ -363,20 +346,6 @@ public class JsonComposer {
 		return result;
 	}
 
-	private EPackage loadEPackage(File file) {
-		ResourceSet rset = new ResourceSetImpl();
-		Resource res = rset.getResource(URI.createFileURI(file.getAbsolutePath()), true);
-
-		try {
-			res.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		EPackage ePackage = (EPackage) res.getContents().get(0);
-		return ePackage;
-	}
-
 	private void saveEPackage(EPackage ePackage, File resultPath) {
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
@@ -388,4 +357,12 @@ public class JsonComposer {
 			e.printStackTrace();
 		}
 	}
+
+	private List<JsonSource> getSources() {
+		List<JsonSource> result = new ArrayList<JsonSource>();
+		result.addAll(this.sources.values());
+		return result;
+	}
+	
+	
 }

@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
+import fr.inria.atlanmod.discoverer.JsonSource;
 
 public class JsonDiscovererTest {
 	public static String TEST_FILE = "./json/group/tan1A.json";
@@ -33,11 +34,12 @@ public class JsonDiscovererTest {
 	 * @param args
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		JsonDiscoverer discoverer = new JsonDiscoverer();
-		EPackage ePackage = discoverer.discoverMetamodel(new File(TEST_FILE));
+		JsonSource source = new JsonSource("test");
+		source.addJsonDef(new File(TEST_FILE));
 		
-//		EPackage ePackage = discoverer.discoverMetamodel(new File(TEST_FILE));
-
+		JsonDiscoverer discoverer = new JsonDiscoverer();
+		EPackage ePackage = discoverer.discoverMetamodel(source);
+		
 		ResourceSet rset = new ResourceSetImpl();
 		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
@@ -49,18 +51,20 @@ public class JsonDiscovererTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		
-//		System.out.println("\nRefining\n");
-//		
-//		discoverer = new JsonDiscoverer();
-//		EPackage ePackage2 = discoverer.refineMetamodel(new File(TEST_FILE_2), new File(RESULT_TEST_FILE));
+		
+		System.out.println("\nRefining\n");
+		JsonSource source2 = new JsonSource("test2");
+		source2.addJsonDef(new File(TEST_FILE_2));
+		
+		discoverer = new JsonDiscoverer();
+		EPackage ePackage2 = discoverer.refineMetamodel(ePackage, source2);
 
-//		res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
-//		res2.getContents().add(ePackage2);
-//		try {
-//			res2.save(null);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
+		res2.getContents().add(ePackage2);
+		try {
+			res2.save(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

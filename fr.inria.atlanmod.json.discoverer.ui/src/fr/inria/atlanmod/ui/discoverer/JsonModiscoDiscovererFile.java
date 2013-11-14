@@ -29,6 +29,7 @@ import org.eclipse.modisco.infra.discovery.core.IDiscoverer;
 import org.eclipse.modisco.infra.discovery.core.exception.DiscoveryException;
 
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
+import fr.inria.atlanmod.discoverer.JsonSource;
 
 /**
  * Discovers a metamodel from a json file
@@ -45,14 +46,17 @@ public class JsonModiscoDiscovererFile extends JsonModiscoDiscoverer implements 
 
 	@Override
 	public void discoverElement(IFile source, IProgressMonitor monitor)	throws DiscoveryException {
-		JsonDiscoverer discoverer = new JsonDiscoverer();
-		
 		File sourceFile = new File(source.getRawLocationURI());
 		File targetFile = new File(sourceFile.getAbsolutePath().substring(0, sourceFile.getAbsolutePath().lastIndexOf("."))+ ".ecore");
 
+		
+		JsonDiscoverer discoverer = new JsonDiscoverer();
 		EPackage ePackage;
 		try {
-			ePackage = discoverer.discoverMetamodel(sourceFile);
+			JsonSource jsonSource = new JsonSource("discovered");
+			jsonSource.addJsonDef(sourceFile);
+			
+			ePackage = discoverer.discoverMetamodel(jsonSource);
 		} catch (FileNotFoundException e1) {
 			throw new DiscoveryException(e1.getMessage());
 		}

@@ -8,14 +8,17 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
 import coverage.AttMapping;
 import coverage.ConceptMapping;
 import coverage.Coverage;
 import coverage.CoverageFactory;
+import coverage.CoveragePackage;
 import coverage.RefMapping;
 
 /**
@@ -26,18 +29,22 @@ import coverage.RefMapping;
  */
 public class CoverageCreator {
 	private Coverage coverage;
-	private EPackage ePackage;
-	private File file;
-	
-	public CoverageCreator(File file) {
-		coverage = CoverageFactory.eINSTANCE.createCoverage();
-		coverage.setService(file.getName());
-		this.file = file;
-	}
-	
-	public CoverageCreator(EPackage ePackage) {
-		coverage = CoverageFactory.eINSTANCE.createCoverage();
-		this.ePackage = ePackage;
+	private EPackage sourcePackage;
+	private EPackage targetPackage;
+	private String name;
+		
+	public CoverageCreator(String name, EPackage sourcePackage, EPackage targetPackage) {
+		if(name == null || name.equals(""))
+			throw new IllegalArgumentException("Name cannot be null or empty");
+		if(sourcePackage == null)
+			throw new IllegalArgumentException("sourcePackage cannot be null");
+		if(targetPackage == null)
+			throw new IllegalArgumentException("targetPackage cannot be null");
+		
+		this.name = name;
+		this.sourcePackage = sourcePackage;
+		this.targetPackage = targetPackage;
+		this.coverage = CoverageFactory.eINSTANCE.createCoverage();
 	}
 	
 	public void createConceptMapping(EClass source, EClass target) {
@@ -65,33 +72,47 @@ public class CoverageCreator {
 		return coverage;
 	}
 	
-	public File getFile() {
-		return file;
+	public String getName() {
+		return name;
+	}
+
+	public void save(File composite) {
+		ResourceSet rset = new ResourceSetImpl();
+//		EPackage.Registry.INSTANCE.put(sourcePackage.getNsURI(), sourcePackage);
+//		EPackage.Registry.INSTANCE.put(targetPackage.getNsURI(), targetPackage);
+//		rset.setPackageRegistry(EPackage.Registry.INSTANCE);
+//		rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+//		rset.getResource(URI.createURI(sourcePackage.getNsURI()), true);
+//		rset.getResource(URI.createURI(targetPackage.getNsURI()), true);
+		Resource res = rset.createResource(URI.createFileURI(composite.getAbsolutePath()));
+		
+		
+		try {
+			res.getContents().add(sourcePackage);
+			res.getContents().add(targetPackage);
+			res.getContents().add(coverage);
+			res.save(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void save(File composite) {
-		if(file == null) return;
+	public static Coverage loadCoverage(File file) {
 		ResourceSet rset = new ResourceSetImpl();
-		Resource res1 = rset.getResource(URI.createFileURI(file.getAbsolutePath()), true);
+		rset.getPackageRegistry().put(CoveragePackage.eNS_URI, CoveragePackage.eINSTANCE);
+		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+		rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new EcoreResourceFactoryImpl());
+
+		Resource res = rset.getResource(URI.createFileURI(file.getAbsolutePath()), true);
+
 		try {
-			res1.load(null);
+			res.load(null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		Resource res2 = rset.getResource(URI.createFileURI(composite.getAbsolutePath()), true);
-		try {
-			res2.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		Resource res3 = rset.createResource(URI.createFileURI(file.getAbsolutePath().substring(0,file.getAbsolutePath().indexOf("."))+".coverage.xmi"));
-		try {
-			res3.getContents().add(coverage);
-			res3.save(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Coverage coverage = (Coverage) res.getContents().get(0);
+		return coverage;
 	}
 }

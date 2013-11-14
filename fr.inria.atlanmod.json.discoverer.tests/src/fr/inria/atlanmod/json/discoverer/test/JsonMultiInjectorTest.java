@@ -3,7 +3,11 @@ package fr.inria.atlanmod.json.discoverer.test;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import coverage.Coverage;
+import coverage.util.CoverageCreator;
+
 import fr.inria.atlanmod.discoverer.JsonMultiInjector;
+import fr.inria.atlanmod.discoverer.SingleJsonSource;
 
 public class JsonMultiInjectorTest {
 
@@ -15,15 +19,22 @@ public class JsonMultiInjectorTest {
 	public static String METAMODEL_FILE2 = "./json/group/tan1.ecore";
 	public static String COVERAGE_FILE2 = "./json/group/tan1.coverage.xmi";
 
-	public static String COMPOSITE_METAMODEL_FILE = "./json/tan-composed.ecore";
 	public static String COMPOSITE_OUTPUT_FILE = "tan-composed.xmi";
 
 
 	public static void main(String[] args) throws FileNotFoundException {
-		JsonMultiInjector injector = new JsonMultiInjector();
-		injector.multiInject(new File(INPUT_FILE1), new File(METAMODEL_FILE1), new File(COVERAGE_FILE1),
-				new File(INPUT_FILE2), new File(METAMODEL_FILE2), new File(COVERAGE_FILE2),
-				new File(COMPOSITE_METAMODEL_FILE), new File(COMPOSITE_OUTPUT_FILE));
+		SingleJsonSource source1 = new SingleJsonSource("source1");
+		source1.addJsonDef(new File(INPUT_FILE1));
+		
+		Coverage coverage1 = CoverageCreator.loadCoverage(new File(COVERAGE_FILE1));
+
+		SingleJsonSource source2 = new SingleJsonSource("source2");
+		source2.addJsonDef(new File(INPUT_FILE2));
+
+		Coverage coverage2 = CoverageCreator.loadCoverage(new File(COVERAGE_FILE2));
+		
+		JsonMultiInjector injector = new JsonMultiInjector(source1, coverage1, source2, coverage2);
+		injector.multiInject(new File(COMPOSITE_OUTPUT_FILE));
 	}
 
 }

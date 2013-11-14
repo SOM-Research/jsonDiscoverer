@@ -11,19 +11,13 @@
 
 package fr.inria.atlanmod.discoverer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List; 
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -34,16 +28,12 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 
 /**
  * Main class to discover/refine metamodels (ecore file) from json definitions (json file).
@@ -54,80 +44,88 @@ import com.google.gson.stream.JsonReader;
  */
 public class JsonDiscoverer {
 	HashMap<String, EClass> eClasses = new HashMap<String, EClass>();
-	
+
 	private final static Logger LOGGER = Logger.getLogger(JsonDiscoverer.class.getName());
-	
+
 	public JsonDiscoverer() {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 	}
-	
-	/**
-	 * Discover a metamodel from scratch using a json String
-	 * 
-	 * @param jsonString The json text
-	 * @return The JSON model
-	 */
-	public EPackage discoverMetamodel(String jsonString) {
-		JsonElement element = (new JsonParser()).parse(new JsonReader(new StringReader(jsonString)));
-		return discoverMetamodel(element);
-	}
 
 	/**
-	 * Discover a metamodel from scratch using an existing json file
+	 * Launches the metamodel discoverer from a JSON model. The method received a JsonSource 
+	 * element which includes the set of JSON definitions to be considered. 
 	 * 
-	 * @param sourceFile (the json file)
-	 * @return EPackage containing the EClasses discovered
-	 * @throws FileNotFoundException 
-	 */
-	public EPackage discoverMetamodel(File sourceFile) throws FileNotFoundException {
-		JsonElement element = (new JsonParser()).parse(new JsonReader(new FileReader(sourceFile)));
-		return discoverMetamodel(element);
-	}
-	
-	/**
-	 * Launches the metamodel discoverer from a JSON model. Only the JSON objects included (both 
-	 * if it is a single JSON object or an array of JSON objects) will be considered
+	 * At the end, the discovered metamodel is returned and also stored in the JsonSource
+	 * received as param
 	 * 
-	 * @param model The JSON model
-	 * @return the Epackage (Ecore model)
+	 * @param source
+	 * @return Epackage (Ecore model)
 	 */
-	private EPackage discoverMetamodel(JsonElement rootElement) {
-		List<JsonObject> elements = new ArrayList<JsonObject>();
-		if (rootElement.isJsonArray()) {
-			LOGGER.finer("Several objects found");
-			for(int i = 0; i < rootElement.getAsJsonArray().size(); i++)
-				if(rootElement.getAsJsonArray().get(i).isJsonObject())
-					elements.add(rootElement.getAsJsonArray().get(i).getAsJsonObject());
-		} else if(rootElement.isJsonObject()) {
-			LOGGER.finer("Only one object found");
-			elements.add(rootElement.getAsJsonObject());
-		} else {
-			LOGGER.finest("The root element was " + rootElement.getClass().getName());
-			LOGGER.finest("It is: " + rootElement.getAsString());
-		}
+	public EPackage discoverMetamodel(JsonSource source) {
+		if(source == null) 
+			throw new IllegalArgumentException("Source cannot be null");
+		else if(source.getJsonDefs().size() == 0) 
+			throw new IllegalArgumentException("The source must include, at least, one JSON definition.");
 		
+		List<JsonObject> elements = new ArrayList<JsonObject>();
+
+		// Getting all the root elements
+		for(JsonElement rootElement : source.getJsonDefs()) {
+			if (rootElement.isJsonArray()) {
+				LOGGER.finer("Several objects found");
+				for(int i = 0; i < rootElement.getAsJsonArray().size(); i++)
+					if(rootElement.getAsJsonArray().get(i).isJsonObject())
+						elements.add(rootElement.getAsJsonArray().get(i).getAsJsonObject());
+			} else if(rootElement.isJsonObject()) {
+				LOGGER.finer("Only one object found");
+				elements.add(rootElement.getAsJsonObject());
+			} else {
+				LOGGER.finest("The root element was " + rootElement.getClass().getName());
+				LOGGER.finest("It is: " + rootElement.getAsString());
+			}
+		}
+
 		// Launching discoverer
 		discoverMetaclasses(elements);
 
 		// Default package
 		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
-		ePackage.setName("DiscoveredPackage");
-		ePackage.setNsURI("http://fr.inria.atlanmod/discovered");
-		ePackage.setNsPrefix("disco");
-
+		ePackage.setName(source.getName());
+		ePackage.setNsURI("http://fr.inria.atlanmod/discovered/" + source.getName());
+		ePackage.setNsPrefix("disco" + source.getName().charAt(0));
+		
 		ePackage.getEClassifiers().addAll(geteClasses().values());
+		source.setMetamodel(ePackage);
 
 		return ePackage;
 	}
 	
+	/**
+	 * Refines an existing metamodel with new JSON definitions coming from a new JsonSource
+	 * 
+	 * @param toRefine
+	 * @param source
+	 * @return
+	 */
+	public EPackage refineMetamodel(EPackage toRefine, JsonSource source) {
+		for(EClassifier eClassifier : toRefine.getEClassifiers()) {
+			if (eClassifier instanceof EClass) {
+				EClass eClass = (EClass) eClassifier;
+				eClasses.put(eClass.getName(), eClass);
+				LOGGER.fine("added " + eClass.getName());
+			}
+		}
+		return discoverMetamodel(source);
+	}
+
 
 	/**
 	 * Discover the metaclasses for a list of JsonObjects
 	 * 
 	 * @param jsonObjects
 	 */
-	public void discoverMetaclasses(List<JsonObject> jsonObjects) {
+	private void discoverMetaclasses(List<JsonObject> jsonObjects) {
 		LOGGER.fine("Received " + jsonObjects.size() + " json objects to discover");
 		for(JsonObject jsonObject : jsonObjects) {
 			discoverMetaclass("Root", jsonObject);
@@ -141,7 +139,7 @@ public class JsonDiscoverer {
 	 * @param jsonObject the JsonObject
 	 * @return Discovered EClass
 	 */
-	public EClass discoverMetaclass(String id, JsonObject jsonObject) {
+	private EClass discoverMetaclass(String id, JsonObject jsonObject) {
 		EClass eClass = eClasses.get(id);
 		if(eClass != null) {
 			LOGGER.finer("Refining " + id);
@@ -152,7 +150,7 @@ public class JsonDiscoverer {
 		}
 		return eClass;
 	}
-	
+
 	/**
 	 * Creates a new metaclass form scratch. Takes a jsonobject as input and 
 	 * an identifier.
@@ -171,7 +169,7 @@ public class JsonDiscoverer {
 		LOGGER.finer("Iterating over " + jsonObject.entrySet().size() + " pairs");
 		while(pairs.hasNext()) {
 			Map.Entry<String, JsonElement> pair = pairs.next();
-			
+
 			String pairId = pair.getKey();
 			JsonElement value = pair.getValue();
 
@@ -179,7 +177,7 @@ public class JsonDiscoverer {
 		}
 		return eClass;
 	}
-	
+
 	/**
 	 * Refines the attributes and references of an existing eclass
 	 * from a new JsonObject definition. 
@@ -189,11 +187,11 @@ public class JsonDiscoverer {
 	 */
 	private EClass refineMetaclass(EClass eClass, JsonObject jsonObject) {
 		LOGGER.fine("Refining metaclass " + eClass.getName());
-		
+
 		Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
 		while(pairs.hasNext()) {
 			Map.Entry<String, JsonElement> pair = pairs.next();
-			
+
 			String pairId = pair.getKey();
 			JsonElement value = pair.getValue();
 
@@ -208,7 +206,7 @@ public class JsonDiscoverer {
 						LOGGER.fine("No conflicts with attribute " + eAttribute.getName());
 					}
 				} else if (eStructuralFeature instanceof EReference) {
-					
+
 				}
 			} else {
 				createStructuralFeature(pairId, value, 0, eClass);
@@ -217,7 +215,7 @@ public class JsonDiscoverer {
 
 		return eClass;
 	}
-	
+
 	/**
 	 * Creates a new structuralFeature out from a pairId/Value
 	 * 
@@ -228,14 +226,14 @@ public class JsonDiscoverer {
 	private void createStructuralFeature(String pairId, JsonElement value, int lowerBound, EClass eClass) {
 		EStructuralFeature eStructuralFeature = null;
 		EClassifier type = mapType(pairId, value);
-		
+
 		if(type instanceof EDataType) {
 			eStructuralFeature = EcoreFactory.eINSTANCE.createEAttribute();
 		} else {
 			eStructuralFeature = EcoreFactory.eINSTANCE.createEReference();
 			((EReference) eStructuralFeature).setContainment(true);
 		}
-		
+
 		if(value.isJsonArray()) {
 			eStructuralFeature.setUpperBound(-1);
 		}
@@ -247,65 +245,6 @@ public class JsonDiscoverer {
 			eClass.getEStructuralFeatures().add(eStructuralFeature);
 			LOGGER.fine(eStructuralFeature.getClass().getSimpleName() + " created with name " + pairId + " type " + eStructuralFeature.getEType().getName() + " and lower bound " + lowerBound);
 		}
-	}
-	
-	/**
-	 * Refines an exisiting metamodel (giving the file) from a json file
-	 * 
-	 * @param sourceFile
-	 * @param existingMetamodel
-	 * @return
-	 */
-	public EPackage refineMetamodel(File sourceFile, File existingMetamodel) throws FileNotFoundException {
-		ResourceSet rset = new ResourceSetImpl();
-		Resource res = rset.getResource(URI.createFileURI(existingMetamodel.getAbsolutePath()), true);
-		
-		try {
-			res.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		EPackage ePackage = (EPackage) res.getContents().get(0);
-		
-		return refineMetamodel(sourceFile, ePackage);
-	}
-	
-	/**
-	 * Refines an existing metamodel (giving the EPackage) from a json string
-	 * 
-	 * @param toRefine
-	 * @param newPackage
-	 * @return
-	 */
-	public EPackage refineMetamodel(String jsonString, EPackage toRefine) {
-		for(EClassifier eClassifier : toRefine.getEClassifiers()) {
-			if (eClassifier instanceof EClass) {
-				EClass eClass = (EClass) eClassifier;
-				eClasses.put(eClass.getName(), eClass);
-				LOGGER.fine("added " + eClass.getName());
-			}
-		}
-		return discoverMetamodel(jsonString);
-	}
-	
-	/**
-	 * Refines an exisiting metamodel (giving the EPackage) from a json file
-	 * 
-	 * @param sourceFile
-	 * @param ePackage
-	 * @return
-	 */
-	public EPackage refineMetamodel(File sourceFile, EPackage ePackage) throws FileNotFoundException {	
-		for(EClassifier eClassifier : ePackage.getEClassifiers()) {
-			if (eClassifier instanceof EClass) {
-				EClass eClass = (EClass) eClassifier;
-				eClasses.put(eClass.getName(), eClass);
-				LOGGER.fine("added " + eClass.getName());
-			}
-		}
-		
-		return discoverMetamodel(sourceFile);
 	}
 
 	/**
@@ -341,7 +280,7 @@ public class JsonDiscoverer {
 		return result;
 	}
 
-	public HashMap<String, EClass> geteClasses() {
+	private HashMap<String, EClass> geteClasses() {
 		return eClasses;
 	}
 

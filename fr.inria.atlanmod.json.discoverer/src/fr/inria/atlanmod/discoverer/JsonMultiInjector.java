@@ -13,7 +13,6 @@ package fr.inria.atlanmod.discoverer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,8 +38,6 @@ import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 
 import coverage.AttMapping;
 import coverage.ConceptMapping;
@@ -58,23 +55,37 @@ import coverage.RefMapping;
  */
 public class JsonMultiInjector {
 	private List<EObject> currentModel;
+	private SingleJsonSource source1, source2;
+	private Coverage coverage1, coverage2;
+
 	private final static Logger LOGGER = Logger.getLogger(JsonMultiInjector.class.getName());
-
-	public void multiInject(File jsonFile1, File metamodelFile1, File coverageFile1, File jsonFile2, File metamodelFile2, File coverageFile2, File compositeMetamodelFile, File compositeTargetFile) throws FileNotFoundException {
-		Coverage coverage1 = loadCoverage(coverageFile1);
-		Coverage coverage2 = loadCoverage(coverageFile2);
-
+	
+	public JsonMultiInjector(SingleJsonSource source1, Coverage coverage1, SingleJsonSource source2, Coverage coverage2) {
+		if(source1 == null || source1.getJsonDefs().size() == 0)
+			throw new IllegalArgumentException("Source1 cannot be null or have not json definitions");
+		if(coverage1 == null) 
+			throw new IllegalArgumentException("Coverage1 cannot be null");
+		if(source2 == null || source2.getJsonDefs().size() == 0)
+			throw new IllegalArgumentException("Source2 cannot be null or have not json definitions");
+		if(coverage2 == null) 
+			throw new IllegalArgumentException("Coverage2 cannot be null");
+		
+		this.source1 = source1;
+		this.coverage1 = coverage1;
+		this.source2 = source2;
+		this.coverage2 = coverage2;
+	}
+	
+	public void multiInject(File resultFile) throws FileNotFoundException {
 		currentModel = new ArrayList<EObject>();
 
-		inject(jsonFile1, metamodelFile1, coverage1);
-		inject(jsonFile2, metamodelFile2, coverage2);		
+		inject(source1.getJsonDefs().get(0), source1.getMetamodel(), coverage1);
+		inject(source2.getJsonDefs().get(0), source2.getMetamodel(), coverage2);		
 
-		saveModel(compositeTargetFile, currentModel);
+		saveModel(resultFile, currentModel);
 	}
 
-	protected void inject(File jsonFile, File metamodelFile, Coverage coverage) throws FileNotFoundException {
-		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(jsonFile)));
-		
+	protected void inject(JsonElement rootElement, EPackage metamodel, Coverage coverage) throws FileNotFoundException {
 		List<JsonObject> elements = new ArrayList<JsonObject>();
 		if (rootElement.isJsonArray()) {
 			LOGGER.finer("Several objects found");
@@ -89,7 +100,6 @@ public class JsonMultiInjector {
 			LOGGER.finest("It is: " + rootElement.getAsString());
 		}
 
-		EPackage metamodel = loadMetamodel(metamodelFile);
 		EClassifier eClassifier = metamodel.getEClassifier("Root");
 		for(JsonObject jsonObject : elements) {
 			EObject eObject = instantiateEClassifier(eClassifier, jsonObject, null, coverage, metamodel);
@@ -253,37 +263,6 @@ public class JsonMultiInjector {
 		} else {
 			return null;
 		}
-	}
-
-	public Coverage loadCoverage(File file) {
-		ResourceSet rset = new ResourceSetImpl();
-		rset.getPackageRegistry().put(CoveragePackage.eNS_URI, CoveragePackage.eINSTANCE);
-		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
-		rset.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
-
-		Resource res = rset.getResource(URI.createFileURI(file.getAbsolutePath()), true);
-
-		try {
-			res.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		Coverage coverage = (Coverage) res.getContents().get(0);
-		return coverage;
-	}
-
-	protected EPackage loadMetamodel(File metamodelFile) {
-		ResourceSet rset = new ResourceSetImpl();
-		Resource res = rset.getResource(URI.createFileURI(metamodelFile.getAbsolutePath()), true);
-
-		try {
-			res.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return (EPackage) res.getContents().get(0);
 	}
 
 	protected void saveModel(File targetFile, List<EObject> eObjects) {

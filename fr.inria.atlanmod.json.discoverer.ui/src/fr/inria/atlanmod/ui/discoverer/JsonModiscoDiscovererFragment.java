@@ -30,6 +30,7 @@ import org.eclipse.modisco.infra.discovery.core.exception.DiscoveryException;
 import org.eclipse.ui.PlatformUI;
 
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
+import fr.inria.atlanmod.discoverer.JsonSource;
 
 /**
  * Enriches an existing json metamodel from a json file
@@ -75,7 +76,9 @@ public class JsonModiscoDiscovererFragment extends JsonModiscoDiscoverer impleme
 		File targetFile = new File(path.substring(0, path.lastIndexOf("."))+ "-enriched.ecore");
 		EPackage ePackageRefined;
 		try {
-			ePackageRefined = discoverer.refineMetamodel(sourceFile, ePackage);
+			JsonSource jsonSource = new JsonSource("discovered");
+			jsonSource.addJsonDef(sourceFile);
+			ePackageRefined = discoverer.refineMetamodel(ePackage, jsonSource);
 		} catch (FileNotFoundException e1) {
 			throw new DiscoveryException(e1.getMessage());
 		}

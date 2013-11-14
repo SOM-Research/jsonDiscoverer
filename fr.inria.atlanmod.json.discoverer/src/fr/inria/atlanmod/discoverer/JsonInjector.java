@@ -12,10 +12,7 @@
 package fr.inria.atlanmod.discoverer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,8 +35,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 
 /**
  * This class performs the injection process (obtaining models from JSON files)
@@ -53,42 +48,21 @@ public class JsonInjector {
 	private final static Logger LOGGER = Logger.getLogger(JsonInjector.class.getName());
 
 	/**
-	 * Injects the model conforming to a metamodel from a JSON file
+	 * Injects a model from a JSON Source. Only the first one will be considered (if several)
 	 * 
-	 * @param jsonFile
-	 * @param metamodelFile
+	 * @param jsonSource
 	 * @return
 	 */
-	public List<EObject> inject(File jsonFile, File metamodelFile) throws FileNotFoundException {
-		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(jsonFile)));
-		EPackage metamodel = loadMetamodel(metamodelFile);
-		return inject(rootElement, metamodel);
+	public List<EObject> inject(SingleJsonSource jsonSource) {
+		if(jsonSource == null)
+			throw new IllegalArgumentException("The source cannot be null");
+		
+		JsonDiscoverer discoverer = new JsonDiscoverer();
+		EPackage ePackage = discoverer.discoverMetamodel(jsonSource);
+		JsonElement rootElement = jsonSource.getJsonDefs().get(0);
+		return inject(rootElement, ePackage);		
 	}
-
-	/**
-	 * Injects the model conforming to a metamodel from a JSON file
-	 * 
-	 * @param jsonFile
-	 * @param metamodelFile
-	 * @return
-	 */
-	public List<EObject> inject(String jsonString, EPackage ePackage) {
-		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new StringReader(jsonString)));
-		return inject(rootElement, ePackage);
-	}
-	
-	/**
-	 * Injects the model conforming to a metamodel from a JSON file
-	 * 
-	 * @param jsonFile
-	 * @param metamodelFile
-	 * @return
-	 */
-	public List<EObject> inject(File jsonFile, EPackage ePackage) throws FileNotFoundException  {
-		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(jsonFile)));
-		return inject(rootElement, ePackage);
-	}
-	
+		
 	/**
 	 * Injects a model conforming to the metamodel from a set of Json Objects
 	 * 
@@ -156,6 +130,7 @@ public class JsonInjector {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void setStructuralFeature(EObject result, EStructuralFeature eStructuralFeature, JsonElement value) {
 		LOGGER.finer("Setting feature " + eStructuralFeature.getName());
 		if (eStructuralFeature instanceof EAttribute) {

@@ -15,8 +15,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonInjector;
+import fr.inria.atlanmod.discoverer.SingleJsonSource;
 
 public class JsonInjectorTest {
 
@@ -26,12 +26,11 @@ public class JsonInjectorTest {
 
 
 	public static void main(String[] args) throws FileNotFoundException {
-		JsonDiscoverer discoverer = new JsonDiscoverer();
-		EPackage ePackage = discoverer.discoverMetamodel(new File(INPUT_FILE));
-		saveMetamodel(ePackage, METAMODEL_FILE);
-
+		SingleJsonSource source = new SingleJsonSource("test");
+		source.addJsonDef(new File(INPUT_FILE));
+		
 		JsonInjector injector = new JsonInjector();
-		List<EObject> result = injector.inject(new File(INPUT_FILE), ePackage);
+		List<EObject> result = injector.inject(source);
 		saveModel(result, OUTPUT_FILE);
 	}
 	
