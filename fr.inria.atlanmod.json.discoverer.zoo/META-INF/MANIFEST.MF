@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: fr.inria.atlanmod.json.discoverer.zoo
+Bundle-Vendor: Atlanmod
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: fr.inria.atlanmod.json.discoverer.zoo;singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: fr.inria.atlanmod.json.discoverer
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
