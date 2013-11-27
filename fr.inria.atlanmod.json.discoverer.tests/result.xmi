@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discot="http://fr.inria.atlanmod/discovered/test">
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="Closest">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Le Cardo" infotrafic="true" temps="Closest">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="1 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="H&#xf4;tel de R&#xe9;gion" infotrafic="true" temps="1 mn">
+    <ligne numLigne="52" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Haluch&#xe8;re-Batignolles" infotrafic="true" temps="2 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Perray" infotrafic="true" temps="3 mn">
+    <ligne numLigne="11" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Foch - Cath&#xe9;drale" infotrafic="true" temps="4 mn">
+    <ligne numLigne="22" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="5 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Tertre" infotrafic="true" temps="5 mn">
+    <ligne numLigne="11" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Hermeland" infotrafic="true" temps="5 mn">
+    <ligne numLigne="22" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Chantenay" infotrafic="true" temps="5 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="6 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Commerce" infotrafic="true" temps="6 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Le Cardo" infotrafic="true" temps="9 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Haluch&#xe8;re-Batignolles" infotrafic="true" temps="10 mn">
+    <ligne numLigne="52" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="11 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="11 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Haluch&#xe8;re-Batignolles" infotrafic="true" temps="12 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="16 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Chantenay" infotrafic="true" temps="16 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Commerce" infotrafic="true" temps="16 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="17 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Perray" infotrafic="true" temps="17 mn">
+    <ligne numLigne="11" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Ecole Centrale - Audencia" temps="19 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="H&#xf4;tel de R&#xe9;gion" infotrafic="true" temps="19 mn">
+    <ligne numLigne="52" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Le Cardo" infotrafic="true" temps="19 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Foch - Cath&#xe9;drale" infotrafic="true" temps="20 mn">
+    <ligne numLigne="22" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="21 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Hermeland" infotrafic="true" temps="21 mn">
+    <ligne numLigne="22" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="22 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Tertre" infotrafic="true" temps="22 mn">
+    <ligne numLigne="11" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Haluch&#xe8;re-Batignolles" infotrafic="true" temps="22 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="26 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Chantenay" infotrafic="true" temps="26 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="27 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Haluch&#xe8;re-Batignolles" infotrafic="true" temps="27 mn">
+    <ligne numLigne="52" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Commerce" infotrafic="true" temps="27 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Ecole Centrale - Audencia" temps="29 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Le Cardo" infotrafic="true" temps="29 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="31 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Foch - Cath&#xe9;drale" infotrafic="true" temps="32 mn">
+    <ligne numLigne="22" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Haluch&#xe8;re-Batignolles" infotrafic="true" temps="32 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="33 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Perray" infotrafic="true" temps="33 mn">
+    <ligne numLigne="11" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="35 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="36 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Chantenay" infotrafic="true" temps="36 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Commerce" infotrafic="true" temps="36 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Hermeland" infotrafic="true" temps="37 mn">
+    <ligne numLigne="22" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="H&#xf4;tel de R&#xe9;gion" infotrafic="true" temps="37 mn">
+    <ligne numLigne="52" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Ecole Centrale - Audencia" temps="38 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Tertre" infotrafic="true" temps="38 mn">
+    <ligne numLigne="11" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="39 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Le Cardo" infotrafic="true" temps="39 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="41 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Haluch&#xe8;re-Batignolles" infotrafic="true" temps="42 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="45 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="45 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Chantenay" infotrafic="true" temps="46 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Commerce" infotrafic="true" temps="46 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Haluch&#xe8;re-Batignolles" infotrafic="true" temps="47 mn">
+    <ligne numLigne="52" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Le Cardo" infotrafic="true" temps="47 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Foch - Cath&#xe9;drale" infotrafic="true" temps="48 mn">
+    <ligne numLigne="22" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Ecole Centrale - Audencia" temps="49 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="49 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Hermeland" infotrafic="true" temps="49 mn">
+    <ligne numLigne="22" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="51 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Perray" infotrafic="true" temps="51 mn">
+    <ligne numLigne="11" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="H&#xf4;tel Dieu" temps="52 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Haluch&#xe8;re-Batignolles" infotrafic="true" temps="52 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Le Cardo" infotrafic="true" temps="53 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU4"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Tertre" infotrafic="true" temps="54 mn">
+    <ligne numLigne="11" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="55 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="H&#xf4;tel de R&#xe9;gion" infotrafic="true" temps="55 mn">
+    <ligne numLigne="52" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Orvault - Grand Val" temps="56 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Chantenay" infotrafic="true" temps="56 mn">
+    <ligne numLigne="C1" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Commerce" infotrafic="true" temps="58 mn">
+    <ligne numLigne="C2" typeLigne="3"/>
+    <arret codeArret="CRQU3"/>
+  </discot:Root>
+  <discot:Root sens="1" terminus="Ecole Centrale - Audencia" temps="59 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU1"/>
+  </discot:Root>
+  <discot:Root sens="2" terminus="Gare de Pont-Rousseau" temps="59 mn">
+    <ligne numLigne="2" typeLigne="1"/>
+    <arret codeArret="CRQU2"/>
+  </discot:Root>
+</xmi:XMI>

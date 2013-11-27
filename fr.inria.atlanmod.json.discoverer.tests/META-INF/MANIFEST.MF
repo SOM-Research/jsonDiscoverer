@@ -6,5 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: fr.inria.atlanmod.json.discoverer.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: fr.inria.atlanmod.json.discoverer,
+ fr.inria.atlanmod.json.discoverer.zoo,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

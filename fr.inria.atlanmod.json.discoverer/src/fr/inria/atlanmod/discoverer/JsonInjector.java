@@ -47,13 +47,19 @@ public class JsonInjector {
 	EPackage metamodel = null;
 	private final static Logger LOGGER = Logger.getLogger(JsonInjector.class.getName());
 
+	private SingleJsonSource jsonSource;
+	
+	public JsonInjector(SingleJsonSource jsonSource) {
+		this.jsonSource = jsonSource;
+	}
+	
 	/**
 	 * Injects a model from a JSON Source. Only the first one will be considered (if several)
 	 * 
 	 * @param jsonSource
 	 * @return
 	 */
-	public List<EObject> inject(SingleJsonSource jsonSource) {
+	public List<EObject> inject() {
 		if(jsonSource == null)
 			throw new IllegalArgumentException("The source cannot be null");
 		

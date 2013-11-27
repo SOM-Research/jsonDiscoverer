@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2008, 2013
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Javier Canovas (javier.canovas@inria.fr) 
+ *******************************************************************************/
+
 package fr.inria.atlanmod.json.discoverer.test;
 
 import java.io.File;
@@ -29,8 +40,8 @@ public class JsonInjectorTest {
 		SingleJsonSource source = new SingleJsonSource("test");
 		source.addJsonDef(new File(INPUT_FILE));
 		
-		JsonInjector injector = new JsonInjector();
-		List<EObject> result = injector.inject(source);
+		JsonInjector injector = new JsonInjector(source);
+		List<EObject> result = injector.inject();
 		saveModel(result, OUTPUT_FILE);
 	}
 	
