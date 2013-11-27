@@ -18,6 +18,7 @@ import coverage.AttMapping;
 import coverage.ConceptMapping;
 import coverage.Coverage;
 import coverage.CoverageFactory;
+import coverage.CoverageMapping;
 import coverage.CoveragePackage;
 import coverage.RefMapping;
 
@@ -66,6 +67,17 @@ public class CoverageCreator {
 		refMapping.setSource(source);
 		refMapping.setTarget(target);
 		coverage.getMappings().add(refMapping);
+	}
+	
+	public ConceptMapping getConceptMappingFromSource(EClass source) {
+		for(CoverageMapping mapping : coverage.getMappings()) {
+			if (mapping instanceof ConceptMapping) {
+				ConceptMapping conceptMapping = (ConceptMapping) mapping;
+				if(conceptMapping.getSource().equals(source)) 
+					return conceptMapping;
+			}
+		}
+		return null;
 	}
 	
 	public Coverage getCoverage() {

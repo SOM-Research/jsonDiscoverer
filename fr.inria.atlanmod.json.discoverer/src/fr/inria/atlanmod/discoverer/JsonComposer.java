@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import coverage.ConceptMapping;
 import coverage.util.CoverageCreator;
 
 /**
@@ -47,6 +48,8 @@ import coverage.util.CoverageCreator;
  *
  */
 public class JsonComposer {
+	final static double CLASS_MATCHING_THRESHOLD = 0.5;
+	
 	/**
 	 * Set of sources to compose
 	 */
@@ -120,28 +123,34 @@ public class JsonComposer {
 		finalPackage.setName(resultingName);
 		finalPackage.setNsPrefix("composed" + resultingName.charAt(0));
 		finalPackage.setNsURI("http://fr.inria.atlanmod/discovered/" + resultingName);
+		LOGGER.finer("Package created");
 
 		// Initializing variables
 		registry = new HashMap<String, EClass>();
 		List<EReference> referencesToCheck = new ArrayList<EReference>();
 		coverageCreators = new ArrayList<CoverageCreator>();
 		for(JsonSource jsonSource : getSources()) {
+			LOGGER.finer("Analizing JSON source: " + jsonSource.getName());
 			CoverageCreator coverageCreator = new CoverageCreator(jsonSource.getName(), jsonSource.getMetamodel(), finalPackage);
 
 			for(EClassifier classifier : jsonSource.getMetamodel().getEClassifiers()) {
 				if (classifier instanceof EClass) {
 					EClass eClass = (EClass) classifier;
-					EClass registryElement = registry.get(eClass.getName());
+					EClass registryElement = lookForSimilarEClass(eClass);
 					if(registryElement == null) {
-						EClass duplicatedEClass = duplicateEClass(eClass, coverageCreator);
+						LOGGER.finer("  " + eClass.getName() + " class being duplicated...");
+						EClass duplicatedEClass = cloneEClass(eClass, coverageCreator);
 						registry.put(eClass.getName(), duplicatedEClass);
 						coverageCreator.createConceptMapping(eClass, duplicatedEClass);
 						eClass = duplicatedEClass;
+						LOGGER.finer("  " + eClass.getName() + " class duplicated and added");
 					} else {
+						LOGGER.finer("  " + eClass.getName() + " class being composed with " + registryElement.getName() + "...");
 						coverageCreator.createConceptMapping(eClass, registryElement);
 						composeAttributes(registryElement, eClass, coverageCreator);
 						composeReferences(registryElement, eClass, coverageCreator);
 						eClass = registryElement;
+						LOGGER.finer("  " + eClass.getName() + " class composed with " + registryElement.getName());
 					}
 					for(EStructuralFeature otherFeature : eClass.getEStructuralFeatures()) 
 						if (otherFeature instanceof EReference) 
@@ -166,9 +175,21 @@ public class JsonComposer {
 				EClass referredEClass = (EClass) referredEClassifier;
 				EClass registryElement = registry.get(referredEClass.getName());
 				if(registryElement == null) {
-					reference.setEType(unknown);
-					LOGGER.finer("Reference " + reference.getName() + " with unknown type");
-					unknownUsed = true;
+					ConceptMapping mapping = null;
+					for(CoverageCreator coverageCreator : coverageCreators) {
+						mapping = coverageCreator.getConceptMappingFromSource(referredEClass);
+						if(mapping != null)
+							break;
+					}
+					if(mapping != null) {
+						EClass mappedClass = mapping.getTarget();
+						reference.setEType(mappedClass);
+						LOGGER.finer("Reference " + reference.getName() + " re-assigned to " + mappedClass.getName());
+					} else {
+						reference.setEType(unknown);
+						LOGGER.finer("Reference " + reference.getName() + " with unknown type");
+						unknownUsed = true;
+					}
 				} else {
 					reference.setEType(registryElement);
 					LOGGER.finer("Reference " + reference.getName() + " re-assigned");
@@ -193,15 +214,15 @@ public class JsonComposer {
 					if(similarAttribute == null) {
 						EAttribute newAttribute = duplicateAttribute(otherAttribute);
 						existingClass.getEStructuralFeatures().add(newAttribute);
-						LOGGER.finer("Attribute " + newAttribute.getName() + " added");
+						LOGGER.finer("    " + "Attribute " + newAttribute.getName() + " added");
 						existingFeature = newAttribute;
 					} else {
-						LOGGER.finer("Attribute similar found: " + similarAttribute.getName());
+						LOGGER.finer("    " + "Attribute similar found: " + similarAttribute.getName());
 						existingFeature = similarAttribute;
 					}
 				} else {
 					existingFeature.setEType(EcorePackage.Literals.ESTRING);
-					LOGGER.finer("Attribute " + existingFeature.getName() + " refined to String");
+					LOGGER.finer("    " + "Attribute " + existingFeature.getName() + " refined to String");
 				}				
 				coverageCreator.createAttMapping(otherAttribute, (EAttribute) existingFeature);
 			}
@@ -217,13 +238,12 @@ public class JsonComposer {
 				if(existingFeature == null) {
 					EReference newReference = duplicateReference(otherReference);
 					existingClass.getEStructuralFeatures().add(newReference);
-					LOGGER.finer("Reference " + newReference.getName() + " added");
+					LOGGER.finer("    " + "Reference " + newReference.getName() + " added");
 					existingFeature = newReference;
 					coverageCreator.createRefMapping(otherReference, (EReference) existingFeature);
 				} 			
 			}
 		}
-
 	}
 
 	private EAttribute duplicateAttribute(EAttribute otherAttribute) {
@@ -244,29 +264,65 @@ public class JsonComposer {
 		return newReference;		
 	}
 
-	private EClass duplicateEClass(EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException  {
+	/**
+	 * Clones a Class having into consideration its structura features.
+	 * 
+	 * @param otherClass
+	 * @param coverageCreator
+	 * @return
+	 * @throws FileNotFoundException
+	 */
+	private EClass cloneEClass(EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException  {
 		EClass newClass = EcoreFactory.eINSTANCE.createEClass();
 		newClass.setName(otherClass.getName());
 		newClass.setAbstract(otherClass.isAbstract());
 
 		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
 			if (otherFeature instanceof EReference) {
+				LOGGER.finer("    " + "Duplicating " + otherFeature.getName() + " reference");
 				EReference duplicatedReference = duplicateReference((EReference) otherFeature);
 				newClass.getEStructuralFeatures().add(duplicatedReference);
 				coverageCreator.createRefMapping((EReference) otherFeature, duplicatedReference);	
 			} else if (otherFeature instanceof EAttribute) {
+				LOGGER.finer("    " + "Duplicating " + otherFeature.getName() + " attribute");
 				EAttribute duplicatedAttribute = duplicateAttribute((EAttribute) otherFeature);
 				newClass.getEStructuralFeatures().add(duplicatedAttribute);
 				coverageCreator.createAttMapping((EAttribute) otherFeature, duplicatedAttribute);
-				cacheValues.put(duplicatedAttribute, getJSONValues(duplicatedAttribute.getName(), coverageCreator.getName()));
+				cacheValues.put(duplicatedAttribute, getJSONValues(duplicatedAttribute, coverageCreator.getName()));
 			}
 		}
 		return newClass;
 	}
 
+	private EClass lookForSimilarEClass(EClass existingClass) { 
+		LOGGER.finer("  " + "Looking for classes similar to " + existingClass.getName());
+		EClass registryElement = registry.get(existingClass.getName());
+		if(registryElement != null) {
+			LOGGER.finer("    " + "Found matching name");
+			return registryElement;
+		} else {
+			for(EClass registeredClass : registry.values()) {
+				int totalRegisteredFeatures = registeredClass.getEStructuralFeatures().size();
+				int matchingFeatures = 0;
+				for(EStructuralFeature registeredFeature : registeredClass.getEStructuralFeatures()) {
+					for(EStructuralFeature existingFeature : existingClass.getEStructuralFeatures()) {
+						if(registeredFeature.getName().equals(existingFeature.getName()))
+							matchingFeatures++;
+					}
+				}
+				double matchingRatio = matchingFeatures / totalRegisteredFeatures;
+				if(matchingRatio > CLASS_MATCHING_THRESHOLD) {
+					LOGGER.finer("    " + "Found similar class " + registeredClass.getName() + " with ratio " + matchingRatio);
+					return registeredClass;
+				} 
+			}
+		}
+		LOGGER.finer("    " + "Not found");
+		return null;		
+	}
 
 	private EAttribute lookForSimilarAttribute(EClass existingClass, EAttribute otherAttribute, CoverageCreator coverageCreator) throws FileNotFoundException  {
-		List<Object> jsonValues = getJSONValues(otherAttribute.getName(), coverageCreator.getName());
+		List<Object> jsonValues = getJSONValues(otherAttribute, coverageCreator.getName());
 
 		Iterator<EAttribute> it = cacheValues.keySet().iterator();
 		while(it.hasNext()) {
@@ -296,9 +352,9 @@ public class JsonComposer {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	private List<Object> getJSONValues(String name, String sourceName) throws FileNotFoundException {
-		if(name == null || name.equals("")) 
-			throw new IllegalArgumentException("Name cannot be null or empty");
+	private List<Object> getJSONValues(EAttribute eAttribute, String sourceName) throws FileNotFoundException {
+		if(eAttribute == null) 
+			throw new IllegalArgumentException("EAttribute cannot be null");
 		if(sourceName == null || sourceName.equals("")) 
 			throw new IllegalArgumentException("sourceName cannot be null or empty");
 		
@@ -309,43 +365,70 @@ public class JsonComposer {
 		
 		List<JsonObject> elements = new ArrayList<JsonObject>();
 		if (rootElement.isJsonArray()) {
-			LOGGER.finer("Several objects found");
+			LOGGER.finest("Several objects found");
 			for(int i = 0; i < rootElement.getAsJsonArray().size(); i++)
 				if(rootElement.getAsJsonArray().get(i).isJsonObject())
 					elements.add(rootElement.getAsJsonArray().get(i).getAsJsonObject());
 		} else if(rootElement.isJsonObject()) {
-			LOGGER.finer("Only one object found");
+			LOGGER.finest("Only one object found");
 			elements.add(rootElement.getAsJsonObject());
 		} else {
 			LOGGER.finest("The root element was " + rootElement.getClass().getName());
 			LOGGER.finest("It is: " + rootElement.getAsString());
 		}
 		
-		for(JsonObject jsonObject : elements) {
-			Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
-			while(pairs.hasNext()) {
-				Map.Entry<String, JsonElement> pair = pairs.next();
-				String key = pair.getKey();
-				
-				if(key.equals(name) && pair.getValue().isJsonPrimitive() && pair.getValue().getAsJsonPrimitive().isString()) {
-					result.add(pair.getValue().getAsJsonPrimitive().toString());
-				} else if (pair.getValue().isJsonObject()) {
-					JsonObject jsonObject2 = pair.getValue().getAsJsonObject();
-					Iterator<Map.Entry<String, JsonElement>> pairs2 = jsonObject2.entrySet().iterator();
-					while(pairs2.hasNext()) {
-						Map.Entry<String, JsonElement> pair2 = pairs2.next();
-						String key2 = pair2.getKey();
-						if(key2.equals(name) && pair2.getValue().isJsonPrimitive() && pair2.getValue().getAsJsonPrimitive().isString()) {
-							result.add(pair2.getValue().getAsJsonPrimitive().toString());
-						} // TODO make this recursive!						
+		String containmentElementName = eAttribute.eContainer().eClass().getName();
+		String attributeName = eAttribute.getName();
+		
+		if(containmentElementName.equals(sourceName)) {
+			// If the containmentElement name matches with the sourceName, 
+			// we have to deal with the root elements of the JSON
+			for(JsonObject jsonObject : elements) {
+				Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
+				while(pairs.hasNext()) {
+					Map.Entry<String, JsonElement> pair = pairs.next();
+					String key = pair.getKey();
+					
+					if(key.equals(attributeName) && pair.getValue().isJsonPrimitive() && pair.getValue().getAsJsonPrimitive().isString()) {
+						result.add(pair.getValue().getAsJsonPrimitive().toString());
+					} 
+				}
+			}
+		} else {
+			// Else, take the objects inside the JSON
+			for(JsonObject jsonObject : elements) {
+				Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
+				while(pairs.hasNext()) {
+					Map.Entry<String, JsonElement> pair = pairs.next();
+					String key = pair.getKey();
+					String jsonElementName = digestId(key);
+					if (pair.getValue().isJsonObject() && jsonElementName.equals(containmentElementName)) {
+						JsonObject jsonObject2 = pair.getValue().getAsJsonObject();
+						Iterator<Map.Entry<String, JsonElement>> pairs2 = jsonObject2.entrySet().iterator();
+						while(pairs2.hasNext()) {
+							Map.Entry<String, JsonElement> pair2 = pairs2.next();
+							String key2 = pair2.getKey();
+							if(key2.equals(attributeName) && pair2.getValue().isJsonPrimitive() && pair2.getValue().getAsJsonPrimitive().isString()) {
+								result.add(pair2.getValue().getAsJsonPrimitive().toString());
+							} // TODO make this recursive!						
+						}
 					}
 				}
 			}
 		}
 		
+		
 		return result;
 	}
 
+	private String digestId(String id) {
+		String result = id;
+		if(result.endsWith("s")) 
+			result = result.substring(0, result.length()-1);
+		result = result.substring(0, 1).toUpperCase() + result.substring(1, result.length()); 
+		return result;
+	}
+	
 	private void saveEPackage(EPackage ePackage, File resultPath) {
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.createResource(URI.createFileURI(resultPath.getAbsolutePath()));

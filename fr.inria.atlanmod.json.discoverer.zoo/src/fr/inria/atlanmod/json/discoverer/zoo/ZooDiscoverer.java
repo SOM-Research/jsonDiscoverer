@@ -107,9 +107,8 @@ public class ZooDiscoverer {
 				// Composing metamodels
 				JsonComposer composer = new JsonComposer(discoveredSources);
 				try {
-					EPackage composedMetamodel = composer.compose("composed");
 					File resultingPath = new File(parentFile.getAbsoluteFile() + File.separator + parentFile.getName() + ".ecore"); 
-					saveEcore(composedMetamodel, resultingPath);
+					composer.compose("composed", resultingPath);
 				} catch (FileNotFoundException e) {
 					LOGGER.severe(e.getMessage());
 				}
