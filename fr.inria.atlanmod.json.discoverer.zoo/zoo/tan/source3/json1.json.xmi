@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<discoh:Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discoh="http://fr.inria.atlanmod/discovered/horariesStopLineDirection" codeCouleur="R" plageDeService="Schedules adapted to the rhythms of your day&#xD;&#xA;Durring school period...&#xD;&#xA;Pink day : from monday to friday (except the 10th&#xa0;of May).&#xD;&#xA;Green day : saturdays.&#xD;&#xA;Blue day : sundays and public holidays (no service on the 1st&#xa0;of May).&#xD;&#xA;During school holidays...&#xD;&#xA;Yellow day : from monday to friday (except during Halloween holidays).">
+<discoh:horariesStopLineDirection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discoh="http://fr.inria.atlanmod/discovered/horariesStopLineDirection" codeCouleur="R" plageDeService="Schedules adapted to the rhythms of your day&#xD;&#xA;Durring school period...&#xD;&#xA;Pink day : from monday to friday (except the 10th&#xa0;of May).&#xD;&#xA;Green day : saturdays.&#xD;&#xA;Blue day : sundays and public holidays (no service on the 1st&#xa0;of May).&#xD;&#xA;During school holidays...&#xD;&#xA;Yellow day : from monday to friday (except during Halloween holidays).">
   <arret codeArret="PIRA1" libelle="Pirmil"/>
   <ligne numLigne="27" directionSens1="La Herdrie" directionSens2="Pirmil" accessible="true" etatTrafic="1" libelleTrafic="Normal Service"/>
   <notes code="d" libelle="Direction Vertou."/>
@@ -86,4 +86,4 @@
   <prochainsHoraires heure="17h">
     <passages>14</passages>
   </prochainsHoraires>
-</discoh:Root>
+</discoh:horariesStopLineDirection>

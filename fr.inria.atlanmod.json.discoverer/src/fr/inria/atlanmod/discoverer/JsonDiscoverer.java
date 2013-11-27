@@ -87,7 +87,10 @@ public class JsonDiscoverer {
 		}
 
 		// Launching discoverer
-		discoverMetaclasses(elements);
+		LOGGER.fine("Received " + elements.size() + " json objects to discover");
+		for(JsonObject jsonObject : elements) {
+			discoverMetaclass(source.getName(), jsonObject);
+		}
 
 		// Default package
 		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
@@ -117,19 +120,6 @@ public class JsonDiscoverer {
 			}
 		}
 		return discoverMetamodel(source);
-	}
-
-
-	/**
-	 * Discover the metaclasses for a list of JsonObjects
-	 * 
-	 * @param jsonObjects
-	 */
-	private void discoverMetaclasses(List<JsonObject> jsonObjects) {
-		LOGGER.fine("Received " + jsonObjects.size() + " json objects to discover");
-		for(JsonObject jsonObject : jsonObjects) {
-			discoverMetaclass("Root", jsonObject);
-		}
 	}
 
 	/**

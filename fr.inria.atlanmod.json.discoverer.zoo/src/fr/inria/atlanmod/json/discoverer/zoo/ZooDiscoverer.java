@@ -53,14 +53,14 @@ import fr.inria.atlanmod.discoverer.SingleJsonSource;
  * 
  * - RootPath
  *   +-- API1
- *       +-- Source1
+ *       +-- source1
  *           +-- info.properties
  *           +-- json1.json
  *           +-- json1.properties
  *           +-- json2.json
  *           +-- json2.properties
  *           +-- ...
- *       +-- Sourcen
+ *       +-- sourcen
  *           +-- ...     
  *   +-- API2
  *       +-- ...
@@ -100,6 +100,7 @@ public class ZooDiscoverer {
 								discoveredSources.add(discoveredSource);
 						} catch(Exception e) {
 							LOGGER.severe(e.getMessage());
+							e.printStackTrace();
 						}
 					}
 				}
@@ -188,7 +189,7 @@ public class ZooDiscoverer {
 		}
 	}
 	
-	public static void saveModel(List<EObject> elements, File target) {
+	private static void saveModel(List<EObject> elements, File target) {
 		if(elements == null)
 			throw new IllegalArgumentException("Elements to serialize the model cannot be null");
 		if(target == null)
@@ -201,7 +202,8 @@ public class ZooDiscoverer {
 		Resource res2 = rset.createResource(URI.createFileURI(target.getAbsolutePath()));
 		
 		for(EObject eObject : elements) {
-			res2.getContents().add(eObject); 
+			if(eObject != null)
+				res2.getContents().add(eObject); 
 		}
 
 		try {

@@ -94,7 +94,7 @@ public class JsonInjector {
 		
 		// Getting the root element
 		metamodel = ePackage;
-		EClassifier eClassifier = metamodel.getEClassifier("Root"); // TODO Support other root names
+		EClassifier eClassifier = metamodel.getEClassifier(jsonSource.getName()); 
 		
 		List<EObject> eObjects = new ArrayList<EObject>();
 		for(JsonObject jsonObject : elements) {

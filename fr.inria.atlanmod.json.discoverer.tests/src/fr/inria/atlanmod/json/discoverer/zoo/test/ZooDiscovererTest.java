@@ -13,11 +13,17 @@ package fr.inria.atlanmod.json.discoverer.zoo.test;
 
 import java.io.File;
 
+import fr.inria.atlanmod.json.discoverer.zoo.ModelDrawer;
 import fr.inria.atlanmod.json.discoverer.zoo.ZooDiscoverer;
 
 public class ZooDiscovererTest {
 	public static void main(String[] args) {
 		ZooDiscoverer zooDiscoverer = new ZooDiscoverer(new File("../fr.inria.atlanmod.json.discoverer.zoo/zoo"));
 		zooDiscoverer.discover();
+		
+		ModelDrawer drawer = new ModelDrawer(
+				new File("C:/Users/useradm/git/json-discoverer/fr.inria.atlanmod.json.discoverer.zoo/workingDir"), 
+				new File("C:/Program Files (x86)/Graphviz 2.28/bin/dot.exe"));
+		drawer.traverseAndDrawFolder(new File("../fr.inria.atlanmod.json.discoverer.zoo/zoo"));
 	}
 }
