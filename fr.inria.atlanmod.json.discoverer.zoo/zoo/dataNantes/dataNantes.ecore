@@ -10,61 +10,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="INFOTRAFIC" lowerBound="1"
         upperBound="-1" eType="#//INFOTRAFIC"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Answer">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="status" lowerBound="1"
-        eType="#//Statu"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1" eType="#//Data"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="@attribute">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="INFOTRAFIC">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="CODE" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LANGUE" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="INTITULE" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="RESUME" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="TEXTE_VOCAL" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DATE_DEBUT" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DATE_FIN" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="HEURE_DEBUT" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="HEURE_FIN" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="PERTURBATION_TERMINEE"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="TRONCONS" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InfoTraficTANProvisional">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
-        eType="#//Opendata"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Statu">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="@attributes" lowerBound="1"
-        eType="#//@attribute"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Opendata">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="request" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="answer" lowerBound="1"
-        eType="#//Answer"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="getFluiditeAxesRoutiers">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
-        eType="#//Opendata"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="parkingAvailability">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
-        eType="#//Opendata"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Data">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ROOT" lowerBound="1" eType="#//ROOT"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Troncons" lowerBound="1"
@@ -102,6 +47,49 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Couleur_TP" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Troncon" lowerBound="1"
         upperBound="-1" eType="#//Troncon"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Answer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="status" lowerBound="1"
+        eType="#//Statu"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1" eType="#//Data"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="@attribute">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="INFOTRAFIC">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="CODE" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LANGUE" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="INTITULE" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="RESUME" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="TEXTE_VOCAL" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DATE_DEBUT" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DATE_FIN" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="HEURE_DEBUT" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="HEURE_FIN" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="PERTURBATION_TERMINEE"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="TRONCONS" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Opendata">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="request" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="answer" lowerBound="1"
+        eType="#//Answer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Statu">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="@attributes" lowerBound="1"
+        eType="#//@attribute"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ROOT">
     <eStructuralFeatures xsi:type="ecore:EReference" name="LISTE_INFOTRAFICS" lowerBound="1"

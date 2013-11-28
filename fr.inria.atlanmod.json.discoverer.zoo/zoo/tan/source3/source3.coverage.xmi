@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:coverage="http://fr.inria.atlanmod/json/coverage" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <ecore:EPackage name="waitingTimeStop" nsURI="http://fr.inria.atlanmod/discovered/waitingTimeStop" nsPrefix="discow">
+    <eClassifiers xsi:type="ecore:EClass" name="Arret">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeArret" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Ligne">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="numLigne" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeLigne" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="waitingTimeStop">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sens" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminus" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="infotrafic" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="temps" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" eType="/0/Ligne" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="arret" lowerBound="1" eType="/0/Arret" containment="true"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ecore:EPackage name="composed" nsURI="http://fr.inria.atlanmod/discovered/composed" nsPrefix="composedc">
+    <eClassifiers xsi:type="ecore:EClass" name="stopPosition">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeLieu" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelle" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="distance" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" upperBound="-1" eType="/1/Ligne"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Horaire">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="heure" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="passages" lowerBound="1" upperBound="-1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="horariesStopLineDirection">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="arret" lowerBound="1" eType="/1/Arret"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" eType="/1/Ligne"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeCouleur" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="plageDeService" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="notes" lowerBound="1" upperBound="-1" eType="/1/Note"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="horaires" lowerBound="1" upperBound="-1" eType="/1/Horaire"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="prochainsHoraires" lowerBound="1" upperBound="-1" eType="/1/Horaire"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Arret">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeArret" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelle" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="accessible" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Note">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelle" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Ligne">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="numLigne" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directionSens1" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directionSens2" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="accessible" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="etatTrafic" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelleTrafic" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeLigne" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="waitingTimeStop">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sens" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminus" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="infotrafic" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="temps" lowerBound="1">
+        <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" eType="/1/Ligne"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="arret" lowerBound="1" eType="/1/Arret"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <coverage:Coverage>
+    <mappings xsi:type="coverage:ConceptMapping" source="/0/Arret" target="/1/Arret"/>
+    <mappings xsi:type="coverage:AttMapping" source="/0/Arret/codeArret" target="/1/Arret/codeArret"/>
+    <mappings xsi:type="coverage:ConceptMapping" source="/0/Ligne" target="/1/Ligne"/>
+    <mappings xsi:type="coverage:AttMapping" source="/0/Ligne/numLigne" target="/1/Ligne/numLigne"/>
+    <mappings xsi:type="coverage:AttMapping" source="/0/Ligne/typeLigne" target="/1/Ligne/typeLigne"/>
+    <mappings xsi:type="coverage:AttMapping" source="/0/waitingTimeStop/sens" target="/1/waitingTimeStop/sens"/>
+    <mappings xsi:type="coverage:AttMapping" source="/0/waitingTimeStop/terminus" target="/1/waitingTimeStop/terminus"/>
+    <mappings xsi:type="coverage:AttMapping" source="/0/waitingTimeStop/infotrafic" target="/1/waitingTimeStop/infotrafic"/>
+    <mappings xsi:type="coverage:AttMapping" source="/0/waitingTimeStop/temps" target="/1/waitingTimeStop/temps"/>
+    <mappings xsi:type="coverage:RefMapping" source="/0/waitingTimeStop/ligne" target="/1/waitingTimeStop/ligne"/>
+    <mappings xsi:type="coverage:RefMapping" source="/0/waitingTimeStop/arret" target="/1/waitingTimeStop/arret"/>
+    <mappings xsi:type="coverage:ConceptMapping" source="/0/waitingTimeStop" target="/1/waitingTimeStop"/>
+  </coverage:Coverage>
+</xmi:XMI>
