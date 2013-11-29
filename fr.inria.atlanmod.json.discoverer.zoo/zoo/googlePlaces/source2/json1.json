@@ -1,0 +1,146 @@
+{
+   "debug_info" : [],
+   "html_attributions" : [],
+   "result" : {
+      "address_components" : [
+         {
+            "long_name" : "2",
+            "short_name" : "2",
+            "types" : [ "street_number" ]
+         },
+         {
+            "long_name" : "Quai Ferdinand Favre",
+            "short_name" : "Quai Ferdinand Favre",
+            "types" : [ "route" ]
+         },
+         {
+            "long_name" : "Nantes",
+            "short_name" : "Nantes",
+            "types" : [ "locality", "political" ]
+         },
+         {
+            "long_name" : "Loire-Atlantique",
+            "short_name" : "Loire-Atlantique",
+            "types" : [ "administrative_area_level_2", "political" ]
+         },
+         {
+            "long_name" : "Pays de la Loire",
+            "short_name" : "Pays de la Loire",
+            "types" : [ "administrative_area_level_1", "political" ]
+         },
+         {
+            "long_name" : "FR",
+            "short_name" : "FR",
+            "types" : [ "country", "political" ]
+         },
+         {
+            "long_name" : "44000",
+            "short_name" : "44000",
+            "types" : [ "postal_code" ]
+         }
+      ],
+      "formatted_address" : "2 Quai Ferdinand Favre, Nantes, France",
+      "formatted_phone_number" : "02 40 12 14 34",
+      "geometry" : {
+         "location" : {
+            "lat" : 47.215575,
+            "lng" : -1.545618
+         }
+      },
+      "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+      "id" : "d2dfff589845105aeb3611b736d1fe56b5a23d93",
+      "international_phone_number" : "+33 2 40 12 14 34",
+      "name" : "Le Lieu Unique",
+      "photos" : [
+         {
+            "height" : 972,
+            "html_attributions" : [ "Usuario de Google" ],
+            "photo_reference" : "CnRtAAAA3oxrgb_L6CFx8bgjL7T30ewRGJF5qWx7FdetPnhrTg2f3_6OOKcBFbeoKvJug8WFtjjnZAgcbRtixdLXUzZB3SYCbf6zhS2BZMzZ5VEA4F7P_LQ61O5hWaGA4CTRwy9m3lCh94EgAVct4_yhjuTHhxIQkL9HIEky_XpWSADooin_BBoUtaWkOliKFCkjT4_QhEV7FTD7waQ",
+            "width" : 1296
+         }
+      ],
+      "rating" : 4.1,
+      "reference" : "CnRwAAAAIBoegvbZnqq__6O0TTthSO5tVTBANcGQMvVdkKr-DHv3lKWbqIsYvMBLQ_HVIN8vg_ceq1Iar_D-o74fwYz9adwGbY6YrrcGcTUezZnZzLz9K12xo68bKHvu6R5Du--QZNY1QNwcO_p-4u0mrpEv4RIQiU8S6O4-AtFY1JXSu_r3jRoUkzrV4aUy2Nr7Gn8HStZD4lwQnQ4",
+      "reviews" : [
+         {
+            "aspects" : [
+               {
+                  "rating" : 3,
+                  "type" : "atmosphere"
+               },
+               {
+                  "rating" : 3,
+                  "type" : "decor"
+               },
+               {
+                  "rating" : 3,
+                  "type" : "service"
+               }
+            ],
+            "author_name" : "Delphine BESNIER",
+            "author_url" : "https://plus.google.com/106323878139458566744",
+            "rating" : 5,
+            "text" : "Atypique.",
+            "time" : 1342273234
+         },
+         {
+            "aspects" : [
+               {
+                  "rating" : 0,
+                  "type" : "overall"
+               }
+            ],
+            "author_name" : "romain cardot",
+            "author_url" : "https://plus.google.com/111393848703031145992",
+            "rating" : 2,
+            "text" : "Service sympa! Nourriture moyenne (le hamburger se limite a un steack pas super bien cuit, du foie gras et 2 buns de pains c&#39;est tout) Un dessert gavé de beurre sans goût ! Cadre censé original (ancienne usine lu) ... En fait c&#39;est juste de l&#39;industriel sans originalité et en plus peu de place vous aurez la joie de partager les discussions de vos voisins ... Prix un peu cher pour la qualité de la nourriture mais pas scandaleux ! Bref j&#39;ai pas passé une bonne soirée et je me suis vite sauvé car soulé par mes voisins ...",
+            "time" : 1384983900
+         },
+         {
+            "aspects" : [
+               {
+                  "rating" : 0,
+                  "type" : "quality"
+               }
+            ],
+            "author_name" : "Hélène Pastore",
+            "author_url" : "https://plus.google.com/116519816340886831606",
+            "rating" : 2,
+            "text" : "Service tres lent ms bon on doit avoie la tete du ouriste qui peit attendre. Bouffe juste correcte service mediocre. Pas d attente pour la note. Bref heureusement que le cadre etait la!!!!",
+            "time" : 1378209905
+         },
+         {
+            "aspects" : [
+               {
+                  "rating" : 0,
+                  "type" : "overall"
+               }
+            ],
+            "author_name" : "stéphane Lascarrou",
+            "author_url" : "https://plus.google.com/113351675703885981556",
+            "rating" : 2,
+            "text" : "Dommage, personnellement le bar du Lieu Unique a perdu de son cachet. Une atmosphère froide éclairée au tube fluo, un comptoir bar sans fantaisie et la billetterie ressemble dorénavant à des guichets administratifs. Je n&#39;ai plus très envie d&#39;y sortir le soir.",
+            "time" : 1381927461
+         },
+         {
+            "aspects" : [
+               {
+                  "rating" : 3,
+                  "type" : "overall"
+               }
+            ],
+            "author_name" : "Eric Lévy",
+            "author_url" : "https://plus.google.com/111331815645277873280",
+            "rating" : 5,
+            "text" : "Tres belle expo sans tambour ni trompette",
+            "time" : 1374939645
+         }
+      ],
+      "types" : [ "establishment" ],
+      "url" : "https://plus.google.com/105525817959831766517/about?hl=es-ES",
+      "utc_offset" : 60,
+      "vicinity" : "2 Quai Ferdinand Favre, Nantes",
+      "website" : "http://www.lelieuunique.com/"
+   },
+   "status" : "OK"
+}
