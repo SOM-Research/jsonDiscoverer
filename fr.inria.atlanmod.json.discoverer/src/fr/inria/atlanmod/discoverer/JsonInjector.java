@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -143,9 +144,9 @@ public class JsonInjector {
 			EAttribute eAttribute = (EAttribute) eStructuralFeature;
 			if(eStructuralFeature.getUpperBound() == -1) {
 				EList<Object> set = (EList<Object>) result.eGet(eAttribute);
-				set.add(digestValue(value));
+				set.add(digestValue(eAttribute, value));
 			} else {
-				result.eSet(eAttribute, digestValue(value));
+				result.eSet(eAttribute, digestValue(eAttribute, value));
 			}
 		} else if(eStructuralFeature instanceof EReference) {
 			EReference eReference = (EReference) eStructuralFeature;
@@ -166,12 +167,12 @@ public class JsonInjector {
 		}
 	}
 
-	protected Object digestValue(JsonElement value) {
-		if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
+	protected Object digestValue(EAttribute eAttribute, JsonElement value) {
+		if (eAttribute.getEType().equals(EcorePackage.Literals.ESTRING)) {
 			return value.getAsJsonPrimitive().getAsString();
-		} else if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isNumber()) {
+		} else if (eAttribute.getEType().equals(EcorePackage.Literals.EINT)) {
 			return new Integer(value.getAsJsonPrimitive().getAsNumber().intValue());
-		} else if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isBoolean()) {
+		} else if (eAttribute.getEType().equals(EcorePackage.Literals.EBOOLEAN)) {
 			return value.getAsJsonPrimitive().getAsBoolean() ? Boolean.TRUE : Boolean.FALSE;
 		} else {
 			return null;
