@@ -72,52 +72,55 @@ import fr.inria.atlanmod.discoverer.SingleJsonSource;
  */
 public class ZooDiscoverer {
 	private final static Logger LOGGER = Logger.getLogger(ZooDiscoverer.class.getName());
-	
+
 	private File rootPath;
-	
+
 	public ZooDiscoverer(File rootPath) {
 		if(rootPath == null || !rootPath.isDirectory()) 
 			throw new IllegalArgumentException("The rootPath must be a directory");
 		this.rootPath = rootPath;
 	}
-	
-	/**
-	 * Discover the set of model from the rootPath
-	 * 
-	 * @param rootPath
-	 */
+
 	public void discover() {
+		discover(true);
+	}
+
+	public void discover(boolean overwrite) {
 		for(File parentFile : rootPath.listFiles()) {
 			if(parentFile.isDirectory()) {
 				// Each API in ZOO directory
-				List<JsonSource> discoveredSources = new ArrayList<>();
-				for(File sourceFile : parentFile.listFiles()) {
-					if(sourceFile.isDirectory()) {
-						// Each Source
-						try { 
-							JsonSource discoveredSource = discoverSource(sourceFile);
-							if(discoveredSource != null)
-								discoveredSources.add(discoveredSource);
-						} catch(Exception e) {
-							LOGGER.severe(e.getMessage());
-							e.printStackTrace();
+				File resultingPath = new File(parentFile.getAbsoluteFile() + File.separator + parentFile.getName() + ".ecore"); 
+				if(overwrite || !resultingPath.exists()) {
+					List<JsonSource> discoveredSources = new ArrayList<>();
+					for(File sourceFile : parentFile.listFiles()) {
+						if(sourceFile.isDirectory()) {
+							// Each Source
+							try { 
+								JsonSource discoveredSource = discoverSource(sourceFile, overwrite);
+								if(discoveredSource != null)
+									discoveredSources.add(discoveredSource);
+							} catch(Exception e) {
+								LOGGER.severe(e.getMessage());
+								e.printStackTrace();
+							}
 						}
 					}
-				}
-				// Composing metamodels
-				JsonComposer composer = new JsonComposer(discoveredSources);
-				try {
-					File resultingPath = new File(parentFile.getAbsoluteFile() + File.separator + parentFile.getName() + ".ecore"); 
-					composer.compose("composed", resultingPath);
-				} catch (FileNotFoundException e) {
-					LOGGER.severe(e.getMessage());
+					// Composing metamodels
+					JsonComposer composer = new JsonComposer(discoveredSources);
+					try {
+						composer.compose("composed", resultingPath);
+					} catch (FileNotFoundException e) {
+						LOGGER.severe(e.getMessage());
+					}
+				} else {
+					LOGGER.info("Composed metamodel for " + parentFile.getName() + " already generated");
 				}
 			}
 		}
 
 	}
 
-	private JsonSource discoverSource(File rootPath) throws FileNotFoundException, IOException {
+	private JsonSource discoverSource(File rootPath, boolean overwrite) throws FileNotFoundException, IOException {
 		if(!rootPath.isDirectory())
 			throw new IllegalArgumentException("The file must be a directory");
 
@@ -142,40 +145,51 @@ public class ZooDiscoverer {
 			LOGGER.info(" - path: " + rootPath.getAbsolutePath());
 			LOGGER.info(" - json: " + resultingPath.getAbsolutePath());
 
-			// 1. Getting the metamodel
 			JsonSource source = new JsonSource(shortname);
 			for(File jsonFile : jsonFiles) 
 				source.addJsonDef(jsonFile);
 
-			JsonDiscoverer discoverer = new JsonDiscoverer();
-			EPackage metamodel = discoverer.discoverMetamodel(source);
-			saveEcore(metamodel, resultingPath);
-			
+			// 1. Getting the metamodel
+			EPackage metamodel = null;
+			if(overwrite || !resultingPath.exists()) {
+				JsonDiscoverer discoverer = new JsonDiscoverer();
+				metamodel = discoverer.discoverMetamodel(source);
+				saveEcore(metamodel, resultingPath);
+			} else if(resultingPath.exists()) {
+				metamodel = loadEcore(resultingPath);
+				LOGGER.info("Metamodel for " + rootPath.getName() + " already generated");
+			}
+
 			// 2. Getting the individual model for each JSON
 			for(File jsonFile : jsonFiles) {
-				SingleJsonSource singleSource = new SingleJsonSource(shortname);
-				singleSource.setMetamodel(metamodel);
-				singleSource.addJsonDef(jsonFile);
-				
-				JsonInjector injector = new JsonInjector(singleSource);
-				List<EObject> result = injector.inject();
-
 				File singleSourceResultPath = new File(rootPath.getAbsoluteFile() + File.separator + jsonFile.getName() + ".xmi"); 
-				saveModel(result, singleSourceResultPath);
+
+				if(overwrite || !singleSourceResultPath.exists()) {
+					SingleJsonSource singleSource = new SingleJsonSource(shortname);
+					singleSource.setMetamodel(metamodel);
+					singleSource.addJsonDef(jsonFile);
+
+					JsonInjector injector = new JsonInjector(singleSource);
+					List<EObject> result = injector.inject();
+
+					saveModel(result, singleSourceResultPath);
+				} else {
+					LOGGER.info("Model for " + jsonFile.getName() + " already generated");
+				}
 			}
-			
+
 			return source;
 		}
-		
+
 		return null;
 	}
-	
+
 	private void saveEcore(EPackage metamodel, File target) {
 		if(target == null)
 			throw new IllegalArgumentException("The file cannot be null");
 		if(metamodel == null)
 			throw new IllegalArgumentException("The metamodel cannot be null");
-		
+
 		ResourceSet rset = new ResourceSetImpl();
 		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
@@ -187,19 +201,38 @@ public class ZooDiscoverer {
 			e.printStackTrace();
 		}
 	}
-	
+
+	private EPackage loadEcore(File target) {
+		if(target == null)
+			throw new IllegalArgumentException("The file cannot be null");
+
+		ResourceSet rset = new ResourceSetImpl();
+		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+		Resource res = rset.getResource(URI.createFileURI(target.getAbsolutePath()), true);
+
+		try {
+			res.load(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		EPackage ePackage = (EPackage) res.getContents().get(0);
+		return ePackage;
+	}
+
 	private static void saveModel(List<EObject> elements, File target) {
 		if(elements == null)
 			throw new IllegalArgumentException("Elements to serialize the model cannot be null");
 		if(target == null)
 			throw new IllegalArgumentException("The file cannot be null");
-		
+
 		ResourceSet rset = new ResourceSetImpl();
 		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 		Resource res2 = rset.createResource(URI.createFileURI(target.getAbsolutePath()));
-		
+
 		for(EObject eObject : elements) {
 			if(eObject != null)
 				res2.getContents().add(eObject); 

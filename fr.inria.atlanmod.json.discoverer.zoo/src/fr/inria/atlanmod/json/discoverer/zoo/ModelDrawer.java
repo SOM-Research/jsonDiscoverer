@@ -39,8 +39,12 @@ public class ModelDrawer {
 		this.workingDir = workingDir;
 		this.dotPath = dotPath;
 	}
-
+	
 	public void traverseAndDrawFolder(File targetFolder) {
+		traverseAndDrawFolder(targetFolder, true);
+	}
+
+	public void traverseAndDrawFolder(File targetFolder, boolean overwrite) {
 		if(targetFolder == null || !targetFolder.isDirectory())
 			throw new IllegalArgumentException("The target must be a folder");
 
@@ -51,7 +55,7 @@ public class ModelDrawer {
 		for(File file : targetFolder.listFiles()) {
 			if(file.isDirectory()) 
 				traverseAndDrawFolder(file);
-			else if (file.isFile() && file.getName().endsWith("ecore")) {
+			else if (file.isFile() && file.getName().endsWith("ecore") && (overwrite || !pictureFile(file).exists())) {
 				ResourceSet rset = new ResourceSetImpl();
 				rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 				Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
@@ -73,7 +77,7 @@ public class ModelDrawer {
 				}
 
 				if(elements.size() > 0) {
-					File resultingFile = new File(file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf(".")) + ".jpg");
+					File resultingFile = pictureFile(file);
 					try {
 						StandaloneProcessor.process(elements, null, workingDir, resultingFile.getAbsolutePath(), null, null, dotPath.getAbsolutePath(), true, false, "UTF-8", null, null, null);
 					} catch (CoreException e) {
@@ -84,6 +88,10 @@ public class ModelDrawer {
 				}
 			}
 		}
+	}
+	
+	private File pictureFile(File source) {
+		return new File(source.getAbsolutePath().substring(0, source.getAbsolutePath().lastIndexOf(".")) + ".jpg");
 	}
 
 }
