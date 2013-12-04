@@ -2,13 +2,7 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="composed" nsURI="http://fr.inria.atlanmod/discovered/composed"
     nsPrefix="composedc">
-  <eClassifiers xsi:type="ecore:EClass" name="Map_location">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lon" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="panoramio_zoom" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="picturesOfThePlace">
+  <eClassifiers xsi:type="ecore:EClass" name="picturesOfThePlaceInput">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="has_more" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -16,6 +10,12 @@
         eType="#//Map_location"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="photos" lowerBound="1"
         upperBound="-1" eType="#//Photo"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Map_location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lon" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="panoramio_zoom" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Photo">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" lowerBound="1"

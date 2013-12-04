@@ -10,10 +10,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ROOT" lowerBound="1" eType="#//ROOT"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InfoTraficTANRealTime">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
-        eType="#//Opendata" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Answer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="status" lowerBound="1"
         eType="#//Statu" containment="true"/>
@@ -24,6 +20,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InfoTraficTANRealTimeInput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
+        eType="#//Opendata" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="INFOTRAFIC">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="CODE" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

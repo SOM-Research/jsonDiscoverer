@@ -2,6 +2,16 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="arrayDistance" nsURI="http://fr.inria.atlanmod/discovered/arrayDistance"
     nsPrefix="discoa">
+  <eClassifiers xsi:type="ecore:EClass" name="arrayDistanceInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination_addresses"
+        lowerBound="1" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin_addresses" lowerBound="1"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rows" lowerBound="1" upperBound="-1"
+        eType="#//Row" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Distance">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -13,16 +23,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Row">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
         upperBound="-1" eType="#//Element" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="arrayDistance">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination_addresses"
-        lowerBound="1" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin_addresses" lowerBound="1"
-        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rows" lowerBound="1" upperBound="-1"
-        eType="#//Row" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="distance" lowerBound="1"

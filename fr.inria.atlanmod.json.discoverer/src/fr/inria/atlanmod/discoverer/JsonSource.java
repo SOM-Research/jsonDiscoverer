@@ -40,6 +40,7 @@ public class JsonSource {
 	 * List of JSON definitions
 	 */
 	protected List<JsonElement> jsonDefs;
+	
 	/**
 	 * If required, this class can also store the metamodel of the set of JSON definitions
 	 */
@@ -50,7 +51,6 @@ public class JsonSource {
 		setName(name);
 		this.jsonDefs = new ArrayList<JsonElement>();
 	}
-	
 	/**
 	 * Gets the set of JSON definitions linked to this source. 
 	 * Warning: the returned list is mutable
@@ -59,6 +59,22 @@ public class JsonSource {
 	 */
 	protected List<JsonElement> getJsonDefs() {
 		return jsonDefs;
+	}
+	
+	public void addJsonDef(File file, String input) throws FileNotFoundException {
+		if(file == null || !file.exists()) 
+			throw new IllegalArgumentException("File cannot be null and must exist");
+		if(input == null || input.equals("")) 
+			throw new IllegalArgumentException("Argument cannot be null or empty");
+		
+		JsonElement inputElement = (new JsonParser()).parse(new JsonReader(new StringReader(input)));
+		if(!inputElement.isJsonObject())
+			throw new IllegalArgumentException("The input must be a valid JSON object");
+
+		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(file)));
+		inputElement.getAsJsonObject().add(getName() + "Output", rootElement);
+		
+		getJsonDefs().add(inputElement);
 	}
 	
 	/**

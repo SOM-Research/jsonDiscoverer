@@ -48,7 +48,7 @@ import coverage.util.CoverageCreator;
  *
  */
 public class JsonComposer {
-	final static double CLASS_MATCHING_THRESHOLD = 0.5;
+	final static double CLASS_MATCHING_THRESHOLD = 0.3;
 	
 	/**
 	 * Set of sources to compose
@@ -302,19 +302,26 @@ public class JsonComposer {
 			return registryElement;
 		} else {
 			for(EClass registeredClass : registry.values()) {
-				int totalRegisteredFeatures = registeredClass.getEStructuralFeatures().size();
-				int matchingFeatures = 0;
+				double totalRegisteredFeatures = registeredClass.getEStructuralFeatures().size();
+				double matchingFeatures = 0;
 				for(EStructuralFeature registeredFeature : registeredClass.getEStructuralFeatures()) {
 					for(EStructuralFeature existingFeature : existingClass.getEStructuralFeatures()) {
-						if(registeredFeature.getName().equals(existingFeature.getName()))
+						LOGGER.finest("      " + "Comparing " + registeredFeature.getName() + " with " + existingFeature.getName());
+						if(registeredFeature.getName().equals(existingFeature.getName())) {
+							LOGGER.finest("        " + "Yes! Ratio now: " + matchingFeatures / totalRegisteredFeatures );
 							matchingFeatures++;
+							
+							break;
+						}
 					}
 				}
 				double matchingRatio = matchingFeatures / totalRegisteredFeatures;
 				if(matchingRatio > CLASS_MATCHING_THRESHOLD) {
 					LOGGER.finer("    " + "Found similar class " + registeredClass.getName() + " with ratio " + matchingRatio);
 					return registeredClass;
-				} 
+				} else {
+					LOGGER.finest("    " + "Class " + registeredClass.getName() + " no similar with ratio " + matchingRatio);
+				}
 			}
 		}
 		LOGGER.finer("    " + "Not found");

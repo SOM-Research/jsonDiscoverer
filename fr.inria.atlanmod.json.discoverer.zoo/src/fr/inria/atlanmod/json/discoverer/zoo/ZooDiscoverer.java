@@ -146,8 +146,21 @@ public class ZooDiscoverer {
 			LOGGER.info(" - json: " + resultingPath.getAbsolutePath());
 
 			JsonSource source = new JsonSource(shortname);
-			for(File jsonFile : jsonFiles) 
-				source.addJsonDef(jsonFile);
+			for(File jsonFile : jsonFiles) {
+				File jsonPropertiesFile = new File(jsonFile.getAbsolutePath().substring(0, jsonFile.getAbsolutePath().lastIndexOf(".")) + ".properties");
+				if(jsonPropertiesFile.exists()) {
+					Properties jsonProperties = new Properties();
+					jsonProperties.load(new FileReader(jsonPropertiesFile));
+					String inputJson = jsonProperties.getProperty("input");
+					if(inputJson != null) {
+						source.addJsonDef(jsonFile, inputJson);
+					} else {
+						source.addJsonDef(jsonFile);
+					}
+				} else {
+					source.addJsonDef(jsonFile);
+				}
+			}
 
 			// 1. Getting the metamodel
 			EPackage metamodel = null;

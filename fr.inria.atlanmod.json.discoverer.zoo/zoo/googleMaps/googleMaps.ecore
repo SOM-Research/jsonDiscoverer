@@ -34,6 +34,18 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="geometry" lowerBound="1"
         eType="#//Geometry"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PositionElevationOutput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" lowerBound="1"
+        upperBound="-1" eType="#//Result"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="pathCalculatorInput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="routes" lowerBound="1"
+        upperBound="-1" eType="#//Route"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Northeast">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -42,23 +54,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="positionElevation">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="results" lowerBound="1"
-        upperBound="-1" eType="#//Result"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="positionElevationInputInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lon" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="positionElevationOutput"
+        lowerBound="1" eType="#//PositionElevationOutput"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Bound">
     <eStructuralFeatures xsi:type="ecore:EReference" name="northeast" lowerBound="1"
         eType="#//Northeast"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="southwest" lowerBound="1"
         eType="#//Northeast"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="pathCalculator">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="routes" lowerBound="1"
-        upperBound="-1" eType="#//Route"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Leg">
     <eStructuralFeatures xsi:type="ecore:EReference" name="distance" lowerBound="1"
@@ -82,6 +90,16 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="points" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="arrayDistanceInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination_addresses"
+        lowerBound="1" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin_addresses" lowerBound="1"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rows" lowerBound="1" upperBound="-1"
+        eType="#//Row"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Row">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
         upperBound="-1" eType="#//Element"/>
@@ -93,16 +111,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewport" lowerBound="1"
         eType="#//Bound"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="arrayDistance">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination_addresses"
-        lowerBound="1" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin_addresses" lowerBound="1"
-        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rows" lowerBound="1" upperBound="-1"
-        eType="#//Row"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Route">
     <eStructuralFeatures xsi:type="ecore:EReference" name="bounds" lowerBound="1"

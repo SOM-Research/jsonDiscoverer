@@ -35,7 +35,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="answer" lowerBound="1"
         eType="#//Answer" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="getFluiditeAxesRoutiers">
+  <eClassifiers xsi:type="ecore:EClass" name="getFluiditeAxesRoutiersInput">
     <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
         eType="#//Opendata" containment="true"/>
   </eClassifiers>

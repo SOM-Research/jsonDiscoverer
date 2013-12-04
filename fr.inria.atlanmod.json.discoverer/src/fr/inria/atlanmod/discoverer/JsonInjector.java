@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.emf.common.util.EList;
@@ -52,6 +53,7 @@ public class JsonInjector {
 	
 	public JsonInjector(SingleJsonSource jsonSource) {
 		this.jsonSource = jsonSource;
+		LOGGER.setLevel(Level.OFF);
 	}
 	
 	/**
@@ -110,9 +112,10 @@ public class JsonInjector {
 		EObject result = null;
 
 		if (eClassifier instanceof EClass) {
+			LOGGER.finer("Instantiating class " + eClassifier.getName());
 			EClass eClass = (EClass) eClassifier;
 			result = EcoreUtil.create(eClass);
-			
+
 			Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
 			while(pairs.hasNext()) {
 				Map.Entry<String, JsonElement> pair = pairs.next();
@@ -169,7 +172,8 @@ public class JsonInjector {
 
 	protected Object digestValue(EAttribute eAttribute, JsonElement value) {
 		if (eAttribute.getEType().equals(EcorePackage.Literals.ESTRING)) {
-			return value.getAsJsonPrimitive().getAsString();
+			if(value.isJsonArray() || value.isJsonObject()) return ""; // TODO Improve discovery process to deal with this
+			else return value.getAsJsonPrimitive().getAsString();
 		} else if (eAttribute.getEType().equals(EcorePackage.Literals.EINT)) {
 			return new Integer(value.getAsJsonPrimitive().getAsNumber().intValue());
 		} else if (eAttribute.getEType().equals(EcorePackage.Literals.EBOOLEAN)) {

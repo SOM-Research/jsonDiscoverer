@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="composed" nsURI="http://fr.inria.atlanmod/discovered/composed"
     nsPrefix="composedc">
-  <eClassifiers xsi:type="ecore:EClass" name="picturesOfThePlace">
+  <eClassifiers xsi:type="ecore:EClass" name="wineSearchInput">
     <eStructuralFeatures xsi:type="ecore:EReference" name="meta" lowerBound="1" eType="#//Meta"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="wines" lowerBound="1" upperBound="-1"
         eType="#//Wine"/>

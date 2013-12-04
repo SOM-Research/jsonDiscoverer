@@ -18,6 +18,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="travel_mode" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="pathCalculatorInput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="routes" lowerBound="1"
+        upperBound="-1" eType="#//Route" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Northeast">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -31,12 +37,6 @@
         eType="#//Northeast" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="southwest" lowerBound="1"
         eType="#//Southwest" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="pathCalculator">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="routes" lowerBound="1"
-        upperBound="-1" eType="#//Route" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Leg">
     <eStructuralFeatures xsi:type="ecore:EReference" name="distance" lowerBound="1"

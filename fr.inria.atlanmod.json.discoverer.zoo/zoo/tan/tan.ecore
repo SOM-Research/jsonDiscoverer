@@ -2,34 +2,25 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="composed" nsURI="http://fr.inria.atlanmod/discovered/composed"
     nsPrefix="composedc">
-  <eClassifiers xsi:type="ecore:EClass" name="stopPosition">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeLieu" lowerBound="1"
+  <eClassifiers xsi:type="ecore:EClass" name="horariesStopLineDirectionInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stopName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelle" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineNum" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sens" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="horariesStopLineDirectionOutput"
+        lowerBound="1" eType="#//HorariesStopLineDirectionOutput"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="waitingTimeStopInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stopName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distance" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" upperBound="-1"
-        eType="#//Ligne"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="waitingTimeStopOutput"
+        lowerBound="1" upperBound="-1" eType="#//WaitingTimeStopOutput"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Horaire">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="heure" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="passages" lowerBound="1"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="horariesStopLineDirection">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arret" lowerBound="1" eType="#//Arret"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" eType="#//Ligne"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeCouleur" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="plageDeService" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="notes" lowerBound="1" upperBound="-1"
-        eType="#//Note"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="horaires" lowerBound="1"
-        upperBound="-1" eType="#//Horaire"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="prochainsHoraires" lowerBound="1"
-        upperBound="-1" eType="#//Horaire"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Arret">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeArret" lowerBound="1"
@@ -38,6 +29,12 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="accessible" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="stopPositionInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lon" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stopPositionOutput" lowerBound="1"
+        upperBound="-1" eType="#//StopPositionOutput"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Note">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -60,7 +57,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeLigne" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="waitingTimeStop">
+  <eClassifiers xsi:type="ecore:EClass" name="WaitingTimeStopOutput">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sens" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminus" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -69,5 +66,29 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="temps" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" eType="#//Ligne"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="arret" lowerBound="1" eType="#//Arret"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StopPositionOutput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeLieu" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelle" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distance" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" upperBound="-1"
+        eType="#//Ligne"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HorariesStopLineDirectionOutput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arret" lowerBound="1" eType="#//Arret"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" eType="#//Ligne"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeCouleur" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="plageDeService" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="notes" lowerBound="1" upperBound="-1"
+        eType="#//Note"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="horaires" lowerBound="1"
+        upperBound="-1" eType="#//Horaire"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prochainsHoraires" lowerBound="1"
+        upperBound="-1" eType="#//Horaire"/>
   </eClassifiers>
 </ecore:EPackage>

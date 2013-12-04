@@ -36,10 +36,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="IdObj" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InfoTraficTANRealTime">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
-        eType="#//Opendata"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Troncon">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Horodatage" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -52,6 +48,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="status" lowerBound="1"
         eType="#//Statu"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1" eType="#//Data"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InfoTraficTANRealTimeInput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
+        eType="#//Opendata"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="@attribute">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -51,8 +50,6 @@ public class JsonDiscoverer {
 	public JsonDiscoverer() {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
-		
-		LOGGER.setLevel(Level.OFF);
 	}
 
 	/**
@@ -72,7 +69,8 @@ public class JsonDiscoverer {
 			throw new IllegalArgumentException("The source must include, at least, one JSON definition.");
 		
 		List<JsonObject> elements = new ArrayList<JsonObject>();
-
+		
+		String sourceName = source.getName();
 		// Getting all the root elements
 		for(JsonElement rootElement : source.getJsonDefs()) {
 			if (rootElement.isJsonArray()) {
@@ -81,8 +79,9 @@ public class JsonDiscoverer {
 					if(rootElement.getAsJsonArray().get(i).isJsonObject())
 						elements.add(rootElement.getAsJsonArray().get(i).getAsJsonObject());
 			} else if(rootElement.isJsonObject()) {
-				LOGGER.finer("Only one object found");
+				LOGGER.finer("Only one object found, it is interpreted as input");
 				elements.add(rootElement.getAsJsonObject());
+				sourceName = source.getName().substring(0, 1).toUpperCase() + source.getName().substring(1, source.getName().length()) + "Input";
 			} else {
 				LOGGER.finest("The root element was " + rootElement.getClass().getName());
 				LOGGER.finest("It is: " + rootElement.getAsString());
@@ -91,8 +90,9 @@ public class JsonDiscoverer {
 
 		// Launching discoverer
 		LOGGER.fine("Received " + elements.size() + " json objects to discover");
+		
 		for(JsonObject jsonObject : elements) {
-			discoverMetaclass(source.getName(), jsonObject);
+			discoverMetaclass(sourceName, jsonObject);
 		}
 
 		// Default package
@@ -100,6 +100,17 @@ public class JsonDiscoverer {
 		ePackage.setName(source.getName());
 		ePackage.setNsURI("http://fr.inria.atlanmod/discovered/" + source.getName());
 		ePackage.setNsPrefix("disco" + source.getName().charAt(0));
+		
+		// Setting the input
+//		if(source.getInput() != null && source.getInput().isJsonObject()) {
+//			EClass rootClass = eClasses.get(source.getName());
+//			EClass inputClass = discoverMetaclass(source.getName() + "Input", source.getInput().getAsJsonObject());
+//			EReference returnReference = EcoreFactory.eINSTANCE.createEReference();
+//			returnReference.setEType(rootClass);
+//			returnReference.setName("returns");
+//			inputClass.getEStructuralFeatures().add(returnReference);
+//			ePackage.getEClassifiers().add(inputClass);
+//		}
 		
 		ePackage.getEClassifiers().addAll(geteClasses().values());
 		source.setMetamodel(ePackage);
@@ -260,8 +271,8 @@ public class JsonDiscoverer {
 				return mapType(digestId(id), arrayValue.get(0)); // TODO: Consider all the list
 		} else if (value.isJsonObject()) {
 			return discoverMetaclass(digestId(id), value.getAsJsonObject());
-		} else {
-		}
+		} 
+		LOGGER.finer("Type not discovererd for " + id);
 		return EcorePackage.Literals.ESTRING;
 	}
 
