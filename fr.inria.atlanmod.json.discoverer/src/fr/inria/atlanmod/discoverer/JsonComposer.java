@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.emf.common.util.URI;
@@ -79,6 +80,8 @@ public class JsonComposer {
 			this.sources.put(jsonSource.getName(), jsonSource); // TODO deep-clone?
 		}
 		this.cacheValues = new HashMap<EAttribute, List<Object>>();
+		
+		LOGGER.setLevel(Level.OFF);
 	}
 		
 	/**
@@ -296,6 +299,10 @@ public class JsonComposer {
 
 	private EClass lookForSimilarEClass(EClass existingClass) { 
 		LOGGER.finer("  " + "Looking for classes similar to " + existingClass.getName());
+		// If it is the input class, ignore it!
+		if(existingClass.getName().endsWith("Input")) 
+			return null;
+		
 		EClass registryElement = registry.get(existingClass.getName());
 		if(registryElement != null) {
 			LOGGER.finer("    " + "Found matching name");

@@ -2,11 +2,6 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="composed" nsURI="http://fr.inria.atlanmod/discovered/composed"
     nsPrefix="composedc">
-  <eClassifiers xsi:type="ecore:EClass" name="picturesOfThePlaceInput">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="meta" lowerBound="1" eType="#//Meta"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="response" lowerBound="1"
-        eType="#//Response"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Stat">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkinsCount" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -15,10 +10,23 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipCount" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PicturesOfThePlaceInput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="client_id" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="client_secret" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="v" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ll" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="query" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="picturesOfThePlaceOutput"
+        lowerBound="1" eType="#//PicturesOfThePlaceOutput"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Special">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="items" lowerBound="1" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groups" lowerBound="1"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Venue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -38,7 +46,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="specials" lowerBound="1"
         eType="#//Special"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hereNow" lowerBound="1"
-        eType="#//HereNow"/>
+        eType="#//Special"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="referralId" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -50,6 +58,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="Response">
     <eStructuralFeatures xsi:type="ecore:EReference" name="venues" lowerBound="1"
         upperBound="-1" eType="#//Venue"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PicturesOfThePlaceOutput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="meta" lowerBound="1" eType="#//Meta"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="response" lowerBound="1"
+        eType="#//Response"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Meta">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -79,11 +92,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="icon" lowerBound="1" eType="#//Icon"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="primary" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HereNow">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groups" lowerBound="1"
-        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Icon">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" lowerBound="1"

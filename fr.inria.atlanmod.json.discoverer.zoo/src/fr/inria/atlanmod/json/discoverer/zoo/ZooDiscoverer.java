@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import com.google.gson.JsonParseException;
+
 import fr.inria.atlanmod.discoverer.JsonComposer;
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonInjector;
@@ -142,23 +144,28 @@ public class ZooDiscoverer {
 			String shortname = properties.getProperty("shortname");
 
 			LOGGER.info("SOURCE: " + shortname + " with " + jsonFiles.size() + " sources");
-			LOGGER.info(" - path: " + rootPath.getAbsolutePath());
-			LOGGER.info(" - json: " + resultingPath.getAbsolutePath());
+			LOGGER.info(" - resulting: " + resultingPath.getAbsolutePath());
 
 			JsonSource source = new JsonSource(shortname);
 			for(File jsonFile : jsonFiles) {
+				LOGGER.info(" - json source: " + jsonFile.getAbsolutePath());
 				File jsonPropertiesFile = new File(jsonFile.getAbsolutePath().substring(0, jsonFile.getAbsolutePath().lastIndexOf(".")) + ".properties");
-				if(jsonPropertiesFile.exists()) {
-					Properties jsonProperties = new Properties();
-					jsonProperties.load(new FileReader(jsonPropertiesFile));
-					String inputJson = jsonProperties.getProperty("input");
-					if(inputJson != null) {
-						source.addJsonDef(jsonFile, inputJson);
+				try {
+					if(jsonPropertiesFile.exists()) {
+						Properties jsonProperties = new Properties();
+						jsonProperties.load(new FileReader(jsonPropertiesFile));
+						String inputJson = jsonProperties.getProperty("input");
+						if(inputJson != null) {
+							source.addJsonDef(jsonFile, inputJson);
+						} else {
+							source.addJsonDef(jsonFile);
+						}
 					} else {
 						source.addJsonDef(jsonFile);
 					}
-				} else {
-					source.addJsonDef(jsonFile);
+				} catch (JsonParseException e) {
+					LOGGER.info("Error deadling with source " + jsonFile.getName());
+					throw e;
 				}
 			}
 

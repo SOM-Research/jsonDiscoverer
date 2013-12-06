@@ -3,6 +3,8 @@ fr.inria.atlanmod.json.discoverer.tests/bin/**/*
 fr.inria.atlanmod.json.discoverer.tests/log/**/*
 fr.inria.atlanmod.json.discoverer.ui/bin/**/*
 fr.inria.atlanmod.json.discoverer.zoo/bin/**/*
+fr.inria.atlanmod.json.discoverer.zoo/zooBig/*
+fr.inria.atlanmod.json.discoverer.zoo/zooMini/*
 fr.inria.atlanmod.json.discoverer/bin/**/*
 fr.inria.atlanmod.json.web/build/**/*
 fr.inria.atlanmod.json.web/jsonDiscoverer.war

@@ -53,6 +53,7 @@ public class JsonInjector {
 	
 	public JsonInjector(SingleJsonSource jsonSource) {
 		this.jsonSource = jsonSource;
+		
 		LOGGER.setLevel(Level.OFF);
 	}
 	

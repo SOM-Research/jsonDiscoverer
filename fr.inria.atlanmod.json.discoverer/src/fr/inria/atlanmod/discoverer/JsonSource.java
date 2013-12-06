@@ -21,6 +21,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EPackage;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
@@ -69,7 +70,7 @@ public class JsonSource {
 		
 		JsonElement inputElement = (new JsonParser()).parse(new JsonReader(new StringReader(input)));
 		if(!inputElement.isJsonObject())
-			throw new IllegalArgumentException("The input must be a valid JSON object");
+			throw new JsonParseException("The input value must be a valid JSON object. Received " + input);
 
 		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(file)));
 		inputElement.getAsJsonObject().add(getName() + "Output", rootElement);
