@@ -25,7 +25,7 @@ import org.eclipse.modisco.infra.discovery.core.IDiscoverer;
 import org.eclipse.modisco.infra.discovery.core.exception.DiscoveryException;
 import org.eclipse.ui.PlatformUI;
 
-import fr.inria.atlanmod.discoverer.JsonComposer;
+import fr.inria.atlanmod.discoverer.JsonMultiDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonSource;
 import fr.inria.atlanmod.discoverer.JsonSourceSet;
 
@@ -53,9 +53,9 @@ public class JsonModiscoDiscovererComposer extends JsonModiscoDiscoverer impleme
 			JsonSourceSet sourceSet = new JsonSourceSet("composed");
 			sourceSet.addJsonSource(source1);
 			sourceSet.addJsonSource(source2);
-			JsonComposer composer = new JsonComposer(sourceSet);
+			JsonMultiDiscoverer composer = new JsonMultiDiscoverer(sourceSet);
 			File targetFile = new File(path.substring(0, path.lastIndexOf("."))+ "-composed.ecore");
-			composer.compose(targetFile);
+			composer.discover(targetFile);
 		} catch (FileNotFoundException e1) {
 			throw new DiscoveryException(e1.getMessage());
 		}

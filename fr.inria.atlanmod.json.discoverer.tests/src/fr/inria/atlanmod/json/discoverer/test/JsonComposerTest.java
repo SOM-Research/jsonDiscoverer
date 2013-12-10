@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import fr.inria.atlanmod.discoverer.JsonComposer;
+import fr.inria.atlanmod.discoverer.JsonMultiDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonSource;
 import fr.inria.atlanmod.discoverer.JsonSourceSet;
 import fr.inria.atlanmod.json.discoverer.zoo.ModelDrawer;
@@ -65,8 +65,8 @@ public class JsonComposerTest {
 		sourceSet.addJsonSource(source2);
 		sourceSet.addJsonSource(source3);
 		
-		JsonComposer composer = new JsonComposer(sourceSet);
-		composer.compose(new File(RESULT));
+		JsonMultiDiscoverer composer = new JsonMultiDiscoverer(sourceSet);
+		composer.discover(new File(RESULT));
 		composer.saveCoverage(coveragePaths);
 
 		ModelDrawer drawer = new ModelDrawer(
