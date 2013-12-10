@@ -50,11 +50,8 @@ import coverage.util.CoverageCreator;
  */
 public class JsonComposer {
 	final static double CLASS_MATCHING_THRESHOLD = 0.3;
-	
-	/**
-	 * Set of sources to compose
-	 */
-	private HashMap<String, JsonSource> sources;
+
+	private JsonSourceSet sourceSet;
 	
 	private HashMap<String, EClass> registry;
 	private List<CoverageCreator> coverageCreators;
@@ -62,22 +59,21 @@ public class JsonComposer {
 	HashMap<EAttribute, List<Object>> cacheValues;
 	
 	private final static Logger LOGGER = Logger.getLogger(JsonComposer.class.getName());
-
-	public JsonComposer(List<JsonSource> sources) {
-		if(sources == null) 
-			throw new IllegalArgumentException("Sources cannot be null");
-		else if(sources.size() == 0) 
+	
+	public JsonComposer(JsonSourceSet sourceSet) {
+		if(sourceSet == null) 
+			throw new IllegalArgumentException("SourceSet cannot be null");
+		else if(sourceSet.getJsonSources().size() == 0) 
 			throw new IllegalArgumentException("At least 1 source is required to compose");
 
+		this.sourceSet = sourceSet;
 		// All the sources must include the metamodel
-		this.sources = new HashMap<String, JsonSource>();
-		for(JsonSource jsonSource : sources) {
+		for(JsonSource jsonSource : this.sourceSet.getJsonSources()) {
 			if(jsonSource.getMetamodel() == null) {
 				// For those not including the metamodel, it is discovered
 				JsonDiscoverer discoverer = new JsonDiscoverer();
 				discoverer.discoverMetamodel(jsonSource);
 			}
-			this.sources.put(jsonSource.getName(), jsonSource); // TODO deep-clone?
 		}
 		this.cacheValues = new HashMap<EAttribute, List<Object>>();
 		
@@ -108,10 +104,10 @@ public class JsonComposer {
 	 * @return The resulting metamodel as EPackage
 	 * @throws FileNotFoundException
 	 */
-	public EPackage compose(String resultingName, File resultPath) throws FileNotFoundException {
-		EPackage finalPackage = compose(resultingName);
-		saveEPackage(finalPackage, resultPath);
-		return finalPackage;
+	public JsonSourceSet compose(File resultPath) throws FileNotFoundException {
+		JsonSourceSet sourceSet = compose();
+		saveEPackage(sourceSet.getMetamodel(), resultPath);
+		return sourceSet;
 	}
 	
 	/**
@@ -120,19 +116,19 @@ public class JsonComposer {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public EPackage compose(String resultingName) throws FileNotFoundException  {
+	public JsonSourceSet compose() throws FileNotFoundException  {
 		// Creating the resulting metamodel
 		EPackage finalPackage = EcoreFactory.eINSTANCE.createEPackage();
-		finalPackage.setName(resultingName);
-		finalPackage.setNsPrefix("composed" + resultingName.charAt(0));
-		finalPackage.setNsURI("http://fr.inria.atlanmod/discovered/" + resultingName);
+		finalPackage.setName(sourceSet.getName());
+		finalPackage.setNsPrefix("composed" + sourceSet.getName().charAt(0));
+		finalPackage.setNsURI("http://fr.inria.atlanmod/discovered/" + sourceSet.getName());
 		LOGGER.finer("Package created");
 
 		// Initializing variables
 		registry = new HashMap<String, EClass>();
 		List<EReference> referencesToCheck = new ArrayList<EReference>();
 		coverageCreators = new ArrayList<CoverageCreator>();
-		for(JsonSource jsonSource : getSources()) {
+		for(JsonSource jsonSource : this.sourceSet.getJsonSources()) {
 			LOGGER.finer("Analizing JSON source: " + jsonSource.getName());
 			CoverageCreator coverageCreator = new CoverageCreator(jsonSource.getName(), jsonSource.getMetamodel(), finalPackage);
 
@@ -204,7 +200,8 @@ public class JsonComposer {
 			finalPackage.getEClassifiers().add(unknown);
 		}
 
-		return finalPackage;
+		this.sourceSet.setMetamodel(finalPackage);
+		return sourceSet;
 	}
 
 	private void composeAttributes(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException  {
@@ -373,7 +370,7 @@ public class JsonComposer {
 			throw new IllegalArgumentException("sourceName cannot be null or empty");
 		
 		List<Object> result = new ArrayList<Object>();
-		List<JsonElement> jsonDefs = sources.get(sourceName).getJsonDefs();
+		List<JsonElement> jsonDefs = this.sourceSet.getJsonSource(sourceName).getJsonDefs();
 		if(jsonDefs.size() == 0) return result;
 		JsonElement rootElement = jsonDefs.get(0); // TODO Consider all of them!
 		
@@ -453,13 +450,5 @@ public class JsonComposer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private List<JsonSource> getSources() {
-		List<JsonSource> result = new ArrayList<JsonSource>();
-		result.addAll(this.sources.values());
-		return result;
-	}
-	
-	
+	}	
 }

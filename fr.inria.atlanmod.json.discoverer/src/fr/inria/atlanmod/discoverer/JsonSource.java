@@ -18,8 +18,6 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EPackage;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
@@ -32,24 +30,14 @@ import com.google.gson.stream.JsonReader;
  * @author Javier Canovas (javier.canovas@inria.fr)
  *
  */
-public class JsonSource {
-	/**
-	 * A representative name for this source
-	 */
-	private String name;
+public class JsonSource extends AbstractJsonSource {
 	/**
 	 * List of JSON definitions
 	 */
 	protected List<JsonElement> jsonDefs;
 	
-	/**
-	 * If required, this class can also store the metamodel of the set of JSON definitions
-	 */
-	private EPackage metamodel;
-	
-	
 	public JsonSource(String name) {
-		setName(name);
+		super(name);
 		this.jsonDefs = new ArrayList<JsonElement>();
 	}
 	/**
@@ -102,27 +90,5 @@ public class JsonSource {
 			throw new IllegalArgumentException("Argument cannot be null or empty");
 		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new StringReader(string)));
 		getJsonDefs().add(rootElement);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		if(name == null || name.equals("")) 
-			throw new IllegalArgumentException("Name cannot be null or empty");
-		this.name = name;
-	}
-
-	public EPackage getMetamodel() {
-		return metamodel;
-	}
-
-	public void setMetamodel(EPackage metamodel) {
-		if(metamodel == null) 
-			throw new IllegalArgumentException("Metamodel cannot be null");
-		this.metamodel = metamodel;
-	}
-	
-	
+	}	
 }

@@ -27,6 +27,7 @@ import org.eclipse.ui.PlatformUI;
 
 import fr.inria.atlanmod.discoverer.JsonComposer;
 import fr.inria.atlanmod.discoverer.JsonSource;
+import fr.inria.atlanmod.discoverer.JsonSourceSet;
 
 public class JsonModiscoDiscovererComposer extends JsonModiscoDiscoverer implements IDiscoverer<IFile> {
 
@@ -48,12 +49,13 @@ public class JsonModiscoDiscovererComposer extends JsonModiscoDiscoverer impleme
 			source1.addJsonDef(sourceFile1);
 			JsonSource source2 = new JsonSource("source2");
 			source2.addJsonDef(sourceFile2);
-			List<JsonSource> sources = new ArrayList<JsonSource>();
-			sources.add(source1);
-			sources.add(source2);
-			JsonComposer composer = new JsonComposer(sources);
+			
+			JsonSourceSet sourceSet = new JsonSourceSet("composed");
+			sourceSet.addJsonSource(source1);
+			sourceSet.addJsonSource(source2);
+			JsonComposer composer = new JsonComposer(sourceSet);
 			File targetFile = new File(path.substring(0, path.lastIndexOf("."))+ "-composed.ecore");
-			composer.compose("composed", targetFile);
+			composer.compose(targetFile);
 		} catch (FileNotFoundException e1) {
 			throw new DiscoveryException(e1.getMessage());
 		}

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import fr.inria.atlanmod.discoverer.JsonComposer;
 import fr.inria.atlanmod.discoverer.JsonSource;
+import fr.inria.atlanmod.discoverer.JsonSourceSet;
 import fr.inria.atlanmod.json.discoverer.zoo.ModelDrawer;
 
 public class JsonComposerTest {
@@ -59,13 +60,13 @@ public class JsonComposerTest {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 		
-		List<JsonSource> sources = new ArrayList<JsonSource>();
-		sources.add(source1);
-		sources.add(source2);
-		sources.add(source3);
+		JsonSourceSet sourceSet = new JsonSourceSet("composed");
+		sourceSet.addJsonSource(source1);
+		sourceSet.addJsonSource(source2);
+		sourceSet.addJsonSource(source3);
 		
-		JsonComposer composer = new JsonComposer(sources);
-		composer.compose("composed", new File(RESULT));
+		JsonComposer composer = new JsonComposer(sourceSet);
+		composer.compose(new File(RESULT));
 		composer.saveCoverage(coveragePaths);
 
 		ModelDrawer drawer = new ModelDrawer(

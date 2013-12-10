@@ -36,6 +36,7 @@ import fr.inria.atlanmod.discoverer.JsonComposer;
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonInjector;
 import fr.inria.atlanmod.discoverer.JsonSource;
+import fr.inria.atlanmod.discoverer.JsonSourceSet;
 import fr.inria.atlanmod.discoverer.SingleJsonSource;
 
 /**
@@ -93,14 +94,14 @@ public class ZooDiscoverer {
 				// Each API in ZOO directory
 				File resultingPath = new File(parentFile.getAbsoluteFile() + File.separator + parentFile.getName() + ".ecore"); 
 				if(overwrite || !resultingPath.exists()) {
-					List<JsonSource> discoveredSources = new ArrayList<>();
+					JsonSourceSet sourceSet = new JsonSourceSet("composed");
 					for(File sourceFile : parentFile.listFiles()) {
 						if(sourceFile.isDirectory()) {
 							// Each Source
 							try { 
 								JsonSource discoveredSource = discoverSource(sourceFile, overwrite);
 								if(discoveredSource != null)
-									discoveredSources.add(discoveredSource);
+									sourceSet.addJsonSource(discoveredSource);
 							} catch(Exception e) {
 								LOGGER.severe(e.getMessage());
 								e.printStackTrace();
@@ -108,9 +109,9 @@ public class ZooDiscoverer {
 						}
 					}
 					// Composing metamodels
-					JsonComposer composer = new JsonComposer(discoveredSources);
+					JsonComposer composer = new JsonComposer(sourceSet);
 					try {
-						composer.compose("composed", resultingPath);
+						composer.compose(resultingPath);
 					} catch (FileNotFoundException e) {
 						LOGGER.severe(e.getMessage());
 					}
