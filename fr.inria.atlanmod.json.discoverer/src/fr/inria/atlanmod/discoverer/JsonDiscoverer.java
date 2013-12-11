@@ -19,10 +19,12 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -48,11 +50,17 @@ public class JsonDiscoverer {
 
 	private final static Logger LOGGER = Logger.getLogger(JsonDiscoverer.class.getName());
 
+	private static final String TOTAL_FOUND_TAG = "totalFound";
+
+	private static final String COVERAGE_TAG = "coverage";
+
+	private static final String RATIO_TOTAL_FOUND_TAG = "ratioTotalFound";
+
 	public JsonDiscoverer() {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 
-		LOGGER.setLevel(Level.OFF);
+//		LOGGER.setLevel(Level.OFF);
 	}
 
 	/**
@@ -70,13 +78,13 @@ public class JsonDiscoverer {
 			throw new IllegalArgumentException("Source cannot be null");
 		else if(source.getJsonData().size() == 0) 
 			throw new IllegalArgumentException("The source must include, at least, one JSON definition.");
-		
+
 		List<JsonObject> elements = source.getSourceDigested();
 
 		LOGGER.fine("Received " + elements.size() + " json objects to discover");
-		
+
 		String sourceName = (source.includesInput()) ? source.getName() + "Input" : source.getName();
-		
+
 		for(JsonObject jsonObject : elements) {
 			discoverMetaclass(sourceName, jsonObject);
 		}
@@ -86,13 +94,15 @@ public class JsonDiscoverer {
 		ePackage.setName(source.getName());
 		ePackage.setNsURI("http://fr.inria.atlanmod/discovered/" + source.getName());
 		ePackage.setNsPrefix("disco" + source.getName().charAt(0));
-				
 		ePackage.getEClassifiers().addAll(geteClasses().values());
 		source.setMetamodel(ePackage);
+		
+		// Calculating coverage
+		calculateCoverage(ePackage);
 
 		return ePackage;
 	}
-	
+
 	/**
 	 * Refines an existing metamodel with new JSON definitions coming from a new JsonSource
 	 * 
@@ -140,6 +150,7 @@ public class JsonDiscoverer {
 	private EClass createMetaclass(String id, JsonObject jsonObject) {
 		EClass eClass = EcoreFactory.eINSTANCE.createEClass();
 		eClass.setName(id);
+		increaseTotalFound(eClass);
 
 		eClasses.put(id, eClass);
 
@@ -166,6 +177,7 @@ public class JsonDiscoverer {
 	 */
 	private EClass refineMetaclass(EClass eClass, JsonObject jsonObject) {
 		LOGGER.fine("Refining metaclass " + eClass.getName());
+		increaseTotalFound(eClass);
 
 		Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
 		while(pairs.hasNext()) {
@@ -176,6 +188,7 @@ public class JsonDiscoverer {
 
 			EStructuralFeature eStructuralFeature = null;
 			if((eStructuralFeature = eClass.getEStructuralFeature(pairId)) != null) {
+				increaseTotalFound(eStructuralFeature);
 				if (eStructuralFeature instanceof EAttribute) {
 					EAttribute eAttribute = (EAttribute) eStructuralFeature;
 					if(eAttribute.getEType() != mapType(pairId, value)) {
@@ -221,6 +234,7 @@ public class JsonDiscoverer {
 			eStructuralFeature.setName(pairId);
 			eStructuralFeature.setLowerBound(lowerBound);
 			eStructuralFeature.setEType(mapType(pairId, value)); 
+			increaseTotalFound(eStructuralFeature);
 			eClass.getEStructuralFeatures().add(eStructuralFeature);
 			LOGGER.fine(eStructuralFeature.getClass().getSimpleName() + " created with name " + pairId + " type " + eStructuralFeature.getEType().getName() + " and lower bound " + lowerBound);
 		}
@@ -263,5 +277,40 @@ public class JsonDiscoverer {
 		return eClasses;
 	}
 
+	private void increaseTotalFound(EModelElement modelElement) {
+		EAnnotation annotation = modelElement.getEAnnotation(COVERAGE_TAG);
+		if(annotation != null) {
+			String currentCounter = annotation.getDetails().get(TOTAL_FOUND_TAG);
+			if(currentCounter != null) {
+				annotation.getDetails().put(TOTAL_FOUND_TAG, String.valueOf(Integer.valueOf(currentCounter).intValue() + 1));
+			}
+		} else {
+			annotation = EcoreFactory.eINSTANCE.createEAnnotation();
+			annotation.setSource(COVERAGE_TAG);
+			annotation.getDetails().put(TOTAL_FOUND_TAG, "1");
+			modelElement.getEAnnotations().add(annotation);
+		}
+	}
 
+	private void calculateCoverage(EPackage ePackage) {
+		for(EClassifier eClassifier : ePackage.getEClassifiers()) {
+			if (eClassifier instanceof EClass) {
+				EClass eClass = (EClass) eClassifier;
+				EAnnotation eClassAnnotation = eClass.getEAnnotation(COVERAGE_TAG);
+				if(eClassAnnotation != null) {
+					int eClassCounter = Integer.valueOf(eClassAnnotation.getDetails().get(TOTAL_FOUND_TAG)).intValue();
+					for(EStructuralFeature eStructuralFeature : eClass.getEStructuralFeatures()) {
+						EAnnotation eStructuralFeatureAnnotation = eStructuralFeature.getEAnnotation(COVERAGE_TAG);
+						if(eStructuralFeatureAnnotation != null) {
+							int eStructuralFeatureCounter = Integer.valueOf(eStructuralFeatureAnnotation.getDetails().get(TOTAL_FOUND_TAG)).intValue();
+							double ratio = ((double) eStructuralFeatureCounter) / ((double) eClassCounter);
+							eStructuralFeatureAnnotation.getDetails().put(RATIO_TOTAL_FOUND_TAG, String.valueOf(ratio));
+						}
+					}
+				}
+				
+			}
+		}
+	}
+	
 }

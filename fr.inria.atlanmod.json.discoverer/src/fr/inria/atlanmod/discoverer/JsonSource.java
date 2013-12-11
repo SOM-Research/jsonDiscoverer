@@ -54,6 +54,16 @@ public class JsonSource extends AbstractJsonSource {
 		return jsonData;
 	}
 	
+	/**
+	 * Adds a new JSON definition from a file with the JSON as well as the input to get such a
+	 * definition. The input must be provided as a valid JSON object.
+	 * 
+	 * Warning: If the JSON source already includes JSON Data, the provision of input must match
+	 * 
+	 * @param file
+	 * @param input
+	 * @throws FileNotFoundException
+	 */
 	public void addJsonDef(File file, String input) throws FileNotFoundException {
 		if(file == null || !file.exists()) 
 			throw new IllegalArgumentException("File cannot be null and must exist");
@@ -74,6 +84,8 @@ public class JsonSource extends AbstractJsonSource {
 	
 	/**
 	 * Adds a new JSON definition from a file with the JSON
+	 * 
+	 * Warning: If the JSON source already includes JSON Data, the provision of input must match
 	 * 
 	 * @param file
 	 * @throws FileNotFoundException 
@@ -106,6 +118,15 @@ public class JsonSource extends AbstractJsonSource {
 		this.withInput = false;
 	}	
 	
+	/**
+	 * Computes a list of JSON objects according to the data of this source.
+	 * If the source includes inputs, the list will include the set of input elements as roots for the 
+	 * JSON data of each source provided.
+	 * If the source does not include inputs, the listt will include all the objects from the JSON data
+	 * of each source provided.
+	 * 
+	 * @return
+	 */
 	public List<JsonObject> getSourceDigested() {
 		List<JsonObject> result = new ArrayList<JsonObject>();
 		if(this.withInput == true) {

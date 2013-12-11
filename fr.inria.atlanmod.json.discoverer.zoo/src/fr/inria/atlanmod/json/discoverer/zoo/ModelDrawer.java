@@ -14,6 +14,7 @@ package fr.inria.atlanmod.json.discoverer.zoo;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.CoreException;
@@ -38,6 +39,8 @@ public class ModelDrawer {
 	public ModelDrawer(File workingDir, File dotPath) {
 		this.workingDir = workingDir;
 		this.dotPath = dotPath;
+		
+		LOGGER.setLevel(Level.OFF);
 	}
 	
 	public void traverseAndDrawFolder(File targetFolder) {
