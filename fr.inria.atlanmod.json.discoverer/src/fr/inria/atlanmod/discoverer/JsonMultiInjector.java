@@ -61,11 +61,11 @@ public class JsonMultiInjector {
 	private final static Logger LOGGER = Logger.getLogger(JsonMultiInjector.class.getName());
 	
 	public JsonMultiInjector(SingleJsonSource source1, Coverage coverage1, SingleJsonSource source2, Coverage coverage2) {
-		if(source1 == null || source1.getJsonDefs().size() == 0)
+		if(source1 == null || source1.getJsonData().size() == 0)
 			throw new IllegalArgumentException("Source1 cannot be null or have not json definitions");
 		if(coverage1 == null) 
 			throw new IllegalArgumentException("Coverage1 cannot be null");
-		if(source2 == null || source2.getJsonDefs().size() == 0)
+		if(source2 == null || source2.getJsonData().size() == 0)
 			throw new IllegalArgumentException("Source2 cannot be null or have not json definitions");
 		if(coverage2 == null) 
 			throw new IllegalArgumentException("Coverage2 cannot be null");
@@ -79,8 +79,8 @@ public class JsonMultiInjector {
 	public void multiInject(File resultFile) throws FileNotFoundException {
 		currentModel = new ArrayList<EObject>();
 
-		inject(source1.getJsonDefs().get(0), source1.getMetamodel(), coverage1);
-		inject(source2.getJsonDefs().get(0), source2.getMetamodel(), coverage2);		
+		inject(source1.getJsonData().get(0).getData(), source1.getMetamodel(), coverage1);
+		inject(source2.getJsonData().get(0).getData(), source2.getMetamodel(), coverage2);		
 
 		saveModel(resultFile, currentModel);
 	}

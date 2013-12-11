@@ -17,14 +17,14 @@ public class SingleJsonSource extends JsonSource {
 	
 	@Override
 	public void addJsonDef(File file) throws FileNotFoundException {
-		if(getJsonDefs().size() > 0) 
+		if(getJsonData().size() > 0) 
 			throw new IllegalStateException("SingleJsonSource can have only one source");
 		super.addJsonDef(file);
 	}
 	
 	@Override
 	public void addJsonDef(String string) throws FileNotFoundException {
-		if(getJsonDefs().size() > 0) 
+		if(getJsonData().size() > 0) 
 			throw new IllegalStateException("SingleJsonSource can have only one source");
 		super.addJsonDef(string);
 	}

@@ -69,7 +69,7 @@ public class JsonInjector {
 		
 		JsonDiscoverer discoverer = new JsonDiscoverer();
 		EPackage ePackage = discoverer.discoverMetamodel(jsonSource);
-		JsonElement rootElement = jsonSource.getJsonDefs().get(0);
+		JsonElement rootElement = jsonSource.getJsonData().get(0).getData();
 		return inject(rootElement, ePackage);		
 	}
 		

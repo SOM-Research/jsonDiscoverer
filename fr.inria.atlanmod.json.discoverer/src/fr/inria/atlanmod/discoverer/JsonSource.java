@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
@@ -34,11 +35,14 @@ public class JsonSource extends AbstractJsonSource {
 	/**
 	 * List of JSON definitions
 	 */
-	protected List<JsonElement> jsonDefs;
+	protected List<JsonData> jsonData;
+	
+	public boolean withInput; 
 	
 	public JsonSource(String name) {
 		super(name);
-		this.jsonDefs = new ArrayList<JsonElement>();
+		this.jsonData = new ArrayList<JsonData>();
+		this.withInput = false;
 	}
 	/**
 	 * Gets the set of JSON definitions linked to this source. 
@@ -46,8 +50,8 @@ public class JsonSource extends AbstractJsonSource {
 	 * 
 	 * @return
 	 */
-	protected List<JsonElement> getJsonDefs() {
-		return jsonDefs;
+	protected List<JsonData> getJsonData() {
+		return jsonData;
 	}
 	
 	public void addJsonDef(File file, String input) throws FileNotFoundException {
@@ -55,15 +59,17 @@ public class JsonSource extends AbstractJsonSource {
 			throw new IllegalArgumentException("File cannot be null and must exist");
 		if(input == null || input.equals("")) 
 			throw new IllegalArgumentException("Argument cannot be null or empty");
+		if(this.jsonData.size() > 0 && this.withInput == false) 
+			throw new IllegalStateException("This JSON source was created to hold JSON data *without* input");
 		
 		JsonElement inputElement = (new JsonParser()).parse(new JsonReader(new StringReader(input)));
 		if(!inputElement.isJsonObject())
 			throw new JsonParseException("The input value must be a valid JSON object. Received " + input);
 
 		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(file)));
-		inputElement.getAsJsonObject().add(getName() + "Output", rootElement);
-		
-		getJsonDefs().add(inputElement);
+		JsonData data = new JsonData(inputElement.getAsJsonObject(), rootElement);
+		getJsonData().add(data);
+		this.withInput = true;
 	}
 	
 	/**
@@ -75,8 +81,12 @@ public class JsonSource extends AbstractJsonSource {
 	public void addJsonDef(File file) throws FileNotFoundException {
 		if(file == null || !file.exists()) 
 			throw new IllegalArgumentException("File cannot be null and must exist");
+		if(this.jsonData.size() > 0 && this.withInput == true) 
+			throw new IllegalStateException("This JSON source was created to hold JSON data *with* input");
 		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(file)));
-		getJsonDefs().add(rootElement);
+		JsonData data = new JsonData(null, rootElement);
+		getJsonData().add(data);
+		this.withInput = false;
 	}
 	
 	/**
@@ -88,7 +98,39 @@ public class JsonSource extends AbstractJsonSource {
 	public void addJsonDef(String string) throws FileNotFoundException {
 		if(string == null || string.equals("")) 
 			throw new IllegalArgumentException("Argument cannot be null or empty");
+		if(this.jsonData.size() > 0 && this.withInput == true) 
+			throw new IllegalStateException("This JSON source was created to hold JSON data *with* input");
 		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new StringReader(string)));
-		getJsonDefs().add(rootElement);
+		JsonData data = new JsonData(null, rootElement);
+		getJsonData().add(data);
+		this.withInput = false;
 	}	
+	
+	public List<JsonObject> getSourceDigested() {
+		List<JsonObject> result = new ArrayList<JsonObject>();
+		if(this.withInput == true) {
+			for(JsonData data : this.getJsonData()) {
+				JsonObject inputElement = data.getInput();
+				JsonElement outputElement = data.getData();
+				inputElement.getAsJsonObject().add(getName() + "Output", outputElement);
+				result.add(inputElement);
+			}
+		} else {
+			for(JsonData data : this.getJsonData()) {
+				JsonElement outputElement = data.getData();
+				if (outputElement.isJsonArray()) {
+					for(int i = 0; i < outputElement.getAsJsonArray().size(); i++)
+						if(outputElement.getAsJsonArray().get(i).isJsonObject())
+							result.add(outputElement.getAsJsonArray().get(i).getAsJsonObject());
+				} else if(outputElement.isJsonObject()) {
+					result.add(outputElement.getAsJsonObject());
+				} 
+			}
+		}
+		return result;
+	}
+	
+	public boolean includesInput() {
+		return this.withInput;
+	}
 }

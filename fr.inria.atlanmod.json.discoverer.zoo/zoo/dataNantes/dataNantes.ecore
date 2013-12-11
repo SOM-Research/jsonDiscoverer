@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="composed" nsURI="http://fr.inria.atlanmod/discovered/composed"
-    nsPrefix="composedc">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dataNantes" nsURI="http://fr.inria.atlanmod/discovered/dataNantes"
+    nsPrefix="composedd">
   <eClassifiers xsi:type="ecore:EClass" name="Groupes_Parking">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Groupe_Parking" lowerBound="1"
         upperBound="-1" eType="#//Groupe_Parking"/>

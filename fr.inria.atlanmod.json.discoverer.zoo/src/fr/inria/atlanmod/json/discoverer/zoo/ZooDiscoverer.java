@@ -35,6 +35,7 @@ import com.google.gson.JsonParseException;
 import fr.inria.atlanmod.discoverer.JsonComposer;
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonInjector;
+import fr.inria.atlanmod.discoverer.JsonMultiDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonSource;
 import fr.inria.atlanmod.discoverer.JsonSourceSet;
 import fr.inria.atlanmod.discoverer.SingleJsonSource;
@@ -85,16 +86,17 @@ public class ZooDiscoverer {
 	}
 
 	public void discover() {
-		discover(true);
+		discover(true); 
 	}
 
 	public void discover(boolean overwrite) {
+		List<JsonSourceSet> sourceSets = new ArrayList<>();
 		for(File parentFile : rootPath.listFiles()) {
 			if(parentFile.isDirectory()) {
 				// Each API in ZOO directory
 				File resultingPath = new File(parentFile.getAbsoluteFile() + File.separator + parentFile.getName() + ".ecore"); 
 				if(overwrite || !resultingPath.exists()) {
-					JsonSourceSet sourceSet = new JsonSourceSet("composed");
+					JsonSourceSet sourceSet = new JsonSourceSet(parentFile.getName());
 					for(File sourceFile : parentFile.listFiles()) {
 						if(sourceFile.isDirectory()) {
 							// Each Source
@@ -109,17 +111,21 @@ public class ZooDiscoverer {
 						}
 					}
 					// Composing metamodels
-					JsonComposer composer = new JsonComposer(sourceSet);
+					JsonMultiDiscoverer multidiscoverer = new JsonMultiDiscoverer(sourceSet);
 					try {
-						composer.compose(resultingPath);
+						multidiscoverer.discover(resultingPath);
 					} catch (FileNotFoundException e) {
 						LOGGER.severe(e.getMessage());
 					}
+					sourceSets.add(sourceSet);
 				} else {
 					LOGGER.info("Composed metamodel for " + parentFile.getName() + " already generated");
 				}
 			}
 		}
+		JsonComposer composer = new JsonComposer(sourceSets);
+		File finalResultPath = new File(rootPath.getAbsoluteFile() + File.separator + rootPath.getName() + ".ecore");  
+		composer.compose(finalResultPath);
 
 	}
 

@@ -1,0 +1,1735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <eSubpackages name="dataNantes" nsURI="http://fr.inria.atlanmod/discovered/dataNantes"
+      nsPrefix="composedd">
+    <eClassifiers xsi:type="ecore:EClass" name="Groupes_Parking">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="Groupe_Parking" lowerBound="1"
+          upperBound="-1" eType="#//dataNantes/Groupe_Parking"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="LISTE_INFOTRAFICS">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="INFOTRAFIC" lowerBound="1"
+          upperBound="-1" eType="#//dataNantes/INFOTRAFIC"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GetFluiditeAxesRoutiersInput">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
+          eType="#//dataNantes/Opendata"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Answer">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="status" lowerBound="1"
+          eType="#//dataNantes/Statu"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1"
+          eType="#//dataNantes/Data"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="@attribute">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="INFOTRAFIC">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="CODE" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="LANGUE" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="INTITULE" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="RESUME" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="TEXTE_VOCAL" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="DATE_DEBUT" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="DATE_FIN" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="HEURE_DEBUT" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="HEURE_FIN" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="PERTURBATION_TERMINEE"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="TRONCONS" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Statu">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="@attributes" lowerBound="1"
+          eType="#//dataNantes/@attribute"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Opendata">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="request" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="answer" lowerBound="1"
+          eType="#//dataNantes/Answer"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Data">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ROOT" lowerBound="1"
+          eType="#//dataNantes/ROOT"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="Troncons" lowerBound="1"
+          eType="#//dataNantes/Troncon"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="Groupes_Parking" lowerBound="1"
+          eType="#//dataNantes/Groupes_Parking"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Groupe_Parking">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_identifiant" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_nom" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_statut" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_pri_aut" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_disponible" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_complet" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_exploitation" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_horodatage" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="IdObj" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Troncon">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Horodatage" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="Couleur_TP" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="Troncon" lowerBound="1"
+          upperBound="-1" eType="#//dataNantes/Troncon"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="InfoTraficTANRealTimeInput">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
+          eType="#//dataNantes/Opendata"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="InfoTraficTANProvisionalInput">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
+          eType="#//dataNantes/Opendata"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ParkingAvailabilityInput">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
+          eType="#//dataNantes/Opendata"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ROOT">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="LISTE_INFOTRAFICS" lowerBound="1"
+          eType="#//dataNantes/LISTE_INFOTRAFICS"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="foursquare" nsURI="http://fr.inria.atlanmod/discovered/foursquare"
+      nsPrefix="composedf">
+    <eClassifiers xsi:type="ecore:EClass" name="Stat">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkinsCount" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="usersCount" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipCount" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PicturesOfThePlaceInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="client_id" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="client_secret" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="v" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ll" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="query" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="picturesOfThePlaceOutput"
+          lowerBound="1" eType="#//foursquare/PicturesOfThePlaceOutput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Special">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="items" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="groups" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Venue">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="contact" lowerBound="1"
+          eType="#//foursquare/Contact"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
+          eType="#//foursquare/Location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="categories" lowerBound="1"
+          upperBound="-1" eType="#//foursquare/Categorie"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="verified" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="restricted" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="stats" lowerBound="1"
+          eType="#//foursquare/Stat"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="specials" lowerBound="1"
+          eType="#//foursquare/Special"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="hereNow" lowerBound="1"
+          eType="#//foursquare/Special"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="referralId" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Contact">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="phone" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="formattedPhone" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Response">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="venues" lowerBound="1"
+          upperBound="-1" eType="#//foursquare/Venue"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PicturesOfThePlaceOutput">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="meta" lowerBound="1"
+          eType="#//foursquare/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="response" lowerBound="1"
+          eType="#//foursquare/Response"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Meta">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Location">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="address" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="distance" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="postalCode" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="cc" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="city" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="country" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Categorie">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pluralName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="icon" lowerBound="1"
+          eType="#//foursquare/Icon"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="primary" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Icon">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="suffix" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="googleMaps" nsURI="http://fr.inria.atlanmod/discovered/googleMaps"
+      nsPrefix="composedg">
+    <eClassifiers xsi:type="ecore:EClass" name="ArrayDistanceInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="origins" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="destinations" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mode" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="arrayDistanceOutput"
+          lowerBound="1" eType="#//googleMaps/PathCalculatorOutput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Step">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="distance" lowerBound="1"
+          eType="#//googleMaps/Distance"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="duration" lowerBound="1"
+          eType="#//googleMaps/Distance"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="end_location" lowerBound="1"
+          eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="html_instructions" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="polyline" lowerBound="1"
+          eType="#//googleMaps/Overview_polyline"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="start_location" lowerBound="1"
+          eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="travel_mode" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="end_address" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="start_address" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="via_waypoint" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="steps" lowerBound="1"
+          upperBound="-1" eType="#//googleMaps/Step"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Result">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="elevation" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
+          eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolution" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatted_address" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="types" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="address_components" lowerBound="1"
+          upperBound="-1" eType="#//googleMaps/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="geometry" lowerBound="1"
+          eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="GeographicalCodeInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="address" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="geographicalCodeOutput"
+          lowerBound="1" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Northeast">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Distance">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PositionElevationInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="locations" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="positionElevationOutput"
+          lowerBound="1" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Bound">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="northeast" lowerBound="1"
+          eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="southwest" lowerBound="1"
+          eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PathCalculatorInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="waypoints" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="pathCalculatorOutput"
+          lowerBound="1" eType="#//googleMaps/PathCalculatorOutput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Overview_polyline">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="points" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Row">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
+          upperBound="-1" eType="#//googleMaps/Element"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Geometry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
+          eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="location_type" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="viewport" lowerBound="1"
+          eType="#//googleMaps/Bound"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Venue"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Route">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="bounds" lowerBound="1"
+          eType="#//googleMaps/Bound"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="copyrights" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="legs" lowerBound="1"
+          upperBound="-1" eType="#//googleMaps/Step"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="overview_polyline" lowerBound="1"
+          eType="#//googleMaps/Overview_polyline"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="summary" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="warnings" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="waypoint_order" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Address_component">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="long_name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="short_name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="types" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Element">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="distance" lowerBound="1"
+          eType="#//googleMaps/Distance"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="duration" lowerBound="1"
+          eType="#//googleMaps/Distance"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="results" lowerBound="1"
+          upperBound="-1" eType="#//googleMaps/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineOutput/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PathCalculatorOutput">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="routes" lowerBound="1"
+          upperBound="-1" eType="#//googleMaps/Route"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="results" lowerBound="1"
+          upperBound="-1" eType="#//googleMaps/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination_addresses"
+          lowerBound="1" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin_addresses" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="rows" lowerBound="1"
+          upperBound="-1" eType="#//googleMaps/Row"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineOutput/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="googlePlaces" nsURI="http://fr.inria.atlanmod/discovered/googlePlaces"
+      nsPrefix="composedg">
+    <eClassifiers xsi:type="ecore:EClass" name="Result">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="geometry" lowerBound="1"
+          eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="icon" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="reference" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="types" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="vicinity" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatted_address" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatted_phone_number"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="international_phone_number"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="rating" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="utc_offset" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="website" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="address_components" lowerBound="1"
+          upperBound="-1" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="photos" lowerBound="1"
+          upperBound="-1" eType="#//googlePlaces/Photo"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="reviews" lowerBound="1"
+          upperBound="-1" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Categorie"
+          eOpposite="#//foursquare/Categorie/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PlaceSearchEngineInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="radius" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="placeSearchEngineOutput"
+          lowerBound="1" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PositionElevationInput"
+          eOpposite="#//googleMaps/PositionElevationInput/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Northeast">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Aspect">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="rating" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="author_name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="author_url" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="time" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="aspects" lowerBound="1"
+          upperBound="-1" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Geometry">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
+          eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="viewport" lowerBound="1"
+          eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Venue"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping.1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.18"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.18"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PlaceSearchEngineOutput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="debug_info" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="html_attributions" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="next_page_token" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="results" lowerBound="1"
+          upperBound="-1" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="result" lowerBound="1"
+          eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping.2"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.19"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.19"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Photo">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="html_attributions" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="photo_reference" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Photo"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Viewport">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="northeast" lowerBound="1"
+          eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="southwest" lowerBound="1"
+          eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping.3"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.20"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.20"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Photo"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Address_component">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="long_name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="short_name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="types" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping.4"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.18"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.21"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.21"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.18"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Photo"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PlaceDetailInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="reference" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="placeDetailOutput" lowerBound="1"
+          eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="panoramio" nsURI="http://fr.inria.atlanmod/discovered/panoramio"
+      nsPrefix="composedp">
+    <eClassifiers xsi:type="ecore:EClass" name="PicturesOfThePlaceInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="set" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="from" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="to" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="minx" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="miny" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxx" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxy" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="mapfilter" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="picturesOfThePlaceOutput"
+          lowerBound="1" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Map_location">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lon" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="panoramio_zoom" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping.5"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.19"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.22"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.22"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"
+          eOpposite="#//googlePlaces/Result/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineInput/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.22"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"
+          eOpposite="#//googlePlaces/Aspect/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.26"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineOutput/mapping.20"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping.22"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping.22"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.19"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="PicturesOfThePlaceOutput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="has_more" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="map_location" lowerBound="1"
+          eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="photos" lowerBound="1"
+          upperBound="-1" eType="#//panoramio/Photo"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Special"
+          eOpposite="#//foursquare/Special/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.18"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.20"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.23"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.23"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"
+          eOpposite="#//googlePlaces/Result/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineInput/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.23"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"
+          eOpposite="#//googlePlaces/Aspect/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.27"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineOutput/mapping.21"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping.23"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping.23"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.20"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Photo">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="latitude" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="longitude" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="owner_id" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="owner_name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="owner_url" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="photo_file_url" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="photo_id" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="photo_title" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="photo_url" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="upload_date" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Photo"
+          eOpposite="#//googlePlaces/Photo/mapping"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping.24"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping.24"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.21"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="snooth" nsURI="http://fr.inria.atlanmod/discovered/snooth" nsPrefix="composeds">
+    <eClassifiers xsi:type="ecore:EClass" name="WineSearchInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="akey" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ip" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="q" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="xp" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="wineSearchOutput" lowerBound="1"
+          eType="#//snooth/WineSearchOutput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="WineSearchOutput">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="meta" lowerBound="1"
+          eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="wines" lowerBound="1"
+          upperBound="-1" eType="#//snooth/Wine"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Photo"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.19"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.18"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.21"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.24"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.24"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"
+          eOpposite="#//googlePlaces/Result/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineInput/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.24"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"
+          eOpposite="#//googlePlaces/Aspect/mapping.12"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.28"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineOutput/mapping.22"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping.25"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping.25"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.40"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"
+          eOpposite="#//panoramio/PicturesOfThePlaceOutput/mapping.24"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Photo"
+          eOpposite="#//panoramio/Photo/mapping.6"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.18"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Meta">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="results" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="returned" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="errmsg" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Photo"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.20"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.19"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.22"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.25"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.25"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"
+          eOpposite="#//googlePlaces/Result/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineInput/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.25"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"
+          eOpposite="#//googlePlaces/Aspect/mapping.13"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.29"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineOutput/mapping.23"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping.26"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping.26"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.41"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"
+          eOpposite="#//panoramio/PicturesOfThePlaceOutput/mapping.25"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Photo"
+          eOpposite="#//panoramio/Photo/mapping.7"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"
+          eOpposite="#//tan/StopPositionInput/mapping.19"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//tan/StopPositionInput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Wine">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="region" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="winery" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="winery_id" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="varietal" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="price" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="vintage" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="tags" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="snoothrank" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="available" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="num_merchants" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="num_reviews" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="tan" nsURI="http://fr.inria.atlanmod/discovered/tan" nsPrefix="composedt">
+    <eClassifiers xsi:type="ecore:EClass" name="HorariesStopLineDirectionInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="stopName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineNum" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sens" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="horariesStopLineDirectionOutput"
+          lowerBound="1" eType="#//tan/HorariesStopLineDirectionOutput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Horaire">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="heure" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="passages" lowerBound="1"
+          upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Arret">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeArret" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelle" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="accessible" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Ligne">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="numLigne" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directionSens1" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directionSens2" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="accessible" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="etatTrafic" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelleTrafic" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeLigne" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="WaitingTimeStopOutput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="sens" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminus" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="infotrafic" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="temps" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1"
+          eType="#//tan/Ligne"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="arret" lowerBound="1"
+          eType="#//tan/Arret"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StopPositionOutput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeLieu" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelle" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="distance" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1"
+          upperBound="-1" eType="#//tan/Ligne"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="WaitingTimeStopInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="stopName" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="waitingTimeStopOutput"
+          lowerBound="1" upperBound="-1" eType="#//tan/WaitingTimeStopOutput"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="HorariesStopLineDirectionOutput">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="arret" lowerBound="1"
+          eType="#//tan/Arret"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1"
+          eType="#//tan/Ligne"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeCouleur" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="plageDeService" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="notes" lowerBound="1"
+          upperBound="-1" eType="#//tan/Arret"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="horaires" lowerBound="1"
+          upperBound="-1" eType="#//tan/Horaire"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="prochainsHoraires" lowerBound="1"
+          upperBound="-1" eType="#//tan/Horaire"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="StopPositionInput">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="lon" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="stopPositionOutput" lowerBound="1"
+          upperBound="-1" eType="#//tan/StopPositionOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Photo"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/Answer"
+          eOpposite="#//dataNantes/Answer/mapping.10"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//dataNantes/@attribute"
+          eOpposite="#//dataNantes/@attribute/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/PicturesOfThePlaceOutput"
+          eOpposite="#//foursquare/PicturesOfThePlaceOutput/mapping.15"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Meta"
+          eOpposite="#//foursquare/Meta/mapping.18"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//foursquare/Location"
+          eOpposite="#//foursquare/Location/mapping.21"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Result"
+          eOpposite="#//googleMaps/Result/mapping.11"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/GeographicalCodeInput"
+          eOpposite="#//googleMaps/GeographicalCodeInput/mapping.18"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Northeast"
+          eOpposite="#//googleMaps/Northeast/mapping.20"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Distance"
+          eOpposite="#//googleMaps/Distance/mapping.9"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Bound"
+          eOpposite="#//googleMaps/Bound/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Geometry"
+          eOpposite="#//googleMaps/Geometry/mapping.23"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Address_component"
+          eOpposite="#//googleMaps/Address_component/mapping.16"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/Element"
+          eOpposite="#//googleMaps/Element/mapping.26"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googleMaps/PathCalculatorOutput"
+          eOpposite="#//googleMaps/PathCalculatorOutput/mapping.26"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Result"
+          eOpposite="#//googlePlaces/Result/mapping.17"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineInput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineInput/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Northeast"
+          eOpposite="#//googlePlaces/Northeast/mapping.26"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Aspect"
+          eOpposite="#//googlePlaces/Aspect/mapping.14"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Geometry"
+          eOpposite="#//googlePlaces/Geometry/mapping.30"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/PlaceSearchEngineOutput"
+          eOpposite="#//googlePlaces/PlaceSearchEngineOutput/mapping.24"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Viewport"
+          eOpposite="#//googlePlaces/Viewport/mapping.27"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//googlePlaces/Address_component"
+          eOpposite="#//googlePlaces/Address_component/mapping.27"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Map_location"
+          eOpposite="#//panoramio/Map_location/mapping.42"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/PicturesOfThePlaceOutput"
+          eOpposite="#//panoramio/PicturesOfThePlaceOutput/mapping.26"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//panoramio/Photo"
+          eOpposite="#//panoramio/Photo/mapping.8"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/WineSearchOutput"
+          eOpposite="#//snooth/WineSearchOutput/mapping.48"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//snooth/Meta"
+          eOpposite="#//snooth/Meta/mapping.39"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

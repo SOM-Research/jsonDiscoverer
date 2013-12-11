@@ -2,7 +2,6 @@ package fr.inria.atlanmod.discoverer;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -42,23 +41,23 @@ public class JsonComposer {
 		Iterator<String> keyIt = cache.keySet().iterator();
 		while(keyIt.hasNext()) {
 			String key = keyIt.next();
-			System.out.println("Key: " + key);
+			LOGGER.finest("Key: " + key);
 			List<EClassifier> eClassifiers = cache.get(key);
 
 			Iterator<String> keyItToCompare = cache.keySet().iterator();
 			while(keyItToCompare.hasNext()) {
 				String keyToCompare = keyItToCompare.next();
 				if(key != keyToCompare) {
-					System.out.println("KeyToCompare: " + keyToCompare);
+					LOGGER.finest("KeyToCompare: " + keyToCompare);
 					List<EClassifier> eClassifiersToCompare = cache.get(keyToCompare);
 					for(EClassifier sourceEclassifier : eClassifiers) {
 						if (sourceEclassifier instanceof EClass) { // TODO Consider enumerations
 							EClass sourceEclass = (EClass) sourceEclassifier;
-							System.out.println("  Source class: " + sourceEclass.getName());
+							LOGGER.finest("  Source class: " + sourceEclass.getName());
 							for(EClassifier cachedEclassifier : eClassifiersToCompare) {
 								if (cachedEclassifier instanceof EClass) {
 									EClass cachedEclass = (EClass) cachedEclassifier;
-									System.out.println("  Target class: " + cachedEclass.getName());
+									LOGGER.finest("  Target class: " + cachedEclass.getName());
 									if(isSimilar(cachedEclass, sourceEclass) && sourceEclass.getEStructuralFeature("mapping") == null) {
 										EReference sourceTargetMapping = EcoreFactory.eINSTANCE.createEReference();
 										sourceTargetMapping.setName("mapping");
@@ -70,7 +69,7 @@ public class JsonComposer {
 										targetSourceMapping.setEType(cachedEclass);
 										targetSourceMapping.setEOpposite(sourceTargetMapping);
 										sourceEclass.getEStructuralFeatures().add(targetSourceMapping);
-										System.out.println("Added mapping ref between " + cachedEclass.getName() + " and " + sourceEclass.getName());
+										LOGGER.finest("Added mapping ref between " + cachedEclass.getName() + " and " + sourceEclass.getName());
 									}
 								}
 							}

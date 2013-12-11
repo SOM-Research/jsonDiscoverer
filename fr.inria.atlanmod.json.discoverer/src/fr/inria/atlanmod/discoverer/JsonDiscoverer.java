@@ -68,31 +68,14 @@ public class JsonDiscoverer {
 	public EPackage discoverMetamodel(JsonSource source) {
 		if(source == null) 
 			throw new IllegalArgumentException("Source cannot be null");
-		else if(source.getJsonDefs().size() == 0) 
+		else if(source.getJsonData().size() == 0) 
 			throw new IllegalArgumentException("The source must include, at least, one JSON definition.");
 		
-		List<JsonObject> elements = new ArrayList<JsonObject>();
-		
-		String sourceName = source.getName();
-		// Getting all the root elements
-		for(JsonElement rootElement : source.getJsonDefs()) {
-			if (rootElement.isJsonArray()) {
-				LOGGER.finer("Several objects found");
-				for(int i = 0; i < rootElement.getAsJsonArray().size(); i++)
-					if(rootElement.getAsJsonArray().get(i).isJsonObject())
-						elements.add(rootElement.getAsJsonArray().get(i).getAsJsonObject());
-			} else if(rootElement.isJsonObject()) {
-				LOGGER.finer("Only one object found, it is interpreted as input");
-				elements.add(rootElement.getAsJsonObject());
-				sourceName = source.getName().substring(0, 1).toUpperCase() + source.getName().substring(1, source.getName().length()) + "Input";
-			} else {
-				LOGGER.finest("The root element was " + rootElement.getClass().getName());
-				LOGGER.finest("It is: " + rootElement.getAsString());
-			}
-		}
+		List<JsonObject> elements = source.getSourceDigested();
 
-		// Launching discoverer
 		LOGGER.fine("Received " + elements.size() + " json objects to discover");
+		
+		String sourceName = (source.includesInput()) ? source.getName() + "Input" : source.getName();
 		
 		for(JsonObject jsonObject : elements) {
 			discoverMetaclass(sourceName, jsonObject);
@@ -103,18 +86,7 @@ public class JsonDiscoverer {
 		ePackage.setName(source.getName());
 		ePackage.setNsURI("http://fr.inria.atlanmod/discovered/" + source.getName());
 		ePackage.setNsPrefix("disco" + source.getName().charAt(0));
-		
-		// Setting the input
-//		if(source.getInput() != null && source.getInput().isJsonObject()) {
-//			EClass rootClass = eClasses.get(source.getName());
-//			EClass inputClass = discoverMetaclass(source.getName() + "Input", source.getInput().getAsJsonObject());
-//			EReference returnReference = EcoreFactory.eINSTANCE.createEReference();
-//			returnReference.setEType(rootClass);
-//			returnReference.setName("returns");
-//			inputClass.getEStructuralFeatures().add(returnReference);
-//			ePackage.getEClassifiers().add(inputClass);
-//		}
-		
+				
 		ePackage.getEClassifiers().addAll(geteClasses().values());
 		source.setMetamodel(ePackage);
 

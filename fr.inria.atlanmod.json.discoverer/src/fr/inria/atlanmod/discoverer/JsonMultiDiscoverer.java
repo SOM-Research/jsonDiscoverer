@@ -370,9 +370,9 @@ public class JsonMultiDiscoverer {
 			throw new IllegalArgumentException("sourceName cannot be null or empty");
 		
 		List<Object> result = new ArrayList<Object>();
-		List<JsonElement> jsonDefs = this.sourceSet.getJsonSource(sourceName).getJsonDefs();
+		List<JsonData> jsonDefs = this.sourceSet.getJsonSource(sourceName).getJsonData();
 		if(jsonDefs.size() == 0) return result;
-		JsonElement rootElement = jsonDefs.get(0); // TODO Consider all of them!
+		JsonElement rootElement = jsonDefs.get(0).getData(); // TODO Consider all of them!
 		
 		List<JsonObject> elements = new ArrayList<JsonObject>();
 		if (rootElement.isJsonArray()) {
