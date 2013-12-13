@@ -77,7 +77,7 @@ public class JsonMultiDiscoverer {
 		}
 		this.cacheValues = new HashMap<EAttribute, List<Object>>();
 		
-//		LOGGER.setLevel(Level.OFF);
+		LOGGER.setLevel(Level.OFF);
 	}
 		
 	/**

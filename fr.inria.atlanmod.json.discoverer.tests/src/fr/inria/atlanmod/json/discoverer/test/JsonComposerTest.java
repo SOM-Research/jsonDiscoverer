@@ -13,13 +13,20 @@ package fr.inria.atlanmod.json.discoverer.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import fr.inria.atlanmod.discoverer.JsonComposer;
 import fr.inria.atlanmod.discoverer.JsonMultiDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonSource;
 import fr.inria.atlanmod.discoverer.JsonSourceSet;
@@ -42,7 +49,43 @@ public class JsonComposerTest {
 	public static String RESULT = "../fr.inria.atlanmod.json.discoverer.zoo/zoo/tan/tan.ecore";
 
 	public static void main(String[] args) throws FileNotFoundException  {
+		test2();
+	}
+	
+	public static void test2() {
+		JsonSourceSet sourceSet1 = new JsonSourceSet("googleMaps");
+		JsonSourceSet sourceSet2 = new JsonSourceSet("tan");
+		
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
+		ResourceSet rset = new ResourceSetImpl();
+		Resource res1 = rset.getResource(URI.createFileURI("../fr.inria.atlanmod.json.discoverer.zoo/zooMini/googleMaps/googleMaps.ecore"), true);
+		try {
+			res1.load(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		EPackage package1 = (EPackage) res1.getContents().get(0);
+		sourceSet1.setMetamodel(package1);
 
+		Resource res2 = rset.getResource(URI.createFileURI("../fr.inria.atlanmod.json.discoverer.zoo/zooMini/tan/tan.ecore"), true);
+		try {
+			res2.load(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		EPackage package2 = (EPackage) res2.getContents().get(0);
+		sourceSet2.setMetamodel(package2);
+		
+		List<JsonSourceSet> sourceSets = new ArrayList<>();
+		sourceSets.add(sourceSet1);
+		sourceSets.add(sourceSet2);
+		
+		JsonComposer composer = new JsonComposer(sourceSets);
+		composer.compose(new File("../fr.inria.atlanmod.json.discoverer.zoo/zooMini/zooMini.ecore"));
+	}
+	
+	public static void test1() throws FileNotFoundException {
 		JsonSource source1 = new JsonSource("stopPosition");
 		source1.addJsonDef(new File(TEST_JSON_FILE_1));
 		

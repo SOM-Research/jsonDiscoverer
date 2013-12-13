@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
@@ -18,12 +19,23 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
+/**
+ * This class composes a set of ecore models representing json-based apis. Although some
+ * of the calculations done here could be applied in a more-general process of composing
+ * any ecore model, the current implementation is coupled to the data/structure of the
+ * ecore models discovered by the JSONMultiDiscoverer.
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
 public class JsonComposer {
-	final static double CLASS_MATCHING_THRESHOLD = 0.3;
 
 	private List<JsonSourceSet> sourceSets;
 
 	private final static Logger LOGGER = Logger.getLogger(JsonComposer.class.getName());
+
+	private static final double ATTRIBUTE_MATCHING_THRESHOLD = 0.3;
+	private static final double CLASS_MATCHING_THRESHOLD = 0.3;
 
 	public JsonComposer(List<JsonSourceSet> sourceSets) {
 		this.sourceSets = sourceSets;
@@ -56,20 +68,20 @@ public class JsonComposer {
 							LOGGER.finest("  Source class: " + sourceEclass.getName());
 							for(EClassifier cachedEclassifier : eClassifiersToCompare) {
 								if (cachedEclassifier instanceof EClass) {
-									EClass cachedEclass = (EClass) cachedEclassifier;
-									LOGGER.finest("  Target class: " + cachedEclass.getName());
-									if(isSimilar(cachedEclass, sourceEclass) && sourceEclass.getEStructuralFeature("mapping") == null) {
+									EClass targetEclass = (EClass) cachedEclassifier;
+									LOGGER.finest("  Target class: " + targetEclass.getName());
+									if(isSimilar(sourceEclass, targetEclass) && sourceEclass.getEStructuralFeature("mapping") == null) {
 										EReference sourceTargetMapping = EcoreFactory.eINSTANCE.createEReference();
 										sourceTargetMapping.setName("mapping");
 										sourceTargetMapping.setEType(sourceEclass);
-										cachedEclass.getEStructuralFeatures().add(sourceTargetMapping);
+										targetEclass.getEStructuralFeatures().add(sourceTargetMapping);
 
 										EReference targetSourceMapping = EcoreFactory.eINSTANCE.createEReference();
 										targetSourceMapping.setName("mapping");
-										targetSourceMapping.setEType(cachedEclass);
+										targetSourceMapping.setEType(targetEclass);
 										targetSourceMapping.setEOpposite(sourceTargetMapping);
 										sourceEclass.getEStructuralFeatures().add(targetSourceMapping);
-										LOGGER.finest("Added mapping ref between " + cachedEclass.getName() + " and " + sourceEclass.getName());
+										LOGGER.finest("Added mapping ref between " + targetEclass.getName() + " and " + sourceEclass.getName());
 									}
 								}
 							}
@@ -87,32 +99,53 @@ public class JsonComposer {
 		return result;
 	}
 
-	private boolean isSimilar(EClass cachedEclass, EClass sourceEClass) { 
-		LOGGER.finer("Comparing " + cachedEclass.getName() + " with " + sourceEClass.getName());
+	private boolean isSimilar(EClass sourceEClass, EClass targetEClass) { 
+		LOGGER.finer("Comparing " + sourceEClass.getName() + " with " + targetEClass.getName());
 
 		double matchingFeatures = 0;
-		double totalRegisteredFeatures = cachedEclass.getEStructuralFeatures().size();
-		for(EStructuralFeature cachedFeature : cachedEclass.getEStructuralFeatures()) {
-			if(!cachedFeature.getName().equals("mapping")){
-				for(EStructuralFeature sourceFeature : sourceEClass.getEStructuralFeatures()) {
-					LOGGER.finest("  " + "Comparing " + cachedFeature.getName() + " with " + sourceFeature.getName());
-					if(cachedFeature.getName().equals(sourceFeature.getName())) {
-						matchingFeatures++;
-						LOGGER.finest("    " + "Yes! Ratio now: " + matchingFeatures / totalRegisteredFeatures );
-						break;
+		double totalRegisteredFeatures = sourceEClass.getEStructuralFeatures().size();
+		for(EStructuralFeature sourceFeature : sourceEClass.getEStructuralFeatures()) {
+			double sourceTotalFound = AnnotationHelper.INSTANCE.getTotalFound(sourceFeature);
+			double sourceRatioTotalFound = AnnotationHelper.INSTANCE.getRatioTotalFound(sourceFeature);
+			if(!sourceFeature.getName().equals("mapping")){
+				for(EStructuralFeature targetFeature : targetEClass.getEStructuralFeatures()) {
+					List<String> sourceNames = AnnotationHelper.INSTANCE.getAka(sourceFeature);
+					List<String> targetNames = AnnotationHelper.INSTANCE.getAka(targetFeature);
+					LOGGER.finest("  " + "Comparing " + sourceNames.toString() + " with " + targetNames.toString());
+					if(nameIsSimilar(sourceNames, targetNames)) {
+						LOGGER.finest("    " + "Same name!");
+						double targetTotalFound = AnnotationHelper.INSTANCE.getTotalFound(targetFeature);
+						double targetRatioTotalFound = AnnotationHelper.INSTANCE.getRatioTotalFound(targetFeature);
+
+						double similarity = (sourceTotalFound + targetTotalFound) / ((sourceTotalFound / sourceRatioTotalFound) + (targetTotalFound / targetRatioTotalFound));
+						if(similarity >= ATTRIBUTE_MATCHING_THRESHOLD) {
+							LOGGER.finest("    " + "Attribute similars!");
+							matchingFeatures++;
+							LOGGER.finest("    " + "Ratio now: " + matchingFeatures / totalRegisteredFeatures );
+							break;
+						} else {
+							LOGGER.finest("    " + "Attribute similarity not enough");
+						}
 					}
 				}
 			}
 		}
+		
 		double matchingRatio = matchingFeatures / totalRegisteredFeatures;
 		if(matchingRatio > CLASS_MATCHING_THRESHOLD) {
-			LOGGER.finer("  " + "Found " + cachedEclass + " as similar class to " + sourceEClass.getName() + " with ratio " + matchingRatio);
+			LOGGER.finer("  " + "Found " + targetEClass.getName() + " as similar class to " + sourceEClass.getName() + " with ratio " + matchingRatio);
 			return true;
 		} else {
-			LOGGER.finest("  " + "There is no class similar to " + sourceEClass.getName() + ". Ratio " + matchingRatio);
+			LOGGER.finest("  " + targetEClass.getName() + " is not similar to " + sourceEClass.getName() + ". Ratio " + matchingRatio);
 		}
-		LOGGER.finer("  " + "Not found");
 		return false;		
+	}
+	
+	private boolean nameIsSimilar(List<String> sourceNames, List<String> targetNames) {
+		for(String sourceName : sourceNames) 
+			for(String targetName : targetNames) 
+				if(sourceName.equals(targetName)) return true;
+		return false;
 	}
 
 	private void saveEPackage(EPackage ePackage, File resultPath) {

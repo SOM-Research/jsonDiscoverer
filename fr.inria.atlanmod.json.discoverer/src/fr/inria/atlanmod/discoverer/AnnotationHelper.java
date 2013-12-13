@@ -1,5 +1,9 @@
 package fr.inria.atlanmod.discoverer;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -21,9 +25,7 @@ public class AnnotationHelper {
 	
 	private static final String FOUND_IN_TAG = "foundIn";
 
-
 	private AnnotationHelper() {}
-
 
 	public EAnnotation getCoverageAnnotation(EModelElement modelElement) {
 		EAnnotation annotation = modelElement.getEAnnotation(COVERAGE_TAG);
@@ -103,6 +105,27 @@ public class AnnotationHelper {
 		} else {
 			annotation.getDetails().put(name, String.valueOf(Integer.valueOf(times).intValue()+ 1));
 		}
+	}
+	
+	public int getTotalFound(EModelElement modelElement) {
+		EAnnotation annotation = getCoverageAnnotation(modelElement);
+		return (annotation.getDetails().get(TOTAL_FOUND_TAG) != null) ? Integer.valueOf(annotation.getDetails().get(TOTAL_FOUND_TAG)).intValue() : 0;
+	}
+	
+	public double getRatioTotalFound(EModelElement modelElement) {
+		EAnnotation annotation = getCoverageAnnotation(modelElement);
+		return (annotation.getDetails().get(RATIO_TOTAL_FOUND_TAG) != null) ? Double.valueOf(annotation.getDetails().get(RATIO_TOTAL_FOUND_TAG)).doubleValue() : 0.0;
+	}
+	
+	public List<String> getAka(EModelElement modelElement) {
+		EAnnotation annotation = getAkaAnnotation(modelElement);
+		List<String> result = new ArrayList<String>();
+		Iterator<String> keyIt = annotation.getDetails().keySet().iterator();
+		while(keyIt.hasNext()) {
+			String key = keyIt.next();
+			result.add(key);
+		}
+		return result;
 	}
 
 }
