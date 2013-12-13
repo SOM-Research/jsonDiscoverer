@@ -1,0 +1,109 @@
+package fr.inria.atlanmod.discoverer;
+
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcoreFactory;
+
+public class AnnotationHelper {
+	public static AnnotationHelper INSTANCE = new AnnotationHelper();
+
+	private static final String TOTAL_FOUND_TAG = "totalFound";
+
+	private static final String COVERAGE_TAG = "coverage";
+
+	private static final String RATIO_TOTAL_FOUND_TAG = "ratioTotalFound";
+
+	private static final String AKA_TAG = "AlsoKnownAs";
+	
+	private static final String FOUND_IN_TAG = "foundIn";
+
+
+	private AnnotationHelper() {}
+
+
+	public EAnnotation getCoverageAnnotation(EModelElement modelElement) {
+		EAnnotation annotation = modelElement.getEAnnotation(COVERAGE_TAG);
+		if(annotation == null) {
+			annotation = EcoreFactory.eINSTANCE.createEAnnotation();
+			annotation.setSource(COVERAGE_TAG);
+			annotation.getDetails().put(TOTAL_FOUND_TAG, "0");
+			modelElement.getEAnnotations().add(annotation);
+		}
+		return annotation;
+	}
+	
+	public EAnnotation getFoundInAnnotation(EModelElement modelElement) {
+		EAnnotation annotation = getCoverageAnnotation(modelElement);
+		EAnnotation namesAnnotation = annotation.getEAnnotation(FOUND_IN_TAG);
+		if(namesAnnotation == null) {
+			namesAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
+			namesAnnotation.setSource(FOUND_IN_TAG);
+			annotation.getEAnnotations().add(namesAnnotation);
+		}
+		return namesAnnotation;
+	}
+	
+	public EAnnotation getAkaAnnotation(EModelElement modelElement) {
+		EAnnotation annotation = getCoverageAnnotation(modelElement);
+		EAnnotation akaAnnotation = annotation.getEAnnotation(AKA_TAG);
+		if(akaAnnotation == null) {
+			akaAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
+			akaAnnotation.setSource(AKA_TAG);
+			annotation.getEAnnotations().add(akaAnnotation);
+		}
+		return akaAnnotation;
+	}
+	
+	public void increaseTotalFound(EModelElement modelElement) {
+		EAnnotation annotation = getCoverageAnnotation(modelElement);
+		if(annotation != null) {
+			String currentCounter = annotation.getDetails().get(TOTAL_FOUND_TAG);
+			if(currentCounter != null) {
+				annotation.getDetails().put(TOTAL_FOUND_TAG, String.valueOf(Integer.valueOf(currentCounter).intValue() + 1));
+			}
+		} 
+	}
+	
+	public void calculateCoverage(EPackage ePackage) {
+		for(EClassifier eClassifier : ePackage.getEClassifiers()) {
+			if (eClassifier instanceof EClass) {
+				EClass eClass = (EClass) eClassifier;
+				EAnnotation eClassAnnotation = getCoverageAnnotation(eClass);
+
+				int eClassCounter = Integer.valueOf(eClassAnnotation.getDetails().get(TOTAL_FOUND_TAG)).intValue();
+				for(EStructuralFeature eStructuralFeature : eClass.getEStructuralFeatures()) {
+					EAnnotation eStructuralFeatureAnnotation = getCoverageAnnotation(eStructuralFeature);
+					int eStructuralFeatureCounter = Integer.valueOf(eStructuralFeatureAnnotation.getDetails().get(TOTAL_FOUND_TAG)).intValue();
+					double ratio = ((double) eStructuralFeatureCounter) / ((double) eClassCounter);
+					eStructuralFeatureAnnotation.getDetails().put(RATIO_TOTAL_FOUND_TAG, String.valueOf(ratio));
+				}
+			}
+		}
+	}
+	
+	public void registerInclusion(EModelElement modelElement, String name) {
+		EAnnotation annotation = getFoundInAnnotation(modelElement);
+		String times = annotation.getDetails().get(name);
+		if(times == null) {
+			annotation.getDetails().put(name, "1");
+		} else {
+			annotation.getDetails().put(name, String.valueOf(Integer.valueOf(times).intValue()+ 1));
+		}
+	}
+	
+	public void registerName(EModelElement modelElement, String name) {
+		EAnnotation annotation = getAkaAnnotation(modelElement);
+		String times = annotation.getDetails().get(name);
+		if(times == null) {
+			annotation.getDetails().put(name, "1");
+		} else {
+			annotation.getDetails().put(name, String.valueOf(Integer.valueOf(times).intValue()+ 1));
+		}
+	}
+
+}
+

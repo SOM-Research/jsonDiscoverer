@@ -77,7 +77,7 @@ public class JsonMultiDiscoverer {
 		}
 		this.cacheValues = new HashMap<EAttribute, List<Object>>();
 		
-		LOGGER.setLevel(Level.OFF);
+//		LOGGER.setLevel(Level.OFF);
 	}
 		
 	/**
@@ -135,10 +135,11 @@ public class JsonMultiDiscoverer {
 			for(EClassifier classifier : jsonSource.getMetamodel().getEClassifiers()) {
 				if (classifier instanceof EClass) {
 					EClass eClass = (EClass) classifier;
+					LOGGER.finer("Analizing " + eClass.getName());
 					EClass registryElement = lookForSimilarEClass(eClass);
 					if(registryElement == null) {
 						LOGGER.finer("  " + eClass.getName() + " class being duplicated...");
-						EClass duplicatedEClass = cloneEClass(eClass, coverageCreator);
+						EClass duplicatedEClass = cloneEClass(eClass, coverageCreator); 
 						registry.put(eClass.getName(), duplicatedEClass);
 						coverageCreator.createConceptMapping(eClass, duplicatedEClass);
 						eClass = duplicatedEClass;
@@ -146,10 +147,9 @@ public class JsonMultiDiscoverer {
 					} else {
 						LOGGER.finer("  " + eClass.getName() + " class being composed with " + registryElement.getName() + "...");
 						coverageCreator.createConceptMapping(eClass, registryElement);
-						composeAttributes(registryElement, eClass, coverageCreator);
-						composeReferences(registryElement, eClass, coverageCreator);
-						eClass = registryElement;
+						composeEClass(registryElement, eClass, coverageCreator);
 						LOGGER.finer("  " + eClass.getName() + " class composed with " + registryElement.getName());
+						eClass = registryElement;
 					}
 					for(EStructuralFeature otherFeature : eClass.getEStructuralFeatures()) 
 						if (otherFeature instanceof EReference) 
@@ -199,32 +199,56 @@ public class JsonMultiDiscoverer {
 		if(unknownUsed) {
 			finalPackage.getEClassifiers().add(unknown);
 		}
-
+		
+		AnnotationHelper.INSTANCE.calculateCoverage(finalPackage);
 		this.sourceSet.setMetamodel(finalPackage);
 		return sourceSet;
 	}
 
 	private void composeAttributes(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException  {
+		
+		// Iterate over the structural geatures of the other class (to be composed into the existingClass)
 		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
+			
+			// Only attributes
 			if (otherFeature instanceof EAttribute) {
 				EAttribute otherAttribute = (EAttribute) otherFeature;
 				EStructuralFeature existingFeature = existingClass.getEStructuralFeature(otherAttribute.getName());
 				if(existingFeature == null) {
+					// If the existing class DOES NOT have an attribute with same name
 					EAttribute similarAttribute = lookForSimilarAttribute(existingClass, otherAttribute, coverageCreator);
 					if(similarAttribute == null) {
+						// The existing class DOES NOT have a similar attribute -> Creating a new one
 						EAttribute newAttribute = duplicateAttribute(otherAttribute);
 						existingClass.getEStructuralFeatures().add(newAttribute);
+
+						AnnotationHelper.INSTANCE.increaseTotalFound(newAttribute);
+						AnnotationHelper.INSTANCE.registerName(newAttribute, otherAttribute.getName());
+						AnnotationHelper.INSTANCE.registerInclusion(newAttribute, otherClass.getName());
+						
 						LOGGER.finer("    " + "Attribute " + newAttribute.getName() + " added");
 						existingFeature = newAttribute;
 					} else {
+						// The existing class DOES  have a similar attribute -> Do nothing
 						LOGGER.finer("    " + "Attribute similar found: " + similarAttribute.getName());
 						existingFeature = similarAttribute;
+
+						AnnotationHelper.INSTANCE.increaseTotalFound(similarAttribute);
+						AnnotationHelper.INSTANCE.registerName(similarAttribute, otherAttribute.getName());
+						AnnotationHelper.INSTANCE.registerInclusion(similarAttribute, otherClass.getName());
 					}
 				} else {
+					// If the existing class DOES have an attribute with same name
 					existingFeature.setEType(EcorePackage.Literals.ESTRING);
 					LOGGER.finer("    " + "Attribute " + existingFeature.getName() + " refined to String");
+
+					AnnotationHelper.INSTANCE.increaseTotalFound(existingFeature);
+					AnnotationHelper.INSTANCE.registerInclusion(existingFeature, otherClass.getName());
+					AnnotationHelper.INSTANCE.registerName(existingFeature, otherAttribute.getName());
 				}				
 				coverageCreator.createAttMapping(otherAttribute, (EAttribute) existingFeature);
+
+
 			}
 		}
 
@@ -241,7 +265,16 @@ public class JsonMultiDiscoverer {
 					LOGGER.finer("    " + "Reference " + newReference.getName() + " added");
 					existingFeature = newReference;
 					coverageCreator.createRefMapping(otherReference, (EReference) existingFeature);
-				} 			
+
+					AnnotationHelper.INSTANCE.increaseTotalFound(newReference);
+					AnnotationHelper.INSTANCE.registerName(newReference, otherReference.getName());
+					AnnotationHelper.INSTANCE.registerInclusion(newReference, otherClass.getName());
+				} else {
+
+					AnnotationHelper.INSTANCE.increaseTotalFound(existingFeature);
+					AnnotationHelper.INSTANCE.registerName(existingFeature, otherReference.getName());
+					AnnotationHelper.INSTANCE.registerInclusion(existingFeature, otherClass.getName());
+				}
 			}
 		}
 	}
@@ -252,6 +285,7 @@ public class JsonMultiDiscoverer {
 		newAttribute.setEType(otherAttribute.getEType());
 		newAttribute.setUpperBound(otherAttribute.getUpperBound());
 		newAttribute.setLowerBound(otherAttribute.getLowerBound());
+
 		return newAttribute;
 	}
 
@@ -283,15 +317,36 @@ public class JsonMultiDiscoverer {
 				EReference duplicatedReference = duplicateReference((EReference) otherFeature);
 				newClass.getEStructuralFeatures().add(duplicatedReference);
 				coverageCreator.createRefMapping((EReference) otherFeature, duplicatedReference);	
+
+				AnnotationHelper.INSTANCE.increaseTotalFound(duplicatedReference);
+				AnnotationHelper.INSTANCE.registerName(duplicatedReference, duplicatedReference.getName());
+				AnnotationHelper.INSTANCE.registerInclusion(duplicatedReference, newClass.getName());
 			} else if (otherFeature instanceof EAttribute) {
 				LOGGER.finer("    " + "Duplicating " + otherFeature.getName() + " attribute");
 				EAttribute duplicatedAttribute = duplicateAttribute((EAttribute) otherFeature);
 				newClass.getEStructuralFeatures().add(duplicatedAttribute);
 				coverageCreator.createAttMapping((EAttribute) otherFeature, duplicatedAttribute);
 				cacheValues.put(duplicatedAttribute, getJSONValues(duplicatedAttribute, coverageCreator.getName()));
+
+				AnnotationHelper.INSTANCE.increaseTotalFound(duplicatedAttribute);
+				AnnotationHelper.INSTANCE.registerName(duplicatedAttribute, duplicatedAttribute.getName());
+				AnnotationHelper.INSTANCE.registerInclusion(duplicatedAttribute, newClass.getName());
 			}
+			AnnotationHelper.INSTANCE.increaseTotalFound(otherFeature);
+			AnnotationHelper.INSTANCE.registerName(otherFeature, otherFeature.getName());
+			AnnotationHelper.INSTANCE.registerInclusion(otherFeature, newClass.getName());
 		}
+
+		AnnotationHelper.INSTANCE.increaseTotalFound(newClass);
+		AnnotationHelper.INSTANCE.registerName(newClass, newClass.getName());
 		return newClass;
+	}
+	
+	private void composeEClass(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException {
+		composeAttributes(existingClass, otherClass, coverageCreator);
+		composeReferences(existingClass, otherClass, coverageCreator);
+		AnnotationHelper.INSTANCE.registerName(existingClass, otherClass.getName());
+		AnnotationHelper.INSTANCE.increaseTotalFound(existingClass);
 	}
 
 	private EClass lookForSimilarEClass(EClass existingClass) { 
@@ -451,4 +506,6 @@ public class JsonMultiDiscoverer {
 			e.printStackTrace();
 		}
 	}	
+	
+	
 }
