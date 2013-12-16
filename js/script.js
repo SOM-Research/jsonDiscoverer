@@ -212,7 +212,7 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
 
             $http({
                     method : 'POST',
-                    url : "http://apps.jlcanovas.es/jsonDiscoverer/compose",
+                    url : "http://apps.jlcanovas.es/jsonDiscoverer/multiDiscover",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
