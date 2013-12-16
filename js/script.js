@@ -136,7 +136,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
         
             $http({
                 method : 'POST',
-                url : "http://http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/getJson",
+                url : "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/getJson",
                 data : dataToSend,
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function(data) {
