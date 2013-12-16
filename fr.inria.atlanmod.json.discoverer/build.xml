@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     16 dec. 2013                                                  
+
+     JSON discoverer    
+     Build JAR
+                   
+     Javier Canovas (me@jlcanovas.es)                                                                
+     ====================================================================== -->
+<project name="JSON discoverer" default="default">
+    <description>
+    	Build JAR
+    </description>
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" description="JAR">
+        <jar destfile="fr.inria.atlanmod.json.discoverer.jar" basedir="bin"/>
+    </target>
+</project>

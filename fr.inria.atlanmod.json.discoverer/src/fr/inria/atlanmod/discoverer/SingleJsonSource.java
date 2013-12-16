@@ -23,7 +23,7 @@ public class SingleJsonSource extends JsonSource {
 	}
 	
 	@Override
-	public void addJsonDef(String string) throws FileNotFoundException {
+	public void addJsonDef(String string) {
 		if(getJsonData().size() > 0) 
 			throw new IllegalStateException("SingleJsonSource can have only one source");
 		super.addJsonDef(string);

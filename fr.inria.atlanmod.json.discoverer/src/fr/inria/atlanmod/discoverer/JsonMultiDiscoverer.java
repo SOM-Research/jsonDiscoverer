@@ -104,10 +104,10 @@ public class JsonMultiDiscoverer {
 	 * @return The resulting metamodel as EPackage
 	 * @throws FileNotFoundException
 	 */
-	public JsonSourceSet discover(File resultPath) throws FileNotFoundException {
-		JsonSourceSet sourceSet = discover();
-		saveEPackage(sourceSet.getMetamodel(), resultPath);
-		return sourceSet;
+	public EPackage discover(File resultPath) throws FileNotFoundException {
+		EPackage result = discover();
+		saveEPackage(result, resultPath);
+		return result;
 	}
 	
 	/**
@@ -116,7 +116,7 @@ public class JsonMultiDiscoverer {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	public JsonSourceSet discover() throws FileNotFoundException  {
+	public EPackage discover() throws FileNotFoundException  {
 		// Creating the resulting metamodel
 		EPackage finalPackage = EcoreFactory.eINSTANCE.createEPackage();
 		finalPackage.setName(sourceSet.getName());
@@ -202,7 +202,7 @@ public class JsonMultiDiscoverer {
 		
 		AnnotationHelper.INSTANCE.calculateCoverage(finalPackage);
 		this.sourceSet.setMetamodel(finalPackage);
-		return sourceSet;
+		return finalPackage;
 	}
 
 	private void composeAttributes(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException  {

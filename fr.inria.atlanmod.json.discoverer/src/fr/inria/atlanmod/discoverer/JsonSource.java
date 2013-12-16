@@ -107,7 +107,7 @@ public class JsonSource extends AbstractJsonSource {
 	 * @param file
 	 * @throws FileNotFoundException 
 	 */
-	public void addJsonDef(String string) throws FileNotFoundException {
+	public void addJsonDef(String string) {
 		if(string == null || string.equals("")) 
 			throw new IllegalArgumentException("Argument cannot be null or empty");
 		if(this.jsonData.size() > 0 && this.withInput == true) 

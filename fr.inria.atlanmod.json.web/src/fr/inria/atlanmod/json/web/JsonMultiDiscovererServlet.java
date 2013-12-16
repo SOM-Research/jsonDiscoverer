@@ -29,8 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
-import fr.inria.atlanmod.discoverer.JsonComposer;
-import fr.inria.atlanmod.discoverer.JsonDiscoverer;
+import fr.inria.atlanmod.discoverer.JsonMultiDiscoverer;
+import fr.inria.atlanmod.discoverer.JsonSource;
+import fr.inria.atlanmod.discoverer.JsonSourceSet;
 
 /**
  * Main servlet to provide access to the composer
@@ -38,14 +39,14 @@ import fr.inria.atlanmod.discoverer.JsonDiscoverer;
  * @author Javier Canovas (javier.canovas@inria.fr)
  *
  */
-@WebServlet("/compose")
-public class JsonComposerServlet extends AbstractJsonDiscoverer {
+@WebServlet("/multiDiscover")
+public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 	public static final String version = "1.0";
 	
 	private static final long serialVersionUID = 23L;
 	
 	// The ID for this servlet which will be used to access to the working directory
-	private static final String COMPOSER_ID = "IdComposer";
+	private static final String MULTIDISCOVERER_ID = "IdMultiDiscoverer";
 
 	// This pattern is used to analyze the params
 	// The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?
@@ -77,28 +78,22 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 		if(sources.size() == 0) throw new ServletException("No params in the call");
 
 		// 2. Discovery
-		List<EPackage> metamodels = new ArrayList<EPackage>();
+		JsonSourceSet sourceSet = new JsonSourceSet("toCompose");
 		for (String sourceName : sources.keySet()) {
 			List<String> sourcesList = sources.get(sourceName);
-			JsonDiscoverer discoverer = new JsonDiscoverer();
-			EPackage metamodel = null;
-			for(int i = 0; i < sourcesList.size(); i++) {
-				String jsonSource = sourcesList.get(i);
-				if(i == 0) 
-					metamodel = discoverer.discoverMetamodel(jsonSource);
-				else 
-					metamodel = discoverer.refineMetamodel(jsonSource, metamodel);
+			JsonSource source = new JsonSource(sourceName);
+			for(String json : sourcesList) {
+				source.addJsonDef(json);
 			}
-			if(metamodel != null) 
-				metamodels.add(metamodel);
+			sourceSet.addJsonSource(source);
 		}
 		
 		// 3. Composition
-		JsonComposer composer = new JsonComposer(metamodels);
-		EPackage finalMetamodel = composer.compose();
+		JsonMultiDiscoverer multiDiscoverer = new JsonMultiDiscoverer(sourceSet);
+		EPackage finalMetamodel = multiDiscoverer.discover();
 
 		// 4. Get the picture
-		String id = properties.getProperty(COMPOSER_ID);
+		String id = properties.getProperty(MULTIDISCOVERER_ID);
 		if(id == null) throw new ServletException("ID for composer not found in properties");
 		
 		List<EObject> toDraw= new ArrayList<EObject>();

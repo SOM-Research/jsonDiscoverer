@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
+import fr.inria.atlanmod.discoverer.JsonSource;
 
 /**
  * Main class that provides the main access to the JSON discoverer
@@ -67,7 +68,9 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 	private File discoverMetamodel(String jsonCode) throws ServletException {
 		// Discovering
 		JsonDiscoverer discoverer = new JsonDiscoverer();
-		EPackage discoveredModel = discoverer.discoverMetamodel(jsonCode);
+		JsonSource source = new JsonSource("toDiscover");
+		source.addJsonDef(jsonCode);
+		EPackage discoveredModel = discoverer.discoverMetamodel(source);
 		
 		// Drawing the discovered model
 		List<EObject> toDraw= new ArrayList<EObject>();

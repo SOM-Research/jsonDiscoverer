@@ -26,6 +26,8 @@ import org.eclipse.emf.ecore.EPackage;
 
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonInjector;
+import fr.inria.atlanmod.discoverer.JsonSource;
+import fr.inria.atlanmod.discoverer.SingleJsonSource;
 
 @WebServlet("/injectModel")
 public class JsonInjectorServlet extends AbstractJsonDiscoverer {
@@ -42,16 +44,14 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String jsonCode = request.getParameter(jsonParam);
 		if(jsonCode == null || jsonCode.equals("")) throw new ServletException("No json data in the call");
+				
+		// 1. Inject the model
+		SingleJsonSource source = new SingleJsonSource("toInject");
+		source.addJsonDef(jsonCode);
+		JsonInjector injector = new JsonInjector(source); 
+		List<EObject> eObjects = injector.inject();
 		
-		// 1. Get first the metamodel
-		JsonDiscoverer discoverer = new JsonDiscoverer();
-		EPackage discoveredMetamodel = discoverer.discoverMetamodel(jsonCode);
-		
-		// 2. Inject the model
-		JsonInjector injector = new JsonInjector(); 
-		List<EObject> eObjects = injector.inject(jsonCode, discoveredMetamodel);
-		
-		// 3. Get the picture
+		// 2. Get the picture
 		String id = properties.getProperty(INJECTOR_ID);
 		if(id == null) throw new ServletException("ID for injector not found in properties");
 		
@@ -59,7 +59,7 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 		String resultImage = encodeToString(resultPath);
 		resultPath.delete();
 		
-		// 4. Write the response
+		// 3. Write the response
 		PrintWriter out = response.getWriter();
         out.print(resultImage);
 	}
