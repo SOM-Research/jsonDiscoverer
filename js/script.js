@@ -94,7 +94,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
 
             $http({
                     method : 'POST',
-                    url : "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/discoverMetamodel",
+                    url : "http://apps.jlcanovas.es/jsonDiscoverer/discoverMetamodel",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
@@ -115,7 +115,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
             
             $http({
                     method : 'POST',
-                    url : "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/injectModel",
+                    url : "http://apps.jlcanovas.es/jsonDiscoverer/injectModel",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
@@ -136,7 +136,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
         
             $http({
                 method : 'POST',
-                url : "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/getJson",
+                url : "http://apps.jlcanovas.es/jsonDiscoverer/getJson",
                 data : dataToSend,
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function(data) {
@@ -212,7 +212,7 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
 
             $http({
                     method : 'POST',
-                    url : "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/multiDiscover",
+                    url : "http://apps.jlcanovas.es/jsonDiscoverer/multiDiscover",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
