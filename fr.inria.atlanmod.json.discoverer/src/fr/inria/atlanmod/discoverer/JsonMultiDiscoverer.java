@@ -38,8 +38,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import coverage.ConceptMapping;
-import coverage.util.CoverageCreator;
+import fr.inria.atlanmod.json.discoverer.coverage.ConceptMapping;
+import fr.inria.atlanmod.json.discoverer.coverage.util.CoverageCreator;
 
 /**
  * Performs a composition between metamodels obtained from JSON files

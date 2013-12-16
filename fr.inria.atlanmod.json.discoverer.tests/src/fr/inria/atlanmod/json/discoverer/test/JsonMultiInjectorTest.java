@@ -14,11 +14,10 @@ package fr.inria.atlanmod.json.discoverer.test;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import coverage.Coverage;
-import coverage.util.CoverageCreator;
-
 import fr.inria.atlanmod.discoverer.JsonMultiInjector;
 import fr.inria.atlanmod.discoverer.SingleJsonSource;
+import fr.inria.atlanmod.json.discoverer.coverage.Coverage;
+import fr.inria.atlanmod.json.discoverer.coverage.util.CoverageCreator;
 
 public class JsonMultiInjectorTest {
 

@@ -7,10 +7,10 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: coverage,
- coverage.impl,
- coverage.util
+Export-Package: fr.inria.atlanmod.json.discoverer.coverage,
+ fr.inria.atlanmod.json.discoverer.coverage.impl,
+ fr.inria.atlanmod.json.discoverer.coverage.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.emf.ecore.xmi
+ org.eclipse.emf.ecore.xmi;bundle-version="2.9.0"
 Bundle-ActivationPolicy: lazy

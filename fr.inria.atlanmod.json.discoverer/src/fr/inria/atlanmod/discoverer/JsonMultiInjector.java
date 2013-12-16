@@ -34,17 +34,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import coverage.AttMapping;
-import coverage.ConceptMapping;
-import coverage.Coverage;
-import coverage.CoverageMapping;
-import coverage.CoveragePackage;
-import coverage.RefMapping;
+import fr.inria.atlanmod.json.discoverer.coverage.AttMapping;
+import fr.inria.atlanmod.json.discoverer.coverage.ConceptMapping;
+import fr.inria.atlanmod.json.discoverer.coverage.Coverage;
+import fr.inria.atlanmod.json.discoverer.coverage.CoverageMapping;
+import fr.inria.atlanmod.json.discoverer.coverage.RefMapping;
 
 /**
  * Injects a model wich information coming from several JSON files
