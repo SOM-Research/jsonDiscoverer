@@ -212,7 +212,7 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
 
             $http({
                     method : 'POST',
-                    url : "http://http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/multiDiscover",
+                    url : "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/multiDiscover",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
