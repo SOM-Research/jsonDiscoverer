@@ -7,6 +7,8 @@ var jsonDiscovererFilters = angular.module("jsonDiscoverer.filter", []);
 
 var jsonDiscovererModule = angular.module("jsonDiscoverer", ["ngSanitize", "jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
 
+var serviceURL = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/"
+
 jsonDiscovererModule.config(["$routeProvider", "$httpProvider", 
     function($routeProvider, $httpProvider) {
         $routeProvider.
@@ -94,7 +96,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
 
             $http({
                     method : 'POST',
-                    url : "http://apps.jlcanovas.es/jsonDiscoverer/discoverMetamodel",
+                    url : serviceURL + "discoverMetamodel",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
@@ -115,7 +117,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
             
             $http({
                     method : 'POST',
-                    url : "http://apps.jlcanovas.es/jsonDiscoverer/injectModel",
+                    url : serviceURL + "injectModel",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
@@ -136,7 +138,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
         
             $http({
                 method : 'POST',
-                url : "http://apps.jlcanovas.es/jsonDiscoverer/getJson",
+                url : serviceURL + "getJson",
                 data : dataToSend,
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function(data) {
@@ -212,7 +214,7 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
 
             $http({
                     method : 'POST',
-                    url : "http://apps.jlcanovas.es/jsonDiscoverer/multiDiscover",
+                    url : serviceURL + "multiDiscover",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
