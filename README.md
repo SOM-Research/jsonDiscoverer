@@ -13,13 +13,18 @@ What can you find in this repository?
 
 So far, these are the projects:
 
-* fr.inria.atlanmod.json.discoverer. Xtext-based project which defines a small DSL to parse JSON files. The project includes also the needed discoverers to get Ecore models from JSON files.
+* fr.inria.atlanmod.json.discoverer. This project includes the needed discoverers to get Ecore models from JSON files.
 * fr.inria.atlanmod.json.discoverer.coverage. EMF project defining an Ecore model to represent coverage models
 * fr.inria.atlanmod.json.discoverer.ui. This project contributes to Eclipse platform, in particular, the MoDisco project to provide the needed UI for using the discoverers.
 * fr.inria.atlanmod.json.discoverer.tests. This project includes some classes to test the discoverers. This may not work in your computer.
+* fr.inria.atlanmod.json.discoverer.zoo. This project includes some JSON examples coming form different APIs.
 * fr.inria.atlanmod.json.web. Web project including some servlets to provide web access to the discoverers. 
 
 The webpage of the service can be found in the branch gh-pages.
+
+This project also uses the following external libraries:
+
+* com.google.gson. GSON library built as an Eclipse plugin project.
 
 Installation and Usage
 ----------------------
@@ -45,4 +50,4 @@ Who is behind this project?
 * [Javier Canovas](http://github.com/jlcanovas/ "Javier Canovas")
 * [Jordi Cabot](http://github.com/jcabot/ "Jordi Cabot")
 
-Javier and Jordi work in [Atlandmod](http://www.emn.fr/z-info/atlanmod), a research team of Inria.
+Javier and Jordi work in [Atlanmod](http://www.emn.fr/z-info/atlanmod), a research team of Inria.
