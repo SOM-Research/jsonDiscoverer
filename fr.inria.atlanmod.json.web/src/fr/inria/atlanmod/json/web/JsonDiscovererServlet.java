@@ -68,7 +68,7 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 	private File discoverMetamodel(String jsonCode) throws ServletException {
 		// Discovering
 		JsonDiscoverer discoverer = new JsonDiscoverer();
-		JsonSource source = new JsonSource("toDiscover");
+		JsonSource source = new JsonSource("Discovered");
 		source.addJsonDef(jsonCode);
 		EPackage discoveredModel = discoverer.discoverMetamodel(source);
 		

@@ -46,7 +46,7 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 		if(jsonCode == null || jsonCode.equals("")) throw new ServletException("No json data in the call");
 				
 		// 1. Inject the model
-		SingleJsonSource source = new SingleJsonSource("toInject");
+		SingleJsonSource source = new SingleJsonSource("Discovered");
 		source.addJsonDef(jsonCode);
 		JsonInjector injector = new JsonInjector(source); 
 		List<EObject> eObjects = injector.inject();

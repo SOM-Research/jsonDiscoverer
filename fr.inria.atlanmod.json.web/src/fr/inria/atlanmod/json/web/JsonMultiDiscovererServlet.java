@@ -78,7 +78,7 @@ public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 		if(sources.size() == 0) throw new ServletException("No params in the call");
 
 		// 2. Discovery
-		JsonSourceSet sourceSet = new JsonSourceSet("toCompose");
+		JsonSourceSet sourceSet = new JsonSourceSet("Composed");
 		for (String sourceName : sources.keySet()) {
 			List<String> sourcesList = sources.get(sourceName);
 			JsonSource source = new JsonSource(sourceName);

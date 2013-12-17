@@ -131,7 +131,6 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		try {
 			StandaloneProcessor.process(elements, null, uniqueWorkingDir, resultPath.getAbsolutePath(), null, null, dotExePath, true, false, "UTF-8", null, null, null);
 		} catch (CoreException e) {
-			e.printStackTrace();
 			throw new ServletException("Not possible to generate the image");
 		}
 		
