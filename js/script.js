@@ -7,7 +7,7 @@ var jsonDiscovererFilters = angular.module("jsonDiscoverer.filter", []);
 
 var jsonDiscovererModule = angular.module("jsonDiscoverer", ["ngSanitize", "jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
 
-var serviceURL = "http://atlanmodexp.info.emnf.fr:8800/jsonDiscoverer/"
+var serviceURL = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer/"
 
 jsonDiscovererModule.config(["$routeProvider", "$httpProvider", 
     function($routeProvider, $httpProvider) {
