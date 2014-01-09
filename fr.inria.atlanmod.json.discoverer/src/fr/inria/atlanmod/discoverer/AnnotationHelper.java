@@ -22,8 +22,10 @@ public class AnnotationHelper {
 	private static final String RATIO_TOTAL_FOUND_TAG = "ratioTotalFound";
 
 	private static final String AKA_TAG = "AlsoKnownAs";
-	
+
 	private static final String FOUND_IN_TAG = "foundIn";
+
+	private static final String SOURCE_NAME_TAG = "source";
 
 	private AnnotationHelper() {}
 
@@ -37,7 +39,7 @@ public class AnnotationHelper {
 		}
 		return annotation;
 	}
-	
+
 	public EAnnotation getFoundInAnnotation(EModelElement modelElement) {
 		EAnnotation annotation = getCoverageAnnotation(modelElement);
 		EAnnotation namesAnnotation = annotation.getEAnnotation(FOUND_IN_TAG);
@@ -48,7 +50,7 @@ public class AnnotationHelper {
 		}
 		return namesAnnotation;
 	}
-	
+
 	public EAnnotation getAkaAnnotation(EModelElement modelElement) {
 		EAnnotation annotation = getCoverageAnnotation(modelElement);
 		EAnnotation akaAnnotation = annotation.getEAnnotation(AKA_TAG);
@@ -59,7 +61,7 @@ public class AnnotationHelper {
 		}
 		return akaAnnotation;
 	}
-	
+
 	public void increaseTotalFound(EModelElement modelElement) {
 		EAnnotation annotation = getCoverageAnnotation(modelElement);
 		if(annotation != null) {
@@ -69,7 +71,7 @@ public class AnnotationHelper {
 			}
 		} 
 	}
-	
+
 	public void calculateCoverage(EPackage ePackage) {
 		for(EClassifier eClassifier : ePackage.getEClassifiers()) {
 			if (eClassifier instanceof EClass) {
@@ -86,7 +88,7 @@ public class AnnotationHelper {
 			}
 		}
 	}
-	
+
 	public void registerInclusion(EModelElement modelElement, String name) {
 		EAnnotation annotation = getFoundInAnnotation(modelElement);
 		String times = annotation.getDetails().get(name);
@@ -96,7 +98,7 @@ public class AnnotationHelper {
 			annotation.getDetails().put(name, String.valueOf(Integer.valueOf(times).intValue()+ 1));
 		}
 	}
-	
+
 	public void registerName(EModelElement modelElement, String name) {
 		EAnnotation annotation = getAkaAnnotation(modelElement);
 		String times = annotation.getDetails().get(name);
@@ -106,17 +108,17 @@ public class AnnotationHelper {
 			annotation.getDetails().put(name, String.valueOf(Integer.valueOf(times).intValue()+ 1));
 		}
 	}
-	
+
 	public int getTotalFound(EModelElement modelElement) {
 		EAnnotation annotation = getCoverageAnnotation(modelElement);
 		return (annotation.getDetails().get(TOTAL_FOUND_TAG) != null) ? Integer.valueOf(annotation.getDetails().get(TOTAL_FOUND_TAG)).intValue() : 0;
 	}
-	
+
 	public double getRatioTotalFound(EModelElement modelElement) {
 		EAnnotation annotation = getCoverageAnnotation(modelElement);
 		return (annotation.getDetails().get(RATIO_TOTAL_FOUND_TAG) != null) ? Double.valueOf(annotation.getDetails().get(RATIO_TOTAL_FOUND_TAG)).doubleValue() : 0.0;
 	}
-	
+
 	public List<String> getAka(EModelElement modelElement) {
 		EAnnotation annotation = getAkaAnnotation(modelElement);
 		List<String> result = new ArrayList<String>();
@@ -126,6 +128,16 @@ public class AnnotationHelper {
 			result.add(key);
 		}
 		return result;
+	}
+
+	public void registerSourceName(EClass modelElement, String name) {
+		EAnnotation annotation = getCoverageAnnotation(modelElement);
+		annotation.getDetails().put(SOURCE_NAME_TAG, name);
+	}
+	
+	public String getSourceName(EClass modelElement) {
+		EAnnotation annotation = getCoverageAnnotation(modelElement);
+		return annotation.getDetails().get(SOURCE_NAME_TAG);
 	}
 
 }

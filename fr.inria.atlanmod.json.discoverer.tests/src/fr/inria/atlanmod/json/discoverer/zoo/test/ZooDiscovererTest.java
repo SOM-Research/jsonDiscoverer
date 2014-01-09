@@ -13,6 +13,7 @@ package fr.inria.atlanmod.json.discoverer.zoo.test;
 
 import java.io.File;
 
+import fr.inria.atlanmod.json.discoverer.zoo.ModelDrawer;
 import fr.inria.atlanmod.json.discoverer.zoo.ZooDiscoverer;
 
 public class ZooDiscovererTest {

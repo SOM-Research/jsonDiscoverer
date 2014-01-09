@@ -339,6 +339,7 @@ public class JsonMultiDiscoverer {
 
 		AnnotationHelper.INSTANCE.increaseTotalFound(newClass);
 		AnnotationHelper.INSTANCE.registerName(newClass, newClass.getName());
+		AnnotationHelper.INSTANCE.registerSourceName(newClass, sourceSet.getName());
 		return newClass;
 	}
 	
