@@ -18,7 +18,7 @@ import fr.inria.atlanmod.json.discoverer.zoo.ZooDiscoverer;
 
 public class ZooDiscovererTest {
 	public static void main(String[] args) {
-		ZooDiscoverer zooDiscoverer = new ZooDiscoverer(new File("../fr.inria.atlanmod.json.discoverer.zoo/zooMini"));
+		ZooDiscoverer zooDiscoverer = new ZooDiscoverer(new File("../fr.inria.atlanmod.json.discoverer.zoo/zooBig"));
 		zooDiscoverer.discover(true);
 		
 //		ModelDrawer drawer = new ModelDrawer(

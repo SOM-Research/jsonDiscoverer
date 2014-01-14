@@ -1,8 +1,10 @@
-package fr.inria.atlanmod.discoverer;
+package fr.inria.atlanmod.discoverer.util;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -10,6 +12,8 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+
+import fr.inria.atlanmod.discoverer.AnnotationHelper;
 
 public class GexfConverter {
 	public static String convert(EPackage ePackage) {
@@ -26,6 +30,7 @@ public class GexfConverter {
 
 		result.append("\t\t<attributes class=\"node\">\n");
 		result.append("\t\t\t<attribute id=\"at1\" title=\"type\" type=\"string\"></attribute>\n");
+		result.append("\t\t\t<attribute id=\"at2\" title=\"sourceName\" type=\"string\"></attribute>\n");
 		result.append("\t\t</attributes>\n");
 		
 		result.append("\t\t<attributes class=\"edge\">\n");
@@ -45,23 +50,29 @@ public class GexfConverter {
 		for(EClassifier eClassifier : ePackage.getEClassifiers() ){
 			if (eClassifier instanceof EClass) {
 				EClass eClass = (EClass) eClassifier;
-				String nodeName = "n" + nodeCounter++;
+				String sourceName = AnnotationHelper.INSTANCE.getSourceName(eClass);
+				
+				String nodeName = String.valueOf(nodeCounter++);
 				result.append("\t\t\t<node id =\"" + nodeName + "\" label=\"" + eClass.getName() + "\">\n");
 				result.append("\t\t\t\t<attvalues>\n");
 				result.append("\t\t\t\t\t<attvalue for=\"type\" value=\"concept\"></attvalue>\n");
+				result.append("\t\t\t\t\t<attvalue for=\"sourceName\" value=\"" + sourceName + "\"></attvalue>\n");
 				result.append("\t\t\t\t</attvalues>\n");
 				
-				String sourceName = AnnotationHelper.INSTANCE.getSourceName(eClass);
 				String color = "r=\"255\" g=\"0\" b=\"0\"";
 				if(sourceName != null) {
 					String cachedColor = nodeColors.get(sourceName);
 					if(cachedColor == null) {
-						color = "r=\"" + String.valueOf((int) (Math.random() * 254)) +"\" g=\"" + String.valueOf((int) (Math.random() * 254)) +"\" b=\"" + String.valueOf((int) (Math.random() * 254)) +"\"";
+						color = "r=\"" + String.valueOf((int) (Math.random() * 255)) +"\" g=\"" + String.valueOf((int) (Math.random() * 255)) +"\" b=\"" + String.valueOf((int) (Math.random() * 255)) +"\"";
 						nodeColors.put(sourceName, color);
 					} else {
 						color = cachedColor;
 					}
 				} 
+				
+				if(eClass.getName().endsWith("Input")) {
+					color = "r=\"255\" g=\"0\" b=\"0\"";
+				}
 				
 				result.append("\t\t\t\t<viz:color " + color + "></viz:color>\n");
 				result.append("\t\t\t</node>\n");
@@ -71,15 +82,16 @@ public class GexfConverter {
 					if (feature instanceof EAttribute) {
 						EAttribute attribute = (EAttribute) feature;
 
-						String attName = "n" + nodeCounter++;
+						String attName = String.valueOf(nodeCounter++);
 						result.append("\t\t\t<node id =\"" + attName + "\" label=\"" + attribute.getName() + "\">\n");
 						result.append("\t\t\t\t<attvalues>\n");
 						result.append("\t\t\t\t\t<attvalue for=\"type\" value=\"attribute\"></attvalue>\n");
+						result.append("\t\t\t\t\t<attvalue for=\"sourceName\" value=\"" + sourceName + "\"></attvalue>\n");
 						result.append("\t\t\t\t</attvalues>\n");
 						result.append("\t\t\t\t<viz:color r=\"255\" g=\"255\" b=\"255\"></viz:color>\n");
 						result.append("\t\t\t</node>\n");
 
-						String edgeName = "e" + edgeCounter++;
+						String edgeName = String.valueOf(edgeCounter++);
 						attEdges.append("\t\t\t<edge id =\"" + edgeName + "\" source=\"" + nodeName + "\" target=\"" + attName + "\">\n");
 						attEdges.append("\t\t\t\t<attvalues>\n");
 						attEdges.append("\t\t\t\t\t<attvalue for=\"type\" value=\"attribute\"></attvalue>\n");
@@ -97,18 +109,21 @@ public class GexfConverter {
 		for(EClassifier eClassifier : ePackage.getEClassifiers() ){
 			if (eClassifier instanceof EClass) {
 				EClass eClass = (EClass) eClassifier;
+				List<String> alreadyVisited = new ArrayList<String>();
 				for(EStructuralFeature eStructuralFeature : eClass.getEStructuralFeatures()) {
 					if (eStructuralFeature instanceof EReference) {
 						EReference eReference = (EReference) eStructuralFeature;
-						String edgeName = "e" + edgeCounter++;
+						String edgeName = String.valueOf(edgeCounter++);
 						String sourceEdge = nodes.get(eClass.getName());
 						String targetEdge = nodes.get(eReference.getEType().getName());
-						if(sourceEdge != null && targetEdge != null)
+						if(sourceEdge != null && targetEdge != null && !alreadyVisited.contains(sourceEdge + "-" + targetEdge)) {
 							result.append("\t\t\t<edge id =\"" + edgeName + "\" source=\"" + sourceEdge + "\" target=\"" + targetEdge + "\">\n");
 							result.append("\t\t\t\t<attvalues>\n");
 							result.append("\t\t\t\t\t<attvalue for=\"type\" value=\"reference\"></attvalue>\n");
 							result.append("\t\t\t\t</attvalues>\n");
 							result.append("\t\t\t</edge>\n");
+							alreadyVisited.add(sourceEdge + "-" + targetEdge);
+						}
 					}
 				}
 			}

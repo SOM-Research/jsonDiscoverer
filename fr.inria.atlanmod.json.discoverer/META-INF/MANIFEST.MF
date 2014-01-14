@@ -9,7 +9,8 @@ Bundle-Activat: org.eclipse.emf.ecore,
  fr.inria.atlanmod.json.discoverer.coverage;bundle-version="1.0.0",
  com.google.gson;bundle-version="2.2.4";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: fr.inria.atlanmod.discoverer
+Export-Package: fr.inria.atlanmod.discoverer,
+ fr.inria.atlanmod.discoverer.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.common;visibility:=reexport,
