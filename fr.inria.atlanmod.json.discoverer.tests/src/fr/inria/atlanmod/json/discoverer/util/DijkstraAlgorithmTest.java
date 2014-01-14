@@ -1,18 +1,22 @@
-package fr.inria.atlanmod.json.discoverer.test;
+package fr.inria.atlanmod.json.discoverer.util;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import fr.inria.atlanmod.discoverer.AnnotationHelper;
+import fr.inria.atlanmod.discoverer.CoreographyBuilder;
 import fr.inria.atlanmod.discoverer.util.DijkstraSolver;
 
 public class DijkstraAlgorithmTest {
@@ -35,26 +39,17 @@ public class DijkstraAlgorithmTest {
 			if (eClassifier instanceof EClass) {
 				EClass eClass = (EClass) eClassifier;
 				if(eClass.getName().equals("pathCalculatorInput")) {
-					System.out.println("Source found");
 					source = eClass;
 				}
 				if(eClass.getName().equals("Ligne")) {
-					System.out.println("Target found");
 					target = eClass;
 				}
 				
 			}
 		}
 		
-		DijkstraSolver algorithm = new DijkstraSolver(package1);
-		algorithm.execute(source);
-		List<EClass> result = algorithm.getPath(target);
-		
-		int counter = 0;
-		for(EClass eClass : result){
-			System.out.println(++counter + " Call to " + eClass.getName());
-		}
-
-
+		CoreographyBuilder builder = new CoreographyBuilder(package1);
+		String result = builder.calculate(source, target);
+		System.out.println(result);
 	}
 }

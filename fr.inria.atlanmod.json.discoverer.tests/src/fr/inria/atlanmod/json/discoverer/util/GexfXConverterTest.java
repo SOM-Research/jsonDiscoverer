@@ -1,4 +1,4 @@
-package fr.inria.atlanmod.json.discoverer.test;
+package fr.inria.atlanmod.json.discoverer.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
