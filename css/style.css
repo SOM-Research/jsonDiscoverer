@@ -129,3 +129,18 @@ footer p {
   border-color: #eed3d7;
 }
 
+#graphFrame {
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #919191;
+    padding: 5px 5px 5px 5px;
+}
+
+#sigma-container {
+    height: 400px;
+    width: 100%;
+    background-color: #aeaeae;
+}
+
