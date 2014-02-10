@@ -81,6 +81,32 @@ public class JsonSource extends AbstractJsonSource {
 		getJsonData().add(data);
 		this.withInput = true;
 	}
+		
+	/**
+	 * Adds a new JSON definition from a string with the JSON and a provided input
+	 * 
+	 * @param file
+	 * @param input
+	 * @throws FileNotFoundException 
+	 */
+	public void addJsonDef(String string, String input) {
+		if(string == null || string.equals("")) 
+			throw new IllegalArgumentException("Argument cannot be null or empty");
+		if(this.jsonData.size() > 0 && this.withInput == true) 
+			throw new IllegalStateException("This JSON source was created to hold JSON data *with* input");
+		if(input == null || input.equals("")) 
+			throw new IllegalArgumentException("Argument cannot be null or empty");
+		
+
+		JsonElement inputElement = (new JsonParser()).parse(new JsonReader(new StringReader(input)));
+		if(!inputElement.isJsonObject())
+			throw new JsonParseException("The input value must be a valid JSON object. Received " + input);
+
+		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new StringReader(string)));
+		JsonData data = new JsonData(inputElement.getAsJsonObject(), rootElement);
+		getJsonData().add(data);
+		this.withInput = true;
+	}	
 	
 	/**
 	 * Adds a new JSON definition from a file with the JSON

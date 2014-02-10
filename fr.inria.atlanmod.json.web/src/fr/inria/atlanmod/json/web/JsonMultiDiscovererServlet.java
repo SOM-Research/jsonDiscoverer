@@ -12,6 +12,7 @@
 package fr.inria.atlanmod.json.web;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -53,14 +54,17 @@ public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 	// The important part is the JSON_SOURCE_NAME which provides the name of the parameter
 	private static String paramsPattern = Pattern.quote("sources[") + "([a-zA-Z]*)"+ Pattern.quote("][") + "[\\$a-zA-Z]*" + Pattern.quote("]") + "(" + Pattern.quote("[]") + ")?";
 	
-	/* 
-	 * Performs a POST call and returns a String in base64 with the picture of the metamodel
-	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/**
+	 * Digest the parameters of the request according to the pattern defined in
+	 * paramsPattern
+	 * 
+	 * @param request
+	 * @return
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. Disgesting the params
+	protected JsonSourceSet digestSources(HttpServletRequest request ) {
 		Pattern pattern = Pattern.compile(paramsPattern);
 		HashMap<String, List<String>> sources = new HashMap<String, List<String>>();
+
 		for (Enumeration<String> e = request.getParameterNames() ; e.hasMoreElements() ;) {
 			String paramName = e.nextElement();
 			Matcher matcher = pattern.matcher(paramName);
@@ -75,9 +79,7 @@ public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 
 			}
 		}
-		if(sources.size() == 0) throw new ServletException("No params in the call");
-
-		// 2. Discovery
+		
 		JsonSourceSet sourceSet = new JsonSourceSet("Composed");
 		for (String sourceName : sources.keySet()) {
 			List<String> sourcesList = sources.get(sourceName);
@@ -88,11 +90,23 @@ public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 			sourceSet.addJsonSource(source);
 		}
 		
-		// 3. Composition
+		return sourceSet;
+	}
+	
+	/* 
+	 * Performs a POST call and returns a String in base64 with the picture of the metamodel
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 1. Digesting the params
+		JsonSourceSet sourceSet = digestSources(request);
+		if(sourceSet.getJsonSources().size() == 0) throw new ServletException("No params in the call");
+
+		// 2. Composition
 		JsonMultiDiscoverer multiDiscoverer = new JsonMultiDiscoverer(sourceSet);
 		EPackage finalMetamodel = multiDiscoverer.discover();
 
-		// 4. Get the picture
+		// 3. Get the picture
 		String id = properties.getProperty(MULTIDISCOVERER_ID);
 		if(id == null) throw new ServletException("ID for composer not found in properties");
 		

@@ -95,7 +95,8 @@ public class JsonComposer {
 			EPackage sourceMetamodel = sourceSet.getMetamodel();
 			result.getEClassifiers().addAll(sourceMetamodel.getEClassifiers());
 		}
-		saveEPackage(result, resultPath);
+		if(resultPath != null)
+			saveEPackage(result, resultPath);
 		return result;
 	}
 
