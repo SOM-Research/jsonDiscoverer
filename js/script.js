@@ -26,6 +26,10 @@ jsonDiscovererModule.config(["$routeProvider", "$httpProvider",
                 templateUrl : "partials/contact.html",
                 controller : "ContactCtrl"
             }).
+            when("/composer", {
+                templateUrl : "partials/composition.html",
+                controller : "CompositionCtrl"
+            }).
             otherwise({redirectTo: "/"});
         delete $httpProvider.defaults.headers.common["X-Requested-With"];
         $httpProvider.defaults.useXDomain = true;
@@ -94,7 +98,8 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
 
             $http({
                     method : 'POST',
-                    url : "http://apps.jlcanovas.es/jsonDiscoverer/discoverMetamodel",
+                    //url : "http://apps.jlcanovas.es/jsonDiscoverer/discoverMetamodel",
+                    url : "http://localhost:8080/fr.inria.atlanmod.json.web/discoverMetamodel",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
@@ -115,7 +120,8 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
             
             $http({
                     method : 'POST',
-                    url : "http://apps.jlcanovas.es/jsonDiscoverer/injectModel",
+                    //url : "http://apps.jlcanovas.es/jsonDiscoverer/injectModel",
+                    url : "http://localhost:8080/fr.inria.atlanmod.json.web/injectModel",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
@@ -136,7 +142,8 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
         
             $http({
                 method : 'POST',
-                url : "http://apps.jlcanovas.es/jsonDiscoverer/getJson",
+                //url : "http://apps.jlcanovas.es/jsonDiscoverer/getJson",
+                url : "http://localhost:8080/fr.inria.atlanmod.json.web/getJson",
                 data : dataToSend,
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function(data) {
@@ -212,7 +219,8 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
 
             $http({
                     method : 'POST',
-                    url : "http://apps.jlcanovas.es/jsonDiscoverer/compose",
+                    //url : "http://apps.jlcanovas.es/jsonDiscoverer/compose",
+                    url : "http://localhost:8080/fr.inria.atlanmod.json.web/compose",
                     data : dataToSend,
                     headers : {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).success(function(data) {
@@ -237,3 +245,11 @@ var JsonProvisionModalInstanceCtrlVar = function($scope, $modalInstance, $log, j
         $modalInstance.dismiss('cancel');
     };
 }
+
+jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$location",
+    function($scope, $window, $location) {
+        $scope.$on('$viewContentLoaded', function(event) {
+            $window.ga('send', 'pageview', {'page': $location.path()});
+        });
+    }
+]);

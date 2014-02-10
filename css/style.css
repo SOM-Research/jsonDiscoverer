@@ -27,7 +27,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .jumbotron .btn-group-vertical {
-  margin-top: 30px;
+  margin-top: 0px;
 }
 
 .jumbotron .btn, .jumbotron .btn:enabled {
