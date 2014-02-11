@@ -36,6 +36,69 @@ jsonDiscovererModule.config(["$routeProvider", "$httpProvider",
     }
 ]);
 
+jsonDiscovererModule.service('DiscovererService', ["$http",
+    function($http) {
+        //this.prefix = "http://apps.jlcanovas.es/jsonDiscoverer";
+        this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
+
+        this.callService = function(call, dataToSend, success, failure) {
+            $http({
+                method : 'POST',
+                url : call,
+                data : dataToSend,
+                headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function(data) {
+                success(data);
+            }).error(function(data, status, headers, config) {
+                failure(data, status, headers, config);
+            });
+        };
+
+        this.discoverMetamodel = function(jsonText, success, failure) {
+            var dataToSend = $.param( {
+                json : jsonText
+            });
+
+            this.callService(this.prefix + "/discoverMetamodel", dataToSend, success, failure);
+        };
+
+        this.injectModel = function(jsonText, success, failure) {
+            var dataToSend = $.param( {
+                json : jsonText
+            });
+
+            this.callService(this.prefix + "/injectModel", dataToSend, success, failure);
+        };
+
+        this.compose = function(data, success, failure) {
+            var dataToSend = $.param({
+                sources : data
+            });
+
+            this.callService(this.prefix + "/multiDiscover", dataToSend, success, failure);
+        };
+
+        this.discoverComposition = function(data, success, failure) {
+            var dataToSend = $.param({
+                sources : data
+            });
+
+            this.callService(this.prefix + "/discoverComposition", dataToSend, success, failure);
+        };
+
+        this.obtainJSON = function(urlData, success, failure) {
+            delete $http.defaults.headers.common['X-Requested-With'];
+            $http.defaults.useXDomain = true;
+
+            var dataToSend = $.param( {
+                url : urlData
+            });
+
+            this.callService(this.prefix + "/getJson", dataToSend, success, failure);
+        }
+    }
+]);
+
 jsonDiscovererModule.controller("ContactCtrl", ["$scope", "$window", "$location",
     function($scope, $window, $location) {
         $scope.$on('$viewContentLoaded', function(event) {
@@ -52,8 +115,8 @@ jsonDiscovererModule.controller("IndexCtrl", ["$scope", "$window", "$location",
     }
 ]);
 
-jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$window", "$location" ,"$log", 
-    function($scope, $http, $window, $location, $log) {
+jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "DiscovererService", "$window", "$location" ,"$log",
+    function($scope, DiscovererService, $window, $location, $log) {
         $scope.json = { text: '' };
         $scope.metamodel = "";
         $scope.model = "";
@@ -92,72 +155,48 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "$http", "$wi
         var discoverMetamodel = function(jsonText) {
             $scope.metamodel = "images/loading.gif";
 
-            var dataToSend = $.param( {
-                json : jsonText
-            });
-
-            $http({
-                    method : 'POST',
-                    //url : "http://apps.jlcanovas.es/jsonDiscoverer/discoverMetamodel",
-                    url : "http://localhost:8080/fr.inria.atlanmod.json.web/discoverMetamodel",
-                    data : dataToSend,
-                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).success(function(data) {
+            DiscovererService.discoverMetamodel(jsonText,
+                function(data) {
                     $scope.metamodel = "data:image/jpg;base64," + data;
                     $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://atlanmod.github.io/json-discoverer/#/contact">contact us</a> to improve our tool!' });
-                }).error(function(data, status, headers, config) {
+                },
+                function(data, status, headers, config) {
                     $scope.metamodel = "";
                     $scope.alertsSchema.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
-                });
+                }
+            );
         }
 
         var injectModel = function(jsonText) {
             $scope.model = "images/loading.gif";
 
-            var dataToSend = $.param( {
-                json : jsonText
-            });
-            
-            $http({
-                    method : 'POST',
-                    //url : "http://apps.jlcanovas.es/jsonDiscoverer/injectModel",
-                    url : "http://localhost:8080/fr.inria.atlanmod.json.web/injectModel",
-                    data : dataToSend,
-                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).success(function(data) {
+            DiscovererService.injectModel(jsonText,
+                function(data) {
                     $scope.model = "data:image/jpg;base64," + data;
-                }).error(function(data, status, headers, config) {
+                },
+                function(data, status, headers, config) {
                     $scope.model = "";
                     $scope.alertsData.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
-                });
+                }
+            );
         }
 
         $scope.obtainJSON = function() {
-            delete $http.defaults.headers.common['X-Requested-With'];
-            $http.defaults.useXDomain = true;
-
-            var dataToSend = $.param( {
-                url : $scope.url
-            });
-        
-            $http({
-                method : 'POST',
-                //url : "http://apps.jlcanovas.es/jsonDiscoverer/getJson",
-                url : "http://localhost:8080/fr.inria.atlanmod.json.web/getJson",
-                data : dataToSend,
-                headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-            }).success(function(data) {
-                $scope.json.text = JSON.stringify(data);
-            }).error(function(data, status, headers, config) {
-                $scope.url = "";
-                $scope.alertsGeneral.push({ type: 'error', msg: 'We could not get anything from that URL. Could you try again?' });
-            });
+            DiscovererService.obtainJSON($scope.url,
+                function(data) {
+                    $scope.json.text = JSON.stringify(data);
+                },
+                function(data, status, headers, config) {
+                    $scope.url = "";
+                    $scope.alertsGeneral.push({ type: 'error', msg: 'We could not get anything from that URL. Could you try again?' });
+                }
+            );
         }
     }
 ]);
 
-jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "$http", "$window", "$location","$log",
-    function($scope, $rootScope, $modal, $http, $window, $location, $log) {
+jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope", "$modal", "DiscovererService", "$window", "$location","$log",
+    function($scope, $rootScope, $modal, DiscovererService, $window, $location, $log) {
         $scope.defs = {} ;
         $scope.discoveryPosible = false;
         $scope.name = "";
@@ -215,21 +254,16 @@ jsonDiscovererModule.controller("AdvancedDiscovererCtrl", ["$scope", "$rootScope
             $scope.metamodel = "images/loading.gif";
             $scope.showTitles = true;
 
-            var dataToSend = $.param({ sources : $scope.defs });
-
-            $http({
-                    method : 'POST',
-                    //url : "http://apps.jlcanovas.es/jsonDiscoverer/compose",
-                    url : "http://localhost:8080/fr.inria.atlanmod.json.web/compose",
-                    data : dataToSend,
-                    headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).success(function(data) {
+            DiscovererService.compose($scope.defs,
+                function(data) {
                     $scope.metamodel = "data:image/jpg;base64," + data;
                     $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://atlanmod.github.io/json-discoverer/#/contact">contact us</a> to improve our tool!' });
-                }).error(function(data, status, headers, config) {
+                },
+                function(data, status, headers, config) {
                     $scope.metamodel = "";
                     $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
-                });
+                }
+            );
         }
     }
 ]);
@@ -258,8 +292,8 @@ var JsonProvisionModalWithInputInstanceCtrlVar = function($scope, $modalInstance
     };
 }
 
-jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$location", "$modal", "$http",
-    function($scope, $window, $location, $modal, $http) {
+jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$location", "$modal", "DiscovererService",
+    function($scope, $window, $location, $modal, DiscovererService) {
         $scope.defs = {} ;
         $scope.compositionPosible = false;
         $scope.name = "";
@@ -306,53 +340,45 @@ jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$locat
         };
 
         $scope.discoverComposition = function() {
-            $scope.metamodel = "images/loading.gif";
+            DiscovererService.discoverComposition($scope.defs,
+                function(data) {
+                    var dataDom = new DOMParser().parseFromString(data, "application/xml");
+                    var mygexf = GexfParser.parse(dataDom);
+                    console.log("nodes " + mygexf.nodes.length);
 
-            var dataToSend = $.param({ sources : $scope.defs });
+                    $scope.sigmaGraph.graph.clear();
+                    var i, l, arr, obj, node;
 
-            $http({
-                method : 'POST',
-                //url : "http://apps.jlcanovas.es/jsonDiscoverer/compose",
-                url : "http://localhost:8080/fr.inria.atlanmod.json.web/discoverComposition",
-                data : dataToSend,
-                headers : {'Content-Type': 'application/x-www-form-urlencoded'}
-            }).success(function(data) {
-                var dataDom = new DOMParser().parseFromString(data, "application/xml");
-                var mygexf = GexfParser.parse(dataDom);
-                console.log("nodes " + mygexf.nodes.length);
+                    // Adapt the graph:
+                    arr = mygexf.nodes;
+                    for (i = 0, l = arr.length; i < l; i++) {
+                        obj = arr[i];
+                        $scope.sigmaGraph.graph.addNode({
+                            id: obj.id,
+                            label : obj.label,
+                            x : Math.random(),
+                            y : Math.random(),
+                            size : 1,
+                            color : obj.viz.color
+                        })
+                    }
 
-                $scope.sigmaGraph.graph.clear();
-                var i, l, arr, obj, node;
+                    arr = mygexf.edges;
+                    for (i = 0, l = arr.length; i < l; i++) {
+                        obj = arr[i];
+                        $scope.sigmaGraph.graph.addEdge({
+                            id: obj.id,
+                            source : obj.source,
+                            target : obj.target
+                        })
+                    }
+                    $scope.sigmaGraph.refresh();
 
-                // Adapt the graph:
-                arr = mygexf.nodes;
-                for (i = 0, l = arr.length; i < l; i++) {
-                    obj = arr[i];
-                    $scope.sigmaGraph.graph.addNode({
-                        id: obj.id,
-                        label : obj.label,
-                        x : Math.random(),
-                        y : Math.random(),
-                        size : 1,
-                        color : obj.viz.color
-                    })
+                },
+                function(data, status, headers, config) {
+                    $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the composition discovery process. Could you check your JSON and try again?' });
                 }
-
-                arr = mygexf.edges;
-                for (i = 0, l = arr.length; i < l; i++) {
-                    obj = arr[i];
-                    $scope.sigmaGraph.graph.addEdge({
-                        id: obj.id,
-                        source : obj.source,
-                        target : obj.target
-                    })
-                }
-                $scope.sigmaGraph.refresh();
-
-            }).error(function(data, status, headers, config) {
-                $scope.metamodel = "";
-                $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the composition discovery process. Could you check your JSON and try again?' });
-            });
+            );
         };
 
 
