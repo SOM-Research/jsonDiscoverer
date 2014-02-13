@@ -40,6 +40,7 @@ jsonDiscovererModule.service('DiscovererService', ["$http",
     function($http) {
         //this.prefix = "http://apps.jlcanovas.es/jsonDiscoverer";
         this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
+        //this.prefix = "http://localhost:8080/jsonDiscoverer";
 
         this.callService = function(call, dataToSend, success, failure) {
             $http({
@@ -95,6 +96,16 @@ jsonDiscovererModule.service('DiscovererService', ["$http",
             });
 
             this.callService(this.prefix + "/getJson", dataToSend, success, failure);
+        }
+
+        this.calculatePath = function(urlData, sourceNode, targetNode, success, failure) {
+            var dataToSend = $.param({
+               sources : urlData,
+               source : sourceNode.label,
+               target : targetNode.label
+            });
+
+            this.callService(this.prefix + "/calculatePath", dataToSend, success, failure);
         }
     }
 ]);
@@ -303,6 +314,11 @@ jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$locat
         $scope.layoutButton = "Start Layout";
         $scope.layoutRunning = false;
 
+        $scope.sourcePath = {};
+        $scope.sourcePreviousColor = "";
+        $scope.targetPath = {};
+        $scope.targetPreviousColor = "";
+
         $scope.alertsGeneral = [ ];
 
         $scope.$on('$viewContentLoaded', function(event) {
@@ -344,7 +360,6 @@ jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$locat
                 function(data) {
                     var dataDom = new DOMParser().parseFromString(data, "application/xml");
                     var mygexf = GexfParser.parse(dataDom);
-                    console.log("nodes " + mygexf.nodes.length);
 
                     $scope.sigmaGraph.graph.clear();
                     var i, l, arr, obj, node;
@@ -381,6 +396,41 @@ jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$locat
             );
         };
 
+        $scope.test = function() {
+            $scope.sigmaGraph.graph.clear();
+            $scope.sigmaGraph.graph.addNode({
+                id : "A",
+                label : "labelA",
+                x : Math.random(),
+                y : Math.random(),
+                size : 1,
+                color : '#f00'
+            }).addNode({
+                id : "B",
+                label : "labelB",
+                x : Math.random(),
+                y : Math.random(),
+                size : 1,
+                color : '#f00'
+            }).addNode({
+                id : "C",
+                label : "labelC",
+                x : Math.random(),
+                y : Math.random(),
+                size : 1,
+                color : '#f00'
+            }).addEdge({
+                id : "EAB",
+                source : "A",
+                target : "B"
+            }).addEdge({
+                id : "EBC",
+                source : "B",
+                target : "C"
+            });
+            $scope.sigmaGraph.refresh();
+        };
+
 
         $scope.updateCompositionPosible = function() {
             if(typeof defs === "undefined") $scope.compositionPosible = false;
@@ -406,5 +456,43 @@ jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$locat
             $scope.sigmaGraph.position(0,0,1).draw();
         };
 
+        $scope.sigmaGraph.bind('clickNode', function(event) {
+            if($scope.sourcePath !== null && $scope.targetPath !== null) {
+                $scope.sourcePath.color = $scope.sourcePreviousColor;
+                $scope.targetPath.color = $scope.targetPreviousColor;
+                $scope.sourcePath = null;
+                $scope.targetPath = null;
+            }
+
+            if($scope.sourcePath === null){
+                $scope.sourcePreviousColor = event.data.node.color;
+                $scope.sourcePath = event.data.node;
+            } else {
+                $scope.targetPreviousColor = event.data.node.color;
+                $scope.targetPath = event.data.node;
+            }
+            event.data.node.color = '#000';
+            $scope.sigmaGraph.refresh();
+            $scope.$apply();
+        });
+
+        $scope.calculatePath = function() {
+            DiscovererService.calculatePath($scope.defs, $scope.sourcePath, $scope.targetPath,
+                function(data) {
+                    var diagram = Diagram.parse(data);
+                    diagram.drawSVG("sequence-diagram", {theme: 'simple'});
+                },
+                function(data, status, headers, config) {
+
+                }
+            )
+
+            /*var diagram = Diagram.parse("A->B: Normal line");
+            $("sequence-diagram").each(function(index) {
+               console.log(index + ": " + $(this).text());
+            });
+            $(".sequence-diagram").html('');
+            diagram.drawSVG("sequence-diagram", {theme: 'simple'});*/
+        };
     }
 ]);
