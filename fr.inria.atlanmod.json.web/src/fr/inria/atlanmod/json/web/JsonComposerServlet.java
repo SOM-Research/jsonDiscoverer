@@ -69,13 +69,11 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 		HashMap<String, Integer> detectedSources = new HashMap<String, Integer>();
 		for (Enumeration<String> e = request.getParameterNames() ; e.hasMoreElements() ;) {
 			String paramName = e.nextElement();
-			System.out.println(paramName);
 			Matcher matcher = pattern.matcher(paramName);
 			if(matcher.find()) {
 				String sourceName = matcher.group(1);
 				String number = matcher.group(2);
 				String type = matcher.group(3);
-				System.out.println("--> " + sourceName + " " + number + " " + type + "\n");
 				
 				if(sourceName != null && number != null && type != null) {
 					int numberValue = Integer.valueOf(number.substring(1, number.length()-1)).intValue();
@@ -88,12 +86,10 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 		}
 		
 		for(String sourceName : detectedSources.keySet()) {
-			System.out.println("SourceName:" + sourceName);
 			JsonSourceSet sourceSet = new JsonSourceSet(sourceName+"Set");
 			for(int i = 0; i <= detectedSources.get(sourceName).intValue(); i++) {
 				String input = request.getParameter("sources[" + sourceName + "][jsonDefs][" + String.valueOf(i) + "][input]");
 				String output = request.getParameter("sources[" + sourceName + "][jsonDefs][" + String.valueOf(i) + "][output]");
-				System.out.println("  [" + input + "][ " + output + "]");
 				JsonSource source = new JsonSource(sourceName);
 				source.addJsonDef(output, input);
 				sourceSet.addJsonSource(source);

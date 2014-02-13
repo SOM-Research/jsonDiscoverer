@@ -18,6 +18,11 @@ public class CoreographyBuilder {
 	}
 
 	public String calculate(EClass source, EClass target) {
+		if(source == null)
+			throw new IllegalArgumentException("The source cannot be null");
+		if(target == null)
+			throw new IllegalArgumentException("The target cannot be null");
+		
 		DijkstraSolver algorithm = new DijkstraSolver(domain);
 		algorithm.execute(source);
 		List<EClass> result = algorithm.getPath(target);
