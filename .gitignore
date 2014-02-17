@@ -9,3 +9,5 @@ fr.inria.atlanmod.json.discoverer/bin/**/*
 fr.inria.atlanmod.json.web/build/**/*
 fr.inria.atlanmod.json.web/jsonDiscoverer.war
 testing/**
+.idea/**
+*.iml
