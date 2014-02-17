@@ -1,5 +1,9 @@
     <div class="row">
-    <h2>How it works?</h2>
+        <div style="float:right; margin-top:25px;">
+            <div class="label label-danger">Be aware! This component is currently under development!</div>
+        </div>
+    <h2>How it works? 
+    </h2>
     <div class="col-md-6">
 	    <div class="text-center">
 	        <img style="margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/composition.png" alt="Composition Discoverer">
@@ -13,6 +17,10 @@
 	    	<li><strong>Step 1. Provision.</strong> You have to provide two or more JSON sources. For each source you have to give a name and provide one or more JSON definitions.</li>
 	    	<li><strong>Step 2. Composition discovery.</strong> For each JSON source we will discovery the schema information and then we all (sub)schemas will be composed in a graph where
             graph nodes represents schema concepts and attributes. We will discover as well possible links among these concepts.</li>
+            <li><strong>Step 3. Composition Graph.</strong> The discovery process will generate a composition graph. You can apply the layout to better read the graph.</li>
+            <li><strong>Step 4. Calculate a Path.</strong> Paths in the graph can represent API compositions. Given a source and a target nodes, you can calculate a path, which we will represent
+            as a sequence diagram.</li>
+
 	    </ul>
 	</div>
     </div>
@@ -83,42 +91,32 @@
                 </div>
 
             </div>
-		</div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Composition Graph</h3>
-                <div style="float:right;">
-                    <button style="margin-top: -10px;"class="btn" ng-click="layout()">{{layoutButton}}</button>
-                </div>
-                <div style="float:right;">
-                    <button style="margin-top: -10px; margin-right: 10px;"class="btn" ng-click="test()">Test</button>
-                </div>
-                <p><small>Same-colored nodes represent concepts of an API. White nodes represent attributes of the concepts while red nodes represent input concepts</small></p>
-                <p class="text-center">
-                    <div id="graphFrame">
-                        <div id="sigma-container"></div>
-                    </div>
-                </p>
+            <h4 style="padding-top: 20px;">Step 3. Composition Graph </h4>
+            <div style="float:right;">
+                <button style="margin-top: -10px;"class="btn" ng-click="layout()">{{layoutButton}}</button>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Calculate a path</h3>
-                <p>Select two nodes of the graph. If a path exists, we will show it as a sequence diagram</p>
-                <form class="form-horizontal" role="form">
-                    <label for="sourceNode" class="col-md-2 control-label">Source Node</label>
-                    <div class="col-md-2">
-                        <input type="text" class="form-control" id="sourceNode" placeholder="Select a source node" ng-model="sourcePath.label" readonly>
-                    </div>
-                    <label for="targetNode" class="col-md-2 control-label">Target Node</label>
-                    <div class="col-md-2">
-                        <input type="text" class="form-control" id="targetNode" placeholder="Select a target node" ng-model="targetPath.label" readonly>
-                    </div>
-                    <button class="btn col-md-3 col-md-offset-1" ng-click="calculatePath()">Calculate</button>
-                </form>
-            </div>
-        </div>
+            <p><small>Same-colored nodes represent concepts of an API. White nodes represent attributes of the concepts while red nodes represent input concepts</small></p>
+            <p class="text-center">
+                <div id="graphFrame">
+                    <div id="sigma-container"></div>
+                </div>
+            </p>
+
+            <h4 style="padding-top: 20px;">Step 4. Calculate a Path</h4>
+            <p>Select two nodes of the graph. If a path exists, we will show it as a sequence diagram</p>
+            <form class="form-horizontal" role="form">
+                <label for="sourceNode" class="col-md-2 control-label">Source Node</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="sourceNode" placeholder="Select a source node" ng-model="sourcePath.label" readonly>
+                </div>
+                <label for="targetNode" class="col-md-2 control-label">Target Node</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="targetNode" placeholder="Select a target node" ng-model="targetPath.label" readonly>
+                </div>
+                <button class="btn col-md-3 col-md-offset-1" ng-click="calculatePath()">Calculate</button>
+            </form>
+		</div>
 
         <div class="row">
             <p class="text-center">
