@@ -2,62 +2,204 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="geographicalCode" nsURI="http://fr.inria.atlanmod/discovered/geographicalCode"
     nsPrefix="discog">
-  <eClassifiers xsi:type="ecore:EClass" name="Result">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="address_components" lowerBound="1"
-        upperBound="-1" eType="#//Address_component" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatted_address" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="geometry" lowerBound="1"
-        eType="#//Geometry" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="types" lowerBound="1" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GeographicalCodeInput">
+  <eClassifiers xsi:type="ecore:EClass" name="geographicalCodeInput">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="1"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="address" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="geographicalCodeOutput"
-        lowerBound="1" eType="#//GeographicalCodeOutput" containment="true"/>
+        lowerBound="1" eType="#//GeographicalCodeOutput" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Result">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="address_components" lowerBound="1"
+        upperBound="-1" eType="#//Address_component" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatted_address" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="geometry" lowerBound="1"
+        eType="#//Geometry" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="types" lowerBound="1" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Northeast">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GeographicalCodeOutput">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="results" lowerBound="1"
-        upperBound="-1" eType="#//Result" containment="true"/>
+        upperBound="-1" eType="#//Result" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Location">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Geometry">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
-        eType="#//Location" containment="true"/>
+        eType="#//Location" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="location_type" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewport" lowerBound="1"
-        eType="#//Viewport" containment="true"/>
+        eType="#//Viewport" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Viewport">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="northeast" lowerBound="1"
-        eType="#//Northeast" containment="true"/>
+        eType="#//Northeast" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="southwest" lowerBound="1"
-        eType="#//Southwest" containment="true"/>
+        eType="#//Southwest" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Address_component">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="long_name" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="short_name" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="types" lowerBound="1" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Southwest">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>

@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"/>
+<discoI:InfoTraficTANProvisional xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discoI="http://fr.inria.atlanmod/discovered/InfoTraficTANProvisional">
+  <opendata request="http://data.nantes.fr/api/getInfoTraficTANPrevisionnel/1.0/39W9VSNCSASEOGV/?output=json">
+    <answer>
+      <status>
+        <@attributes code="0" message="OK"/>
+      </status>
+      <data>
+        <ROOT>
+          <LISTE_INFOTRAFICS>
+            <INFOTRAFIC CODE="2019" LANGUE="0" INTITULE="Manifestation centre ville bus" RESUME="En raison d'une manifestation dans le centre ville de Nantes, l'itin&#xe9;raire des bus empruntant ce secteur est perturb&#xe9;." TEXTE_VOCAL="manifestation buss devi&#xe9; dan le centre ville de nante" DATE_DEBUT="01/05/2014" DATE_FIN="01/05/2014" HEURE_DEBUT="09:31" HEURE_FIN="09:31" PERTURBATION_TERMINEE="0" TRONCONS="[C1/1/-/-];[C1/2/-/-];[C2/1/-/-];[C2/2/-/-];[C3/1/-/-];[C3/2/-/-];[C6/1/-/-];[C6/2/-/-];[11/1/-/-];[11/2/-/-];[12/1/-/-];[12/2/-/-];[23/1/-/-];[23/2/-/-];[26/1/-/-];[26/2/-/-];[54/1/-/-];[54/2/-/-]"/>
+          </LISTE_INFOTRAFICS>
+        </ROOT>
+      </data>
+    </answer>
+  </opendata>
+</discoI:InfoTraficTANProvisional>

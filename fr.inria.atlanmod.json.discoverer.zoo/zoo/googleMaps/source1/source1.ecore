@@ -3,29 +3,91 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="positionElevation" nsURI="http://fr.inria.atlanmod/discovered/positionElevation"
     nsPrefix="discop">
   <eClassifiers xsi:type="ecore:EClass" name="Result">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="elevation" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
-        eType="#//Location" containment="true"/>
+        eType="#//Location" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolution" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PositionElevationOutput">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="results" lowerBound="1"
-        upperBound="-1" eType="#//Result" containment="true"/>
+        upperBound="-1" eType="#//Result" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PositionElevationInput">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locations" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="positionElevationOutput"
-        lowerBound="1" eType="#//PositionElevationOutput" containment="true"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Location">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="positionElevationInput">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locations" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="positionElevationOutput"
+        lowerBound="1" eType="#//PositionElevationOutput" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>

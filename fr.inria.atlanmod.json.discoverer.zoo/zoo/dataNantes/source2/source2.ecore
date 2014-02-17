@@ -2,41 +2,127 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="getFluiditeAxesRoutiers" nsURI="http://fr.inria.atlanmod/discovered/getFluiditeAxesRoutiers"
     nsPrefix="discog">
-  <eClassifiers xsi:type="ecore:EClass" name="GetFluiditeAxesRoutiersInput">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
-        eType="#//Opendata" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Data">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Troncons" lowerBound="1"
-        eType="#//Troncon" containment="true"/>
+        eType="#//Troncon" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Troncon">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="4"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Horodatage" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Couleur_TP" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="0.5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="0.5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Couleur_TP" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="0.5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Troncon" lowerBound="1"
-        upperBound="-1" eType="#//Troncon" containment="true"/>
+        upperBound="-1" eType="#//Troncon" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="0.5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Answer">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="status" lowerBound="1"
-        eType="#//Statu" containment="true"/>
+        eType="#//Statu" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1" eType="#//Data"
-        containment="true"/>
+        containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="@attribute">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statu">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="@attributes" lowerBound="1"
-        eType="#//@attribute" containment="true"/>
+        eType="#//@attribute" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Opendata">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="2"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="request" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="answer" lowerBound="1"
-        eType="#//Answer" containment="true"/>
+        eType="#//Answer" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="getFluiditeAxesRoutiers">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="1"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
+        eType="#//Opendata" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>
