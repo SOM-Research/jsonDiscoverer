@@ -42,7 +42,7 @@ import fr.inria.atlanmod.discoverer.JsonSourceSet;
  */
 @WebServlet("/multiDiscover")
 public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
-	public static final String version = "1.0";
+	public static final String version = "1.2";
 	
 	private static final long serialVersionUID = 23L;
 	

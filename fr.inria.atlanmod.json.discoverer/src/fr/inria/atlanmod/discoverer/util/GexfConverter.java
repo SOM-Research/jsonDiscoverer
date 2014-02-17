@@ -15,6 +15,13 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import fr.inria.atlanmod.discoverer.AnnotationHelper;
 
+/**
+ * This class converts a metamodel discoverer into a graph GEXF file. As it is pretty simple, I preferred not
+ * to use model-to-text transformations :D
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
 public class GexfConverter {
 	public static String convert(EPackage ePackage) {
 		StringBuffer result = new StringBuffer();

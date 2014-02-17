@@ -35,7 +35,10 @@ public class JsonDiscovererVersionServlet extends AbstractJsonDiscoverer {
 		PrintWriter out = resp.getWriter();
 		out.println("Discoverer servlet version: " + JsonDiscovererServlet.version);
 		out.println("Injector servlet version: " + JsonInjectorServlet.version);
-		out.println("Composer servlet version: " + JsonMultiDiscovererServlet.version);
+		out.println("MultiDiscoverer servlet version: " + JsonMultiDiscovererServlet.version);
+		out.println("Composer servlet version: " + JsonComposerServlet.version);
+		out.println("Path Calculator servlet version: " + JsonPathCalculatorServlet.version);
+		out.println("Proxy servlet version: " + ProxyServlet.version);
 		
 	}	
 

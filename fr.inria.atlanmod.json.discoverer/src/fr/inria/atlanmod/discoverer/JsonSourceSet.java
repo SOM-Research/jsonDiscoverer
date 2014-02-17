@@ -3,6 +3,12 @@ package fr.inria.atlanmod.discoverer;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ * This class represents a set of JSON sources (i.e., several examples of JSON-based API calls)
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
 public class JsonSourceSet extends AbstractJsonSource {
 	private HashMap<String, JsonSource> sources;
 

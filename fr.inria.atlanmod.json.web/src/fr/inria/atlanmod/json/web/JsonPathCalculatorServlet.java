@@ -3,12 +3,7 @@ package fr.inria.atlanmod.json.web;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,12 +17,17 @@ import org.eclipse.emf.ecore.EPackage;
 import fr.inria.atlanmod.discoverer.CoreographyBuilder;
 import fr.inria.atlanmod.discoverer.JsonComposer;
 import fr.inria.atlanmod.discoverer.JsonMultiDiscoverer;
-import fr.inria.atlanmod.discoverer.JsonSource;
 import fr.inria.atlanmod.discoverer.JsonSourceSet;
-import fr.inria.atlanmod.discoverer.util.GexfConverter;
 
+/**
+ * This servlet allows calculating paths between nodes of the discovered metamodel
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
 @WebServlet("/calculatePath")
 public class JsonPathCalculatorServlet extends JsonComposerServlet {
+	public static final String version = "1.2";
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,7 +49,7 @@ public class JsonPathCalculatorServlet extends JsonComposerServlet {
 
 		// 2. Composition
 		JsonComposer composer = new JsonComposer(sourceSets);
-		EPackage finalMetamodel = composer.compose(new File(workingDir.getAbsoluteFile() + File.separator + "composed.ecore"));
+		EPackage finalMetamodel = composer.compose(null);
 
 		EClass sourceEClass = null;
 		EClass targetEClass = null;

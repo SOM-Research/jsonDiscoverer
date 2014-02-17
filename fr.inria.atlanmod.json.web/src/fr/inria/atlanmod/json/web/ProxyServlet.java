@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/getJson")
 public class ProxyServlet extends HttpServlet {
+	public static final String version = "1.2";
 	private static final long serialVersionUID = 133L;
 	
 	/**

@@ -12,6 +12,12 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 
+/**
+ * This class provides some helper methods to fill in the metadata in the discovered models
+ * 
+ * @author Javier Canovas (javier.canovas@inria.fr)
+ *
+ */
 public class AnnotationHelper {
 	public static AnnotationHelper INSTANCE = new AnnotationHelper();
 
