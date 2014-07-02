@@ -258,7 +258,7 @@ public class JsonDiscoverer {
 
 	private String digestId(String id) {
 		String result = id;
-		if(result.endsWith("s")) 
+		if(result.length() > 1 && result.endsWith("s")) 
 			result = result.substring(0, result.length()-1);
 		result = result.substring(0, 1).toUpperCase() + result.substring(1, result.length()); 
 		return result;
