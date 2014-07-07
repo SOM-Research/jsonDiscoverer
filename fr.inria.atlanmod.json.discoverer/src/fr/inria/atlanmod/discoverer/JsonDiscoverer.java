@@ -51,7 +51,7 @@ public class JsonDiscoverer {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 
-		LOGGER.setLevel(Level.ALL);
+		LOGGER.setLevel(Level.OFF);
 	}
 
 	/**

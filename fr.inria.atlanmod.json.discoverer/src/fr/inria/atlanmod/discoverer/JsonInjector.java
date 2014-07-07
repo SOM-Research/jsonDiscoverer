@@ -54,7 +54,7 @@ public class JsonInjector {
 	public JsonInjector(SingleJsonSource jsonSource) {
 		this.jsonSource = jsonSource;
 
-		LOGGER.setLevel(Level.ALL);
+		LOGGER.setLevel(Level.OFF);
 	}
 
 	/**
