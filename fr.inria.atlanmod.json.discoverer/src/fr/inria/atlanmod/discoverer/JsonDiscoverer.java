@@ -51,7 +51,7 @@ public class JsonDiscoverer {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 
-		LOGGER.setLevel(Level.OFF);
+		LOGGER.setLevel(Level.ALL);
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class JsonDiscoverer {
 
 		List<JsonObject> elements = source.getSourceDigested();
 
-		LOGGER.fine("Received " + elements.size() + " json objects to discover");
+		LOGGER.fine("[discoverMetamodel] Received " + elements.size() + " json objects to discover");
 
 		String sourceName = (source.includesInput()) ? source.getName() + "Input" : source.getName();
 
@@ -122,10 +122,10 @@ public class JsonDiscoverer {
 	private EClass discoverMetaclass(String id, JsonObject jsonObject) {
 		EClass eClass = eClasses.get(id);
 		if(eClass != null) {
-			LOGGER.finer("Refining " + id);
+			LOGGER.finer("[discoverMetaclass] Refining " + id);
 			eClass = refineMetaclass(eClass, jsonObject);
 		} else {
-			LOGGER.finer("Creating " + id);
+			LOGGER.finer("[discoverMetaclass] Creating " + id);
 			eClass = createMetaclass(id, jsonObject);
 		}
 		return eClass;
@@ -145,9 +145,9 @@ public class JsonDiscoverer {
 
 		eClasses.put(id, eClass);
 
-		LOGGER.fine("Metaclass created with name " + id);
+		LOGGER.fine("[createMetaclass] Metaclass created with name " + id);
 		Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
-		LOGGER.finer("Iterating over " + jsonObject.entrySet().size() + " pairs");
+		LOGGER.finer("[createMetaclass] Iterating over " + jsonObject.entrySet().size() + " pairs");
 		while(pairs.hasNext()) {
 			Map.Entry<String, JsonElement> pair = pairs.next();
 
@@ -167,7 +167,7 @@ public class JsonDiscoverer {
 	 * @param JsonObject
 	 */
 	private EClass refineMetaclass(EClass eClass, JsonObject jsonObject) {
-		LOGGER.fine("Refining metaclass " + eClass.getName());
+		LOGGER.fine("[refineMetaclass] Refining metaclass " + eClass.getName());
 		AnnotationHelper.INSTANCE.increaseTotalFound(eClass);
 
 		Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
@@ -183,10 +183,10 @@ public class JsonDiscoverer {
 				if (eStructuralFeature instanceof EAttribute) {
 					EAttribute eAttribute = (EAttribute) eStructuralFeature;
 					if(eAttribute.getEType() != mapType(pairId, value)) {
-						LOGGER.fine("Attribute " + eAttribute.getName() + " typed to String due to conflicts");
+						LOGGER.fine("[refineMetaclass] Attribute " + eAttribute.getName() + " typed to String due to conflicts");
 						eAttribute.setEType(EcorePackage.Literals.ESTRING);
 					} else {
-						LOGGER.fine("No conflicts with attribute " + eAttribute.getName());
+						LOGGER.fine("[refineMetaclass] No conflicts with attribute " + eAttribute.getName());
 					}
 				} else if (eStructuralFeature instanceof EReference) {
 
@@ -227,7 +227,7 @@ public class JsonDiscoverer {
 			eStructuralFeature.setEType(mapType(pairId, value)); 
 			AnnotationHelper.INSTANCE.increaseTotalFound(eStructuralFeature);
 			eClass.getEStructuralFeatures().add(eStructuralFeature);
-			LOGGER.fine(eStructuralFeature.getClass().getSimpleName() + " created with name " + pairId + " type " + eStructuralFeature.getEType().getName() + " and lower bound " + lowerBound);
+			LOGGER.fine("[createStructuralFeature] " + eStructuralFeature.getClass().getSimpleName() + " created with name " + pairId + " type " + eStructuralFeature.getEType().getName() + " and lower bound " + lowerBound);
 		}
 	}
 
@@ -247,12 +247,22 @@ public class JsonDiscoverer {
 			return EcorePackage.Literals.EBOOLEAN; 
 		} else if (value.isJsonArray()) {
 			JsonArray arrayValue = value.getAsJsonArray();
-			if(arrayValue.size() > 0)
-				return mapType(digestId(id), arrayValue.get(0)); // TODO: Consider all the list
+			if(arrayValue.size() > 0) {
+				EClassifier generalArrayType = mapType(digestId(id), arrayValue.get(0));
+				for(int i = 1; i < arrayValue.size(); i++) {
+					JsonElement arrayElement = arrayValue.get(i);
+					EClassifier arrayType = mapType(digestId(id), arrayElement);
+					if(generalArrayType != arrayType) {
+						LOGGER.finer("[mapType] Detected array multi-typed, using fallback type (String) for " + id);
+						return EcorePackage.Literals.ESTRING; 
+					}
+				}
+				return generalArrayType;
+			}
 		} else if (value.isJsonObject()) {
 			return discoverMetaclass(digestId(id), value.getAsJsonObject());
 		} 
-		LOGGER.finer("Type not discovererd for " + id);
+		LOGGER.finer("[mapType] Type not discovererd for " + id);
 		return EcorePackage.Literals.ESTRING;
 	}
 

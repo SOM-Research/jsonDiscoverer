@@ -50,13 +50,13 @@ public class JsonInjector {
 	private final static Logger LOGGER = Logger.getLogger(JsonInjector.class.getName());
 
 	private SingleJsonSource jsonSource;
-	
+
 	public JsonInjector(SingleJsonSource jsonSource) {
 		this.jsonSource = jsonSource;
-		
-		LOGGER.setLevel(Level.OFF);
+
+		LOGGER.setLevel(Level.ALL);
 	}
-	
+
 	/**
 	 * Injects a model from a JSON Source. Only the first one will be considered (if several)
 	 * 
@@ -66,13 +66,13 @@ public class JsonInjector {
 	public List<EObject> inject() {
 		if(jsonSource == null)
 			throw new IllegalArgumentException("The source cannot be null");
-		
+
 		JsonDiscoverer discoverer = new JsonDiscoverer();
 		EPackage ePackage = discoverer.discoverMetamodel(jsonSource);
 		JsonElement rootElement = jsonSource.getJsonData().get(0).getData();
 		return inject(rootElement, ePackage);		
 	}
-		
+
 	/**
 	 * Injects a model conforming to the metamodel from a set of Json Objects
 	 * 
@@ -95,11 +95,11 @@ public class JsonInjector {
 			LOGGER.finest("The root element was " + rootElement.getClass().getName());
 			LOGGER.finest("It is: " + rootElement.getAsString());
 		}
-		
+
 		// Getting the root element
 		metamodel = ePackage;
 		EClassifier eClassifier = metamodel.getEClassifier(jsonSource.getName()); 
-		
+
 		List<EObject> eObjects = new ArrayList<EObject>();
 		for(JsonObject jsonObject : elements) {
 			EObject eObject = instantiateEClassifier(eClassifier, jsonObject);
@@ -120,7 +120,7 @@ public class JsonInjector {
 			Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
 			while(pairs.hasNext()) {
 				Map.Entry<String, JsonElement> pair = pairs.next();
-				
+
 				String pairId = pair.getKey();
 				JsonElement value = pair.getValue();
 
@@ -143,28 +143,37 @@ public class JsonInjector {
 
 	@SuppressWarnings("unchecked")
 	protected void setStructuralFeature(EObject result, EStructuralFeature eStructuralFeature, JsonElement value) {
-		LOGGER.finer("Setting feature " + eStructuralFeature.getName());
-		if (eStructuralFeature instanceof EAttribute) {
-			EAttribute eAttribute = (EAttribute) eStructuralFeature;
-			if(eStructuralFeature.getUpperBound() == -1) {
-				EList<Object> set = (EList<Object>) result.eGet(eAttribute);
-				set.add(digestValue(eAttribute, value));
-			} else {
-				result.eSet(eAttribute, digestValue(eAttribute, value));
+		if(value.isJsonArray()) {
+			LOGGER.finer("Detected array in array for " + eStructuralFeature.getName());
+
+			for(int i = 0; i < value.getAsJsonArray().size(); i++) {
+				JsonElement singleValue = value.getAsJsonArray().get(i);
+				setStructuralFeature(result, eStructuralFeature, singleValue);
 			}
-		} else if(eStructuralFeature instanceof EReference) {
-			EReference eReference = (EReference) eStructuralFeature;
-			if(value.isJsonObject()) {
-				JsonObject childJsonObject = value.getAsJsonObject();
-				String childClassName = eReference.getEType().getName();
-				EClassifier eChildClassifier = metamodel.getEClassifier(childClassName);
-				if(eChildClassifier != null) {
-					EObject child = instantiateEClassifier(eChildClassifier, childJsonObject);
-					if(eStructuralFeature.getUpperBound() == -1) {
-						EList<Object> set = (EList<Object>) result.eGet(eReference);
-						set.add(child);
-					} else {
-						result.eSet(eReference, child);
+		} else {
+			LOGGER.finer("Setting feature " + eStructuralFeature.getName());
+			if (eStructuralFeature instanceof EAttribute) {
+				EAttribute eAttribute = (EAttribute) eStructuralFeature;
+				if(eStructuralFeature.getUpperBound() == -1) {
+					EList<Object> set = (EList<Object>) result.eGet(eAttribute);
+					set.add(digestValue(eAttribute, value));
+				} else {
+					result.eSet(eAttribute, digestValue(eAttribute, value));
+				}
+			} else if(eStructuralFeature instanceof EReference) {
+				EReference eReference = (EReference) eStructuralFeature;
+				if(value.isJsonObject()) {
+					JsonObject childJsonObject = value.getAsJsonObject();
+					String childClassName = eReference.getEType().getName();
+					EClassifier eChildClassifier = metamodel.getEClassifier(childClassName);
+					if(eChildClassifier != null) {
+						EObject child = instantiateEClassifier(eChildClassifier, childJsonObject);
+						if(eStructuralFeature.getUpperBound() == -1) {
+							EList<Object> set = (EList<Object>) result.eGet(eReference);
+							set.add(child);
+						} else {
+							result.eSet(eReference, child);
+						}
 					}
 				}
 			}
