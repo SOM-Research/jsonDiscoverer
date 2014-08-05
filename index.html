@@ -11,7 +11,22 @@
 </head>
 <body ng-app="jsonDiscoverer">
 
-<div class="container">
+<div class="container" ng-controller="AlertCtrl">
+
+    <script type="text/ng-template" id="alert.html">
+      <div style="width:700px;" class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body">
+                <div style="margin-top: 15px;" class="alert alert-danger">
+                  You are accessing from an HTTPS connection and our service is located in an HTTP server. 
+                  <p class="text-center">
+                  <button style="background-color: #d9534f; border-color:#d9534f; margin-top: 15px;" class="btn" onclick="location.href='http://atlanmod.github.io/json-discoverer'">Access this site using HTTP</button>
+                  </p>
+                </div>
+              </div>
+          </div>
+      </div>
+    </script>
 
     <div class="row">
     <div class="jumbotron">

@@ -40,8 +40,8 @@ jsonDiscovererModule.config(["$routeProvider", "$httpProvider",
 jsonDiscovererModule.service('DiscovererService', ["$http",
     function($http) {
         //this.prefix = "http://apps.jlcanovas.es/jsonDiscoverer";
-        //this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
-        this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
+        this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
+        //this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
         //this.prefix = "http://localhost:8080/jsonDiscoverer";
 
         this.callService = function(call, dataToSend, success, failure) {
@@ -304,6 +304,17 @@ var JsonProvisionModalWithInputInstanceCtrlVar = function($scope, $modalInstance
         $modalInstance.dismiss('cancel');
     };
 }
+
+jsonDiscovererModule.controller("AlertCtrl", ["$scope", "$window", "$modal", 
+    function($scope, $window, $modal) {
+        if($window.location.protocol == 'https') {
+            $modal.open({
+                templateUrl : 'alert.html',
+                controller : function($scope) {  }
+            });
+        }
+    }
+]);
 
 jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$location", "$modal", "DiscovererService",
     function($scope, $window, $location, $modal, DiscovererService) {
