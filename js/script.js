@@ -128,6 +128,17 @@ jsonDiscovererModule.controller("IndexCtrl", ["$scope", "$window", "$location",
     }
 ]);
 
+jsonDiscovererModule.controller("AlertCtrl", ["$scope", "$window", "$modal", 
+    function($scope, $window, $modal) {
+        if($window.location.protocol == 'https:') {
+            $modal.open({
+                templateUrl : 'alert.html',
+                controller : function($scope) {  }
+            });
+        }
+    }
+]);
+
 jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "DiscovererService", "$window", "$location" ,"$log",
     function($scope, DiscovererService, $window, $location, $log) {
         $scope.json = { text: '' };
@@ -304,18 +315,6 @@ var JsonProvisionModalWithInputInstanceCtrlVar = function($scope, $modalInstance
         $modalInstance.dismiss('cancel');
     };
 }
-
-jsonDiscovererModule.controller("AlertCtrl", ["$scope", "$window", "$modal", 
-    function($scope, $window, $modal) {
-        console.log($window.location.protocol);
-        if($window.location.protocol == 'https:') {
-            $modal.open({
-                templateUrl : 'alert.html',
-                controller : function($scope) {  }
-            });
-        }
-    }
-]);
 
 jsonDiscovererModule.controller("CompositionCtrl", ["$scope", "$window", "$location", "$modal", "DiscovererService",
     function($scope, $window, $location, $modal, DiscovererService) {
