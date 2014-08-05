@@ -31,6 +31,7 @@ jsonDiscovererModule.config(["$routeProvider", "$httpProvider",
                 controller : "CompositionCtrl"
             }).
             otherwise({redirectTo: "/"});
+        $httpProvider.defaults.withCredentials = true;
         delete $httpProvider.defaults.headers.common["X-Requested-With"];
         $httpProvider.defaults.useXDomain = true;
     }
