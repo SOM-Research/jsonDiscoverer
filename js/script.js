@@ -31,17 +31,16 @@ jsonDiscovererModule.config(["$routeProvider", "$httpProvider",
                 controller : "CompositionCtrl"
             }).
             otherwise({redirectTo: "/"});
-        $httpProvider.defaults.withCredentials = true;
-        delete $httpProvider.defaults.headers.common["X-Requested-With"];
-        $httpProvider.defaults.useXDomain = true;
+        /*delete $httpProvider.defaults.headers.common["X-Requested-With"];
+        $httpProvider.defaults.useXDomain = true;*/
     }
 ]);
 
 jsonDiscovererModule.service('DiscovererService', ["$http",
     function($http) {
         //this.prefix = "http://apps.jlcanovas.es/jsonDiscoverer";
-        //this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
-        this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
+        this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
+        //this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
         //this.prefix = "http://localhost:8080/jsonDiscoverer";
 
         this.callService = function(call, dataToSend, success, failure) {
