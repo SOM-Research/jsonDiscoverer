@@ -35,13 +35,14 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 	
 	private static final long serialVersionUID = 6L;
 	// The ID for this servlet which will be used to access to the working directory
-	private static final String INJECTOR_ID = "IdInjector";
+	public static final String INJECTOR_ID = "IdInjector";
 
 	/* 
 	 * Performs a POST call and returns the a picture in BASE64 representing the model
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		addResponseOptions(response);
 		String jsonCode = request.getParameter(jsonParam);
 		if(jsonCode == null || jsonCode.equals("")) throw new ServletException("No json data in the call");
 				

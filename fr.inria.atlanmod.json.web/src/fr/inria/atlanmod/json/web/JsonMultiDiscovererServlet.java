@@ -47,7 +47,7 @@ public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 23L;
 	
 	// The ID for this servlet which will be used to access to the working directory
-	private static final String MULTIDISCOVERER_ID = "IdMultiDiscoverer";
+	public static final String MULTIDISCOVERER_ID = "IdMultiDiscoverer";
 
 	// This pattern is used to analyze the params
 	// The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?
@@ -98,6 +98,7 @@ public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		addResponseOptions(response);
 		// 1. Digesting the params
 		JsonSourceSet sourceSet = digestSources(request);
 		if(sourceSet.getJsonSources().size() == 0) throw new ServletException("No params in the call");

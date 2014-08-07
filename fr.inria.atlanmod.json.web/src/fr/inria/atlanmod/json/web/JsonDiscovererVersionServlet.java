@@ -11,6 +11,7 @@
 
 package fr.inria.atlanmod.json.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -32,14 +33,42 @@ public class JsonDiscovererVersionServlet extends AbstractJsonDiscoverer {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		addResponseOptions(resp);
 		PrintWriter out = resp.getWriter();
+		out.println("CORS allow-origin: " + serverURL);
 		out.println("Discoverer servlet version: " + JsonDiscovererServlet.version);
 		out.println("Injector servlet version: " + JsonInjectorServlet.version);
 		out.println("MultiDiscoverer servlet version: " + JsonMultiDiscovererServlet.version);
 		out.println("Composer servlet version: " + JsonComposerServlet.version);
 		out.println("Path Calculator servlet version: " + JsonPathCalculatorServlet.version);
 		out.println("Proxy servlet version: " + ProxyServlet.version);
-		
+
+		out.println("working dir: " + ((workingDir.isDirectory()) ? "Exists" : "NOT EXISTS"));
+
+		String injectorId = properties.getProperty(JsonInjectorServlet.INJECTOR_ID);
+		if(injectorId == null || injectorId.equals("")) {
+			out.println("injector dir: NOT EXISTS (neither the property)");
+		} else {
+			File injectorFile = new File(workingDir.getAbsolutePath() + File.separator + injectorId);
+			out.println("injector dir: " + ((injectorFile.isDirectory()) ? "Exists" : "NOT EXISTS"));
+		}
+
+		String discovererId = properties.getProperty(JsonDiscovererServlet.DISCOVERER_ID);
+		if(discovererId == null || discovererId.equals("")) {
+			out.println("discoverer dir: NOT EXISTS (neither the property)");
+		} else {
+			File discovererFile = new File(workingDir.getAbsolutePath() + File.separator + discovererId);
+			out.println("discoverer dir: " + ((discovererFile.isDirectory()) ? "Exists" : "NOT EXISTS"));
+		}
+
+		String multidiscovererId = properties.getProperty(JsonMultiDiscovererServlet.MULTIDISCOVERER_ID);
+		if(multidiscovererId == null || multidiscovererId.equals("")) {
+			out.println("multidiscoverer dir: NOT EXISTS (neither the property)");
+		} else {
+			File multidiscovererFile = new File(workingDir.getAbsolutePath() + File.separator + multidiscovererId);
+			out.println("multidiscoverer dir: " + ((multidiscovererFile.isDirectory()) ? "Exists" : "NOT EXISTS"));
+		}
+
 	}	
 
 }

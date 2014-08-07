@@ -102,6 +102,7 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		addResponseOptions(response);
 		// 1. Digesting the params
 		List<JsonSourceSet> sourceSets = digestSources(request);
 		if(sourceSets.size() == 0) throw new ServletException("No params in the call");

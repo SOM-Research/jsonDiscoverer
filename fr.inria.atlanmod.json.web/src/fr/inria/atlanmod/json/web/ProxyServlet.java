@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.jndi.cosnaming.IiopUrl.Address;
+
 
 /**
  * This class acts as proxy to get the json coming from other websites. The result is filter to the first 
@@ -35,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 @WebServlet("/getJson")
-public class ProxyServlet extends HttpServlet {
+public class ProxyServlet extends AbstractJsonDiscoverer {
 	public static final String version = "1.2";
 	private static final long serialVersionUID = 133L;
 	
@@ -67,6 +69,7 @@ public class ProxyServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		addResponseOptions(resp);
 		// Getting the URL from the request
 		String urlString = req.getParameter(urlParam);
 		
