@@ -1,4 +1,4 @@
-serverURL=https://atlanmod.github.io
+serverURL=http://atlanmod.github.io
 workingDir=/opt/apache-tomee-jaxrs-1.6.0/webapps/jsonDiscoverer/workingDir
 IdInjector=injector
 IdDiscoverer=discoverer

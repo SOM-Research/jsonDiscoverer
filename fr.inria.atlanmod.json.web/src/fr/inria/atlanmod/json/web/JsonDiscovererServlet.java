@@ -24,6 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+
+import com.google.gson.JsonObject;
 
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonSource;
@@ -53,29 +57,51 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 		addResponseOptions(response);
 		String jsonCode = request.getParameter(jsonParam);
 		if(jsonCode == null || jsonCode.equals("")) throw new ServletException("No json data in the call");
-		String resultImage = discoverMetamodelBase64(jsonCode);
+		
+		EPackage resultMetamodel = discoverMetamodel(jsonCode);
+
+		String id = properties.getProperty(DISCOVERER_ID);
+		String resultImage = discoverMetamodelBase64(resultMetamodel);
+		String resultXMI = encodeToString(resultMetamodel, id);
+
+		// Building the response
+		response.setContentType("text/x-json;charset=UTF-8");   
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.addProperty("image", resultImage);
+		jsonResponse.addProperty("xmi", resultXMI);
 		PrintWriter out = response.getWriter();
-        out.print(resultImage);
+        out.print(jsonResponse.toString());
 	}
 	
 	/**
-	 * Discover a metamodel and returns the File of the picture representing
-	 * the metamode
+	 * Discover a metamodel from JSON
 	 * 
 	 * @param jsonCode
-	 * @return
-	 * @throws IOException
+	 * @return The Epackage
+	 * @throws ServletException
 	 */
-	private File discoverMetamodel(String jsonCode) throws ServletException {
+	private EPackage discoverMetamodel(String jsonCode) throws ServletException {
 		// Discovering
 		JsonDiscoverer discoverer = new JsonDiscoverer();
 		JsonSource source = new JsonSource("Discovered");
 		source.addJsonDef(jsonCode);
 		EPackage discoveredModel = discoverer.discoverMetamodel(source);
 		
-		// Drawing the discovered model
+		return discoveredModel;
+	}
+	
+	
+	
+	/**
+	 * Converts a EPackage into a picture and saves it in disk
+	 * 
+	 * @param jsonCode
+	 * @return
+	 * @throws IOException
+	 */
+	private File convertToImage(EPackage ePackage) throws ServletException {
 		List<EObject> toDraw= new ArrayList<EObject>();
-		toDraw.add(discoveredModel);	
+		toDraw.add(ePackage);	
 		
 		String id = properties.getProperty(DISCOVERER_ID);
 		if(id == null) throw new ServletException("ID for discoverer not found in properties");
@@ -85,6 +111,8 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 		return resultPath;
 	}
 	
+	
+	
 	/**
 	 * Performs the discovery and returns a picture encoded in BASE64 with the 
 	 * pciture representing the discovered metamodel
@@ -93,8 +121,8 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 	 * @return
 	 * @throws IOException
 	 */
-	private String discoverMetamodelBase64(String jsonCode) throws ServletException {
-		File resultPath = discoverMetamodel(jsonCode);
+	private String discoverMetamodelBase64(EPackage ePackage) throws ServletException {
+		File resultPath = convertToImage(ePackage);
 		String resultImage;
 		try {
 			resultImage = encodeToString(resultPath);

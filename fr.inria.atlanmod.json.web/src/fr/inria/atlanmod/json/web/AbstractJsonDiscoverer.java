@@ -14,6 +14,7 @@ package fr.inria.atlanmod.json.web;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
@@ -24,10 +25,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.cxf.helpers.IOUtils;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -113,7 +119,52 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		}
 		return imageString;
 	}
+	
+	/**
+	 * Saves the EPackage into a XMI and then read it to return it as String in Base64
+	 * 
+	 * @param ePackage
+	 * @param uniqueId
+	 * @return
+	 * @throws ServletException
+	 */
+	String encodeToString(EPackage ePackage,  String uniqueId) throws ServletException {
+		File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
+		if(!uniqueWorkingDir.isDirectory()) throw new ServletException("The working dir could not be set:" + uniqueWorkingDir.getAbsolutePath());
 
+		// Getting a temp file
+		File resultPath;
+		try {
+			resultPath = File.createTempFile("temp", ".xmi", uniqueWorkingDir);
+		} catch (IOException e1) {
+			throw new ServletException("Not possible to access to temp dir");
+		}
+		
+		// Saving into XMI
+		ResourceSet rSet = new ResourceSetImpl();
+		Resource res = rSet.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
+		try {
+			res.getContents().add(ePackage);
+			res.save(null);
+		} catch (IOException e) {
+			throw new ServletException("Not possible to save the Epackage", e);
+		}
+		
+		// Loading XMI into String
+		String result;
+		try {
+			FileInputStream fis = new FileInputStream(resultPath);
+			String content = IOUtils.readStringFromStream(fis);
+			BASE64Encoder encoder = new BASE64Encoder();
+			result = encoder.encode(content.getBytes());
+			fis.close();
+		} catch (IOException e) {
+			throw new ServletException("Error reading XMI to String", e);
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Draws a model into a picture. To avoid file access problems, an unique id has to be 
 	 * provided. A new directory using such id will be created.
