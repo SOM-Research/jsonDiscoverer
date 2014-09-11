@@ -5,7 +5,7 @@ var jsonDiscovererDirectives = angular.module("jsonDiscoverer.directive", []);
     
 var jsonDiscovererFilters = angular.module("jsonDiscoverer.filter", []);
 
-var jsonDiscovererModule = angular.module("jsonDiscoverer", ["ngSanitize", "jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
+var jsonDiscovererModule = angular.module("jsonDiscoverer", ["ngSanitize", "ngRoute", "jsonDiscoverer.service", "jsonDiscoverer.directive", "jsonDiscoverer.filter", "ui.bootstrap"])
 
 jsonDiscovererModule.config(["$routeProvider", "$httpProvider", 
     function($routeProvider, $httpProvider) {
@@ -36,11 +36,17 @@ jsonDiscovererModule.config(["$routeProvider", "$httpProvider",
     }
 ]);
 
+jsonDiscovererModule.config(['$compileProvider', 
+    function($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|data):/);
+    }
+])
+
 jsonDiscovererModule.service('DiscovererService', ["$http",
     function($http) {
         //this.prefix = "http://apps.jlcanovas.es/jsonDiscoverer";
-        //this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
-        this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
+        this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
+        //this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
         //this.prefix = "http://localhost:8080/jsonDiscoverer";
 
         this.callService = function(call, dataToSend, success, failure) {
@@ -142,6 +148,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "DiscovererSe
     function($scope, DiscovererService, $window, $location, $log) {
         $scope.json = { text: '' };
         $scope.metamodel = "";
+        $scope.metamodelFile = "";
         $scope.model = "";
         $scope.showTitles = false;
         $scope.url = ""
@@ -181,6 +188,7 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "DiscovererSe
             DiscovererService.discoverMetamodel(jsonText,
                 function(data) {
                     $scope.metamodel = "data:image/jpg;base64," + data;
+                    $scope.metamodelFile = "data:text/octet-stream;base64," + data;
                     $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://atlanmod.github.io/json-discoverer/#/contact">contact us</a> to improve our tool!' });
                 },
                 function(data, status, headers, config) {
