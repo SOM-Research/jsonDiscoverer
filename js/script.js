@@ -45,8 +45,8 @@ jsonDiscovererModule.config(['$compileProvider',
 jsonDiscovererModule.service('DiscovererService', ["$http",
     function($http) {
         //this.prefix = "http://apps.jlcanovas.es/jsonDiscoverer";
-        this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
-        //this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
+        //this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
+        this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
         //this.prefix = "http://localhost:8080/jsonDiscoverer";
 
         this.callService = function(call, dataToSend, success, failure) {
@@ -187,8 +187,8 @@ jsonDiscovererModule.controller("SimpleDiscovererCtrl", ["$scope", "DiscovererSe
 
             DiscovererService.discoverMetamodel(jsonText,
                 function(data) {
-                    $scope.metamodel = "data:image/jpg;base64," + data;
-                    $scope.metamodelFile = "data:text/octet-stream;base64," + data;
+                    $scope.metamodel = "data:image/jpg;base64," + data.image;
+                    $scope.metamodelFile = "data:text/octet-stream;base64," + data.xmi;
                     $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://atlanmod.github.io/json-discoverer/#/contact">contact us</a> to improve our tool!' });
                 },
                 function(data, status, headers, config) {
