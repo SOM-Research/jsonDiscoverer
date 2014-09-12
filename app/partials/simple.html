@@ -68,20 +68,20 @@
 		<div class="col-md-6">
 			<h3 ng-show="showTitles">Your Schema</h3>
 	    	<p class="text-center"><img ng-src="{{metamodel}}" class="img-rounded"></p>
-	    	<alert ng-repeat="alert in alertsSchema" type="alert.type" close="closeSchemaAlert($index)">{{alert.msg}}</alert>
+	    	<alert ng-repeat="alert in alertsSchema" type="{{alert.type}}" close="closeSchemaAlert($index)">{{alert.msg}}</alert>
 		</div>
 		<div class="col-md-6">
 			<h3 ng-show="showTitles">Your Data</h3>
 	    	<p class="text-center"><img ng-src="{{model}}" class="img-rounded"></p>
-	    	<alert ng-repeat="alert in alertsData" type="alert.type" close="closeDataAlert($index)">{{alert.msg}}</alert>
+	    	<alert ng-repeat="alert in alertsData" type="{{alert.type}}" close="closeDataAlert($index)">{{alert.msg}}</alert>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-md-12">
-				<alert ng-repeat="alert in alertsGeneral" type="alert.type" close="closeGeneralAlert($index)">
-					<div ng-bind-html="alert.msg"></div>
-				</alert>
+			<alert ng-repeat="alert in alertsGeneral" type="{{alert.type}}" close="closeGeneralAlert($index)">
+				<div ng-bind-html="alert.msg"></div>
+			</alert>
 		</div>
 	</div>
 </div>

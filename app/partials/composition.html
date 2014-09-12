@@ -126,7 +126,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <alert ng-repeat="alert in alertsGeneral" type="alert.type" close="closeGeneralAlert($index)">
+                <alert ng-repeat="alert in alertsGeneral" type="{{alert.type}}" close="closeGeneralAlert($index)">
                     <div ng-bind-html="alert.msg"></div>
                 </alert>
             </div>
