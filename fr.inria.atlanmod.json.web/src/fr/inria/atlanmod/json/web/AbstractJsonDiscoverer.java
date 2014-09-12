@@ -166,6 +166,51 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	}
 	
 	/**
+	 * Saves a list of EObjects into a XMI and then read it to return it as String in Base64
+	 * 
+	 * @param ePackage
+	 * @param uniqueId
+	 * @return
+	 * @throws ServletException
+	 */
+	String encodeToString(List<EObject> elements,  String uniqueId) throws ServletException {
+		File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
+		if(!uniqueWorkingDir.isDirectory()) throw new ServletException("The working dir could not be set:" + uniqueWorkingDir.getAbsolutePath());
+
+		// Getting a temp file
+		File resultPath;
+		try {
+			resultPath = File.createTempFile("temp", ".xmi", uniqueWorkingDir);
+		} catch (IOException e1) {
+			throw new ServletException("Not possible to access to temp dir");
+		}
+		
+		// Saving into XMI
+		ResourceSet rSet = new ResourceSetImpl();
+		Resource res = rSet.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
+		try {
+			res.getContents().addAll(elements);
+			res.save(null);
+		} catch (IOException e) {
+			throw new ServletException("Not possible to save the Epackage", e);
+		}
+		
+		// Loading XMI into String
+		String result;
+		try {
+			FileInputStream fis = new FileInputStream(resultPath);
+			String content = IOUtils.readStringFromStream(fis);
+			BASE64Encoder encoder = new BASE64Encoder();
+			result = encoder.encode(content.getBytes());
+			fis.close();
+		} catch (IOException e) {
+			throw new ServletException("Error reading XMI to String", e);
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * Draws a model into a picture. To avoid file access problems, an unique id has to be 
 	 * provided. A new directory using such id will be created.
 	 * 

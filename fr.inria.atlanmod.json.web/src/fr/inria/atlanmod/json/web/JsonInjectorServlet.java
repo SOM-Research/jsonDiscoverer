@@ -22,16 +22,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 
-import fr.inria.atlanmod.discoverer.JsonDiscoverer;
+import com.google.gson.JsonObject;
+
 import fr.inria.atlanmod.discoverer.JsonInjector;
-import fr.inria.atlanmod.discoverer.JsonSource;
 import fr.inria.atlanmod.discoverer.SingleJsonSource;
 
 @WebServlet("/injectModel")
 public class JsonInjectorServlet extends AbstractJsonDiscoverer {
-	public static final String version = "1.2";
+	public static final String version = "1.3";
 	
 	private static final long serialVersionUID = 6L;
 	// The ID for this servlet which will be used to access to the working directory
@@ -50,7 +49,7 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 		SingleJsonSource source = new SingleJsonSource("Discovered");
 		source.addJsonDef(jsonCode);
 		JsonInjector injector = new JsonInjector(source); 
-		List<EObject> eObjects = injector.inject();
+		List<EObject> eObjects = injector.inject(); 
 		
 		// 2. Get the picture
 		String id = properties.getProperty(INJECTOR_ID);
@@ -60,8 +59,15 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 		String resultImage = encodeToString(resultPath);
 		resultPath.delete();
 		
-		// 3. Write the response
+		// 3. Get the model in string
+		String resultXMI = encodeToString(eObjects, id);
+		
+		// 4. Write the response
+		response.setContentType("text/x-json;charset=UTF-8");   
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.addProperty("image", resultImage);
+		jsonResponse.addProperty("xmi", resultXMI);
 		PrintWriter out = response.getWriter();
-        out.print(resultImage);
+        out.print(jsonResponse.toString());
 	}
 }

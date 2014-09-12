@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
+import com.google.gson.JsonObject;
+
 import fr.inria.atlanmod.discoverer.JsonMultiDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonSource;
 import fr.inria.atlanmod.discoverer.JsonSourceSet;
@@ -42,7 +44,7 @@ import fr.inria.atlanmod.discoverer.JsonSourceSet;
  */
 @WebServlet("/multiDiscover")
 public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
-	public static final String version = "1.2";
+	public static final String version = "1.3";
 	
 	private static final long serialVersionUID = 23L;
 	
@@ -117,8 +119,16 @@ public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 		String resultImage = encodeToString(resultPath);
 		resultPath.delete();
 		
+		// 4. Get the metamodel as string
+		String resultXMI = encodeToString(finalMetamodel, id);
+		
 		// 4. Write the response
+		// Building the response
+		response.setContentType("text/x-json;charset=UTF-8");   
+		JsonObject jsonResponse = new JsonObject();
+		jsonResponse.addProperty("image", resultImage);
+		jsonResponse.addProperty("xmi", resultXMI);
 		PrintWriter out = response.getWriter();
-		out.print(resultImage);
+        out.print(jsonResponse.toString());
 	}
 }
