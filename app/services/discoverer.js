@@ -1,9 +1,7 @@
 angular.module("jsonDiscoverer").service('DiscovererService', ["$http",
     function($http) {
-        //this.prefix = "http://apps.jlcanovas.es/jsonDiscoverer";
         //this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
         this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
-        //this.prefix = "http://localhost:8080/jsonDiscoverer";
 
         this.callService = function(call, dataToSend, success, failure) {
             $http({

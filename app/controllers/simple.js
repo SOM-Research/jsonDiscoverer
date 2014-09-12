@@ -3,6 +3,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
         $scope.json = { text: '' };
         $scope.metamodel = "";
         $scope.metamodelFile = "";
+        $scope.modelFile = "";
         $scope.model = "";
         $scope.showTitles = false;
         $scope.url = ""
@@ -47,6 +48,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
                 },
                 function(data, status, headers, config) {
                     $scope.metamodel = "";
+                    $scope.metamodelFile = "";
                     $scope.alertsSchema.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 }
             );
@@ -57,10 +59,12 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
 
             DiscovererService.injectModel(jsonText,
                 function(data) {
-                    $scope.model = "data:image/jpg;base64," + data;
+                    $scope.model = "data:image/jpg;base64," + data.image;
+                    $scope.modelFile = "data:text/octet-stream;base64," + data.xmi;
                 },
                 function(data, status, headers, config) {
                     $scope.model = "";
+                    $scope.modelFile = "";
                     $scope.alertsData.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 }
             );

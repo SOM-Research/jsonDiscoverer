@@ -34,6 +34,11 @@
 				</div>
 				<h4 style="padding-top: 20px;">Step 2. Discover and Compose </h4>
 				<button class="btn btn-block" ng-disabled="!discoveryPosible" ng-click="discover()">Discover Domain Model</button>
+				<a style="text-decoration: none;" ng-href="{{metamodelFile}}" target="_blank">
+					<button style="margin-top: 10px;" class="btn btn-block" type="button" ng-disabled="metamodelFile == ''">
+						Download data model	<small>(Save as XMI)</small>
+					</button>
+				</a>
 		    </div>
 
 		    <div class="col-md-8">

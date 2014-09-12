@@ -55,8 +55,14 @@
 			<p class="text-center">
 				<button class="btn btn-block" type="button" ng-click="discover()" ng-disabled="json.text == ''">Discover domain model</button>
 				<a style="text-decoration: none;" ng-href="{{metamodelFile}}" target="_blank">
-					<button style="margin-top: 10px;" class="btn btn-block" type="button" ng-disabled="metamodelFile == ''">
+					<button style="margin-top: 20px;" class="btn btn-block" type="button" ng-disabled="metamodelFile == ''">
 						Download domain model<br>
+						<small>(Save as Ecore)</small>
+					</button>
+				</a>
+				<a style="text-decoration: none;" ng-href="{{modelFile}}" target="_blank">
+					<button style="margin-top: 10px;" class="btn btn-block" type="button" ng-disabled="modelFile == ''">
+						Download data model<br>
 						<small>(Save as XMI)</small>
 					</button>
 				</a>

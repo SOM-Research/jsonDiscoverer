@@ -4,6 +4,7 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
         $scope.discoveryPosible = false;
         $scope.name = "";
         $scope.metamodel = "";
+        $scope.metamodelFile = "";
         $scope.showTitles = false;
 
         $scope.alertsGeneral = [ ];
@@ -59,11 +60,13 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
 
             DiscovererService.compose($scope.defs,
                 function(data) {
-                    $scope.metamodel = "data:image/jpg;base64," + data;
+                    $scope.metamodel = "data:image/jpg;base64," + data.image;
+                    $scope.metamodelFile = "data:text/octet-stream;base64," + data.xmi;
                     $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://atlanmod.github.io/json-discoverer/#/contact">contact us</a> to improve our tool!' });
                 },
                 function(data, status, headers, config) {
                     $scope.metamodel = "";
+                    $scope.metamodelFile = "";
                     $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 }
             );
