@@ -6,9 +6,9 @@ Visit the [webpage of the project](http://atlanmod.github.io/json-discoverer) to
 What is this project about?
 ---------------------------
 
-The JSON discoverer is a tool that allows you to get the implicit schema of your JSON documents. The tool is inspired in the research paper [Discovering Implicit Schemas in JSON Data](http://hal.inria.fr/docs/00/81/89/45/PDF/icwe2013-CanovasCabot.pdf) published in the [ICWE'13 conference](http://icwe2013.webengineering.org/).
+The JSON discoverer is a tool that allows you to get the implicit schema of your JSON documents. The tool also supports the discovery of composition links among the elements of the schemas of several APIs.
 
-The tool also supports the discovery of composition links among the elements of the schemas of several APIs.
+The tool is inspired in the research papers [Discovering Implicit Schemas in JSON Data](http://hal.inria.fr/docs/00/81/89/45/PDF/icwe2013-CanovasCabot.pdf) and [Composing JSON-based Web APIs](http://modeling-languages.com/composing-json-based-web-apis/) published in the [ICWE'13 conference](http://icwe2013.webengineering.org/) and [ICWE'14 conference](http://icwe2014.webengineering.org/), respectively.
 
 What can you find in this repository?
 -------------------------------------
@@ -41,11 +41,6 @@ Requirements:
 The project fr.inria.atlanmod.json.web is a stand-alone project, meaning that it includes the needed libraries to execute the tool out of Eclipse.
 
 If you have any problem, just contact us.
-
-What is coming next?
---------------------
-
-We have released the web-based version of the tool and now we are testing the service to improve the discoverer.
 
 Who is behind this project?
 ---------------------------
