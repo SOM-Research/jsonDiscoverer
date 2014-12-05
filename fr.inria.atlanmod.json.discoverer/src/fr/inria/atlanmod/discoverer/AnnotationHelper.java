@@ -145,6 +145,25 @@ public class AnnotationHelper {
 		EAnnotation annotation = getCoverageAnnotation(modelElement);
 		return annotation.getDetails().get(SOURCE_NAME_TAG);
 	}
+	
+	/**
+	 * Remove all the annotations. Be careful, the method returns the same epackage.
+	 * 
+	 * @param ePackage
+	 * @return
+	 */
+	public EPackage cleanAnnotations(EPackage ePackage) {
+		for(EClassifier eClassifier : ePackage.getEClassifiers()) {
+			eClassifier.getEAnnotations().clear();
+			if (eClassifier instanceof EClass) {
+				EClass eClass = (EClass) eClassifier;
+				for(EStructuralFeature eStructuralFeature : eClass.getEStructuralFeatures()) {
+					eStructuralFeature.getEAnnotations().clear();
+				}
+			}
+		}
+		return ePackage;
+	}
 
 }
 

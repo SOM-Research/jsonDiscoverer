@@ -21,10 +21,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
@@ -76,8 +78,23 @@ public class ModelDrawer {
 					e.printStackTrace();
 				}
 
-				List<EObject> elements = new ArrayList<>();
+				List<EObject> elementsToUnset = new ArrayList<>();
 				TreeIterator<EObject> treeIt = res.getAllContents();
+				while(treeIt.hasNext()) {
+					EObject eObject = treeIt.next();
+					EStructuralFeature esf = eObject.eClass().getEStructuralFeature("eAnnotations");
+					if(esf != null && eObject.eIsSet(esf)) {
+						elementsToUnset.add(eObject);
+					}
+				}
+				
+				for(EObject eObject : elementsToUnset) {
+					EStructuralFeature esf = eObject.eClass().getEStructuralFeature("eAnnotations");
+					eObject.eUnset(esf);
+				}
+				
+				List<EObject> elements = new ArrayList<>();
+				treeIt = res.getAllContents();
 				while(treeIt.hasNext()) {
 					EObject eObject = treeIt.next();
 					elements.add(eObject);
