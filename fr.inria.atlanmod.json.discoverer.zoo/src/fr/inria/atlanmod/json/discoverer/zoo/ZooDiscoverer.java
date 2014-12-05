@@ -49,7 +49,7 @@ import fr.inria.atlanmod.discoverer.SingleJsonSource;
  * 
  * For each JSON source, it is expected to find a "info.properties" file which the "name"
  * and "shortname" properties describing the source. Furthermore, a set of JSON files
- * have to be included in the JSON source. Each JSON file name must start with "source" 
+ * have to be included in the JSON source. Each JSON file name must start with "json" 
  * string and it is expected both a .json * and a .properties file (with the same name), 
  * including the json text and the property "call" to invoke the service.
  * 

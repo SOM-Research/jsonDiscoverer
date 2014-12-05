@@ -31,9 +31,9 @@ import fr.inria.atlanmod.discoverer.SingleJsonSource;
 
 public class JsonInjectorTest {
 
-	public static String INPUT_FILE = "./json/tan2.json";
-	public static String OUTPUT_FILE = "./result.xmi";
-	public static String METAMODEL_FILE = "./result.ecore";
+	public static String INPUT_FILE = "./json/issues/cyril.json";
+	public static String OUTPUT_FILE = "./json/issues/cyril.xmi";
+	public static String METAMODEL_FILE = "./cyril.ecore";
 
 
 	public static void main(String[] args) throws FileNotFoundException {

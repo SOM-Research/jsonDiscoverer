@@ -14,10 +14,17 @@ package fr.inria.atlanmod.json.discoverer.test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EModelElement;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -27,9 +34,10 @@ import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
 import fr.inria.atlanmod.discoverer.JsonDiscoverer;
 import fr.inria.atlanmod.discoverer.JsonSource;
+import fr.inria.atlanmod.json.discoverer.zoo.ModelDrawer;
 
 public class JsonDiscovererTest {
-	public static String TEST_FILE = "./json/group/tan1A.json";
+	public static String TEST_FILE = "./json/git/files.json";
 	public static String RESULT_TEST_FILE = "./result.ecore";
 	
 	public static String TEST_FILE_2 = "./json/group/tan1B.json";
@@ -61,21 +69,35 @@ public class JsonDiscovererTest {
 			res2.save(null);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
-		System.out.println("\nRefining\n");
-		JsonSource source2 = new JsonSource("test2");
-		source2.addJsonDef(new File(TEST_FILE_2));
-		
-		discoverer = new JsonDiscoverer();
-		EPackage ePackage2 = discoverer.refineMetamodel(ePackage, source2);
+		}		
 
-		res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
-		res2.getContents().add(ePackage2);
-		try {
-			res2.save(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		ModelDrawer drawer = new ModelDrawer(
+				new File("C:/Users/useradm/git/json-discoverer/fr.inria.atlanmod.json.discoverer.tests/json/issues"), 
+				new File("C:/Program Files (x86)/Graphviz 2.28/bin/dot.exe"));
+		List<EObject> toDraw = new ArrayList<>();
+
+//		for(EClassifier eClassifier : ePackage.getEClassifiers()){
+//			if (!(eClassifier instanceof EAnnotation) && (eClassifier instanceof EModelElement)) {
+//				EModelElement eModelElement = (EModelElement) eClassifier;
+//				eModelElement.getEAnnotations().clear();
+//			}
+//		}
+		toDraw.add(ePackage);
+		drawer.draw(toDraw, new File("./json/issues/issue3.jpg"));
+		
+//		System.out.println("\nRefining\n");
+//		JsonSource source2 = new JsonSource("test2");
+//		source2.addJsonDef(new File(TEST_FILE_2));
+//		
+//		discoverer = new JsonDiscoverer();
+//		EPackage ePackage2 = discoverer.refineMetamodel(ePackage, source2);
+//
+//		res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
+//		res2.getContents().add(ePackage2);
+//		try {
+//			res2.save(null);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 }

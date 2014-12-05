@@ -206,14 +206,13 @@ public class JsonMultiDiscoverer {
 	}
 
 	private void composeAttributes(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException  {
-		
-		// Iterate over the structural geatures of the other class (to be composed into the existingClass)
+		// Iterate over the structural features of the other class (to be composed into the existingClass)
 		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
-			
 			// Only attributes
 			if (otherFeature instanceof EAttribute) {
 				EAttribute otherAttribute = (EAttribute) otherFeature;
 				EStructuralFeature existingFeature = existingClass.getEStructuralFeature(otherAttribute.getName());
+				
 				if(existingFeature == null) {
 					// If the existing class DOES NOT have an attribute with same name
 					EAttribute similarAttribute = lookForSimilarAttribute(existingClass, otherAttribute, coverageCreator);
@@ -237,7 +236,8 @@ public class JsonMultiDiscoverer {
 						AnnotationHelper.INSTANCE.registerName(similarAttribute, otherAttribute.getName());
 						AnnotationHelper.INSTANCE.registerInclusion(similarAttribute, otherClass.getName());
 					}
-				} else {
+					coverageCreator.createAttMapping(otherAttribute, (EAttribute) existingFeature);
+				} else if (existingFeature instanceof EAttribute) {
 					// If the existing class DOES have an attribute with same name
 					existingFeature.setEType(EcorePackage.Literals.ESTRING);
 					LOGGER.finer("    " + "Attribute " + existingFeature.getName() + " refined to String");
@@ -245,10 +245,8 @@ public class JsonMultiDiscoverer {
 					AnnotationHelper.INSTANCE.increaseTotalFound(existingFeature);
 					AnnotationHelper.INSTANCE.registerInclusion(existingFeature, otherClass.getName());
 					AnnotationHelper.INSTANCE.registerName(existingFeature, otherAttribute.getName());
-				}				
-				coverageCreator.createAttMapping(otherAttribute, (EAttribute) existingFeature);
-
-
+					coverageCreator.createAttMapping(otherAttribute, (EAttribute) existingFeature);
+				}			
 			}
 		}
 

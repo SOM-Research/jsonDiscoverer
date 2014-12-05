@@ -39,10 +39,14 @@ public class ModelDrawer {
 	public ModelDrawer(File workingDir, File dotPath) {
 		this.workingDir = workingDir;
 		this.dotPath = dotPath;
+
+		// Forcing the registry of packages
+		EcorePackage.eINSTANCE.eClass();
+		GraphdescPackage.eINSTANCE.eClass();
 		
 		LOGGER.setLevel(Level.OFF);
 	}
-	
+
 	public void traverseAndDrawFolder(File targetFolder) {
 		traverseAndDrawFolder(targetFolder, true);
 	}
@@ -81,18 +85,22 @@ public class ModelDrawer {
 
 				if(elements.size() > 0) {
 					File resultingFile = pictureFile(file);
-					try {
-						StandaloneProcessor.process(elements, null, workingDir, resultingFile.getAbsolutePath(), null, null, dotPath.getAbsolutePath(), true, false, "UTF-8", null, null, null);
-					} catch (CoreException e) {
-						e.printStackTrace();
-					}
+					draw(elements, resultingFile);
 				} else {
 					LOGGER.info("No elements for " + file.getAbsolutePath());
 				}
 			}
 		}
 	}
-	
+
+	public void draw(List<EObject> elements, File resultingFile) {
+		try {
+			StandaloneProcessor.process(elements, null, workingDir, resultingFile.getAbsolutePath(), null, null, dotPath.getAbsolutePath(), true, false, "UTF-8", null, null, null);
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private File pictureFile(File source) {
 		return new File(source.getAbsolutePath().substring(0, source.getAbsolutePath().lastIndexOf(".")) + ".jpg");
 	}
