@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<discop:positionElevation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discop="http://fr.inria.atlanmod/discovered/positionElevation" status="OK">
-  <results elevation="458" resolution="152">
-    <location lat="23" lng="22"/>
-  </results>
-</discop:positionElevation>
