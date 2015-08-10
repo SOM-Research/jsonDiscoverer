@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discot="http://fr.inria.atlanmod/discovered/test">
+  <discot:test>
+    <print t="all">
+      <v>1</v>
+      <v>2</v>
+      <v>3</v>
+      <v>4</v>
+      <s>1</s>
+      <s>2</s>
+      <s>3</s>
+      <s>4</s>
+      <f>1</f>
+      <f>3</f>
+      <j>1</j>
+    </print>
+    <print t="only 1">
+      <v>1</v>
+      <s>1</s>
+      <s>2</s>
+      <s>3</s>
+      <s>4</s>
+      <f>1</f>
+      <f>3</f>
+      <j>1</j>
+    </print>
+    <print t="sopran, alt">
+      <v>1</v>
+      <v>2</v>
+      <s>1</s>
+      <s>2</s>
+      <f>1</f>
+      <j>1</j>
+      <j>2</j>
+    </print>
+    <print t="tenor, bass">
+      <v>3</v>
+      <v>4</v>
+      <s>1</s>
+      <s>2</s>
+      <s>3</s>
+      <s>4</s>
+      <f>3</f>
+      <j>1</j>
+      <j>3</j>
+    </print>
+  </discot:test>
+  <discot:test>
+    <legend>10</legend>
+    <legend>23</legend>
+  </discot:test>
+  <discot:test>
+    <note>10</note>
+    <note>50</note>
+    <note>Folge: A A B B A</note>
+    <note>regular</note>
+  </discot:test>
+</xmi:XMI>

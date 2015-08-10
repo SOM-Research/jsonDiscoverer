@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="snooth" nsURI="http://fr.inria.atlanmod/discovered/snooth" nsPrefix="composeds">
+  <eClassifiers xsi:type="ecore:EClass" name="WineSearchOutput">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="WineSearchOutput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="snooth"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="meta" lowerBound="1" eType="#//Meta">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="meta" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WineSearchOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wines" lowerBound="1" upperBound="-1"
+        eType="#//Wine">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="wines" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WineSearchOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="wineSearchInput">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="wineSearchInput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="snooth"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="akey" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="akey" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="wineSearchInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ip" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="ip" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="wineSearchInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="q" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="q" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="wineSearchInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xp" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="xp" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="wineSearchInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wineSearchOutput" lowerBound="1"
+        eType="#//WineSearchOutput">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="wineSearchOutput" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="wineSearchInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Meta">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Meta" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="snooth"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="results" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="results" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Meta" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="returned" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="returned" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Meta" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="errmsg" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="errmsg" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Meta" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="status" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Meta" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Wine">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Wine" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="snooth"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="name" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="code" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="region" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="region" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="winery" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="winery" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="winery_id" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="winery_id" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="varietal" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="varietal" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="price" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="price" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="vintage" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="vintage" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="type" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="link" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tags" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="tags" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="image" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="image" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="snoothrank" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="snoothrank" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="available" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="available" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="num_merchants" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="num_merchants" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="num_reviews" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="num_reviews" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Wine" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dataNantes" nsURI="http://fr.inria.atlanmod/discovered/dataNantes"
+    nsPrefix="composedd">
+  <eClassifiers xsi:type="ecore:EClass" name="Groupes_Parking">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Groupes_Parking" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Groupe_Parking" lowerBound="1"
+        upperBound="-1" eType="#//Groupe_Parking">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupes_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LISTE_INFOTRAFICS">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="LISTE_INFOTRAFICS" value="2"/>
+      </eAnnotations>
+      <details key="totalFound" value="2"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="INFOTRAFIC" lowerBound="1"
+        upperBound="-1" eType="#//INFOTRAFIC">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="LISTE_INFOTRAFICS" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Data">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Data" value="4"/>
+      </eAnnotations>
+      <details key="totalFound" value="4"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ROOT" lowerBound="1" eType="#//ROOT">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="ROOT" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Data" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="0.5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Troncons" lowerBound="1"
+        eType="#//Troncon">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Troncons" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Data" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.25"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Groupes_Parking" lowerBound="1"
+        eType="#//Groupes_Parking">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Groupes_Parking" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Data" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.25"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Groupe_Parking">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Groupe_Parking" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_identifiant" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Grp_identifiant" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_nom" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Grp_nom" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_statut" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Grp_statut" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_pri_aut" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Grp_pri_aut" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_disponible" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Grp_disponible" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_complet" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Grp_complet" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_exploitation" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Grp_exploitation" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Grp_horodatage" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Grp_horodatage" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="IdObj" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="IdObj" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Groupe_Parking" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InfoTraficTANRealTime">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="InfoTraficTANRealTime" value="1"/>
+        <details key="InfoTraficTANProvisional" value="1"/>
+        <details key="getFluiditeAxesRoutiers" value="1"/>
+        <details key="parkingAvailability" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="4"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="opendata" lowerBound="1"
+        eType="#//Opendata">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="opendata" value="4"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="InfoTraficTANRealTime" value="1"/>
+          <details key="InfoTraficTANProvisional" value="1"/>
+          <details key="getFluiditeAxesRoutiers" value="1"/>
+          <details key="parkingAvailability" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="4"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Troncon">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Troncon" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Horodatage" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Horodatage" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Troncon" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Id" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Troncon" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Couleur_TP" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Couleur_TP" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Troncon" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Troncon" lowerBound="1"
+        upperBound="-1" eType="#//Troncon">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="Troncon" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Troncon" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Answer">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Answer" value="4"/>
+      </eAnnotations>
+      <details key="totalFound" value="4"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="status" lowerBound="1"
+        eType="#//Statu">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="status" value="4"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Answer" value="4"/>
+        </eAnnotations>
+        <details key="totalFound" value="4"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1" eType="#//Data">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="data" value="4"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Answer" value="4"/>
+        </eAnnotations>
+        <details key="totalFound" value="4"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="@attribute">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="@attribute" value="4"/>
+      </eAnnotations>
+      <details key="totalFound" value="4"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="code" value="4"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="@attribute" value="4"/>
+        </eAnnotations>
+        <details key="totalFound" value="4"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="message" value="4"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="@attribute" value="4"/>
+        </eAnnotations>
+        <details key="totalFound" value="4"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="INFOTRAFIC">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="INFOTRAFIC" value="2"/>
+      </eAnnotations>
+      <details key="totalFound" value="2"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="CODE" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="CODE" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LANGUE" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="LANGUE" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="INTITULE" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="INTITULE" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="RESUME" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="RESUME" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="TEXTE_VOCAL" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="TEXTE_VOCAL" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DATE_DEBUT" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="DATE_DEBUT" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DATE_FIN" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="DATE_FIN" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="HEURE_DEBUT" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="HEURE_DEBUT" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="HEURE_FIN" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="HEURE_FIN" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="PERTURBATION_TERMINEE"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="PERTURBATION_TERMINEE" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="TRONCONS" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="TRONCONS" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="INFOTRAFIC" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Opendata">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Opendata" value="4"/>
+      </eAnnotations>
+      <details key="totalFound" value="4"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="request" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="request" value="4"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Opendata" value="4"/>
+        </eAnnotations>
+        <details key="totalFound" value="4"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="answer" lowerBound="1"
+        eType="#//Answer">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="answer" value="4"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Opendata" value="4"/>
+        </eAnnotations>
+        <details key="totalFound" value="4"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Statu">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Statu" value="4"/>
+      </eAnnotations>
+      <details key="totalFound" value="4"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="@attributes" lowerBound="1"
+        eType="#//@attribute">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="@attributes" value="4"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Statu" value="4"/>
+        </eAnnotations>
+        <details key="totalFound" value="4"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ROOT">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="ROOT" value="2"/>
+      </eAnnotations>
+      <details key="totalFound" value="2"/>
+      <details key="source" value="dataNantes"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="LISTE_INFOTRAFICS" lowerBound="1"
+        eType="#//LISTE_INFOTRAFICS">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="LISTE_INFOTRAFICS" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ROOT" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>

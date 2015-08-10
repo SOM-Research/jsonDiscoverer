@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     14 nov. 2013 14:12:44                                                        
+
+     JSON discoverer    
+     Build WAR
+                   
+     Javier Canovas (me@jlcanovas.es)                                                                
+     ====================================================================== -->
+<project name="JSON discoverer" default="default">
+    <description>
+    	Build WAR
+    </description>
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" description="Build WAR">
+        <war destfile="jsonDiscoverer.war" webxml="WebContent/WEB-INF/web.xml">
+        	<classes dir="build/classes"/>
+        	<webinf dir="WebContent/WEB-INF"/>
+        	<fileset dir="WebContent">
+        		<exclude name="META-INF"/>
+        		<exclude name="WEB-INF"/>	
+        	</fileset>
+        </war>
+    </target>
+
+
+</project>

@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.emf.ecore,
+ org.eclipse.modisco.infra.discovery.core,
+ org.eclipse.modisco.infra.discovery.ui,
+ fr.inria.atlanmod.json.discoverer,
+ org.eclipse.ui
+Bundle-Vendor: AtlanMod
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 1.1
+Bundle-Name: fr.inria.atlanmod.json.discoverer.ui
+Bundle-ManifestVersion: 2
+Bundle-Activator: fr.inria.atlanmod.ui.JsonActivator
+Bundle-SymbolicName: fr.inria.atlanmod.json.discoverer.ui; singleton:=
+ true
+Import-Package: org.apache.log4j
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+
