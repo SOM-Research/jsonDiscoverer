@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Javier Canovas (javier.canovas@inria.fr) 
+ *    Javier Canovas (me@jlcanovas.es) 
  *******************************************************************************/
 
 package fr.inria.atlanmod.json.web;
@@ -44,7 +44,7 @@ import sun.misc.BASE64Encoder;
 /**
  * Abstract class to factor some common behavior
  * 
- * @author Javier Canovas (javier.canovas@inria.fr)
+ * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public abstract class AbstractJsonDiscoverer extends HttpServlet {

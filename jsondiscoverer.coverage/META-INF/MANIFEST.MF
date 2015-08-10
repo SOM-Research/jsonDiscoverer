@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: fr.inria.atlanmod.json.discoverer.coverage;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: jsondiscoverer.coverage;singleton:=true
+Bundle-Version: 1.0.0
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: fr.inria.atlanmod.json.discoverer.coverage,
- fr.inria.atlanmod.json.discoverer.coverage.impl,
- fr.inria.atlanmod.json.discoverer.coverage.util
+Export-Package: jsondiscoverer.coverage,
+ jsondiscoverer.coverage.impl,
+ jsondiscoverer.coverage.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;bundle-version="2.9.0"

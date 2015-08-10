@@ -26,7 +26,7 @@ import fr.inria.atlanmod.discoverer.util.GexfConverter;
 /**
  * ervlet to access to the JSON composer
  * 
- * @author Javier Canovas (javier.canovas@inria.fr)
+ * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 @WebServlet("/discoverComposition")

@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Javier Canovas (javier.canovas@inria.fr) 
+ *    Javier Canovas (me@jlcanovas.es) 
  *******************************************************************************/
 
 package fr.inria.atlanmod.json.web;
@@ -39,7 +39,7 @@ import fr.inria.atlanmod.discoverer.JsonSourceSet;
 /**
  * Main servlet to provide access to the composer
  * 
- * @author Javier Canovas (javier.canovas@inria.fr)
+ * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 @WebServlet("/multiDiscover")

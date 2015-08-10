@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Javier Canovas (javier.canovas@inria.fr) 
+ *    Javier Canovas (me@jlcanovas.es) 
  *******************************************************************************/
 
 package fr.inria.atlanmod.json.web;
@@ -33,7 +33,7 @@ import com.sun.jndi.cosnaming.IiopUrl.Address;
  * This class acts as proxy to get the json coming from other websites. The result is filter to the first 
  * LIMIT_LINES to avoid overloading the server.
  * 
- * @author Javier Canovas (javier.canovas@inria.fr)
+ * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 @WebServlet("/getJson")

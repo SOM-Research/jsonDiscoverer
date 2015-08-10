@@ -1,11 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: fr.inria.atlanmod.json.discoverer.tests
-Bundle-Vendor: My Company
-Bundle-Version: 1.0.0.qualifier
-Bundle-SymbolicName: fr.inria.atlanmod.json.discoverer.tests; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-SymbolicName: jsondiscoverer.tests;singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: fr.inria.atlanmod.json.discoverer,
- fr.inria.atlanmod.json.discoverer.zoo,
+Require-Bundle: jsondiscoverer,
+ jsondiscoverer.zoo,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

@@ -22,7 +22,7 @@ import fr.inria.atlanmod.discoverer.JsonSourceSet;
 /**
  * This servlet allows calculating paths between nodes of the discovered metamodel
  * 
- * @author Javier Canovas (javier.canovas@inria.fr)
+ * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 @WebServlet("/calculatePath")

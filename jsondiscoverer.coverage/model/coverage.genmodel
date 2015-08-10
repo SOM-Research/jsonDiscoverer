@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/fr.inria.atlanmod.json.discoverer.coverage/src"
-    modelPluginID="fr.inria.atlanmod.json.discoverer.coverage" modelName="Coverage"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/jsondiscoverer.coverage/src" editDirectory="/jsondiscoverer.edit/src"
+    editorDirectory="/jsondiscoverer.editor/src" modelPluginID="jsondiscoverer.coverage"
+    modelName="Coverage" editPluginClass="jsondiscoverer.coverage.provider.CoverageEditPlugin"
+    editorPluginClass="jsondiscoverer.coverage.presentation.CoverageEditorPlugin"
+    testsDirectory="/jsondiscoverer.tests/src" testSuiteClass="jsondiscoverer.coverage.tests.CoverageAllTests"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    editPluginID="jsondiscoverer.edit" editorPluginID="jsondiscoverer.coverage.editor"
     usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
   <foreignModel>coverage.ecore</foreignModel>
-  <genPackages prefix="Coverage" basePackage="fr.inria.atlanmod.json.discoverer" disposableProviderFactory="true"
+  <genPackages prefix="Coverage" basePackage="jsondiscoverer" disposableProviderFactory="true"
       ecorePackage="coverage.ecore#/">
     <genClasses ecoreClass="coverage.ecore#//Coverage">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference coverage.ecore#//Coverage/mappings"/>

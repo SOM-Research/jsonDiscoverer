@@ -6,18 +6,12 @@
 
 <plugin>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <package
-            uri="http://fr.inria.atlanmod/json/coverage"
-            class="coverage.CoveragePackage"
-            genModel="model/coverage.genmodel"/>
-   </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated coverage -->
       <package
-            uri="http://fr.inria.atlanmod/json/coverage"
-            class="fr.inria.atlanmod.json.discoverer.coverage.CoveragePackage"
+            uri="http://jsondiscoverer/coverage"
+            class="jsondiscoverer.coverage.CoveragePackage"
             genModel="model/coverage.genmodel"/>
    </extension>
 

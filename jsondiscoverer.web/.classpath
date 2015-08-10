@@ -24,6 +24,16 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/fr.inria.atlanmod.json.discoverer.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/java-property-utils-1.9.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cxf-core-3.1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/geronimo-javamail_1.4_spec-1.7.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jaxb-core-2.2.11.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jaxb-impl-2.2.11.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jcl-over-slf4j-1.7.12.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.7.12.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-jdk14-1.7.12.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/stax2-api-3.1.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/woodstox-core-asl-4.4.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xmlschema-core-2.2.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
