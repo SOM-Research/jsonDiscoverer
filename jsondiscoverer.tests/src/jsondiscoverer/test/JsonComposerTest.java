@@ -13,6 +13,7 @@ package jsondiscoverer.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,13 +88,13 @@ public class JsonComposerTest {
 	
 	public static void test1() throws FileNotFoundException {
 		JsonSource source1 = new JsonSource("stopPosition");
-		source1.addJsonDef(new File(TEST_JSON_FILE_1));
+		source1.addJsonData(null, new FileReader(new File(TEST_JSON_FILE_1)));
 		
 		JsonSource source2 = new JsonSource("waitingTimeStop");
-		source2.addJsonDef(new File(TEST_JSON_FILE_2));
+		source1.addJsonData(null, new FileReader(new File(TEST_JSON_FILE_2)));
 
 		JsonSource source3 = new JsonSource("horariesStopLineDirection");
-		source3.addJsonDef(new File(TEST_JSON_FILE_3));
+		source1.addJsonData(null, new FileReader(new File(TEST_JSON_FILE_3)));
 				
 		List<File> coveragePaths = new ArrayList<File>();
 		coveragePaths.add(new File(COVERAGE_FILE1));

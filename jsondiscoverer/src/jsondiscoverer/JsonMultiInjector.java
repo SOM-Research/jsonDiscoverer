@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ import jsondiscoverer.coverage.CoverageMapping;
 import jsondiscoverer.coverage.RefMapping;
 
 /**
- * Injects a model wich information coming from several JSON files
+ * Injects a model with information coming from several JSON files
  * This implementation does not depend on Xtext
  * 
  * @author Javier Canovas (me@jlcanovas.es)

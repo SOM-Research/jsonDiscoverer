@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,16 +36,21 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
- * Main class to discover/refine metamodels (ecore file) from json definitions (json file).
- * This implementation does not depend on Xtext
+ * Main class to discover/refine metamodels (i.e., ecore file) from json documents (i.e., json file).
+ * 
+ * This implementation does not depend on Xtext (v0.1.0)
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 1.0.0
  *
  */
 public class JsonDiscoverer {
-	HashMap<String, EClass> eClasses = new HashMap<String, EClass>();
-
+	private static final String DEFAULT_NS_PREFIX = "disco";
+	private static final String DEFAULT_NS_URI = "http://jsonDiscoverer/discovered/";
+	
 	private final static Logger LOGGER = Logger.getLogger(JsonDiscoverer.class.getName());
+
+	HashMap<String, EClass> eClasses = new HashMap<String, EClass>();
 
 	public JsonDiscoverer() {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
@@ -55,16 +60,16 @@ public class JsonDiscoverer {
 	}
 
 	/**
-	 * Launches the metamodel discoverer from a JSON model. The method received a JsonSource 
-	 * element which includes the set of JSON definitions to be considered. 
+	 * Launches the metamodel discoverer from a JSON document. The method receives a {@link JsonSource} 
+	 * element, which includes the set of JSON documents to be considered. 
 	 * 
-	 * At the end, the discovered metamodel is returned and also stored in the JsonSource
+	 * The discovered metamodel is returned and also stored in the {@link JsonSource} 
 	 * received as param
 	 * 
-	 * @param source
-	 * @return Epackage (Ecore model)
+	 * @param source The {@link JsonSource} including the JSON documents
+	 * @return EPackage (Ecore model)
 	 */
-	public EPackage discoverMetamodel(JsonSource source) {
+	public EPackage discover(JsonSource source) {
 		if(source == null) 
 			throw new IllegalArgumentException("Source cannot be null");
 		else if(source.getJsonData().size() == 0) 
@@ -75,6 +80,7 @@ public class JsonDiscoverer {
 		LOGGER.fine("[discoverMetamodel] Received " + elements.size() + " json objects to discover");
 
 		String sourceName = (source.includesInput()) ? source.getName() + "Input" : source.getName();
+		sourceName = digestId(sourceName);
 
 		for(JsonObject jsonObject : elements) {
 			discoverMetaclass(sourceName, jsonObject);
@@ -83,8 +89,8 @@ public class JsonDiscoverer {
 		// Default package
 		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
 		ePackage.setName(source.getName());
-		ePackage.setNsURI("http://fr.inria.atlanmod/discovered/" + source.getName());
-		ePackage.setNsPrefix("disco" + source.getName().charAt(0));
+		ePackage.setNsURI(DEFAULT_NS_URI + source.getName());
+		ePackage.setNsPrefix(DEFAULT_NS_PREFIX + source.getName().charAt(0));
 		ePackage.getEClassifiers().addAll(geteClasses().values());
 		source.setMetamodel(ePackage);
 		
@@ -95,13 +101,13 @@ public class JsonDiscoverer {
 	}
 
 	/**
-	 * Refines an existing metamodel with new JSON definitions coming from a new JsonSource
+	 * Refines an existing metamodel with new JSON definitions coming from a new {@link JsonSource}
 	 * 
-	 * @param toRefine
-	 * @param source
+	 * @param toRefine The existing {@link EPackage} to refine
+	 * @param source The {@link JsonSource} including the JSON documents
 	 * @return
 	 */
-	public EPackage refineMetamodel(EPackage toRefine, JsonSource source) {
+	public EPackage refine(EPackage toRefine, JsonSource source) {
 		for(EClassifier eClassifier : toRefine.getEClassifiers()) {
 			if (eClassifier instanceof EClass) {
 				EClass eClass = (EClass) eClassifier;
@@ -109,15 +115,15 @@ public class JsonDiscoverer {
 				LOGGER.fine("added " + eClass.getName());
 			}
 		}
-		return discoverMetamodel(source);
+		return discover(source);
 	}
 
 	/**
-	 * Discover the metaclass for a JsonObject
+	 * Discover a metaclass for a {@link JsonSource}
 	 * 
-	 * @param id Unique identifier for the JsonObject 
-	 * @param jsonObject the JsonObject
-	 * @return Discovered EClass
+	 * @param id Unique identifier for the {@link JsonObject} 
+	 * @param jsonObject the {@link JsonObject}
+	 * @return Discovered {@link EClass}
 	 */
 	private EClass discoverMetaclass(String id, JsonObject jsonObject) {
 		EClass eClass = eClasses.get(id);
@@ -132,20 +138,19 @@ public class JsonDiscoverer {
 	}
 
 	/**
-	 * Creates a new metaclass form scratch. Takes a jsonobject as input and 
+	 * Creates a new metaclass form scratch. Takes a {@link JsonObject} as input and 
 	 * an identifier.
 	 * 
-	 * @param id
-	 * @param jsonObject
+	 * @param id Unique identifier of the {@link JsonObject} 
+	 * @param The new {@link JsonObject} 
 	 */
 	private EClass createMetaclass(String id, JsonObject jsonObject) {
 		EClass eClass = EcoreFactory.eINSTANCE.createEClass();
 		eClass.setName(id);
 		AnnotationHelper.INSTANCE.increaseTotalFound(eClass);
-
 		eClasses.put(id, eClass);
-
 		LOGGER.fine("[createMetaclass] Metaclass created with name " + id);
+
 		Iterator<Map.Entry<String, JsonElement>> pairs = jsonObject.entrySet().iterator();
 		LOGGER.finer("[createMetaclass] Iterating over " + jsonObject.entrySet().size() + " pairs");
 		while(pairs.hasNext()) {
@@ -160,11 +165,11 @@ public class JsonDiscoverer {
 	}
 
 	/**
-	 * Refines the attributes and references of an existing eclass
-	 * from a new JsonObject definition. 
+	 * Refines the attributes and references of an existing {@link EClass}
+	 * from a new {@link JsonObject} definition. 
 	 * 
-	 * @param eClass
-	 * @param JsonObject
+	 * @param eClass The existing {@link EClass}
+	 * @param jsonObject The {@link JsonObject} to use as input to refine
 	 */
 	private EClass refineMetaclass(EClass eClass, JsonObject jsonObject) {
 		LOGGER.fine("[refineMetaclass] Refining metaclass " + eClass.getName());
@@ -180,6 +185,7 @@ public class JsonDiscoverer {
 			EStructuralFeature eStructuralFeature = null;
 			if((eStructuralFeature = eClass.getEStructuralFeature(pairId)) != null) {
 				AnnotationHelper.INSTANCE.increaseTotalFound(eStructuralFeature);
+				// Dealing with attributes (references are considered non-conflicting)
 				if (eStructuralFeature instanceof EAttribute) {
 					EAttribute eAttribute = (EAttribute) eStructuralFeature;
 					if(eAttribute.getEType() != mapType(pairId, value)) {
@@ -188,9 +194,7 @@ public class JsonDiscoverer {
 					} else {
 						LOGGER.fine("[refineMetaclass] No conflicts with attribute " + eAttribute.getName());
 					}
-				} else if (eStructuralFeature instanceof EReference) {
-
-				}
+				} 
 			} else {
 				createStructuralFeature(pairId, value, 0, eClass);
 			}
@@ -200,16 +204,17 @@ public class JsonDiscoverer {
 	}
 
 	/**
-	 * Creates a new structuralFeature out from a pairId/Value
+	 * Creates a new {@link EStructuralFeature} out from a pairId/Value
 	 * 
-	 * @param pairId
-	 * @param value
-	 * @param eClass
+	 * @param pairId Identifier of the feature
+	 * @param value {@link JsonElement} including the value
+	 * @param eClass {@link EClass} containing the feature
 	 */
 	private void createStructuralFeature(String pairId, JsonElement value, int lowerBound, EClass eClass) {
 		EStructuralFeature eStructuralFeature = null;
-		EClassifier type = mapType(pairId, value);
 
+		// Selecting attribute vs. reference according to feature's type
+		EClassifier type = mapType(pairId, value);
 		if(type instanceof EDataType) {
 			eStructuralFeature = EcoreFactory.eINSTANCE.createEAttribute();
 		} else {
@@ -232,11 +237,11 @@ public class JsonDiscoverer {
 	}
 
 	/**
-	 * Maps json types into ecore types
+	 * Maps JSON types into ECORE types
 	 * 
-	 * @param id
-	 * @param value
-	 * @return
+	 * @param id Identifier of the feature (to infer the name of the type if non-primitive)
+	 * @param value {@link JsonElement} including the value
+	 * @return The mapped type (as {@link EClassifier}
 	 */
 	private EClassifier mapType(String id, JsonElement value) {
 		if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
@@ -266,6 +271,12 @@ public class JsonDiscoverer {
 		return EcorePackage.Literals.ESTRING;
 	}
 
+	/**
+	 * Generates a type identifier from a String (normally coming for the key value of JSON objects)
+	 * 
+	 * @param id String to digest
+	 * @return The digested identifier
+	 */
 	private String digestId(String id) {
 		String result = id;
 		if(result.length() > 1 && result.endsWith("s")) 

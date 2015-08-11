@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,42 +40,73 @@ import com.google.gson.JsonObject;
 
 import jsondiscoverer.coverage.ConceptMapping;
 import jsondiscoverer.coverage.util.CoverageCreator;
+import jsondiscoverer.util.ModelHelper;
 
 /**
- * Performs a composition between metamodels obtained from JSON files
+ * Performs a discovery process among several {@link JsonSource}s (i.e., receiving a 
+ * {@link JsonSourceSet} as input). The resulting metamodels are combined to obtain a 
+ * general one.
+ * 
+ * Note that this process is actually a metamodel composition one, where metamodels 
+ * discovered for a set of @link JsonSource}s are analyzed to create a new one covering
+ * all of them. Thus, the multi-discovery process follows these steps:
+ * 1. Receive a set of {@link JsonSource}s (as {@link JsonSourceSet}
+ * 2. Discover the metamodel for each {@link JsonSource}
+ * 3. Analyze the discovered metamodels and create a new one covering them
+ * 4. As a result, a metamodel plus a set of {@link CoverageCreator}s are returned
+ * 
  * This implementation does not depend on Xtext
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 1.0.0
  *
  */
 public class JsonMultiDiscoverer {
+	private static final String DEFAULT_NS_URI = "http://jsondiscoverer/discovered/";
+	private static final String DEFAULT_NS_PREFIX = "composed";
+
 	final static double CLASS_MATCHING_THRESHOLD = 0.3;
 
+	private final static Logger LOGGER = Logger.getLogger(JsonMultiDiscoverer.class.getName());
+	
+	/**
+	 * The set of JsonSources to use in the discovery process
+	 */
 	private JsonSourceSet sourceSet;
 	
+	/**
+	 * Map with the set of EClasses discovered in the resulting metamodel
+	 */
 	private HashMap<String, EClass> registry;
-	private List<CoverageCreator> coverageCreators;
 	
+	/**
+	 * Map with the coverage for each JsonSource
+	 */
+	private HashMap<JsonSource, CoverageCreator> coverageCreators;
+	
+	/**
+	 * Values for discovered values
+	 */
 	HashMap<EAttribute, List<Object>> cacheValues;
-	
-	private final static Logger LOGGER = Logger.getLogger(JsonMultiDiscoverer.class.getName());
 	
 	public JsonMultiDiscoverer(JsonSourceSet sourceSet) {
 		if(sourceSet == null) 
 			throw new IllegalArgumentException("SourceSet cannot be null");
 		else if(sourceSet.getJsonSources().size() == 0) 
-			throw new IllegalArgumentException("At least 1 source is required to compose");
+			throw new IllegalArgumentException("At least 1 source is required");
 
 		this.sourceSet = sourceSet;
+		this.cacheValues = new HashMap<EAttribute, List<Object>>();
+		
 		// All the sources must include the metamodel
+		// If not included, we call the JSONDiscoverer for each one
 		for(JsonSource jsonSource : this.sourceSet.getJsonSources()) {
 			if(jsonSource.getMetamodel() == null) {
-				// For those not including the metamodel, it is discovered
 				JsonDiscoverer discoverer = new JsonDiscoverer();
-				discoverer.discoverMetamodel(jsonSource);
+				// By default the discovered metamodel is stored in the JsonSource
+				discoverer.discover(jsonSource);
 			}
 		}
-		this.cacheValues = new HashMap<EAttribute, List<Object>>();
 		
 		LOGGER.setLevel(Level.OFF);
 	}
@@ -83,7 +114,7 @@ public class JsonMultiDiscoverer {
 	/**
 	 * Saves the coverage information
 	 * 
-	 * @param resultPath The path where the converage information will be saved
+	 * @param resultPaths The path where the coverage information will be saved
 	 */
 	public void saveCoverage(List<File> resultPaths) {
 		if(resultPaths.size() == coverageCreators.size())
@@ -92,42 +123,45 @@ public class JsonMultiDiscoverer {
 				coverageCreator.save(resultPaths.get(i));
 			}
 		else {
-			throw new IllegalArgumentException("The size of the paths must match the size of coverage files");
+			throw new IllegalArgumentException("The size of the paths must match the size of coverage "
+					+ "files (it is: " + coverageCreators.size() + ")");
 		}
 	}
 	
 	/**
-	 * Compose the JSON files
+	 * Launches the multi-discover process
 	 * 
-	 * @param resultingName The name for the resulting package metamodel
 	 * @param resultPath The path where the resulting metamodel will be stored
 	 * @return The resulting metamodel as EPackage
 	 * @throws FileNotFoundException
 	 */
 	public EPackage discover(File resultPath) throws FileNotFoundException {
 		EPackage result = discover();
-		saveEPackage(result, resultPath);
+		ModelHelper.saveEPackage(result, resultPath);
 		return result;
 	}
 	
 	/**
-	 * Compose the JSON sources received when building the object
+	 * Launches the multi-discover process
 	 * 
-	 * @return
+	 * @return The resulting metamodel as EPackage
 	 * @throws FileNotFoundException
 	 */
-	public EPackage discover() throws FileNotFoundException  {
-		// Creating the resulting metamodel
+	public EPackage discover() {
+		// Creating the resulting metamodel (the one gathering all the info)
 		EPackage finalPackage = EcoreFactory.eINSTANCE.createEPackage();
 		finalPackage.setName(sourceSet.getName());
-		finalPackage.setNsPrefix("composed" + sourceSet.getName().charAt(0));
-		finalPackage.setNsURI("http://fr.inria.atlanmod/discovered/" + sourceSet.getName());
+		finalPackage.setNsPrefix(DEFAULT_NS_PREFIX + sourceSet.getName().charAt(0));
+		finalPackage.setNsURI(DEFAULT_NS_URI + sourceSet.getName());
 		LOGGER.finer("Package created");
 
 		// Initializing variables
 		registry = new HashMap<String, EClass>();
 		List<EReference> referencesToCheck = new ArrayList<EReference>();
-		coverageCreators = new ArrayList<CoverageCreator>();
+		coverageCreators = new HashMap<JsonSource, CoverageCreator>();
+		
+		// Iterating the JsonSouces
+		// At the end of this loop, we have the set of discovered classes 
 		for(JsonSource jsonSource : this.sourceSet.getJsonSources()) {
 			LOGGER.finer("Analizing JSON source: " + jsonSource.getName());
 			CoverageCreator coverageCreator = new CoverageCreator(jsonSource.getName(), jsonSource.getMetamodel(), finalPackage);
@@ -138,36 +172,42 @@ public class JsonMultiDiscoverer {
 					LOGGER.finer("Analizing " + eClass.getName());
 					EClass registryElement = lookForSimilarEClass(eClass);
 					if(registryElement == null) {
+						// No similar class was found, creating a new EClass in the resulting metamodel
 						LOGGER.finer("  " + eClass.getName() + " class being duplicated...");
-						EClass duplicatedEClass = cloneEClass(eClass, coverageCreator); 
+						EClass duplicatedEClass = duplicateEClass(eClass, coverageCreator); 
 						registry.put(eClass.getName(), duplicatedEClass);
 						coverageCreator.createConceptMapping(eClass, duplicatedEClass);
 						eClass = duplicatedEClass;
 						LOGGER.finer("  " + eClass.getName() + " class duplicated and added");
 					} else {
+						// Similar class found, classes are merged
 						LOGGER.finer("  " + eClass.getName() + " class being composed with " + registryElement.getName() + "...");
 						coverageCreator.createConceptMapping(eClass, registryElement);
 						composeEClass(registryElement, eClass, coverageCreator);
 						LOGGER.finer("  " + eClass.getName() + " class composed with " + registryElement.getName());
 						eClass = registryElement;
 					}
+					// References are stored to be checked at the end
 					for(EStructuralFeature otherFeature : eClass.getEStructuralFeatures()) 
 						if (otherFeature instanceof EReference) 
 							referencesToCheck.add((EReference) otherFeature);
 
 				}
 			}
-			coverageCreators.add(coverageCreator);
+			coverageCreators.put(jsonSource, coverageCreator);
 		}
 
+		// Adding the discovered classes in the resulting metamodel 
 		for(EClass eClass : registry.values()) {
 			finalPackage.getEClassifiers().add(eClass);
 		}
 
+		// Unknown class for those elements not discovered
 		EClass unknown = EcoreFactory.eINSTANCE.createEClass();
 		unknown.setName("Unknown");
 		boolean unknownUsed = false;
 
+		// Checking references and connecting elements
 		for(EReference reference : referencesToCheck) {
 			EClassifier referredEClassifier = reference.getEType();
 			if (referredEClassifier instanceof EClass) {
@@ -175,7 +215,7 @@ public class JsonMultiDiscoverer {
 				EClass registryElement = registry.get(referredEClass.getName());
 				if(registryElement == null) {
 					ConceptMapping mapping = null;
-					for(CoverageCreator coverageCreator : coverageCreators) {
+					for(CoverageCreator coverageCreator : coverageCreators.values()) {
 						mapping = coverageCreator.getConceptMappingFromSource(referredEClass);
 						if(mapping != null)
 							break;
@@ -205,7 +245,14 @@ public class JsonMultiDiscoverer {
 		return finalPackage;
 	}
 
-	private void composeAttributes(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException  {
+	/**
+	 * Compose the attributes of two {@link EClass}es.
+	 * 
+	 * @param existingClass Discovered {@link EClass} 
+	 * @param otherClass {@link EClass} coming from previously discovered process, to compose with the existing one
+	 * @param coverageCreator Coverage manager to track changes
+	 */
+	private void composeAttributes(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) {
 		// Iterate over the structural features of the other class (to be composed into the existingClass)
 		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
 			// Only attributes
@@ -215,6 +262,7 @@ public class JsonMultiDiscoverer {
 				
 				if(existingFeature == null) {
 					// If the existing class DOES NOT have an attribute with same name
+					// We look for a similar attribute in the existing eclass
 					EAttribute similarAttribute = lookForSimilarAttribute(existingClass, otherAttribute, coverageCreator);
 					if(similarAttribute == null) {
 						// The existing class DOES NOT have a similar attribute -> Creating a new one
@@ -228,7 +276,7 @@ public class JsonMultiDiscoverer {
 						LOGGER.finer("    " + "Attribute " + newAttribute.getName() + " added");
 						existingFeature = newAttribute;
 					} else {
-						// The existing class DOES  have a similar attribute -> Do nothing
+						// The existing class DOES have a similar attribute -> Do nothing
 						LOGGER.finer("    " + "Attribute similar found: " + similarAttribute.getName());
 						existingFeature = similarAttribute;
 
@@ -238,7 +286,7 @@ public class JsonMultiDiscoverer {
 					}
 					coverageCreator.createAttMapping(otherAttribute, (EAttribute) existingFeature);
 				} else if (existingFeature instanceof EAttribute) {
-					// If the existing class DOES have an attribute with same name
+					// If the existing class DOES have an attribute with same name -> Change the type to String (as fallback)
 					existingFeature.setEType(EcorePackage.Literals.ESTRING);
 					LOGGER.finer("    " + "Attribute " + existingFeature.getName() + " refined to String");
 
@@ -252,12 +300,22 @@ public class JsonMultiDiscoverer {
 
 	}
 
+	/**
+	 * Compose the references of two {@link EClass}es.
+	 * 
+	 * @param existingClass Discovered {@link EClass} 
+	 * @param otherClass {@link EClass} coming from previously discovered process, to compose with the existing one
+	 * @param coverageCreator Coverage manager to track changes
+	 */
 	private void composeReferences(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) {
+		// Iterate over the structural features
 		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
+			// Only references
 			if (otherFeature instanceof EReference) {
 				EReference otherReference = (EReference) otherFeature;
 				EStructuralFeature existingFeature = existingClass.getEStructuralFeature(otherReference.getName());
 				if(existingFeature == null) {
+					// If the existing class DOES NOT have a reference with same name -> Duplication
 					EReference newReference = duplicateReference(otherReference);
 					existingClass.getEStructuralFeatures().add(newReference);
 					LOGGER.finer("    " + "Reference " + newReference.getName() + " added");
@@ -268,7 +326,7 @@ public class JsonMultiDiscoverer {
 					AnnotationHelper.INSTANCE.registerName(newReference, otherReference.getName());
 					AnnotationHelper.INSTANCE.registerInclusion(newReference, otherClass.getName());
 				} else {
-
+					// If the existing class DOES have a reference with same name -> Do nothing
 					AnnotationHelper.INSTANCE.increaseTotalFound(existingFeature);
 					AnnotationHelper.INSTANCE.registerName(existingFeature, otherReference.getName());
 					AnnotationHelper.INSTANCE.registerInclusion(existingFeature, otherClass.getName());
@@ -277,6 +335,13 @@ public class JsonMultiDiscoverer {
 		}
 	}
 
+	/**
+	 * Creates a new {@link EAttribute} and initializes it with basic information
+	 * coming from another one
+	 * 
+	 * @param otherAttribute Attribute to duplicate
+	 * @return Duplicated attribute
+	 */
 	private EAttribute duplicateAttribute(EAttribute otherAttribute) {
 		EAttribute newAttribute = EcoreFactory.eINSTANCE.createEAttribute();
 		newAttribute.setName(otherAttribute.getName());
@@ -287,6 +352,13 @@ public class JsonMultiDiscoverer {
 		return newAttribute;
 	}
 
+	/**
+	 * Creates a new {@link EReference} and initializes it with basic information
+	 * coming from another one
+	 * 
+	 * @param otherReference Reference to duplicate
+	 * @return Duplicated reference
+	 */
 	private EReference duplicateReference(EReference otherReference) {
 		EReference newReference = EcoreFactory.eINSTANCE.createEReference();
 		newReference.setName(otherReference.getName());
@@ -297,14 +369,13 @@ public class JsonMultiDiscoverer {
 	}
 
 	/**
-	 * Clones a Class having into consideration its structura features.
+	 * Duplicates a Class having into consideration its structural features.
 	 * 
-	 * @param otherClass
-	 * @param coverageCreator
-	 * @return
-	 * @throws FileNotFoundException
+	 * @param otherClass Class to duplicate
+	 * @param coverageCreator Coverage manage to track changes
+	 * @return Duplicated class
 	 */
-	private EClass cloneEClass(EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException  {
+	private EClass duplicateEClass(EClass otherClass, CoverageCreator coverageCreator) {
 		EClass newClass = EcoreFactory.eINSTANCE.createEClass();
 		newClass.setName(otherClass.getName());
 		newClass.setAbstract(otherClass.isAbstract());
@@ -341,24 +412,45 @@ public class JsonMultiDiscoverer {
 		return newClass;
 	}
 	
-	private void composeEClass(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) throws FileNotFoundException {
+	/**
+	 * Composes two {@link EClass}es 
+	 * 
+	 * @param existingClass Discovered {@link EClass} 
+	 * @param otherClass {@link EClass} coming from previously discovered process, to compose with the existing one
+	 * @param coverageCreator Coverage manager to track changes
+	 */
+	private void composeEClass(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) {
 		composeAttributes(existingClass, otherClass, coverageCreator);
 		composeReferences(existingClass, otherClass, coverageCreator);
 		AnnotationHelper.INSTANCE.registerName(existingClass, otherClass.getName());
 		AnnotationHelper.INSTANCE.increaseTotalFound(existingClass);
 	}
 
+	/**
+	 * Looks for a potential already discovered {@link EClass} which may match with the one given
+	 * as input. First, a class with the same name is searched in the set of discovered classes. 
+	 * If not found, a class with a ratio of same structural features (same name) higher than 
+	 * {@link CLASS_MATCHING_THRESHOLD} is searched. If not found, returns null.
+	 * 
+	 * Input elements (represented as {@link EClass}es named "Input") are not considered
+	 * 
+	 * @param existingClass {@link EClass} to check with already discovered EClasses
+	 * @return 
+	 */
 	private EClass lookForSimilarEClass(EClass existingClass) { 
 		LOGGER.finer("  " + "Looking for classes similar to " + existingClass.getName());
+		
 		// If it is the input class, ignore it!
 		if(existingClass.getName().endsWith("Input")) 
 			return null;
 		
 		EClass registryElement = registry.get(existingClass.getName());
 		if(registryElement != null) {
+			// First case: matching names
 			LOGGER.finer("    " + "Found matching name");
 			return registryElement;
 		} else {
+			// Second case: searching a class with similar structura features
 			for(EClass registeredClass : registry.values()) {
 				double totalRegisteredFeatures = registeredClass.getEStructuralFeatures().size();
 				double matchingFeatures = 0;
@@ -368,7 +460,6 @@ public class JsonMultiDiscoverer {
 						if(registeredFeature.getName().equals(existingFeature.getName())) {
 							LOGGER.finest("        " + "Yes! Ratio now: " + matchingFeatures / totalRegisteredFeatures );
 							matchingFeatures++;
-							
 							break;
 						}
 					}
@@ -386,7 +477,15 @@ public class JsonMultiDiscoverer {
 		return null;		
 	}
 
-	private EAttribute lookForSimilarAttribute(EClass existingClass, EAttribute otherAttribute, CoverageCreator coverageCreator) throws FileNotFoundException  {
+	/**
+	 * Looks for a similar attribute in an existing {@link EClass}. Only names are considered.
+	 * 
+	 * @param existingClass Class in which the attribute is search
+	 * @param otherAttribute The attribute to compare
+	 * @param coverageCreator The coverage manage to track changes
+	 * @return The similar attribute (null if not found)
+	 */
+	private EAttribute lookForSimilarAttribute(EClass existingClass, EAttribute otherAttribute, CoverageCreator coverageCreator)  {
 		List<Object> jsonValues = getJSONValues(otherAttribute, coverageCreator.getName());
 
 		Iterator<EAttribute> it = cacheValues.keySet().iterator();
@@ -417,7 +516,7 @@ public class JsonMultiDiscoverer {
 	 * @return
 	 * @throws FileNotFoundException
 	 */
-	private List<Object> getJSONValues(EAttribute eAttribute, String sourceName) throws FileNotFoundException {
+	private List<Object> getJSONValues(EAttribute eAttribute, String sourceName) {
 		if(eAttribute == null) 
 			throw new IllegalArgumentException("EAttribute cannot be null");
 		if(sourceName == null || sourceName.equals("")) 
@@ -486,6 +585,12 @@ public class JsonMultiDiscoverer {
 		return result;
 	}
 
+	/**
+	 * Disgests an identifier (changes the first letter to uppercase and removes the possible trailing "s")
+	 * 
+	 * @param id Identifier to digest
+	 * @return Digested identifier
+	 */
 	private String digestId(String id) {
 		String result = id;
 		if(result.endsWith("s")) 
@@ -493,18 +598,5 @@ public class JsonMultiDiscoverer {
 		result = result.substring(0, 1).toUpperCase() + result.substring(1, result.length()); 
 		return result;
 	}
-	
-	private void saveEPackage(EPackage ePackage, File resultPath) {
-		ResourceSet rset = new ResourceSetImpl();
-		Resource res = rset.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
-
-		try {
-			res.getContents().add(ePackage);
-			res.save(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}	
-	
 	
 }

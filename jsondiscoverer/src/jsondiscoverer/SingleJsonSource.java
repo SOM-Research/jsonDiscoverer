@@ -1,10 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2008, 2015
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Javier Canovas (me@jlcanovas.es) 
+ *******************************************************************************/
+
+
 package jsondiscoverer;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Reader;
 
 /**
- * This class extends JsonSource class and only allow JSON sources with one JSON definition
+ * This class extends JsonSource class and only allows for JSON sources
+ * with ONE JSON document and WITHOUT input
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -15,17 +28,9 @@ public class SingleJsonSource extends JsonSource {
 		super(name);
 	}
 	
-	@Override
-	public void addJsonDef(File file) throws FileNotFoundException {
+	public void addJsonData(Reader output) throws FileNotFoundException {
 		if(getJsonData().size() > 0) 
 			throw new IllegalStateException("SingleJsonSource can have only one source");
-		super.addJsonDef(file);
-	}
-	
-	@Override
-	public void addJsonDef(String string) {
-		if(getJsonData().size() > 0) 
-			throw new IllegalStateException("SingleJsonSource can have only one source");
-		super.addJsonDef(string);
+		super.addJsonData(null, output);
 	}
 }

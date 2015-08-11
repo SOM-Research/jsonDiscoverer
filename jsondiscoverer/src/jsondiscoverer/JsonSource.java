@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,10 +11,7 @@
 
 package jsondiscoverer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.StringReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,18 +22,22 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 /**
- * This class represent a JSON source, which is represented by a set of JSON
- * definitions with the same meaning.
+ * This class represents a JSON source: a set of JSON documents with the same meaning
+ * (i.e., set of JSON documents returned by the same JSON-based Web API)
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class JsonSource extends AbstractJsonSource {
 	/**
-	 * List of JSON definitions
+	 * List of JSON documents
 	 */
 	protected List<JsonData> jsonData;
 	
+	/**
+	 * Sets if the set of JSON documents are the result of computing an input
+	 * JSON document (to support JSON-based Web APIs)
+	 */
 	public boolean withInput; 
 	
 	public JsonSource(String name) {
@@ -44,114 +45,78 @@ public class JsonSource extends AbstractJsonSource {
 		this.jsonData = new ArrayList<JsonData>();
 		this.withInput = false;
 	}
+	
 	/**
-	 * Gets the set of JSON definitions linked to this source. 
+	 * Gets the set of JSON documents linked to this source. 
 	 * Warning: the returned list is mutable
 	 * 
-	 * @return
+	 * @return The set of JSON documents (as {@link JsonData}
 	 */
 	protected List<JsonData> getJsonData() {
 		return jsonData;
 	}
+
+	public boolean includesInput() {
+		return this.withInput;
+	}
 	
 	/**
-	 * Adds a new JSON definition from a file with the JSON as well as the input to get such a
-	 * definition. The input must be provided as a valid JSON object.
+	 * Adds a new JSON document as well as the input JSON document to get such a document (if given). 
+	 * The input must be provided as a valid JSON object.
 	 * 
-	 * Warning: If the JSON source already includes JSON Data, the provision of input must match
-	 * 
-	 * @param file
-	 * @param input
-	 * @throws FileNotFoundException
+	 * @param input The {@link Reader} from which obtain JSON document used as input
+	 * @param output The {@link Reader} from which obtain the JSON document
+	 * @throws IllegalArgumentException If reader is null 
+	 * @return The {@link JsonData} with the JSON document and the input
 	 */
-	public void addJsonDef(File file, String input) throws FileNotFoundException {
-		if(file == null || !file.exists()) 
-			throw new IllegalArgumentException("File cannot be null and must exist");
-		if(input == null || input.equals("")) 
-			throw new IllegalArgumentException("Argument cannot be null or empty");
+	private JsonData buildJsonData(Reader input, Reader output) {
+		if(output == null) 
+			throw new IllegalArgumentException("The new document cannot be null and must exist");
+		
+		JsonObject inputJsonObject = null;
+		if(input != null) {
+			JsonElement inputElement = (new JsonParser()).parse(new JsonReader(input));
+			if(!inputElement.isJsonObject())
+				throw new JsonParseException("The input value must be a valid JSON object. Received " + input);
+			inputJsonObject = inputElement.getAsJsonObject();
+		}
+		
+		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(output));
+		JsonData data = new JsonData(inputJsonObject, rootElement);
+		return data;
+	}
+	
+	/**
+	 * Adds a new JSON document as well as the input JSON document to get such a document. 
+	 * 
+	 * The input (if given) must be provided as a valid JSON object. 
+	 * 
+	 * Warning: Once the source has been created with input (or without), subsequent 
+	 * calls must also include (or not) inputs
+	 * 
+	 * @param input The {@link Reader} from which obtain the JSON document used as input
+	 * @param output The {@link Reader} from which obtain the JSON document
+	 * @throws IllegalArgumentException If input is null
+	 * @throws IllegalStateException If the JSON source was initially created to not hold input data
+	 */
+	public void addJsonData(Reader input, Reader output) {
 		if(this.jsonData.size() > 0 && this.withInput == false) 
-			throw new IllegalStateException("This JSON source was created to hold JSON data *without* input");
+			throw new IllegalStateException("This JSON source was initially created to hold JSON data *without* input");
+		if(this.jsonData.size() == 0) 
+			this.withInput = (input == null) ? false : true;
 		
-		JsonElement inputElement = (new JsonParser()).parse(new JsonReader(new StringReader(input)));
-		if(!inputElement.isJsonObject())
-			throw new JsonParseException("The input value must be a valid JSON object. Received " + input);
-
-		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(file)));
-		JsonData data = new JsonData(inputElement.getAsJsonObject(), rootElement);
+		JsonData data = buildJsonData(input, output);
 		getJsonData().add(data);
-		this.withInput = true;
-	}
-		
-	/**
-	 * Adds a new JSON definition from a string with the JSON and a provided input
-	 * 
-	 * @param file
-	 * @param input
-	 * @throws FileNotFoundException 
-	 */
-	public void addJsonDef(String string, String input) {
-		if(string == null || string.equals("")) 
-			throw new IllegalArgumentException("Argument cannot be null or empty");
-		if(this.jsonData.size() > 0 && this.withInput == true) 
-			throw new IllegalStateException("This JSON source was created to hold JSON data *with* input");
-		if(input == null || input.equals("")) 
-			throw new IllegalArgumentException("Argument cannot be null or empty");
-		
-
-		JsonElement inputElement = (new JsonParser()).parse(new JsonReader(new StringReader(input)));
-		if(!inputElement.isJsonObject())
-			throw new JsonParseException("The input value must be a valid JSON object. Received " + input);
-
-		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new StringReader(string)));
-		JsonData data = new JsonData(inputElement.getAsJsonObject(), rootElement);
-		getJsonData().add(data);
-		this.withInput = true;
-	}	
-	
-	/**
-	 * Adds a new JSON definition from a file with the JSON
-	 * 
-	 * Warning: If the JSON source already includes JSON Data, the provision of input must match
-	 * 
-	 * @param file
-	 * @throws FileNotFoundException 
-	 */
-	public void addJsonDef(File file) throws FileNotFoundException {
-		if(file == null || !file.exists()) 
-			throw new IllegalArgumentException("File cannot be null and must exist");
-		if(this.jsonData.size() > 0 && this.withInput == true) 
-			throw new IllegalStateException("This JSON source was created to hold JSON data *with* input");
-		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new FileReader(file)));
-		JsonData data = new JsonData(null, rootElement);
-		getJsonData().add(data);
-		this.withInput = false;
 	}
 	
 	/**
-	 * Adds a new JSON definition from a string with the JSON
+	 * Generates a list of JSON objects according to the {@link JsonData} of this source.
 	 * 
-	 * @param file
-	 * @throws FileNotFoundException 
-	 */
-	public void addJsonDef(String string) {
-		if(string == null || string.equals("")) 
-			throw new IllegalArgumentException("Argument cannot be null or empty");
-		if(this.jsonData.size() > 0 && this.withInput == true) 
-			throw new IllegalStateException("This JSON source was created to hold JSON data *with* input");
-		JsonElement rootElement = (new JsonParser()).parse(new JsonReader(new StringReader(string)));
-		JsonData data = new JsonData(null, rootElement);
-		getJsonData().add(data);
-		this.withInput = false;
-	}	
-	
-	/**
-	 * Computes a list of JSON objects according to the data of this source.
-	 * If the source includes inputs, the list will include the set of input elements as roots for the 
-	 * JSON data of each source provided.
-	 * If the source does not include inputs, the listt will include all the objects from the JSON data
-	 * of each source provided.
+	 * - If the source DOES include inputs, the list will include the set of input elements as roots for the 
+	 * {@link JsonData}.
+	 * - If the source DOES NOT include inputs, the list will include all the objects from {@link JsonData}
 	 * 
-	 * @return
+	 * @return The list of {@link JsonObject}s
 	 */
 	public List<JsonObject> getSourceDigested() {
 		List<JsonObject> result = new ArrayList<JsonObject>();
@@ -177,7 +142,4 @@ public class JsonSource extends AbstractJsonSource {
 		return result;
 	}
 	
-	public boolean includesInput() {
-		return this.withInput;
-	}
 }

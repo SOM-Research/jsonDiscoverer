@@ -12,5 +12,5 @@ Export-Package: jsondiscoverer,
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.common;visibility:=reexport,
- jsondiscoverer.coverage;bundle-version="1.0.0";visibility:=reexport,
- com.google.gson;bundle-version="2.2.4";visibility:=reexport
+ jsondiscoverer.coverage;bundle-version="1.0.0";visibility:=reexport
+Bundle-ClassPath: lib/gson-2.2.4.jar

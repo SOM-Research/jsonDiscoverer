@@ -13,6 +13,7 @@ package jsondiscoverer.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class JsonInjectorTest {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		SingleJsonSource source = new SingleJsonSource("test");
-		source.addJsonDef(new File(INPUT_FILE));
+		source.addJsonData(null, new FileReader(new File(INPUT_FILE)));
 		
 		JsonInjector injector = new JsonInjector(source);
 		List<EObject> result = injector.inject();

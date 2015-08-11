@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -163,12 +164,12 @@ public class ZooDiscoverer {
 						jsonProperties.load(new FileReader(jsonPropertiesFile));
 						String inputJson = jsonProperties.getProperty("input");
 						if(inputJson != null) {
-							source.addJsonDef(jsonFile, inputJson);
+							source.addJsonData(new StringReader(inputJson), new FileReader(jsonFile));
 						} else {
-							source.addJsonDef(jsonFile);
+							source.addJsonData(null, new FileReader(jsonFile));
 						}
 					} else {
-						source.addJsonDef(jsonFile);
+						source.addJsonData(null, new FileReader(jsonFile));
 					}
 				} catch (JsonParseException e) {
 					LOGGER.info("Error deadling with source " + jsonFile.getName());
@@ -180,7 +181,7 @@ public class ZooDiscoverer {
 			EPackage metamodel = null;
 			if(overwrite || !resultingPath.exists()) {
 				JsonDiscoverer discoverer = new JsonDiscoverer();
-				metamodel = discoverer.discoverMetamodel(source);
+				metamodel = discoverer.discover(source);
 				saveEcore(metamodel, resultingPath);
 			} else if(resultingPath.exists()) {
 				metamodel = loadEcore(resultingPath);
@@ -192,9 +193,29 @@ public class ZooDiscoverer {
 				File singleSourceResultPath = new File(rootPath.getAbsoluteFile() + File.separator + jsonFile.getName() + ".xmi"); 
 
 				if(overwrite || !singleSourceResultPath.exists()) {
+					File jsonPropertiesFile = new File(jsonFile.getAbsolutePath().substring(0, jsonFile.getAbsolutePath().lastIndexOf(".")) + ".properties");
+
 					SingleJsonSource singleSource = new SingleJsonSource(shortname);
 					singleSource.setMetamodel(metamodel);
-					singleSource.addJsonDef(jsonFile);
+					
+					try {
+						if(jsonPropertiesFile.exists()) {
+							Properties jsonProperties = new Properties();
+							jsonProperties.load(new FileReader(jsonPropertiesFile));
+							String inputJson = jsonProperties.getProperty("input");
+							if(inputJson != null) {
+								singleSource.addJsonData(new StringReader(inputJson), new FileReader(jsonFile));
+							} else {
+								singleSource.addJsonData(null, new FileReader(jsonFile));
+							}
+						} else {
+							singleSource.addJsonData(null, new FileReader(jsonFile));
+						}
+					} catch (JsonParseException e) {
+						LOGGER.info("Error deadling with source " + jsonFile.getName());
+						throw e;
+					}
+					
 
 					JsonInjector injector = new JsonInjector(singleSource);
 					List<EObject> result = injector.inject();

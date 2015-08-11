@@ -13,7 +13,9 @@ package jsondiscoverer.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,9 +39,9 @@ import jsondiscoverer.JsonSource;
 import jsondiscoverer.zoo.ModelDrawer;
 
 public class JsonDiscovererTest {
-	public static String TEST_FILE = "./json/git/files.json";
+	public static String TEST_FILE = "./json/group/tan1A.json";
 	public static String RESULT_TEST_FILE = "./result.ecore";
-	
+
 	public static String TEST_FILE_2 = "./json/group/tan1B.json";
 	public static String RESULT_TEST_FILE_2 = "./refined.ecore";
 
@@ -54,15 +56,15 @@ public class JsonDiscovererTest {
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		JsonSource source = new JsonSource("test");
-		source.addJsonDef(new File(TEST_FILE));
-		
+		source.addJsonData(null, new FileReader(new File(TEST_FILE)));
+
 		JsonDiscoverer discoverer = new JsonDiscoverer();
-		EPackage ePackage = discoverer.discoverMetamodel(source);
-		
+		EPackage ePackage = discoverer.discover(source);
+
 		ResourceSet rset = new ResourceSetImpl();
 		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
-		
+
 		Resource res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
 		res2.getContents().add(ePackage); 
 		try {
@@ -71,33 +73,33 @@ public class JsonDiscovererTest {
 			e.printStackTrace();
 		}		
 
+		System.out.println("\nRefining\n");
+		JsonSource source2 = new JsonSource("test");
+		source2.addJsonData(null, new FileReader(new File(TEST_FILE_2)));
+
+		discoverer = new JsonDiscoverer();
+		EPackage ePackage2 = discoverer.refine(ePackage, source2);
+
+		res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE_2));
+		res2.getContents().add(ePackage2);
+		try {
+			res2.save(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		ModelDrawer drawer = new ModelDrawer(
-				new File("C:/Users/useradm/git/json-discoverer/fr.inria.atlanmod.json.discoverer.tests/json/issues"), 
+				new File("C:/Users/jcanovasi/git3/json-discoverer/jsondiscoverer.tests/json/group"),
 				new File("C:/Program Files (x86)/Graphviz 2.28/bin/dot.exe"));
 		List<EObject> toDraw = new ArrayList<>();
 
-//		for(EClassifier eClassifier : ePackage.getEClassifiers()){
-//			if (!(eClassifier instanceof EAnnotation) && (eClassifier instanceof EModelElement)) {
-//				EModelElement eModelElement = (EModelElement) eClassifier;
-//				eModelElement.getEAnnotations().clear();
-//			}
-//		}
+		for(EClassifier eClassifier : ePackage.getEClassifiers()){
+			if (!(eClassifier instanceof EAnnotation) && (eClassifier instanceof EModelElement)) {
+				EModelElement eModelElement = (EModelElement) eClassifier;
+				eModelElement.getEAnnotations().clear();
+			}
+		}
 		toDraw.add(ePackage);
-		drawer.draw(toDraw, new File("./json/issues/issue3.jpg"));
-		
-//		System.out.println("\nRefining\n");
-//		JsonSource source2 = new JsonSource("test2");
-//		source2.addJsonDef(new File(TEST_FILE_2));
-//		
-//		discoverer = new JsonDiscoverer();
-//		EPackage ePackage2 = discoverer.refineMetamodel(ePackage, source2);
-//
-//		res2 = rset.createResource(URI.createFileURI(RESULT_TEST_FILE));
-//		res2.getContents().add(ePackage2);
-//		try {
-//			res2.save(null);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		drawer.draw(toDraw, new File("./json/group/group.jpg"));
 	}
 }

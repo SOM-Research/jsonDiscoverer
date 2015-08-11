@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,8 +11,6 @@
 
 package jsondiscoverer;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,85 +19,89 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 /**
  * This class performs the injection process (obtaining models from JSON files)
  * This implementation does not depend on Xtext
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 1.0.0
  *
  */
 public class JsonInjector {
-	EPackage metamodel = null;
 	private final static Logger LOGGER = Logger.getLogger(JsonInjector.class.getName());
-
+	
 	private SingleJsonSource jsonSource;
 
 	public JsonInjector(SingleJsonSource jsonSource) {
 		this.jsonSource = jsonSource;
-
 		LOGGER.setLevel(Level.OFF);
 	}
 
 	/**
-	 * Injects a model from a JSON Source. Only the first one will be considered (if several)
+	 * Injects a model from a {@link SingleJsonSource} 
 	 * 
-	 * @param jsonSource
-	 * @return
+	 * @return The set of injected {@link EObject}s 
 	 */
 	public List<EObject> inject() {
 		if(jsonSource == null)
 			throw new IllegalArgumentException("The source cannot be null");
 
 		JsonDiscoverer discoverer = new JsonDiscoverer();
-		EPackage ePackage = discoverer.discoverMetamodel(jsonSource);
-		JsonElement rootElement = jsonSource.getJsonData().get(0).getData();
-		return inject(rootElement, ePackage);		
+		// The discovered metamodel is stored in the JSON source
+		discoverer.discover(jsonSource);
+		//JsonElement rootElement = jsonSource.getJsonData().get(0).getData();
+		List<JsonObject> elements = jsonSource.getSourceDigested();
+		return inject(elements);		
 	}
 
 	/**
 	 * Injects a model conforming to the metamodel from a set of Json Objects
 	 * 
-	 * @param rootElement
-	 * @param ePackage
-	 * @return
+	 * @param rootElement The root element of the JSON document
+	 * @param ePackage The metamodel
+	 * @return The set of injected {@link EObject}s
 	 */
-	private List<EObject> inject(JsonElement rootElement, EPackage ePackage) {
+	private List<EObject> inject(List<JsonObject> elements) {
+		if(jsonSource.getMetamodel() == null)
+			throw new IllegalStateException("The metamodel has not been discovered yet");
+		
 		// Getting the JSON objects
-		List<JsonObject> elements = new ArrayList<JsonObject>();
-		if (rootElement.isJsonArray()) {
-			LOGGER.finer("Several objects found");
-			for(int i = 0; i < rootElement.getAsJsonArray().size(); i++)
-				if(rootElement.getAsJsonArray().get(i).isJsonObject())
-					elements.add(rootElement.getAsJsonArray().get(i).getAsJsonObject());
-		} else if(rootElement.isJsonObject()) {
-			LOGGER.finer("Only one object found");
-			elements.add(rootElement.getAsJsonObject());
+//		List<JsonObject> elements = new ArrayList<JsonObject>();
+//		if (rootElement.isJsonArray()) {
+//			LOGGER.finer("Several objects found");
+//			for(int i = 0; i < rootElement.getAsJsonArray().size(); i++)
+//				if(rootElement.getAsJsonArray().get(i).isJsonObject())
+//					elements.add(rootElement.getAsJsonArray().get(i).getAsJsonObject());
+//		} else if(rootElement.isJsonObject()) {
+//			LOGGER.finer("Only one object found");
+//			elements.add(rootElement.getAsJsonObject());
+//		} else {
+//			LOGGER.finest("The root element was " + rootElement.getClass().getName());
+//			LOGGER.finest("It is: " + rootElement.getAsString());
+//		}
+
+		// Getting the EClass for the root element of the JSON source
+		String rootName = null;
+		if(jsonSource.includesInput()) {
+			rootName = digestId(jsonSource.getName()) + "Input";
 		} else {
-			LOGGER.finest("The root element was " + rootElement.getClass().getName());
-			LOGGER.finest("It is: " + rootElement.getAsString());
+			rootName = jsonSource.getName();
 		}
-
-		// Getting the root element
-		metamodel = ePackage;
-		EClassifier eClassifier = metamodel.getEClassifier(jsonSource.getName()); 
-
+		EClassifier eClassifier = jsonSource.getMetamodel().getEClassifier(rootName); 
+		
 		List<EObject> eObjects = new ArrayList<EObject>();
 		for(JsonObject jsonObject : elements) {
 			EObject eObject = instantiateEClassifier(eClassifier, jsonObject);
@@ -109,6 +111,13 @@ public class JsonInjector {
 		return eObjects;
 	}
 
+	/**
+	 * Instantiates an {@link EClassifier} from a {@link JsonObject}
+	 * 
+	 * @param eClassifier Classifier to instantiate
+	 * @param jsonObject JSON Object from which we takes the data
+	 * @return Instantiated object
+	 */
 	protected EObject instantiateEClassifier(EClassifier eClassifier, JsonObject jsonObject) {
 		EObject result = null;
 
@@ -141,6 +150,13 @@ public class JsonInjector {
 		return result;
 	}
 
+	/**
+	 * Setting a structural features
+	 * 
+	 * @param result Object containing the structural feature to set
+	 * @param eStructuralFeature Structural feature to set
+	 * @param value Value to set
+	 */
 	@SuppressWarnings("unchecked")
 	protected void setStructuralFeature(EObject result, EStructuralFeature eStructuralFeature, JsonElement value) {
 		if(value.isJsonArray()) {
@@ -165,7 +181,7 @@ public class JsonInjector {
 				if(value.isJsonObject()) {
 					JsonObject childJsonObject = value.getAsJsonObject();
 					String childClassName = eReference.getEType().getName();
-					EClassifier eChildClassifier = metamodel.getEClassifier(childClassName);
+					EClassifier eChildClassifier = jsonSource.getMetamodel().getEClassifier(childClassName);
 					if(eChildClassifier != null) {
 						EObject child = instantiateEClassifier(eChildClassifier, childJsonObject);
 						if(eStructuralFeature.getUpperBound() == -1) {
@@ -180,6 +196,13 @@ public class JsonInjector {
 		}
 	}
 
+	/**
+	 * Analyzes the type of the attribute to convert the JSON value
+	 * 
+	 * @param eAttribute The {@EAttribute}
+	 * @param value The value to convert
+	 * @return The converted value (as {@link JsonPrimitive})
+	 */
 	protected Object digestValue(EAttribute eAttribute, JsonElement value) {
 		if (eAttribute.getEType().equals(EcorePackage.Literals.ESTRING)) {
 			if(value.isJsonArray() || value.isJsonObject()) return ""; // TODO Improve discovery process to deal with this
@@ -192,18 +215,19 @@ public class JsonInjector {
 			return null;
 		}
 	}
-
-	protected EPackage loadMetamodel(File metamodelFile) {
-		ResourceSet rset = new ResourceSetImpl();
-		Resource res = rset.getResource(URI.createFileURI(metamodelFile.getAbsolutePath()), true);
-
-		try {
-			res.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return (EPackage) res.getContents().get(0);
+	
+	/**
+	 * Digest a String
+	 * 
+	 * @param id String to digest
+	 * @return The digested identifier
+	 */
+	private String digestId(String id) {
+		String result = id;
+		if(result.length() > 1 && result.endsWith("s")) 
+			result = result.substring(0, result.length()-1);
+		result = result.substring(0, 1).toUpperCase() + result.substring(1, result.length()); 
+		return result;
 	}
 
 }

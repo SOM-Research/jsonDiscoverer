@@ -13,6 +13,7 @@ package jsondiscoverer.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 import jsondiscoverer.JsonMultiInjector;
 import jsondiscoverer.SingleJsonSource;
@@ -34,12 +35,12 @@ public class JsonMultiInjectorTest {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		SingleJsonSource source1 = new SingleJsonSource("source1");
-		source1.addJsonDef(new File(INPUT_FILE1));
+		source1.addJsonData(null, new FileReader(new File(INPUT_FILE1)));
 		
 		Coverage coverage1 = CoverageCreator.loadCoverage(new File(COVERAGE_FILE1));
 
 		SingleJsonSource source2 = new SingleJsonSource("source2");
-		source2.addJsonDef(new File(INPUT_FILE2));
+		source2.addJsonData(null, new FileReader(new File(INPUT_FILE2)));
 
 		Coverage coverage2 = CoverageCreator.loadCoverage(new File(COVERAGE_FILE2));
 		
