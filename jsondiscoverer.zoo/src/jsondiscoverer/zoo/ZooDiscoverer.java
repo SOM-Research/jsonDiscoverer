@@ -96,6 +96,7 @@ public class ZooDiscoverer {
 			if(parentFile.isDirectory()) {
 				// Each API in ZOO directory
 				File resultingPath = new File(parentFile.getAbsoluteFile() + File.separator + parentFile.getName() + ".ecore"); 
+				List<File> coveragePaths = new ArrayList<File>();
 				if(overwrite || !resultingPath.exists()) {
 					JsonSourceSet sourceSet = new JsonSourceSet(parentFile.getName());
 					for(File sourceFile : parentFile.listFiles()) {
@@ -103,8 +104,11 @@ public class ZooDiscoverer {
 							// Each Source
 							try { 
 								JsonSource discoveredSource = discoverSource(sourceFile, overwrite);
-								if(discoveredSource != null)
+								if(discoveredSource != null) {
 									sourceSet.addJsonSource(discoveredSource);
+//									File coveragePath = new File(sourceFile.getAbsoluteFile() + File.separator + sourceFile.getName() + ".coverage.xmi");
+//									coveragePaths.add(coveragePath);
+								}
 							} catch(Exception e) {
 								LOGGER.severe(e.getMessage());
 								e.printStackTrace();
@@ -115,6 +119,7 @@ public class ZooDiscoverer {
 					JsonMultiDiscoverer multidiscoverer = new JsonMultiDiscoverer(sourceSet);
 					try {
 						multidiscoverer.discover(resultingPath);
+//						multidiscoverer.saveCoverage(coveragePaths);
 					} catch (FileNotFoundException e) {
 						LOGGER.severe(e.getMessage());
 					}

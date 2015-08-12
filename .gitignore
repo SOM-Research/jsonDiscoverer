@@ -2,6 +2,7 @@ jsondiscoverer.coverage/bin/**/*
 jsondiscoverer.tests/bin/**/*
 jsondiscoverer.tests/log/**/*
 jsondiscoverer.ui/bin/**/*
+jsondiscoverer.examples/bin/**/*
 jsondiscoverer.zoo/bin/**/*
 jsondiscoverer.zoo/zooBig/*
 jsondiscoverer.zoo/zooMini/*

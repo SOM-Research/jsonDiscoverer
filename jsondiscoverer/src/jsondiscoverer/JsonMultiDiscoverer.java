@@ -117,11 +117,12 @@ public class JsonMultiDiscoverer {
 	 * @param resultPaths The path where the coverage information will be saved
 	 */
 	public void saveCoverage(List<File> resultPaths) {
-		if(resultPaths.size() == coverageCreators.size())
-			for(int i = 0; i < coverageCreators.size(); i++) {
-				CoverageCreator coverageCreator = coverageCreators.get(i); 
-				coverageCreator.save(resultPaths.get(i));
+		if(resultPaths.size() == coverageCreators.size()) {
+			int i = 0;
+			for(CoverageCreator coverageCreator : coverageCreators.values()) {
+				coverageCreator.save(resultPaths.get(i++));
 			}
+		}
 		else {
 			throw new IllegalArgumentException("The size of the paths must match the size of coverage "
 					+ "files (it is: " + coverageCreators.size() + ")");

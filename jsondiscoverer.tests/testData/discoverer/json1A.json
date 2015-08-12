@@ -1,0 +1,15 @@
+[
+   {
+      "codeLieu":"CRQU4",
+      "libelle":"Place du Cirque",
+      "distance":"21 m",
+      "ligne":[
+         {
+            "numLigne":"2"
+         },
+         {
+            "numLigne":"C1"
+         }
+      ]
+   }
+]

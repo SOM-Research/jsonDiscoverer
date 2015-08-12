@@ -13,22 +13,19 @@
 package jsondiscoverer;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+
+import jsondiscoverer.util.ModelHelper;
 
 /**
  * This class composes a set of ecore models representing json-based apis. Although some
@@ -37,6 +34,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
  * ecore models discovered by the JSONMultiDiscoverer.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 1.0.0
  *
  */
 public class JsonComposer {
@@ -56,8 +54,8 @@ public class JsonComposer {
 	 * Compose the sourceSet's received in the constructor and returns the composed metamodel. 
 	 * If resultPath is not null, serializes the metamodel into a file
 	 * 
-	 * @param resultPath
-	 * @return
+	 * @param resultPath The path to store the composed metamodel
+	 * @return The composed metamodel
 	 */
 	public EPackage compose(File resultPath) {
 		EPackage result = EcoreFactory.eINSTANCE.createEPackage();
@@ -65,6 +63,11 @@ public class JsonComposer {
 		HashMap<String, List<EClassifier>> cache = new HashMap<String, List<EClassifier>>();
 		for(JsonSourceSet sourceSet : sourceSets) {
 			EPackage sourceMetamodel = sourceSet.getMetamodel();
+			if(sourceMetamodel == null) {
+				LOGGER.finer("The JSON source set called " + sourceSet.getName() + " didn't included metamodel, discovering now...");
+				JsonMultiDiscoverer multiDiscoverer = new JsonMultiDiscoverer(sourceSet);
+				sourceMetamodel = multiDiscoverer.discover();
+			}
 			cache.put(sourceMetamodel.getName(), sourceMetamodel.getEClassifiers());
 		}
 
@@ -114,7 +117,7 @@ public class JsonComposer {
 			result.getEClassifiers().addAll(sourceMetamodel.getEClassifiers());
 		}
 		if(resultPath != null)
-			saveEPackage(result, resultPath);
+			ModelHelper.saveEPackage(result, resultPath);
 		return result;
 	}
 
@@ -167,15 +170,4 @@ public class JsonComposer {
 		return false;
 	}
 
-	private void saveEPackage(EPackage ePackage, File resultPath) {
-		ResourceSet rset = new ResourceSetImpl();
-		Resource res = rset.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
-
-		try {
-			res.getContents().add(ePackage);
-			res.save(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}	
 }

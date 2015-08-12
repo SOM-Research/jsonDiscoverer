@@ -100,8 +100,10 @@ public class JsonSource extends AbstractJsonSource {
 	 * @throws IllegalStateException If the JSON source was initially created to not hold input data
 	 */
 	public void addJsonData(Reader input, Reader output) {
-		if(this.jsonData.size() > 0 && this.withInput == false) 
+		if(this.jsonData.size() > 0 && this.withInput == false && input != null) 
 			throw new IllegalStateException("This JSON source was initially created to hold JSON data *without* input");
+		if(this.jsonData.size() > 0 && this.withInput == true && input == null) 
+			throw new IllegalStateException("This JSON source was initially created to hold JSON data *with* input");
 		if(this.jsonData.size() == 0) 
 			this.withInput = (input == null) ? false : true;
 		

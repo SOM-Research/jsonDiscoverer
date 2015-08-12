@@ -45,10 +45,11 @@ import jsondiscoverer.coverage.CoverageMapping;
 import jsondiscoverer.coverage.RefMapping;
 
 /**
- * Injects a model with information coming from several JSON files
+ * Injects a model with information coming from a couple of JSON files
  * This implementation does not depend on Xtext
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 1.0.0
  *
  */
 public class JsonMultiInjector {

@@ -73,7 +73,7 @@ public class JsonDiscoverer {
 		if(source == null) 
 			throw new IllegalArgumentException("Source cannot be null");
 		else if(source.getJsonData().size() == 0) 
-			throw new IllegalArgumentException("The source must include, at least, one JSON definition.");
+			throw new IllegalArgumentException("The source [" + source.getName() + "] must include, at least, one JSON document.");
 
 		List<JsonObject> elements = source.getSourceDigested();
 
