@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: jsondiscoverer.examples
+Bundle-Version: 1.0.0
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: jsondiscoverer;bundle-version="1.0.0",
+ jsondiscoverer.zoo;bundle-version="1.0.0"

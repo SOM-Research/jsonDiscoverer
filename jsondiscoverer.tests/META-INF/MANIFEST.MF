@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Version: 1.0.0
+Bundle-SymbolicName: jsondiscoverer.test;singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: jsondiscoverer,
+ jsondiscoverer.zoo,
+ org.junit
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

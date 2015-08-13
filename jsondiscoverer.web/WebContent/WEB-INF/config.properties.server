@@ -1,0 +1,10 @@
+serverURL=http://som-research.uoc.edu
+workingDir=/opt/local/webapps/jsonDiscoverer/workingDir
+IdInjector=injector
+IdDiscoverer=discoverer
+IdMultiDiscoverer=multidiscoverer
+dotExePath=/usr/bin/dot
+JsonParameter=json
+UrlParameter=url
+LimitChars=16384
+version=2.0.0
