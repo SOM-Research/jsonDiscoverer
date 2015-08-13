@@ -44,7 +44,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
                 function(data) {
                     $scope.metamodel = "data:image/jpg;base64," + data.image;
                     $scope.metamodelFile = "data:text/octet-stream;base64," + data.xmi;
-                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://atlanmod.github.io/json-discoverer/#/contact">contact us</a> to improve our tool!' });
+                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://som-research.uoc.edu/tools/jsonDiscoverer/#/contact">contact us</a> to improve our tool!' });
                 },
                 function(data, status, headers, config) {
                     $scope.metamodel = "";
