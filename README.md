@@ -1,7 +1,7 @@
-JSON-Discoverer
+jsonDiscoverer
 ===============
 
-Visit the [webpage of the project](http://som-research.github.io/json-discoverer) to play with the service.
+Visit the [webpage of the project](http://som-research.github.io/jsonDiscoverer) to play with the service.
 
 What is this project about?
 ---------------------------
