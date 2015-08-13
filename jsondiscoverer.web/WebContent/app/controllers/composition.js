@@ -17,7 +17,7 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
         $scope.alertsGeneral = [ ];
 
         $scope.$on('$viewContentLoaded', function(event) {
-            $window.ga('send', 'pageview', {'page': $location.path()});
+            $window.ga('send', 'pageview', {'page': '/tools/jsonDiscoverer' + $location.path()});
         });
 
 

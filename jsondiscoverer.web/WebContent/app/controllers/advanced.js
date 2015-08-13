@@ -10,7 +10,7 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
         $scope.alertsGeneral = [ ];
 
         $scope.$on('$viewContentLoaded', function(event) {
-            $window.ga('send', 'pageview', {'page': $location.path()});   
+            $window.ga('send', 'pageview', {'page': '/tools/jsonDiscoverer' + $location.path()});   
         });
 
         $scope.defsNumber = function() {
