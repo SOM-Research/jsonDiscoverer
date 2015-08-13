@@ -3,7 +3,7 @@ angular.module("jsonDiscoverer").config(["$routeProvider", "$httpProvider",
         $routeProvider.
             when("/", {
                 templateUrl : "app/partials/main.html",
-                controller : "IndexCtrl"
+                controller : "MainCtrl"
             }).
             when("/simple", {
                 templateUrl : "app/partials/simple.html",

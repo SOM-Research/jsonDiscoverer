@@ -20,8 +20,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.eclipse.ocl.common_1.1.0.v20130531-0544.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.eclipse.ocl.ecore_3.2.0.v20130125-1817.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lpg.runtime.java_2.0.17.v201004271640.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/fr.inria.atlanmod.json.discoverer.coverage.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/fr.inria.atlanmod.json.discoverer.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/java-property-utils-1.9.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cxf-core-3.1.1.jar"/>
@@ -34,6 +32,8 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/stax2-api-3.1.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/woodstox-core-asl-4.4.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xmlschema-core-2.2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsondiscoverer.coverage.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jsondiscoverer.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

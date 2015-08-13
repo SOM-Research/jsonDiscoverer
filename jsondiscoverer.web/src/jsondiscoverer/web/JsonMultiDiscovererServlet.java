@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,12 +9,12 @@
  *    Javier Canovas (me@jlcanovas.es) 
  *******************************************************************************/
 
-package fr.inria.atlanmod.json.web;
+package jsondiscoverer.web;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -32,20 +32,19 @@ import org.eclipse.emf.ecore.EPackage;
 
 import com.google.gson.JsonObject;
 
-import fr.inria.atlanmod.discoverer.JsonMultiDiscoverer;
-import fr.inria.atlanmod.discoverer.JsonSource;
-import fr.inria.atlanmod.discoverer.JsonSourceSet;
+import jsondiscoverer.JsonMultiDiscoverer;
+import jsondiscoverer.JsonSource;
+import jsondiscoverer.JsonSourceSet;
 
 /**
  * Main servlet to provide access to the composer
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 2.0.0
  *
  */
 @WebServlet("/multiDiscover")
 public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
-	public static final String version = "1.3";
-	
 	private static final long serialVersionUID = 23L;
 	
 	// The ID for this servlet which will be used to access to the working directory
@@ -87,7 +86,7 @@ public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 			List<String> sourcesList = sources.get(sourceName);
 			JsonSource source = new JsonSource(sourceName);
 			for(String json : sourcesList) {
-				source.addJsonDef(json);
+				source.addJsonData(null, new StringReader(json));
 			}
 			sourceSet.addJsonSource(source);
 		}

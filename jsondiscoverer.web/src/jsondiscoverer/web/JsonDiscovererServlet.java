@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,11 +9,12 @@
  *    Javier Canovas (me@jlcanovas.es) 
  *******************************************************************************/
 
-package fr.inria.atlanmod.json.web;
+package jsondiscoverer.web;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,24 +25,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import com.google.gson.JsonObject;
 
-import fr.inria.atlanmod.discoverer.JsonDiscoverer;
-import fr.inria.atlanmod.discoverer.JsonSource;
+import jsondiscoverer.JsonDiscoverer;
+import jsondiscoverer.JsonSource;
 
 /**
  * Main class that provides the main access to the JSON discoverer
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 2.0.0
  *
  */
 @WebServlet("/discoverMetamodel")
 public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
-	public static final String version = "1.2";
-	
 	private static final long serialVersionUID = 83L;
 	
 	// The ID for this servlet which will be used to access to the working directory
@@ -84,8 +82,8 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 		// Discovering
 		JsonDiscoverer discoverer = new JsonDiscoverer();
 		JsonSource source = new JsonSource("Discovered");
-		source.addJsonDef(jsonCode);
-		EPackage discoveredModel = discoverer.discoverMetamodel(source);
+		source.addJsonData(null, new StringReader(jsonCode));
+		EPackage discoveredModel = discoverer.discover(source);
 		
 		return discoveredModel;
 	}

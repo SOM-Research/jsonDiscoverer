@@ -1,7 +1,7 @@
 angular.module("jsonDiscoverer").service('DiscovererService', ["$http",
     function($http) {
-        //this.prefix = "http://localhost:8080/fr.inria.atlanmod.json.web";
-        this.prefix = "http://atlanmodexp.info.emn.fr:8800/jsonDiscoverer";
+        //this.prefix = "http://localhost:8080/jsondiscoverer.web";
+        this.prefix = "http://som-research.uoc.edu/tools/jsonDiscoverer";
 
         this.callService = function(call, dataToSend, success, failure) {
             $http({
@@ -57,7 +57,7 @@ angular.module("jsonDiscoverer").service('DiscovererService', ["$http",
             });
 
             this.callService(this.prefix + "/getJson", dataToSend, success, failure);
-        }
+        };
 
         this.calculatePath = function(urlData, sourceNode, targetNode, success, failure) {
             var dataToSend = $.param({
@@ -67,6 +67,18 @@ angular.module("jsonDiscoverer").service('DiscovererService', ["$http",
             });
 
             this.callService(this.prefix + "/calculatePath", dataToSend, success, failure);
-        }
+        };
+        
+        this.getServerVersion = function(success, failure) {
+        	$http({
+                method : 'GET',
+                url : this.prefix + "/version",
+                headers : {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function(data) {
+                success(data.version);
+            }).error(function(data, status, headers, config) {
+                failure(data, status, headers, config);
+            });
+        };
     }
 ]);

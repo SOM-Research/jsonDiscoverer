@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@
  *    Javier Canovas (me@jlcanovas.es) 
  *******************************************************************************/
 
-package fr.inria.atlanmod.json.web;
+package jsondiscoverer.web;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,11 +22,8 @@ import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sun.jndi.cosnaming.IiopUrl.Address;
 
 
 /**
@@ -34,11 +31,11 @@ import com.sun.jndi.cosnaming.IiopUrl.Address;
  * LIMIT_LINES to avoid overloading the server.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 2.0.0
  *
  */
 @WebServlet("/getJson")
 public class ProxyServlet extends AbstractJsonDiscoverer {
-	public static final String version = "1.2";
 	private static final long serialVersionUID = 133L;
 	
 	/**

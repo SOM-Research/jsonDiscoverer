@@ -41,7 +41,7 @@ import com.google.gson.JsonObject;
  * This implementation does not depend on Xtext (v0.1.0)
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 1.0.0
+ * @version 2.0.0
  *
  */
 public class JsonDiscoverer {

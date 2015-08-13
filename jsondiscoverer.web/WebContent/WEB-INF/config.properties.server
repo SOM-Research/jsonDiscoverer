@@ -1,5 +1,5 @@
-serverURL=http://atlanmod.github.io
-workingDir=/opt/apache-tomee-jaxrs-1.6.0/webapps/jsonDiscoverer/workingDir
+serverURL=http://som-research.uoc.edu
+workingDir=/opt/local/webapps/jsonDiscoverer/workingDir
 IdInjector=injector
 IdDiscoverer=discoverer
 IdMultiDiscoverer=multidiscoverer
@@ -7,3 +7,4 @@ dotExePath=/usr/bin/dot
 JsonParameter=json
 UrlParameter=url
 LimitChars=16384
+version=2.0.0

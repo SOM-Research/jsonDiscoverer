@@ -1,6 +1,17 @@
-package fr.inria.atlanmod.json.web;
+/*******************************************************************************
+ * Copyright (c) 2008, 2015
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Javier Canovas (me@jlcanovas.es) 
+ *******************************************************************************/
 
-import java.io.File;
+
+package jsondiscoverer.web;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -14,21 +25,20 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 
-import fr.inria.atlanmod.discoverer.CoreographyBuilder;
-import fr.inria.atlanmod.discoverer.JsonComposer;
-import fr.inria.atlanmod.discoverer.JsonMultiDiscoverer;
-import fr.inria.atlanmod.discoverer.JsonSourceSet;
+import jsondiscoverer.CoreographyBuilder;
+import jsondiscoverer.JsonComposer;
+import jsondiscoverer.JsonMultiDiscoverer;
+import jsondiscoverer.JsonSourceSet;
 
 /**
  * This servlet allows calculating paths between nodes of the discovered metamodel
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 2.0.0
  *
  */
 @WebServlet("/calculatePath")
 public class JsonPathCalculatorServlet extends JsonComposerServlet {
-	public static final String version = "1.2";
-	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		addResponseOptions(response);

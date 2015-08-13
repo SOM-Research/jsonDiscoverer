@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@
  *    Javier Canovas (me@jlcanovas.es) 
  *******************************************************************************/
 
-package fr.inria.atlanmod.json.web;
+package jsondiscoverer.web;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,10 +25,11 @@ import javax.servlet.http.HttpServletResponse;
  * Simple servlet to know the versions of the other servlets
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 2.0.0
  *
  */
-@WebServlet("/version")
-public class JsonDiscovererVersionServlet extends AbstractJsonDiscoverer {
+@WebServlet("/status")
+public class StatusServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 1983L;
 
 	@Override
@@ -36,13 +37,6 @@ public class JsonDiscovererVersionServlet extends AbstractJsonDiscoverer {
 		addResponseOptions(resp);
 		PrintWriter out = resp.getWriter();
 		out.println("CORS allow-origin: " + serverURL);
-		out.println("Discoverer servlet version: " + JsonDiscovererServlet.version);
-		out.println("Injector servlet version: " + JsonInjectorServlet.version);
-		out.println("MultiDiscoverer servlet version: " + JsonMultiDiscovererServlet.version);
-		out.println("Composer servlet version: " + JsonComposerServlet.version);
-		out.println("Path Calculator servlet version: " + JsonPathCalculatorServlet.version);
-		out.println("Proxy servlet version: " + ProxyServlet.version);
-
 		out.println("working dir: " + ((workingDir.isDirectory()) ? "Exists" : "NOT EXISTS"));
 
 		String injectorId = properties.getProperty(JsonInjectorServlet.INJECTOR_ID);

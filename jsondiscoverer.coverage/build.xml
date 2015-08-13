@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ====================================================================== 
-     16 dec. 2013                                                  
+     12/08/2015                                                 
 
      JSON discoverer    
      Build JAR
@@ -16,6 +16,6 @@
           target: default              
          ================================= -->
     <target name="default" description="JAR">
-        <jar destfile="fr.inria.atlanmod.json.discoverer.coverage.jar" basedir="bin"/>
+        <jar destfile="jsondiscoverer.coverage.jar" basedir="bin"/>
     </target>
 </project>

@@ -1,5 +1,5 @@
-serverURL=http://localhost:8000
-workingDir=C:/Users/useradm/git/json-discoverer/fr.inria.atlanmod.json.web/WebContent/workingDir
+serverURL=http://localhost:8080
+workingDir=C:/Users/jcanovasi/git3/json-discoverer/jsondiscoverer.web/WebContent/workingDir
 IdInjector=injector
 IdDiscoverer=discoverer
 IdMultiDiscoverer=multidiscoverer
@@ -7,3 +7,4 @@ dotExePath=C:/Program Files (x86)/Graphviz 2.28/bin/dot.exe
 JsonParameter=json
 UrlParameter=url
 LimitChars=16384
+version=2.0.0

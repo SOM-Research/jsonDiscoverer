@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2013
+ * Copyright (c) 2008, 2015
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@
  *    Javier Canovas (me@jlcanovas.es) 
  *******************************************************************************/
 
-package fr.inria.atlanmod.json.web;
+package jsondiscoverer.web;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -45,6 +45,7 @@ import sun.misc.BASE64Encoder;
  * Abstract class to factor some common behavior
  * 
  * @author Javier Canovas (me@jlcanovas.es)
+ * @version 2.0.0
  *
  */
 public abstract class AbstractJsonDiscoverer extends HttpServlet {
@@ -56,9 +57,12 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	// The path to the Graphviz DOT execitable (needed for generating the pictures)
 	public static String dotExePath = null;
 
+	// Version of the app
+	String version = "";
+	
 	// The jsonParam used for discovery (where the json code is stored)
 	static String jsonParam = null;
-
+	
 	// Server for the CORS
 	String serverURL = "";
 
@@ -81,6 +85,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			jsonParam = properties.getProperty("JsonParameter");
 
 			serverURL = properties.getProperty("serverURL");
+			version = properties.getProperty("version");
 			if(serverURL == null) 
 				serverURL = "http://localhost:8080";
 		} catch (IOException e) {

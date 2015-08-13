@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EcoreFactory;
  * This class provides some helper methods to fill in the metadata in the discovered models
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 1.0.0
+ * @version 2.0.0
  *
  */
 public class AnnotationHelper {
