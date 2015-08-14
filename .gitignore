@@ -9,6 +9,7 @@ jsondiscoverer.zoo/zooMini/*
 jsondiscoverer/bin/**/*
 jsondiscoverer.web/build/**/*
 jsondiscoverer.web/jsonDiscoverer.war
+jsondiscoverer.web/**/workingDir/**/*.xmi
 testing/**
 .idea/**
 *.iml

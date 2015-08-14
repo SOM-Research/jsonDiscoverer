@@ -1,16 +1,17 @@
     <div class="row">
-    <h2>How it works?</h2>
+    <h2>How does it work?</h2>
     <div class="col-md-6">
 	    <div class="text-center">
 	        <img style="margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/advanced.png" alt="Advanced discoverer">
 	    </div>
 	</div>
 	<div class="col-md-6">
-		<p>The advanced JSON discoverer infers and visualizes the implicit schema shared by a set of JSON documents. As shown in the figure, the process works by analyzing the commonalities of JSON definitions coming from the same or different sources (two in the figure). In the latter, the discoverer infers links between the subschema of each source.</p>
+		<p>The advanced JSON discoverer infers and visualizes the <strong>implicit schema shared by a set of JSON documents</strong>. 
+		As shown in the figure, the process works by <strong>analyzing the commonalities</strong> of JSON documents coming from the same/different sources (two in the figure). In the latter, the discoverer infers links between the subschema of each source.</p>
 		<p>To use the advanced JSON discoverer follow these steps:</p>
 	    <ul>
-	    	<li><strong>Step 1. Provision.</strong> You have to provide one or more JSON sources. For each source, you have to give a name and provide one ore more JSON definitions.</li>
-	    	<li><strong>Step 2. Discovery and Composition.</strong> For each JSON source we will discover the schema information and then all (sub)schemas will be composed in a general schema. This general schema will be visualized in the form of a UML class diagram.</li>
+	    	<li><strong>Step 1. Provision.</strong> You have to provide one or more JSON sources. For each source, you have to give a name and provide one ore more JSON documents.</li>
+	    	<li><strong>Step 2. Discovery and Composition.</strong> For each JSON source we will discover the schema information and then all (sub)schemas will be composed in a general schema. This general schema will be visualized in the form of a (UML) class diagram.</li>
 	    </ul>
 	</div>
     </div>
@@ -33,11 +34,11 @@
 			    	</form>
 				</div>
 				<h4 style="padding-top: 20px;">Step 2. Discover and Compose </h4>
-				<button class="btn btn-block" ng-disabled="!discoveryPosible" ng-click="discover()">Discover Domain Model</button>
+				<button class="btn btn-block" ng-disabled="!discoveryPosible" ng-click="discover()">Discover Schema</button>
 				<a style="text-decoration: none;" ng-href="{{metamodelFile}}" target="_blank">
 					<button style="margin-top: 10px;" class="btn btn-block" type="button" ng-disabled="metamodelFile == ''">
-						Download data model	<small>(Save as XMI)</small>
-					</button>
+						Download schema <small>(Save as Ecore)</small>
+					</button> 
 				</a>
 		    </div>
 
@@ -82,7 +83,7 @@
 
 	    <div class="row">
 			<div class="col-md-12">
-				<h3 ng-show="showTitles">Your Domain Model</h3>
+				<h3 ng-show="showTitles">Your Schema</h3>
 		    	<p class="text-center"><img id="metamodel" ng-src="{{metamodel}}" class="img-rounded"></p>
 			</div>
 		</div>
