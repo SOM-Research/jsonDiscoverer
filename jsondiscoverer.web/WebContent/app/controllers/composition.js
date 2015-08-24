@@ -5,10 +5,12 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
         $scope.name = "";
         $scope.graph = "";
 
+        $scope.layoutPosible = false;
         $scope.sigmaGraph = new sigma('sigma-container');
         $scope.layoutButton = "Start Layout";
         $scope.layoutRunning = false;
 
+        $scope.pathPosible = false;
         $scope.sourcePath = {};
         $scope.sourcePreviousColor = "";
         $scope.targetPath = {};
@@ -83,49 +85,13 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
                         })
                     }
                     $scope.sigmaGraph.refresh();
-
+                    $scope.layoutPosible = true;
                 },
                 function(data, status, headers, config) {
                     $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the composition discovery process. Could you check your JSON and try again?' });
                 }
             );
         };
-
-        $scope.test = function() {
-            $scope.sigmaGraph.graph.clear();
-            $scope.sigmaGraph.graph.addNode({
-                id : "A",
-                label : "labelA",
-                x : Math.random(),
-                y : Math.random(),
-                size : 1,
-                color : '#f00'
-            }).addNode({
-                id : "B",
-                label : "labelB",
-                x : Math.random(),
-                y : Math.random(),
-                size : 1,
-                color : '#f00'
-            }).addNode({
-                id : "C",
-                label : "labelC",
-                x : Math.random(),
-                y : Math.random(),
-                size : 1,
-                color : '#f00'
-            }).addEdge({
-                id : "EAB",
-                source : "A",
-                target : "B"
-            }).addEdge({
-                id : "EBC",
-                source : "B",
-                target : "C"
-            });
-            $scope.sigmaGraph.refresh();
-        };
-
 
         $scope.updateCompositionPosible = function() {
             if(typeof defs === "undefined") $scope.compositionPosible = false;
@@ -157,6 +123,7 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
                 $scope.targetPath.color = $scope.targetPreviousColor;
                 $scope.sourcePath = null;
                 $scope.targetPath = null;
+                $scope.pathPosible = false;
             }
 
             if($scope.sourcePath === null){
@@ -165,6 +132,7 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
             } else {
                 $scope.targetPreviousColor = event.data.node.color;
                 $scope.targetPath = event.data.node;
+                $scope.pathPosible = true;
             }
             event.data.node.color = '#000';
             $scope.sigmaGraph.refresh();

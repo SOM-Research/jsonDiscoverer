@@ -94,7 +94,7 @@
 
             <h4 style="padding-top: 20px;">Step 3. Composition Graph </h4>
             <div style="float:right;">
-                <button style="margin-top: -10px;"class="btn" ng-click="layout()">{{layoutButton}}</button>
+                <button style="margin-top: -10px;"class="btn" ng-disabled="!layoutPosible" ng-click="layout()">{{layoutButton}}</button>
             </div>
             <p>Same-colored nodes represent concepts of an API. White nodes represent attributes of the concepts while red nodes represent input concepts</p>
             <p class="text-center">
@@ -114,7 +114,7 @@
                 <div class="col-md-2">
                     <input type="text" class="form-control" id="targetNode" placeholder="Select a target node" ng-model="targetPath.label" readonly>
                 </div>
-                <button class="btn col-md-3 col-md-offset-1" ng-click="calculatePath()">Calculate</button>
+                <button class="btn col-md-3 col-md-offset-1" ng-disabled="!pathPosible" ng-click="calculatePath()">Calculate</button>
             </form>
 		</div>
 
