@@ -1,5 +1,5 @@
 serverURL=http://localhost:8080
-workingDir=C:/Users/jcanovasi/git3/json-discoverer/jsondiscoverer.web/WebContent/workingDir
+workingDir=C:/Users/jcanovasi/git/jsonDiscoverer/jsondiscoverer.web/WebContent/workingDir
 IdInjector=injector
 IdDiscoverer=discoverer
 IdMultiDiscoverer=multidiscoverer
