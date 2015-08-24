@@ -70,6 +70,10 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
                     $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
                 }
             );
+        };
+
+        $scope.activateHelp = function() {
+        	$('body').chardinJs('start')
         }
     }
 ]);
