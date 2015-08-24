@@ -27,6 +27,9 @@
 
 	<div class="row">
 	<h2>Try it out!</h2>
+		<div style="float:right; margin-top:-15px; margin-bottom:10px;">
+            <button class="btn btn-xs" type="button" ng-click="activateHelp()">Give me some help!</button>
+        </div>
 	</div>
 
 	<div ng-controller="CompositionCtrl">
@@ -38,13 +41,15 @@
                         <form class="form-horizontal" role="form">
                             <label for="inputName" class="col-md-2 control-label">Name</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" id="inputName" placeholder="Meaningful name for your JSON" ng-model="name">
+                                <input type="text" class="form-control" id="inputName" placeholder="Meaningful name for your JSON" ng-model="name"
+                                data-intro="Create a JSON source giving a name. After you can add JSON documents representing the output of the source" data-position="top">
                             </div>
                             <button class="btn col-md-2" ng-disabled="name == ''" ng-click="newSource()">OK</button>
                         </form>
                     </div>
                     <h4 style="padding-top: 20px;">Step 2. Composition Discovery </h4>
-                    <button class="btn btn-block" ng-disabled="!compositionPosible" ng-click="discoverComposition()">Discover Graph</button>
+                    <button class="btn btn-block" ng-disabled="!compositionPosible" ng-click="discoverComposition()"
+                    data-intro="Once you have provided your JSON sources, you can launch the garph discovery" data-position="right">Discover Graph</button>
                 </div>
 
                 <div class="col-md-8">
@@ -94,7 +99,8 @@
 
             <h4 style="padding-top: 20px;">Step 3. Composition Graph </h4>
             <div style="float:right;">
-                <button style="margin-top: -10px;"class="btn" ng-disabled="!layoutPosible" ng-click="layout()">{{layoutButton}}</button>
+                <button style="margin-top: -10px;"class="btn" ng-disabled="!layoutPosible" ng-click="layout()"
+                data-intro="The layout algorithm will tidy up the nodes" data-position="top">{{layoutButton}}</button>
             </div>
             <p>Same-colored nodes represent concepts of an API. White nodes represent attributes of the concepts while red nodes represent input concepts</p>
             <p class="text-center">
@@ -108,13 +114,16 @@
             <form class="form-horizontal" role="form">
                 <label for="sourceNode" class="col-md-2 control-label">Source Node</label>
                 <div class="col-md-2">
-                    <input type="text" class="form-control" id="sourceNode" placeholder="Select a source node" ng-model="sourcePath.label" readonly>
+                    <input type="text" class="form-control" id="sourceNode" placeholder="Select a source node" ng-model="sourcePath.label" readonly
+                    data-intro="Select the source node by click on the graph" data-position="bottom">
                 </div>
                 <label for="targetNode" class="col-md-2 control-label">Target Node</label>
                 <div class="col-md-2">
-                    <input type="text" class="form-control" id="targetNode" placeholder="Select a target node" ng-model="targetPath.label" readonly>
+                    <input type="text" class="form-control" id="targetNode" placeholder="Select a target node" ng-model="targetPath.label" readonly
+                    data-intro="Select the target node by click on the graph" data-position="bottom">
                 </div>
-                <button class="btn col-md-3 col-md-offset-1" ng-disabled="!pathPosible" ng-click="calculatePath()">Calculate</button>
+                <button class="btn col-md-3 col-md-offset-1" ng-disabled="!pathPosible" ng-click="calculatePath()"
+                data-intro="Once source/target nodes are selected, you can launch the sequence diagram generator" data-position="bottom">Calculate</button>
             </form>
 		</div>
 

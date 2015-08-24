@@ -16,6 +16,9 @@
 
 	<div class="row">
 		<h2>Try it out!</h2>
+		<div style="float:right; margin-top:-15px; margin-bottom:-30px;">
+            <button class="btn btn-xs" type="button" ng-click="activateHelp()">Give me some help!</button>
+        </div>
 	</div>
 
 	<div ng-show="isSecure()">
@@ -29,10 +32,12 @@
 
     <div class="row">
 	    <div class="col-md-10">
-			<p>Copy/Paste your JSON here <a ng-click="example()">(or use a predefined example)</a>: </p>
+			<p>Copy/Paste your JSON here <a ng-click="example()" 
+			data-intro="If you just want to test the service, click here to get a test JSON document" data-position="top">(or use an example)</a>: </p>
 			<form role="form">
 				<div class="form-group">
-					<p><textarea rows="10" style="width: 100%; resize: none;" ng-model="json.text"></textarea></p>			
+					<p><textarea rows="10" style="width: 100%; resize: none;" ng-model="json.text" 
+					data-intro="Write (or copy/paste) here the JSON document from which you want to discover the schema (and the data model)" data-position="top"></textarea></p>			
 				</div>
 			</form>
 
@@ -42,7 +47,8 @@
 						<label for="urlJSON" class="control-label" style="font-weight: normal;">...or give us the URL to obtain the JSON:</label>
 					</div>
 					<div class="col-md-6">
-						<input type="url" class="form-control" id="urlJSON" placeholder="URL returning a JSON" ng-model="url">
+						<input type="url" class="form-control" id="urlJSON" placeholder="URL returning a JSON" ng-model="url"
+						data-intro="If you have an URL containing the JSON document, just put it here" data-position="bottom">
 					</div>
 					<div class="col-md-2">
 						<button class="btn" ng-disabled="url == ''" ng-click="obtainJSON()">Obtain JSON</button>
@@ -53,15 +59,18 @@
 
 		<div class="col-md-2">
 			<p class="text-center">
-				<button class="btn btn-block" type="button" ng-click="discover()" ng-disabled="json.text == ''">Discover Schema</button>
+				<button class="btn btn-block" type="button" ng-click="discover()" ng-disabled="json.text == ''"
+				data-intro="Click here to launch the discoverer" data-position="top">Discover Schema</button>
 				<a style="text-decoration: none;" ng-href="{{metamodelFile}}" target="_blank">
-					<button style="margin-top: 20px;" class="btn btn-block" type="button" ng-disabled="metamodelFile == ''">
+					<button style="margin-top: 20px;" class="btn btn-block" type="button" ng-disabled="metamodelFile == ''"
+					data-intro="We work with Eclipse Modeling Framework (EMF) so if you want you can download the schema as an Ecore file" data-position="left">
 						Download schema<br>
 						<small>(Save as Ecore)</small>
 					</button>
 				</a>
 				<a style="text-decoration: none;" ng-href="{{modelFile}}" target="_blank">
-					<button style="margin-top: 10px;" class="btn btn-block" type="button" ng-disabled="modelFile == ''">
+					<button style="margin-top: 10px;" class="btn btn-block" type="button" ng-disabled="modelFile == ''"
+					data-intro="You can also download the data model as an XMI file (conforming to the previous Ecore model)" data-position="bottom">
 						Download data<br>
 						<small>(Save as XMI)</small>
 					</button>
