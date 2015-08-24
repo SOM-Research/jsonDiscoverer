@@ -10,6 +10,7 @@ jsondiscoverer/bin/**/*
 jsondiscoverer.web/build/**/*
 jsondiscoverer.web/jsonDiscoverer.war
 jsondiscoverer.web/**/workingDir/**/*.xmi
+jsondiscoverer.web/**/workingDir/**/*.ecore
 testing/**
 .idea/**
 *.iml
