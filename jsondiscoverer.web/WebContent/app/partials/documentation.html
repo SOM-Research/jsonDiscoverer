@@ -1,0 +1,185 @@
+<div ng-controller="DocumentationCtrl">
+	<div class="row">
+	<div class="col-md-2">
+		<h2>Content</h2>
+		<li><a href="#doc-why">Why this?</a></li>
+		<li><a href="#doc-problem">Problem</a></li>
+		<li><a href="#doc-simple">Simple Discoverer</a></li>
+		<li><a href="#doc-advanced">Advanced Discoverer</a></li>
+		<li><a href="#doc-composer">Composer</a></li>
+		
+	</div>
+
+	<div class="col-md-10">
+    <div class="row">
+    <h2 id="doc-why">Why this?</h2>
+	<div class="col-md-2">
+		<img style="margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/publicityIcon.png" alt="JSON Discoverer Icon">
+	</div>
+    <div class="col-md-10">
+		<p>
+		With the emergence of the Web 2.0, asynchronous-based web technologies are becoming mainstream mainly thanks to their ability to provide richer, faster and more interactive web experiences. AJAX-based web applications (e.g., Google Maps, Gmail or Facebook to cite some popular ones) are good examples of such technology. For a long time, these applications have been using XML as interchange format, however, in the last years the JavaScript Object  Notation (<a href="http://json.org/>">JSON</a>) has been gaining in popularity since it provides a lightweigth data exchange format with a significant performance improvement.
+		</p>
+		<p>
+		JSON is a human readable format consisting in sets of Object s (i.e., types or concepts) described by name/value pairs (i.e., fields or attributes). JSON is <strong>schemaless</strong>, i.e., there is no a schema specifying the internal structure of JSON Object s, instead the schema is implicit. Schemaless data is particularly interesting in cases dealing with non-uniform data (e.g., non-uniform types or custom fields) or in schema migration (see <a href="http://martinfowler.com/articles/schemaless">Martin Fowler's blog post</a>), however, it can become a burden in data integration scenarios (e.g., consuming JSONbased APIs) where it becomes necessary to discover at least partially the underlying structure in order to properly process the data.
+		</p>
+		<p>
+	    Nowadays, a considerable number of web applications provide an external API consisting in a set of JSON-based services (more than 40% of the APIs included in <a href="http://www.programmableweb.com/">ProgrammableWeb</a> return JSON data) where all services are interrelated. Indeed, each service gives access to a subset of the application domain and developers must combine them to build any kind of non-trivial functionality on top of that API. Since JSON data is a schemaless format, deducing the right way of combining those services is not a trivial task.
+		</p>
+		<p>
+		The tool presented in this website aims at discovering (and visualizing) the implicit schema of the JSON data as well as the possible composition links among JSON-based Web APIs.
+		</p>
+	</div>
+	</div>
+	
+    <div class="row">
+    <h2 id="doc-problem">The problem</h2>
+    <div class="col-md-6">
+		<p>The Figure on the right illustrates the typical development scenario where services coming from diferent JSON-based Web APIs are studied and/or composed. In this scenario, JSON-based Web APIs define a set of services, each one returning JSON documents when they are called.</p>
+		<p>To select and use these Web APIs, developers have to study them, usually testing each one by calling the services and reverse engineering the implicit structure of the data they return. When developers want to compose Web APIs, they have to look for common elements (or elements representing the same concept) among the Web APIs, which is not a trivial task and the success is not assured (i.e., when the APIs cannot be composed). 
+		</p>
+		<p>Our tool applies a discovery process to uncover the domain (i.e., schema) behind JSON-based Web APIs and assist on the discovery of composition links among them. These arre currently the main functionalities provided:</p>
+		<ul>
+			<li><strong><a href="#/simple">Simple discovery</a></strong>, which discovers the domain (and data models) from a JSON document.
+			<li><strong><a href="#/advanced">Advanced discovery</a></strong>, which discovers the domain (and data models) from a set of JSON-based services. First, the domain of each JSON-based service is discovered (by using the simple discoverer), then the resulting domains are composed to obtain a general one.
+			<li><strong><a href="#/composer">Composer</a></strong>, which takes a set of API domains, looks for composition links (i.e., common concepts or attributes) and generates a composition graph. The result is then used to make calculations to assist developers to compose APIs. The tool currently incoporates a sequence diagram generator to visualize API compositions.
+			</li>
+		</ul>
+
+		<p>Our tool represents domain information as class diagrams, including concepts (i.e., classes) and their relationships (i.e., attributes/associations), while composition links will be represented as relationships between concepts from different domains.The tool leverages on model-driven techniques to represent both the domain and composition information as models and model associations, respectively. 
+		</p>
+	</div>
+    <div class="col-md-6">
+		<img style="margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/doc-example.png" alt="Problem Example">
+	</div>    
+	</div>
+	
+	<div class="row">
+	<h2 id="doc-simple">The Simple Discoverer</h2>
+	<div class="col-md-12">
+	<p>JSON documents include both metadata (i.e., the name of the Object  name/value pair elements) and data (i.e., their value). Note that, however, two Object s in the same (or different) JSON document(s) generated by a call to the same service do not necessarily have the same exact structure, e.g., it is possible that some of them include only a subset of the metadata/data, thus removing some name/value pairs (e.g., to reduce network traffic). Therefore, the accuracy of the simple discovery increases when a number of JSON Object elements to infer their common structure are analyzed.</p>
+	
+	<p>The simple discovery process is therefore launched for each JSON Object element and has two execution modes: creation and refinement. The former creates a root concept from an Object representing a concept not yet existing in the service domain created so far whereas the latter enriches/refines an already existing concept with information coming from new Object elements representing such concept. </p>
+	</div>
+	</div>
+	
+	<div class="row">
+	<div class="col-md-offset-5 col-md-7">	
+	<p>When a JSON Object  element representing a new concept is considered, the following creation rules are applied to build the corresponding elements in the service domain model (see figure on the left as example):</p>
+	</div>
+	</div>
+	
+	<div class="row">
+	<div class="col-md-5">	
+		<img style="margin-top: 10px; margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/doc-simpleDiscovererA.png" alt="Simple Discoverer Example - Creation">
+	</div>
+	<div class="col-md-7">
+	<ul>
+		<li><strong>Rule C1</strong>. A JSON Object included in a JSON Document generates a class element. The class is named after the JSON service name. The structural features (i.e., attributes and associations) of the class are created from the name/value elements included in the JSON Object according to rules C3, C4 and C5.</li>
+
+		<li><strong>Rule C2</strong>. A JSON Object included in the value side of a name/value generates a class element. The class is named after the name side value of the name/value. The structural features of the class are created from the name/value elements included in the JSON Object according to rules C3, C4 and C5.</li>
+
+		<li><strong>Rule C3</strong>. A JSON name/value element with a value representing a primitive type (i.e., String, Number or Boolean elements) generates an attribute element. The name of the attribute is obtained from the name side value of the name/value element and the type is the one corresponding to the primitive type in the class diagram.</li>
+
+		<li><strong>Rule C4</strong>. A JSON name/value element with a non-primitive value element generates a single-valued association. The name of the associations is obtained from the name side value of the name/value element. If the JSON Object referred represents a new concept, the association type will be the one resulting from mapping the Object by applying rule C2. Otherwise, the Object element has been previously mapped and the resulting class must be refined (see refining rules R1-R3 below).</li>
+
+		<li><strong>Rule C5</strong>. A JSON name/value element with a value being an array generates a multivalued association applying the rules C3 and C4 for the elements of the values.</li>
+	</ul>
+	</div>
+	
+	<div class="row">
+	<div class="col-md-offset-5 col-md-7">	
+	<p>When a JSON Object represens a concept already created, the corresponding class is recovered and enriched according to the following refining rules (see figure on the left as example):</p>
+	</div>
+	</div>
+	
+	<div class="col-md-5">	
+		<img style="margin-top: 10px; margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/doc-simpleDiscovererB.png" alt="Simple Discoverer Example - Creating">
+	</div>
+	<div class="col-md-7">
+	<ul>
+		<li><strong>Rule R1</strong>. A JSON name/value element with a value representing representing a primitive type refines the attribute named after the name side value of the name/value. If the attribute does not exists in the class it is included according to rule C3. If the class element already includes an attribute with the same name, the specified attribute type is compared with the one for the current object, if they do not match, the type of the attribute will be refined to be string-based (the most generic type), otherwise nothing is changed. </li>
+
+		<li><strong>Rule R2</strong>. A JSON name/value element with a value representing JSON Object element refines the association named after the name side value of the name/value element in the class obtained from such Object. If the association already exists, do nothing. Otherwise the association included into the class definition according to rule C4.</li>
+
+		<li><strong>Rule R3</strong>. A JSON name/value element with a value being an array refines a multivaluated feature (either an attribute or an association), following the rules R1 and R2. If the feature is already included in the class, the cardinality is updated to be multivaluated. Otherwise, a new feature is created according to rules C3 and C4.</li>
+	</ul>
+	</div>
+	</div>
+	
+	<div class="row">
+	<h2 id="doc-advanced">The Advanced Discoverer</h2>
+	<div class="col-md-12">
+	
+	<p>Many applications provide a complete JSON-based API, including several complementary services, each one offering a distinct viewpoint on the application data. The advanced discoevrer is able to obtain a composite model including each single service viewpoint. The resulting model will therefore provide a general overview of the application domain.</p>
+
+	<p>To be able to compose a set of models coming from different services, it is necessary that such models share some elements, thus allowing establishing semantic relationships among them. The discovery of differences and similaritires (i.e., correspondences) between models is not an easy task since it relies on model matching, which can be reduced to the problem of finding correspondences between two graphs (i.e., graph isomorphism). This problem has been proved as NP-hard and the available approaches can only approximate the exact solution (several model matching approaches have been proposed in \cite{bib:kolovos</code>). However, in the context of this work, since we are dealing with services defined in the same application domain, it is expected that the number of similarities (i.e., concept, attributes and association names matching) to be high, thus decreasing the complexity of the process.</p>
+	
+	<p>The multi-service discovery process starts by first creating a new model being the union of all the service-specific models. From there, the following rules try to link/merge the different submodels (see figure at the bottom as example):</p>
+	<ul>
+		<li><strong>Rule M1</strong>. Two classes <code>c1</code> and <code>c2</code> contained in different submodels represent the same concept if <code>c1.name = c2.name</code>. The classes will be merged into a new one called <code>c</code> where <code>c.name = c1.name</code>. The structural features of <code>c</code> will initially be the union of the structural features of <code>c1</code> and <code>c2</code> (further matching rules on them may apply).</li>
+
+		<li><strong>Rule M2</strong>. Two attributes <code>a1</code> and <code>a2</code> are defined to be the same if they are contained in a class representing the same concept (see rule M1) and <code>a1.name = a2.name</code>. The two attributes will be merged into a new one called <code>a</code> where <code>a.name = a1.name</code>. The type of <code>a</code> will be <code>a1.type</code> if <code>a1.type = a2.type</code>, or the more general otherwise. Regarding the cardinality of <code>a</code>, the lower bound will be set to the lowest of <code>a1.lowerCardinality</code> and <code>a2.lowerCardinality</code> while the upper bound will be set to the highest of <code>a1.upperCardinality</code> and <code>a2.upperCardinality</code>.</li>
+
+		<li><strong>Rule M3</strong>. Two attributes <code>a1</code> and <code>a2</code>, where <code>a.name != a1.name</code>, are considered the same if they are contained in a class representing the same concept (see rule M1) and there are matching values in the JSON value/pair elements. The two attributes will merged into a single one <code>a</code> where <code>a.name = a1.name</code> and both the type and cardinality will be inferred as done in rule M2.</li>
+
+		<li><strong>Rule M4</strong>. Two associations <code>r1</code> and <code>r2</code> are considered the same if they are contained in a class representing the same concept (see rule M1) and <code>r1.name = r2.name</code>. The type of <code>r</code> will be <code>r1.type</code> if <code>r1.type = r2.type</code>, otherwise an error will be raised. Regarding the cardinality of <code>r</code>, the lower bound will be set to the lowest of <code>r1.lowerCardinality</code> and <code>r2.lowerCardinality</code> while the upper bound will be set to the highest of <code>r1.upperCardinality</code> and <code>r2.upperCardinality</code>.</li>
+	</ul>
+	<p>Note that these rules apply merging heuristics and therefore may be manually adapted to each specific scenario. </p>
+	
+	</div>
+	<p class="text-center">
+	<img style="margin-top: 10px; margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/doc-advancedDiscoverer.png" alt="Advanced Discoverer Example">
+	</p>
+	</div>
+	
+	<div class="row">
+	<h2 id="doc-composer">The Composer</h2>
+	<div class="col-md-12">
+	<p>The composer approach initially applies a discovery process which first analyzes the domain behind each involved API (using the simple and advanced discoverers) and then takes the discovered domains to obtain composition links. The discovered information is used to render a graph in which calculations can be made to assist developers to compose APIs. For instance, sequence diagrams are curretnly generated to visualize API compositions. </p>
+	<p>Composition links among APIs are discovered by means of matching concepts among their domains and analyzing whether they are part of the input parameters of API services. We have currently defined the following rules:</p>
+	</div>
+	</div>
+		
+	<div class="row">
+	<div class="col-md-6">	
+	<img style="margin-top: 10px; margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/doc-composer.png" alt="Composer Example">
+	</div>
+	
+	<div class="col-md-6">	
+	<ul>
+		<li><strong>Rule C1</strong>. Two domain concepts <code>c1</code> and <code>c2</code> contained in different API domains are considered the same concept if <code>c1.name</code> = <code>c2.name</code>. </li>
+		<li><strong>Rule C2</strong>. As an API domain concept can represent several JSON objects, only concept attributes/references found in every JSON object will be considered (calculated by the metadata generated by the advanced discoverer).</li>
+		<li><strong>Rule C3</strong>. Two attributes/references <code>a1</code> and <code>a2</code> are considered as similar if <code>a1.name = a2.name</code> and <code>a1.type = a2.type</code>. Otherwise heuristics based on their name/type may be applied (e.g., the number of matching letters in their names must be higher than a given threshold). </li>
+		<li><strong>Rule C4</strong>. Two domain concepts <code>c1</code> and <code>c2</code> contained in different API domains are similar if they contain a number of similar attributes/references higher than a given threshold.</li>
+		<li><strong>Rule C5</strong>. There exists a composition link between two domain concepts <code>c1</code> and <code>c2</code> contained in different API domains if they are the same (or similar) and <code>c2</code> is an input concept. The source of the composition link will be <code>c1</code> and the target will be <code>c2</code>.</li>
+	</ul>
+	</div>
+	</div>
+	
+	<div class="row">
+	<div class="col-md-12">
+	
+	<p>Composition links plus the API domains can be used to render a graph where nodes represent concepts/attributes and edges represent composition links or attribute composition. The Figure on the left shows an example of this graph representation. The figure shows the composition graph on top and a possible composition path at the bottom. Gray-filled nodes in the graph represent the concepts used in each API (black dotted boxes surrounds each API domain). Black nodes represent the concepts used as input to call an API (e.g., see \emph{RouteCalculationInput} node). White nodes represent attributes of the concepts and are linked to the concept they are contained in by an un-directed edge represented as a black-filled line. Nodes are connected by directed edges represented by black-filled arrows, which can link nodes from the same or different APIs. Nodes from the same API are linked when there is a reference between the concepts in the API domain, whereas nodes from different APIs are linked when a composition link has been detected.</p>
+	
+	<p>Paths in the composition graph can be used to assist developers in the composition of APIs, for instance, sequence diagrams can be generated, as we show in this section. To calculate a path, developers must specify both the information they can provide (by selecting the concepts/attributes they have available) and what they want to get (by selecting the desired concepts/attributes). Well-known graph algorithms can then be applied to calculate paths (if exist) among the selected nodes. </p>
+	
+	<p>Given the composition graph and the API domain models, several calculations can be applied to make easier the composition of the involved APIs and the understanding of paths in the graph. For instance, a path among the nodes of the graph can allow specifying the steps a developer has to follow to compose several APIs. This path can be represented as a sequence diagram which specifies the calls and parameters to be used. Sequence diagrams can be drawn following these rules (see Figure below as example):</p>
+
+	<ul>
+		<li>There will be as many actors as APIs are traversed by the path plus the actor representing the developer.</li>
+		<li>The diagram will include as many synchronous calls as APIs are traversed by the path. </li>
+		<li>A method call will be included for each API crossed. The method call will be named as the first node of the sub-path traversing the involved API and the parameters are the attributes of the concept. The method will return the set of attributes of the ending node of the sub-path.</li>
+		<li>If the sub-path traversing an API includes a multivalued reference, the call resulting from such path will be a loop.</li>
+		<li>A mapping between the data returned and the input parameters of intermediate method calls will be provided as annotation.</li>
+	</ul>	
+	
+	
+	<p class="text-center">
+		<img style="margin-top: 10px; margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/doc-sequence.png" alt="Sequence Example">
+	</p>
+	
+	</div>
+	</div>
+	</div>
+</div>
