@@ -5,7 +5,6 @@ jsondiscoverer.ui/bin/**/*
 jsondiscoverer.examples/bin/**/*
 jsondiscoverer.zoo/bin/**/*
 jsondiscoverer.zoo/zooBig/*
-jsondiscoverer.zoo/zooMini/*
 jsondiscoverer/bin/**/*
 jsondiscoverer.web/build/**/*
 jsondiscoverer.web/jsonDiscoverer.war

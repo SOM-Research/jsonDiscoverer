@@ -1,0 +1,23 @@
+{
+	"dataSetName" : "dataSetName1",
+	"architeType" : "architeType1",
+	"investigator" : "investigator1",
+	"pub" : 
+		{
+			"type" : "type1",
+			"pubYear" : 2014,
+			"author" : [
+				{
+					"name" : String
+				}
+			],
+			"identifier" : [
+       			{
+       				"type": "doi",
+        			"id": "10.1038/nature07717",
+        			"url": "http://dx.doi.org/10.1038/nature07717"
+        		}
+        	]
+        }		
+				
+}

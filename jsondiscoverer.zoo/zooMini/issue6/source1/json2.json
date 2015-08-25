@@ -1,0 +1,14 @@
+{
+	"dataSetName" : "dataSetName2",
+	"architeType" : "architeType2",
+	"investigator" : "investigator2",
+	"geo" : 
+		{
+			"type" : "type1",
+			"geometry": {
+        		"type": "Point",
+        		"coordinates": ["lat", "long", "elev"]
+    		}
+        }		
+				
+}

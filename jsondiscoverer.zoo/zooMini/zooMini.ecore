@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <eClassifiers xsi:type="ecore:EClass" name="Geo">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Geo" value="1"/>
+        <details key="Geometry" value="1"/>
+        <details key="Identifier" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="3"/>
+      <details key="source" value="issue6"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="type" value="3"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Geo" value="1"/>
+          <details key="Geometry" value="1"/>
+          <details key="Identifier" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="3"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="geometry" lowerBound="1"
+        eType="#//Geo">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="geometry" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Geo" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.3333333333333333"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="coordinates" lowerBound="1"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="coordinates" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Geometry" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.3333333333333333"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="id" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Identifier" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.3333333333333333"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="url" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Identifier" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.3333333333333333"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Issue6">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Issue6" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="issue6"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataSetName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="dataSetName" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Issue6" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="architeType" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="architeType" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Issue6" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="investigator" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="investigator" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Issue6" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pub" lowerBound="1" eType="#//Pub">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="pub" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Issue6" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="geo" eType="#//Geo">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="geo" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Issue6" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Author">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Author" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="issue6"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="name" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Author" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Pub">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Pub" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="issue6"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="type" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Pub" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pubYear" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="pubYear" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Pub" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="author" lowerBound="1"
+        upperBound="-1" eType="#//Author">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="author" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Pub" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="identifier" lowerBound="1"
+        upperBound="-1" eType="#//Geo">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="identifier" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Pub" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>
