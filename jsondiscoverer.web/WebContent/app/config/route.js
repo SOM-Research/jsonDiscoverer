@@ -21,6 +21,10 @@ angular.module("jsonDiscoverer").config(["$routeProvider", "$httpProvider",
                 templateUrl : "app/partials/composition.html",
                 controller : "CompositionCtrl"
             }).
+            when("/doc", {
+                templateUrl : "app/partials/documentation.html",
+                controller : "DocumentationCtrl"
+            }).
             otherwise({redirectTo: "/"});
     }
 ]);
