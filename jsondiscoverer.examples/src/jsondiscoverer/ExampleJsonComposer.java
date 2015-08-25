@@ -1,0 +1,91 @@
+/*******************************************************************************
+ * Copyright (c) 2008, 2015
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Javier Canovas (me@jlcanovas.es) 
+ *******************************************************************************/
+
+
+package jsondiscoverer;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+
+import jsondiscoverer.util.ModelHelper;
+
+/**
+ * Class with some example code to illustrate how to call the {@link JsonComposer} 
+ * 
+ * @author Javier Canovas (me@jlcanovas.es) 
+ *
+ */
+public class ExampleJsonComposer {
+
+	public static void main(String[] args) throws FileNotFoundException, IOException {
+		ExampleJsonComposer.exampleCompose();
+	}
+	
+	public static void exampleCompose() throws FileNotFoundException, IOException {
+		// 1. Discovering the domain for the first JSON
+		Properties api1Info = new Properties();
+		api1Info.load(new FileReader("./exampleData/composer/api1/source1/info.properties"));
+		String shortname1 = api1Info.getProperty("shortname");
+
+		JsonSource api1Source1 = new JsonSource(shortname1);
+		Properties api1Source1Properties = new Properties();
+		api1Source1Properties.load(new FileReader("./exampleData/composer/api1/source1/json1.properties"));
+		api1Source1.addJsonData(
+				new StringReader(api1Source1Properties.getProperty("input")), 
+				new FileReader(new File("./exampleData/composer/api1/source1/json1.json")));
+		
+		JsonDiscoverer api1Discoverer = new JsonDiscoverer();
+		EPackage ePackageApi1 = api1Discoverer.discover(api1Source1);
+		ModelHelper.saveEPackage(ePackageApi1, new File("./exampleData/composer/exampleComposer-api1.ecore"));
+		
+		JsonSourceSet api1SourceSet = new JsonSourceSet(shortname1);
+		api1SourceSet.addJsonSource(api1Source1);
+
+		// 2. Discovering the domain for the second JSON
+		Properties api2Info = new Properties();
+		api1Info.load(new FileReader("./exampleData/composer/api2/source1/info.properties"));
+		String shortname2 = api1Info.getProperty("shortname");
+
+		JsonSource api2Source1 = new JsonSource(shortname2);
+		Properties api2Source1Properties = new Properties();
+		api2Source1Properties.load(new FileReader("./exampleData/composer/api2/source1/json1.properties"));
+		api2Source1.addJsonData(
+				new StringReader(api2Source1Properties.getProperty("input")), 
+				new FileReader(new File("./exampleData/composer/api2/source1/json1.json")));
+		
+		JsonDiscoverer api2Discoverer = new JsonDiscoverer();
+		EPackage ePackageApi2 = api2Discoverer.discover(api2Source1);
+		ModelHelper.saveEPackage(ePackageApi2, new File("./exampleData/composer/exampleComposer-api2.ecore"));
+
+		// 3. Discovering the general domain
+		JsonSourceSet api2SourceSet = new JsonSourceSet(shortname2);
+		api2SourceSet.addJsonSource(api2Source1);
+		
+		List<JsonSourceSet> sourceSetList = new ArrayList<JsonSourceSet>();
+		sourceSetList.add(api1SourceSet);
+		sourceSetList.add(api2SourceSet);
+		
+		JsonComposer composer = new JsonComposer(sourceSetList);
+		EPackage composed = composer.compose(null);
+		ModelHelper.saveEPackage(composed, new File("./exampleData/composer/exampleComposer-composed.ecore"));
+		
+	}
+
+}

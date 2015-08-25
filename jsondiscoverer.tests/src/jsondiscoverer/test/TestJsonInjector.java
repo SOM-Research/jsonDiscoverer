@@ -55,10 +55,5 @@ public class TestJsonInjector {
 			}
 			
 		}
-	}
-	
-	public static void saveModel(List<EObject> elements, String resultPath) {
-	}
-	
-
+	}	
 }

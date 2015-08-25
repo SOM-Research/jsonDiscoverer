@@ -61,12 +61,12 @@ public class ModelHelper {
 		return (EPackage) res.getContents().get(0);
 	}
 
-	public static void saveModel(List<EObject> elements, String resultPath) {
+	public static void saveModel(List<EObject> elements, File resultPath) {
 		ResourceSet rset = new ResourceSetImpl();
 		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
-		Resource res2 = rset.createResource(URI.createFileURI(resultPath));
+		Resource res2 = rset.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
 		
 		for(EObject eObject : elements) {
 			res2.getContents().add(eObject); 

@@ -1,30 +1,41 @@
 package jsondiscoverer.util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import jsondiscoverer.AnnotationHelper;
 import jsondiscoverer.CoreographyBuilder;
-import jsondiscoverer.util.DijkstraSolver;
 
-public class DijkstraAlgorithmExample {
-	public static void main(String[] args) {
+/**
+ * Example implementation to illustrate how to use the CoreographyBuilder
+ * 
+ * The result of is a text file formatted for the sequence diagram generator located
+ * at http://bramp.github.io/js-sequence-diagrams/
+ * 
+ * @author Javier Canovas (me@jlcanovas.es) 
+ *
+ */
+public class ExampleCoreographyBuilder {
+	public static void main(String[] args) throws FileNotFoundException {
+		ExampleCoreographyBuilder.exampleCalculate();
+	}
+	
+	public static void exampleCalculate() throws FileNotFoundException {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 		ResourceSet rset = new ResourceSetImpl();
-		Resource res1 = rset.getResource(URI.createFileURI("../fr.inria.atlanmod.json.discoverer.zoo/zooMini/zooMini.ecore"), true);
+		Resource res1 = rset.getResource(URI.createFileURI("./exampleData/coreographyBuilder/zoo.ecore"), true);
 		try {
 			res1.load(null); 
 		} catch (IOException e) {
@@ -50,6 +61,9 @@ public class DijkstraAlgorithmExample {
 		
 		CoreographyBuilder builder = new CoreographyBuilder(package1);
 		String result = builder.calculate(source, target);
-		System.out.println(result);
+		PrintWriter pw = new PrintWriter(new File("./exampleData/coreographyBuilder/builder.txt"));
+		pw.print(result);
+		pw.close();
+		
 	}
 }
