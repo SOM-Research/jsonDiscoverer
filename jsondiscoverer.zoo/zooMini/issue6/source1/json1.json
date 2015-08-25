@@ -8,7 +8,7 @@
 			"pubYear" : 2014,
 			"author" : [
 				{
-					"name" : String
+					"name" : "String"
 				}
 			],
 			"identifier" : [
