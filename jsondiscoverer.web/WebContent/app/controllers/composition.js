@@ -150,6 +150,11 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
                 }
             )
         };
+        
+
+        $scope.activateHelp = function() {
+        	$('body').chardinJs('start')
+        };
     }
 ]);
 

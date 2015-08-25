@@ -18,6 +18,9 @@
 
 	<div class="row">
 	<h2>Try it out!</h2>
+		<div style="float:right; margin-top:-15px; margin-bottom:10px;">
+            <button class="btn btn-xs" type="button" ng-click="activateHelp()">Give me some help!</button>
+        </div>
 	</div>
 
 	<div ng-controller="AdvancedDiscovererCtrl">
@@ -28,15 +31,18 @@
 			    	<form class="form-horizontal" role="form">
 			    		<label for="inputName" class="col-md-2 control-label">Name</label>
 						<div class="col-md-8">
-							<input type="text" class="form-control" id="inputName" placeholder="Meaningful name for your JSON excerpt" ng-model="name">
+							<input type="text" class="form-control" id="inputName" placeholder="Meaningful name for your JSON excerpt" ng-model="name"
+							data-intro="Create a JSON source giving a name. After you can add JSON documents representing the output of the source" data-position="top">
 						</div>
 						<button class="btn col-md-2" ng-disabled="name == ''" ng-click="newSource()">OK</button>
 			    	</form>
 				</div>
 				<h4 style="padding-top: 20px;">Step 2. Discover and Compose </h4>
-				<button class="btn btn-block" ng-disabled="!discoveryPosible" ng-click="discover()">Discover Schema</button>
+				<button class="btn btn-block" ng-disabled="!discoveryPosible" ng-click="discover()"
+				data-intro="Once you have given your JSONs you can launch the discovery process" data-position="right">Discover Schema</button>
 				<a style="text-decoration: none;" ng-href="{{metamodelFile}}" target="_blank">
-					<button style="margin-top: 10px;" class="btn btn-block" type="button" ng-disabled="metamodelFile == ''">
+					<button style="margin-top: 10px;" class="btn btn-block" type="button" ng-disabled="metamodelFile == ''"
+					data-intro="We work with Eclipse Modeling Framework (EMF) so if you want you can download the schema as an Ecore file" data-position="bottom">
 						Download schema <small>(Save as Ecore)</small>
 					</button> 
 				</a>

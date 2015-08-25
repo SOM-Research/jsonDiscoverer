@@ -81,5 +81,9 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
                 }
             );
         }
+        
+        $scope.activateHelp = function() {
+        	$('body').chardinJs('start')
+        }
     }
 ]);
