@@ -26,29 +26,29 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.junit.Test;
 
-import jsondiscoverer.JsonMultiDiscoverer;
+import jsondiscoverer.JsonAdvancedDiscoverer;
 import jsondiscoverer.JsonSource;
 import jsondiscoverer.JsonSourceSet;
 
-public class TestMultiDiscoverer {
+public class TestAdvancedDiscoverer {
 
 	@Test
 	public void testDiscover() throws FileNotFoundException  {
 		JsonSource source1 = new JsonSource("stopPosition");
-		source1.addJsonData(null, new FileReader(new File("./testData/multidiscoverer/source1/json1.json")));
+		source1.addJsonData(null, new FileReader(new File("./testData/advancedDiscoverer/source1/json1.json")));
 		
 		JsonSource source2 = new JsonSource("waitingTimeStop");
-		source2.addJsonData(null, new FileReader(new File("./testData/multidiscoverer/source2/json1.json")));
+		source2.addJsonData(null, new FileReader(new File("./testData/advancedDiscoverer/source2/json1.json")));
 
 		JsonSource source3 = new JsonSource("horariesStopLineDirection");
-		source3.addJsonData(null, new FileReader(new File("./testData/multidiscoverer/source3/json1.json")));
+		source3.addJsonData(null, new FileReader(new File("./testData/advancedDiscoverer/source3/json1.json")));
 				
 		JsonSourceSet sourceSet = new JsonSourceSet("composed");
 		sourceSet.addJsonSource(source1);
 		sourceSet.addJsonSource(source2);
 		sourceSet.addJsonSource(source3);
 		
-		JsonMultiDiscoverer composer = new JsonMultiDiscoverer(sourceSet);
+		JsonAdvancedDiscoverer composer = new JsonAdvancedDiscoverer(sourceSet);
 		EPackage ePackage = composer.discover();
 		assertNotNull(ePackage);
 		

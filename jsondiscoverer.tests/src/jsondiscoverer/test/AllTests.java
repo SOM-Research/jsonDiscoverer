@@ -18,7 +18,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestJsonDiscoverer.class, TestJsonInjector.class, TestMultiDiscoverer.class, TestJsonComposer.class})
+@SuiteClasses({ TestJsonSimpleDiscoverer.class, TestJsonInjector.class, TestAdvancedDiscoverer.class, TestJsonComposer.class})
 public class AllTests {
 
 }

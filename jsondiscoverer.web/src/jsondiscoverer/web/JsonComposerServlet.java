@@ -30,20 +30,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.emf.ecore.EPackage;
 
+import jsondiscoverer.JsonAdvancedDiscoverer;
 import jsondiscoverer.JsonComposer;
-import jsondiscoverer.JsonMultiDiscoverer;
 import jsondiscoverer.JsonSource;
 import jsondiscoverer.JsonSourceSet;
 import jsondiscoverer.util.GexfConverter;
 
 /**
- * ervlet to access to the JSON composer
+ * ervlet to access to {@link JsonComposer}
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  * @version 2.0.0
  *
  */
-@WebServlet("/discoverComposition")
+@WebServlet("/composer")
 public class JsonComposerServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 335L;
 	// This pattern is used to analyze the params
@@ -121,7 +121,7 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 		
 		// 2. Discovering the metamodel for each JsonSource
 		for(JsonSourceSet sourceSet : sourceSets) {
-			JsonMultiDiscoverer multiDiscoverer = new JsonMultiDiscoverer(sourceSet);
+			JsonAdvancedDiscoverer multiDiscoverer = new JsonAdvancedDiscoverer(sourceSet);
 			multiDiscoverer.discover();
 		}
 

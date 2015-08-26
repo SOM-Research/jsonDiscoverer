@@ -44,15 +44,15 @@ import com.google.gson.JsonObject;
  * @version 2.0.0
  *
  */
-public class JsonDiscoverer {
+public class JsonSimpleDiscoverer {
 	private static final String DEFAULT_NS_PREFIX = "disco";
 	private static final String DEFAULT_NS_URI = "http://jsonDiscoverer/discovered/";
 	
-	private final static Logger LOGGER = Logger.getLogger(JsonDiscoverer.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(JsonSimpleDiscoverer.class.getName());
 
 	HashMap<String, EClass> eClasses = new HashMap<String, EClass>();
 
-	public JsonDiscoverer() {
+	public JsonSimpleDiscoverer() {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 

@@ -21,7 +21,7 @@ angular.module("jsonDiscoverer").service('DiscovererService', ["$http",
                 json : jsonText
             });
 
-            this.callService(this.prefix + "/discoverMetamodel", dataToSend, success, failure);
+            this.callService(this.prefix + "/simpleDiscoverMetamodel", dataToSend, success, failure);
         };
 
         this.injectModel = function(jsonText, success, failure) {
@@ -29,7 +29,7 @@ angular.module("jsonDiscoverer").service('DiscovererService', ["$http",
                 json : jsonText
             });
 
-            this.callService(this.prefix + "/injectModel", dataToSend, success, failure);
+            this.callService(this.prefix + "/simpleDiscoverModel", dataToSend, success, failure);
         };
 
         this.compose = function(data, success, failure) {
@@ -37,7 +37,7 @@ angular.module("jsonDiscoverer").service('DiscovererService', ["$http",
                 sources : data
             });
 
-            this.callService(this.prefix + "/multiDiscover", dataToSend, success, failure);
+            this.callService(this.prefix + "/advancedDiscover", dataToSend, success, failure);
         };
 
         this.discoverComposition = function(data, success, failure) {
@@ -45,7 +45,7 @@ angular.module("jsonDiscoverer").service('DiscovererService', ["$http",
                 sources : data
             });
 
-            this.callService(this.prefix + "/discoverComposition", dataToSend, success, failure);
+            this.callService(this.prefix + "/composer", dataToSend, success, failure);
         };
 
         this.obtainJSON = function(urlData, success, failure) {

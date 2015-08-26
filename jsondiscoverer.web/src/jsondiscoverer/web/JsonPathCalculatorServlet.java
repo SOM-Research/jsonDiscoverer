@@ -26,8 +26,8 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 
 import jsondiscoverer.CoreographyBuilder;
+import jsondiscoverer.JsonAdvancedDiscoverer;
 import jsondiscoverer.JsonComposer;
-import jsondiscoverer.JsonMultiDiscoverer;
 import jsondiscoverer.JsonSourceSet;
 
 /**
@@ -39,6 +39,8 @@ import jsondiscoverer.JsonSourceSet;
  */
 @WebServlet("/calculatePath")
 public class JsonPathCalculatorServlet extends JsonComposerServlet {
+	private static final long serialVersionUID = 333L;
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		addResponseOptions(response);
@@ -54,7 +56,7 @@ public class JsonPathCalculatorServlet extends JsonComposerServlet {
 		
 		// 2. Discovering the metamodel for each JsonSource
 		for(JsonSourceSet sourceSet : sourceSets) {
-			JsonMultiDiscoverer multiDiscoverer = new JsonMultiDiscoverer(sourceSet);
+			JsonAdvancedDiscoverer multiDiscoverer = new JsonAdvancedDiscoverer(sourceSet);
 			multiDiscoverer.discover();
 		}
 

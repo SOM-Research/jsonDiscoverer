@@ -34,9 +34,9 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import com.google.gson.JsonParseException;
 
 import jsondiscoverer.JsonComposer;
-import jsondiscoverer.JsonDiscoverer;
+import jsondiscoverer.JsonSimpleDiscoverer;
 import jsondiscoverer.JsonInjector;
-import jsondiscoverer.JsonMultiDiscoverer;
+import jsondiscoverer.JsonAdvancedDiscoverer;
 import jsondiscoverer.JsonSource;
 import jsondiscoverer.JsonSourceSet;
 import jsondiscoverer.SingleJsonSource;
@@ -116,10 +116,10 @@ public class ZooDiscoverer {
 						}
 					}
 					// Composing metamodels
-					JsonMultiDiscoverer multidiscoverer = new JsonMultiDiscoverer(sourceSet);
+					JsonAdvancedDiscoverer advancedDiscoverer = new JsonAdvancedDiscoverer(sourceSet);
 					try {
-						multidiscoverer.discover(resultingPath);
-//						multidiscoverer.saveCoverage(coveragePaths);
+						advancedDiscoverer.discover(resultingPath);
+//						advancedDiscoverer.saveCoverage(coveragePaths);
 					} catch (FileNotFoundException e) {
 						LOGGER.severe(e.getMessage());
 					}
@@ -185,7 +185,7 @@ public class ZooDiscoverer {
 			// 1. Getting the metamodel
 			EPackage metamodel = null;
 			if(overwrite || !resultingPath.exists()) {
-				JsonDiscoverer discoverer = new JsonDiscoverer();
+				JsonSimpleDiscoverer discoverer = new JsonSimpleDiscoverer();
 				metamodel = discoverer.discover(source);
 				saveEcore(metamodel, resultingPath);
 			} else if(resultingPath.exists()) {

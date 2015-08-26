@@ -28,18 +28,18 @@ import org.eclipse.emf.ecore.EPackage;
 
 import com.google.gson.JsonObject;
 
-import jsondiscoverer.JsonDiscoverer;
+import jsondiscoverer.JsonSimpleDiscoverer;
 import jsondiscoverer.JsonSource;
 
 /**
- * Main class that provides the main access to the JSON discoverer
+ * Main class that provides the main access to {@link JsonSimpleDiscoverer}
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  * @version 2.0.0
  *
  */
-@WebServlet("/discoverMetamodel")
-public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
+@WebServlet("/simpleDiscoverMetamodel")
+public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 83L;
 	
 	// The ID for this servlet which will be used to access to the working directory
@@ -80,7 +80,7 @@ public class JsonDiscovererServlet extends AbstractJsonDiscoverer {
 	 */
 	private EPackage discoverMetamodel(String jsonCode) throws ServletException {
 		// Discovering
-		JsonDiscoverer discoverer = new JsonDiscoverer();
+		JsonSimpleDiscoverer discoverer = new JsonSimpleDiscoverer();
 		JsonSource source = new JsonSource("Discovered");
 		source.addJsonData(null, new StringReader(jsonCode));
 		EPackage discoveredModel = discoverer.discover(source);

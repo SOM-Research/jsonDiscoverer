@@ -59,7 +59,7 @@ public class JsonInjector {
 		if(jsonSource == null)
 			throw new IllegalArgumentException("The source cannot be null");
 
-		JsonDiscoverer discoverer = new JsonDiscoverer();
+		JsonSimpleDiscoverer discoverer = new JsonSimpleDiscoverer();
 		// The discovered metamodel is stored in the JSON source
 		discoverer.discover(jsonSource);
 		//JsonElement rootElement = jsonSource.getJsonData().get(0).getData();

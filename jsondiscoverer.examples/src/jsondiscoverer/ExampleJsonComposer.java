@@ -51,7 +51,7 @@ public class ExampleJsonComposer {
 				new StringReader(api1Source1Properties.getProperty("input")), 
 				new FileReader(new File("./exampleData/composer/api1/source1/json1.json")));
 		
-		JsonDiscoverer api1Discoverer = new JsonDiscoverer();
+		JsonSimpleDiscoverer api1Discoverer = new JsonSimpleDiscoverer();
 		EPackage ePackageApi1 = api1Discoverer.discover(api1Source1);
 		ModelHelper.saveEPackage(ePackageApi1, new File("./exampleData/composer/exampleComposer-api1.ecore"));
 		
@@ -70,7 +70,7 @@ public class ExampleJsonComposer {
 				new StringReader(api2Source1Properties.getProperty("input")), 
 				new FileReader(new File("./exampleData/composer/api2/source1/json1.json")));
 		
-		JsonDiscoverer api2Discoverer = new JsonDiscoverer();
+		JsonSimpleDiscoverer api2Discoverer = new JsonSimpleDiscoverer();
 		EPackage ePackageApi2 = api2Discoverer.discover(api2Source1);
 		ModelHelper.saveEPackage(ePackageApi2, new File("./exampleData/composer/exampleComposer-api2.ecore"));
 

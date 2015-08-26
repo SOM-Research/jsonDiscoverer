@@ -30,13 +30,13 @@ import jsondiscoverer.JsonInjector;
 import jsondiscoverer.SingleJsonSource;
 
 /**
- * This servlet gives access to the JSON model injector
+ * This servlet gives access to the {@link JsonInjector}
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  * @version 2.0.0
  *
  */
-@WebServlet("/injectModel")
+@WebServlet("/simpleDiscoverModel")
 public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 6L;
 	// The ID for this servlet which will be used to access to the working directory

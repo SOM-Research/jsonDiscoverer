@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.junit.Test;
 
 import jsondiscoverer.JsonComposer;
-import jsondiscoverer.JsonDiscoverer;
+import jsondiscoverer.JsonSimpleDiscoverer;
 import jsondiscoverer.JsonSource;
 import jsondiscoverer.JsonSourceSet;
 
@@ -50,7 +50,7 @@ public class TestJsonComposer {
 				new StringReader(api1Source1Properties.getProperty("input")), 
 				new FileReader(new File("./testData/composer/api1/source1/json1.json")));
 		
-		JsonDiscoverer api1Discoverer = new JsonDiscoverer();
+		JsonSimpleDiscoverer api1Discoverer = new JsonSimpleDiscoverer();
 		EPackage ePackageApi1 = api1Discoverer.discover(api1Source1);
 		assertNotNull(ePackageApi1);
 		
@@ -68,7 +68,7 @@ public class TestJsonComposer {
 				new StringReader(api2Source1Properties.getProperty("input")), 
 				new FileReader(new File("./testData/composer/api2/source1/json1.json")));
 		
-		JsonDiscoverer api2Discoverer = new JsonDiscoverer();
+		JsonSimpleDiscoverer api2Discoverer = new JsonSimpleDiscoverer();
 		EPackage ePackageApi2 = api2Discoverer.discover(api2Source1);
 		assertNotNull(ePackageApi2);
 

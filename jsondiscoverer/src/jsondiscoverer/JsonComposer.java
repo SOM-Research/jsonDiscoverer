@@ -31,7 +31,7 @@ import jsondiscoverer.util.ModelHelper;
  * This class composes a set of ecore models representing json-based apis. Although some
  * of the calculations done here could be applied in a more-general process of composing
  * any ecore model, the current implementation is coupled to the data/structure of the
- * ecore models discovered by the JSONMultiDiscoverer.
+ * ecore models discovered by the {@link JSONAdvancedDsicoverer} 
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  * @version 2.0.0
@@ -65,8 +65,8 @@ public class JsonComposer {
 			EPackage sourceMetamodel = sourceSet.getMetamodel();
 			if(sourceMetamodel == null) {
 				LOGGER.finer("The JSON source set called " + sourceSet.getName() + " didn't included metamodel, discovering now...");
-				JsonMultiDiscoverer multiDiscoverer = new JsonMultiDiscoverer(sourceSet);
-				sourceMetamodel = multiDiscoverer.discover();
+				JsonAdvancedDiscoverer advancedDiscoverer = new JsonAdvancedDiscoverer(sourceSet);
+				sourceMetamodel = advancedDiscoverer.discover();
 			}
 			cache.put(sourceMetamodel.getName(), sourceMetamodel.getEClassifiers());
 		}

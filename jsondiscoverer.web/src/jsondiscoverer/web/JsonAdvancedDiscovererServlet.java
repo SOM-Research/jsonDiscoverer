@@ -32,19 +32,19 @@ import org.eclipse.emf.ecore.EPackage;
 
 import com.google.gson.JsonObject;
 
-import jsondiscoverer.JsonMultiDiscoverer;
+import jsondiscoverer.JsonAdvancedDiscoverer;
 import jsondiscoverer.JsonSource;
 import jsondiscoverer.JsonSourceSet;
 
 /**
- * Main servlet to provide access to the composer
+ * Main servlet to provide access to {@link JsonAdvancedDiscoverer}
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  * @version 2.0.0
  *
  */
-@WebServlet("/multiDiscover")
-public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
+@WebServlet("/advancedDiscover")
+public class JsonAdvancedDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 23L;
 	
 	// The ID for this servlet which will be used to access to the working directory
@@ -105,7 +105,7 @@ public class JsonMultiDiscovererServlet extends AbstractJsonDiscoverer {
 		if(sourceSet.getJsonSources().size() == 0) throw new ServletException("No params in the call");
 
 		// 2. Composition
-		JsonMultiDiscoverer multiDiscoverer = new JsonMultiDiscoverer(sourceSet);
+		JsonAdvancedDiscoverer multiDiscoverer = new JsonAdvancedDiscoverer(sourceSet);
 		EPackage finalMetamodel = multiDiscoverer.discover();
 
 		// 3. Get the picture

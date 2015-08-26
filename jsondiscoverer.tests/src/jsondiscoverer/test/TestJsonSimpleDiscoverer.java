@@ -23,17 +23,17 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.junit.Test;
 
-import jsondiscoverer.JsonDiscoverer;
+import jsondiscoverer.JsonSimpleDiscoverer;
 import jsondiscoverer.JsonSource;
 
-public class TestJsonDiscoverer {
+public class TestJsonSimpleDiscoverer {
 	
 	@Test
 	public void testDiscover() throws FileNotFoundException {
 		JsonSource source = new JsonSource("Stop");
-		source.addJsonData(null, new FileReader(new File("./testData/discoverer/json1A.json")));
+		source.addJsonData(null, new FileReader(new File("./testData/simpleDiscoverer/json1A.json")));
 
-		JsonDiscoverer discoverer = new JsonDiscoverer();
+		JsonSimpleDiscoverer discoverer = new JsonSimpleDiscoverer();
 		EPackage ePackage = discoverer.discover(source);
 
 		EClass ligneClass = (EClass) ePackage.getEClassifier("Ligne");
@@ -69,15 +69,15 @@ public class TestJsonDiscoverer {
 	@Test
 	public void testRefine() throws FileNotFoundException {
 		JsonSource source = new JsonSource("Stop");
-		source.addJsonData(null, new FileReader(new File("./testData/discoverer/json1A.json")));
+		source.addJsonData(null, new FileReader(new File("./testData/simpleDiscoverer/json1A.json")));
 
-		JsonDiscoverer discoverer = new JsonDiscoverer();
+		JsonSimpleDiscoverer discoverer = new JsonSimpleDiscoverer();
 		EPackage ePackage0 = discoverer.discover(source);
 
 		JsonSource source2 = new JsonSource("test");
-		source2.addJsonData(null, new FileReader(new File("./testData/discoverer/json1B.json")));
+		source2.addJsonData(null, new FileReader(new File("./testData/simpleDiscoverer/json1B.json")));
 
-		discoverer = new JsonDiscoverer();
+		discoverer = new JsonSimpleDiscoverer();
 		EPackage ePackage = discoverer.refine(ePackage0, source2);
 		
 		EClass ligneClass = (EClass) ePackage.getEClassifier("Ligne");

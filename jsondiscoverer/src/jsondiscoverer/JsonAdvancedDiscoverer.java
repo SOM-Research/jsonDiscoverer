@@ -49,7 +49,7 @@ import jsondiscoverer.util.ModelHelper;
  * 
  * Note that this process is actually a metamodel composition one, where metamodels 
  * discovered for a set of @link JsonSource}s are analyzed to create a new one covering
- * all of them. Thus, the multi-discovery process follows these steps:
+ * all of them. Thus, the advanced discovery process follows these steps:
  * 1. Receive a set of {@link JsonSource}s (as {@link JsonSourceSet}
  * 2. Discover the metamodel for each {@link JsonSource}
  * 3. Analyze the discovered metamodels and create a new one covering them
@@ -61,13 +61,13 @@ import jsondiscoverer.util.ModelHelper;
  * @version 2.0.0
  *
  */
-public class JsonMultiDiscoverer {
+public class JsonAdvancedDiscoverer {
 	private static final String DEFAULT_NS_URI = "http://jsondiscoverer/discovered/";
 	private static final String DEFAULT_NS_PREFIX = "composed";
 
 	final static double CLASS_MATCHING_THRESHOLD = 0.3;
 
-	private final static Logger LOGGER = Logger.getLogger(JsonMultiDiscoverer.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(JsonAdvancedDiscoverer.class.getName());
 	
 	/**
 	 * The set of JsonSources to use in the discovery process
@@ -89,7 +89,7 @@ public class JsonMultiDiscoverer {
 	 */
 	HashMap<EAttribute, List<Object>> cacheValues;
 	
-	public JsonMultiDiscoverer(JsonSourceSet sourceSet) {
+	public JsonAdvancedDiscoverer(JsonSourceSet sourceSet) {
 		if(sourceSet == null) 
 			throw new IllegalArgumentException("SourceSet cannot be null");
 		else if(sourceSet.getJsonSources().size() == 0) 
@@ -102,7 +102,7 @@ public class JsonMultiDiscoverer {
 		// If not included, we call the JSONDiscoverer for each one
 		for(JsonSource jsonSource : this.sourceSet.getJsonSources()) {
 			if(jsonSource.getMetamodel() == null) {
-				JsonDiscoverer discoverer = new JsonDiscoverer();
+				JsonSimpleDiscoverer discoverer = new JsonSimpleDiscoverer();
 				// By default the discovered metamodel is stored in the JsonSource
 				discoverer.discover(jsonSource);
 			}
@@ -130,7 +130,7 @@ public class JsonMultiDiscoverer {
 	}
 	
 	/**
-	 * Launches the multi-discover process
+	 * Launches the advanced discover process
 	 * 
 	 * @param resultPath The path where the resulting metamodel will be stored
 	 * @return The resulting metamodel as EPackage
@@ -143,7 +143,7 @@ public class JsonMultiDiscoverer {
 	}
 	
 	/**
-	 * Launches the multi-discover process
+	 * Launches the advanced discover process
 	 * 
 	 * @return The resulting metamodel as EPackage
 	 * @throws FileNotFoundException

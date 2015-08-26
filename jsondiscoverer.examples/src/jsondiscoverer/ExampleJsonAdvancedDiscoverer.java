@@ -21,36 +21,36 @@ import org.eclipse.emf.ecore.EPackage;
 import jsondiscoverer.util.ModelHelper;
 
 /**
- * Class with some example code to illustrate how to call the {@link JsonMultiDiscoverer}. 
+ * Class with some example code to illustrate how to call the {@link JsonAdvancedDiscoverer}. 
  * 
  * @author Javier Canovas (me@jlcanovas.es) 
  *
  */
-public class ExampleJsonMultiDiscoverer {
+public class ExampleJsonAdvancedDiscoverer {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		ExampleJsonMultiDiscoverer.exampleDiscover();
+		ExampleJsonAdvancedDiscoverer.exampleDiscover();
 	}
 	
 	public static void exampleDiscover() throws FileNotFoundException  {
 		JsonSource source1 = new JsonSource("stopPosition");
-		source1.addJsonData(null, new FileReader(new File("./exampleData/multidiscoverer/source1/json1.json")));
+		source1.addJsonData(null, new FileReader(new File("./exampleData/advancedDiscoverer/source1/json1.json")));
 		
 		JsonSource source2 = new JsonSource("waitingTimeStop");
-		source2.addJsonData(null, new FileReader(new File("./exampleData/multidiscoverer/source2/json1.json")));
+		source2.addJsonData(null, new FileReader(new File("./exampleData/advancedDiscoverer/source2/json1.json")));
 
 		JsonSource source3 = new JsonSource("horariesStopLineDirection");
-		source3.addJsonData(null, new FileReader(new File("./exampleData/multidiscoverer/source3/json1.json")));
+		source3.addJsonData(null, new FileReader(new File("./exampleData/advancedDiscoverer/source3/json1.json")));
 				
 		JsonSourceSet sourceSet = new JsonSourceSet("composed");
 		sourceSet.addJsonSource(source1);
 		sourceSet.addJsonSource(source2);
 		sourceSet.addJsonSource(source3);
 		
-		JsonMultiDiscoverer composer = new JsonMultiDiscoverer(sourceSet);
+		JsonAdvancedDiscoverer composer = new JsonAdvancedDiscoverer(sourceSet);
 		EPackage ePackage = composer.discover();
 		
-		ModelHelper.saveEPackage(ePackage, new File("./exampleData/multidiscoverer/exampleMultidiscoverer.ecore"));
+		ModelHelper.saveEPackage(ePackage, new File("./exampleData/advancedDiscoverer/exampleAdvancedDiscoverer.ecore"));
 		
 		
 	}
