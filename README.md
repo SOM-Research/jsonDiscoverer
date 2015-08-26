@@ -10,8 +10,8 @@ The JSON discoverer is a tool that allows you to get the implicit schema of your
 
 The tool is inspired in the research papers:
 
- - [Discovering Implicit Schemas in JSON Data](http://hal.inria.fr/docs/00/81/89/45/PDF/icwe2013-CanovasCabot.pdf) published at [ICWE'13 conference](http://icwe2013.webengineering.org/)
- - [Composing JSON-based Web APIs](http://modeling-languages.com/composing-json-based-web-apis/)  published at [ICWE'14 conference](http://icwe2014.webengineering.org/)
+ - [Discovering Implicit Schemas in JSON Data](https://www.researchgate.net/publication/262317804_Discovering_implicit_schemas_in_JSON_data?ev=prf_pub) published at [ICWE'13 conference](http://icwe2013.webengineering.org/)
+ - [Composing JSON-based Web APIs](https://www.researchgate.net/publication/272824956_Composing_JSON-based_Web_APIs?ev=prf_pub)  published at [ICWE'14 conference](http://icwe2014.webengineering.org/)
 
 What can you find in this repository?
 -------------------------------------
