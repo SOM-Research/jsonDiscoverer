@@ -80,7 +80,7 @@ public class TestJsonComposer {
 		sourceSetList.add(api2SourceSet);
 		
 		JsonComposer composer = new JsonComposer(sourceSetList);
-		EPackage composed = composer.compose(null);
+		EPackage composed = composer.compose();
 		assertNotNull(composed);
 		
 		EClass stopPositionInput = (EClass) composed.getEClassifier("StopPositionInput");

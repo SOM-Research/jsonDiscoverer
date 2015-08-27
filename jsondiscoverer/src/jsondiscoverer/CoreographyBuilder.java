@@ -26,6 +26,9 @@ public class CoreographyBuilder {
 	private EPackage domain;
 
 	public CoreographyBuilder(EPackage ePackage) {
+		if(ePackage == null) 
+			throw new IllegalArgumentException("The ePackage cannot be null");
+		
 		this.domain = ePackage;
 	}
 
@@ -94,6 +97,11 @@ public class CoreographyBuilder {
 	}
 
 	public String discoverMapping(EClass source, EClass target) {
+		if(source == null) 
+			throw new IllegalArgumentException("A source has to be provided");
+		if(target == null) 
+			throw new IllegalArgumentException("A target has to be provided");
+		
 		String result = "";
 
 		List<EAttribute> visited = new ArrayList<EAttribute>();
@@ -112,6 +120,11 @@ public class CoreographyBuilder {
 	}
 
 	private boolean isSimilar(EAttribute source, EAttribute target) {
+		if(source == null) 
+			throw new IllegalArgumentException("A source has to be provided");
+		if(target == null) 
+			throw new IllegalArgumentException("A target has to be provided");
+		
 		if(source.getName().equals(target.getName())) return true;
 
 		String sourceName = source.getName();

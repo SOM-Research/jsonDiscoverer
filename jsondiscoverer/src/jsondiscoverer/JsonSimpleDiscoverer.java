@@ -108,6 +108,11 @@ public class JsonSimpleDiscoverer {
 	 * @return
 	 */
 	public EPackage refine(EPackage toRefine, JsonSource source) {
+		if(toRefine == null) 
+			throw new IllegalArgumentException("toRefine cannot be null");
+		if(source == null) 
+			throw new IllegalArgumentException("source cannot be null");
+		
 		for(EClassifier eClassifier : toRefine.getEClassifiers()) {
 			if (eClassifier instanceof EClass) {
 				EClass eClass = (EClass) eClassifier;
@@ -126,6 +131,11 @@ public class JsonSimpleDiscoverer {
 	 * @return Discovered {@link EClass}
 	 */
 	private EClass discoverMetaclass(String id, JsonObject jsonObject) {
+		if(id == null) 
+			throw new IllegalArgumentException("id cannot be null");
+		if(jsonObject == null) 
+			throw new IllegalArgumentException("jsonObject cannot be null");
+		
 		EClass eClass = eClasses.get(id);
 		if(eClass != null) {
 			LOGGER.finer("[discoverMetaclass] Refining " + id);
@@ -145,6 +155,11 @@ public class JsonSimpleDiscoverer {
 	 * @param The new {@link JsonObject} 
 	 */
 	private EClass createMetaclass(String id, JsonObject jsonObject) {
+		if(id == null) 
+			throw new IllegalArgumentException("id cannot be null");
+		if(jsonObject == null) 
+			throw new IllegalArgumentException("jsonObject cannot be null");
+		
 		EClass eClass = EcoreFactory.eINSTANCE.createEClass();
 		eClass.setName(id);
 		AnnotationHelper.INSTANCE.increaseTotalFound(eClass);
@@ -172,6 +187,11 @@ public class JsonSimpleDiscoverer {
 	 * @param jsonObject The {@link JsonObject} to use as input to refine
 	 */
 	private EClass refineMetaclass(EClass eClass, JsonObject jsonObject) {
+		if(eClass == null) 
+			throw new IllegalArgumentException("eClass cannot be null");
+		if(jsonObject == null) 
+			throw new IllegalArgumentException("jsonObject cannot be null");
+		
 		LOGGER.fine("[refineMetaclass] Refining metaclass " + eClass.getName());
 		AnnotationHelper.INSTANCE.increaseTotalFound(eClass);
 
@@ -208,9 +228,17 @@ public class JsonSimpleDiscoverer {
 	 * 
 	 * @param pairId Identifier of the feature
 	 * @param value {@link JsonElement} including the value
+	 * @param lowerBound The lover bound for the structural feature
 	 * @param eClass {@link EClass} containing the feature
 	 */
 	private void createStructuralFeature(String pairId, JsonElement value, int lowerBound, EClass eClass) {
+		if(pairId == null) 
+			throw new IllegalArgumentException("pairId cannot be null");
+		if(value == null) 
+			throw new IllegalArgumentException("value cannot be null");
+		if(eClass == null) 
+			throw new IllegalArgumentException("eClass cannot be null");
+		
 		EStructuralFeature eStructuralFeature = null;
 
 		// Selecting attribute vs. reference according to feature's type
@@ -244,6 +272,11 @@ public class JsonSimpleDiscoverer {
 	 * @return The mapped type (as {@link EClassifier}
 	 */
 	private EClassifier mapType(String id, JsonElement value) {
+		if(id == null) 
+			throw new IllegalArgumentException("id cannot be null");
+		if(value == null) 
+			throw new IllegalArgumentException("jsonObject cannot be null");
+		
 		if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
 			return EcorePackage.Literals.ESTRING; 
 		} else if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isNumber()) {
@@ -278,6 +311,9 @@ public class JsonSimpleDiscoverer {
 	 * @return The digested identifier
 	 */
 	private String digestId(String id) {
+		if(id == null) 
+			throw new IllegalArgumentException("id cannot be null");
+		
 		String result = id;
 		if(result.length() > 1 && result.endsWith("s")) 
 			result = result.substring(0, result.length()-1);

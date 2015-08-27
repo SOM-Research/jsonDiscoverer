@@ -47,7 +47,7 @@ public class StatusServlet extends AbstractJsonDiscoverer {
 			out.println("injector dir: " + ((injectorFile.isDirectory()) ? "Exists" : "NOT EXISTS"));
 		}
 
-		String discovererId = properties.getProperty(JsonSimpleDiscovererServlet.DISCOVERER_ID);
+		String discovererId = properties.getProperty(JsonSimpleDiscovererServlet.SIMPLEDISCOVERER_FOLDER);
 		if(discovererId == null || discovererId.equals("")) {
 			out.println("discoverer dir: NOT EXISTS (neither the property)");
 		} else {
@@ -55,7 +55,7 @@ public class StatusServlet extends AbstractJsonDiscoverer {
 			out.println("discoverer dir: " + ((discovererFile.isDirectory()) ? "Exists" : "NOT EXISTS"));
 		}
 
-		String multidiscovererId = properties.getProperty(JsonAdvancedDiscovererServlet.MULTIDISCOVERER_ID);
+		String multidiscovererId = properties.getProperty(JsonAdvancedDiscovererServlet.ADVANCEDDISCOVERER_FOLDER);
 		if(multidiscovererId == null || multidiscovererId.equals("")) {
 			out.println("multidiscoverer dir: NOT EXISTS (neither the property)");
 		} else {

@@ -48,12 +48,23 @@ public class JsonAdvancedDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 23L;
 	
 	// The ID for this servlet which will be used to access to the working directory
-	public static final String MULTIDISCOVERER_ID = "IdMultiDiscoverer";
+	public static final String ADVANCEDDISCOVERER_FOLDER = "SubfolderAdvancedDiscoverer";
+	
+	/**
+	 * Name of the folder where the temp files will be stored
+	 */
+	private String folderName;
 
-	// This pattern is used to analyze the params
-	// The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?
-	// The important part is the JSON_SOURCE_NAME which provides the name of the parameter
+	/** This pattern is used to analyze the params
+	  * The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?
+	  * The important part is the JSON_SOURCE_NAME which provides the name of the parameter */
 	private static String paramsPattern = Pattern.quote("sources[") + "([a-zA-Z]*)"+ Pattern.quote("][") + "[\\$a-zA-Z]*" + Pattern.quote("]") + "(" + Pattern.quote("[]") + ")?";
+	
+	public JsonAdvancedDiscovererServlet() {
+		super();
+		folderName = properties.getProperty(ADVANCEDDISCOVERER_FOLDER);
+		if(folderName == null) throw new IllegalStateException("ID for Advanced Discoverer not found in properties");
+	}
 	
 	/**
 	 * Digest the parameters of the request according to the pattern defined in
@@ -109,17 +120,16 @@ public class JsonAdvancedDiscovererServlet extends AbstractJsonDiscoverer {
 		EPackage finalMetamodel = multiDiscoverer.discover();
 
 		// 3. Get the picture
-		String id = properties.getProperty(MULTIDISCOVERER_ID);
-		if(id == null) throw new ServletException("ID for composer not found in properties");
+		if(folderName == null) throw new ServletException("ID for composer not found in properties");
 		
 		List<EObject> toDraw= new ArrayList<EObject>();
 		toDraw.add(finalMetamodel);	
-		File resultPath = drawModel(toDraw, id);		
+		File resultPath = drawModel(toDraw, folderName);		
 		String resultImage = encodeToString(resultPath);
 		resultPath.delete();
 		
 		// 4. Get the metamodel as string
-		String resultXMI = encodeToString(finalMetamodel, id);
+		String resultXMI = encodeToString(finalMetamodel, folderName);
 		
 		// 4. Write the response
 		// Building the response

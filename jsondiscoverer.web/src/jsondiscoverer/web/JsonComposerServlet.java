@@ -12,7 +12,6 @@
 
 package jsondiscoverer.web;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -46,34 +45,21 @@ import jsondiscoverer.util.GexfConverter;
 @WebServlet("/composer")
 public class JsonComposerServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 335L;
-	// This pattern is used to analyze the params
-	// The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?([input|output])?
-	// The important part is the JSON_SOURCE_NAME which provides the name of the parameter
+
+	/** This pattern is used to analyze the params
+	  * The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?([input|output])?
+	  * The important part is the JSON_SOURCE_NAME which provides the name of the parameter */
 	private static String paramsPattern = Pattern.quote("sources[") + "([a-zA-Z]*)"+ Pattern.quote("]") + 
 			Pattern.quote("[") + "[\\$a-zA-Z]*" + Pattern.quote("]") + 
 			"(" + Pattern.quote("[") + "[0-9]*" + Pattern.quote("]") + ")?" + 
 			"(" + Pattern.quote("[") + "[a-zA-Z]*" + Pattern.quote("]") + ")?";
-
-
-	protected EPackage composer(HashMap<String, List<String>> sources) {
-		List<JsonSourceSet> sourceSets = new ArrayList<JsonSourceSet>();
-
-		for(String sourceName : sources.keySet()) {
-			List<String> sourcesList = sources.get(sourceName);
-			JsonSource source = new JsonSource(sourceName);
-			for(String json : sourcesList) {
-				source.addJsonData(null, new StringReader(json));
-			}
-			JsonSourceSet sourceSet = new JsonSourceSet(sourceName+"Set");
-			sourceSet.addJsonSource(source);
-			sourceSets.add(sourceSet);
-		}
-
-		JsonComposer composer = new JsonComposer(sourceSets);
-		EPackage result = composer.compose(new File(workingDir.getAbsoluteFile() + File.separator + "composed.ecore"));
-		return result;		
-	}
-
+	
+	/**
+	 * Digest the received sources according to the pattern (see {@link JsonComposerServlet.paramsPattern}
+	 * 
+	 * @param request The HTTP request
+	 * @return A list of {@link JsonSourceSet}
+	 */
 	protected List<JsonSourceSet> digestSources(HttpServletRequest request) {
 		List<JsonSourceSet> result = new ArrayList<JsonSourceSet>();
 		
@@ -127,7 +113,7 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 
 		// 2. Composition
 		JsonComposer composer = new JsonComposer(sourceSets);
-		EPackage finalMetamodel = composer.compose(new File(workingDir.getAbsoluteFile() + File.separator + "composed.ecore"));
+		EPackage finalMetamodel = composer.compose(null);
 
 		// 3. Getting the graph
 		String gexfString = GexfConverter.convert(finalMetamodel);

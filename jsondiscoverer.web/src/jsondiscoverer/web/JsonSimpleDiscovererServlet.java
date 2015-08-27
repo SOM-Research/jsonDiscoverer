@@ -43,7 +43,18 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 83L;
 	
 	// The ID for this servlet which will be used to access to the working directory
-	public static final String DISCOVERER_ID = "IdDiscoverer";
+	public static final String SIMPLEDISCOVERER_FOLDER = "SubfolderSimpleDiscoverer";
+	
+	/**
+	 * Name of the folder where the temp files will be stored
+	 */
+	private String folderName;
+	
+	public JsonSimpleDiscovererServlet() {
+		super();
+		folderName = properties.getProperty(SIMPLEDISCOVERER_FOLDER);
+		if(folderName == null) throw new IllegalStateException("ID for Simple Discoverer not found in properties");
+	}
 	
     /* 
 	 * Performs a POST call to this servlet. The JSON_CODE parameter is queried to get the JSON code to
@@ -58,9 +69,8 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 		
 		EPackage resultMetamodel = discoverMetamodel(jsonCode);
 
-		String id = properties.getProperty(DISCOVERER_ID);
 		String resultImage = discoverMetamodelBase64(resultMetamodel);
-		String resultXMI = encodeToString(resultMetamodel, id);
+		String resultXMI = encodeToString(resultMetamodel, folderName);
 
 		// Building the response
 		response.setContentType("text/x-json;charset=UTF-8");   
@@ -101,7 +111,7 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 		List<EObject> toDraw= new ArrayList<EObject>();
 		toDraw.add(ePackage);	
 		
-		String id = properties.getProperty(DISCOVERER_ID);
+		String id = properties.getProperty(SIMPLEDISCOVERER_FOLDER);
 		if(id == null) throw new ServletException("ID for discoverer not found in properties");
 		
 		File resultPath = drawModel(toDraw, id);

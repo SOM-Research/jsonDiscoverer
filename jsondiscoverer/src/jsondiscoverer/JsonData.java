@@ -24,10 +24,17 @@ import com.google.gson.JsonObject;
  *
  */
 class JsonData {
+	/**
+	 * The JSON in put to get the data. 
+	 * Note that it can be null
+	 */
 	private JsonObject input;
 	private JsonElement data;
 
 	public JsonData(JsonObject input, JsonElement data) {
+		if(data == null) 
+			throw new IllegalArgumentException("The data cannot be null");
+		
 		this.input = input;
 		this.data = data;
 	}

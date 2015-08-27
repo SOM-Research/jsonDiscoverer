@@ -46,6 +46,9 @@ public class JsonInjector {
 	private SingleJsonSource jsonSource;
 
 	public JsonInjector(SingleJsonSource jsonSource) {
+		if(jsonSource == null) 
+			throw new IllegalArgumentException("The jsonSource cannot be null");
+		
 		this.jsonSource = jsonSource;
 		LOGGER.setLevel(Level.OFF);
 	}
@@ -119,6 +122,11 @@ public class JsonInjector {
 	 * @return Instantiated object
 	 */
 	protected EObject instantiateEClassifier(EClassifier eClassifier, JsonObject jsonObject) {
+		if(eClassifier == null)
+			throw new IllegalArgumentException("An eClassifier is required to instantiate");
+		if(jsonObject == null)
+			throw new IllegalArgumentException("The jsonObject cannot be null");
+		
 		EObject result = null;
 
 		if (eClassifier instanceof EClass) {
@@ -159,6 +167,13 @@ public class JsonInjector {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void setStructuralFeature(EObject result, EStructuralFeature eStructuralFeature, JsonElement value) {
+		if(result == null)
+			throw new IllegalArgumentException("The result cannot be null");
+		if(eStructuralFeature == null)
+			throw new IllegalArgumentException("The eStructuralFeature cannot be null");
+		if(value == null)
+			throw new IllegalArgumentException("The value cannot be null");
+		
 		if(value.isJsonArray()) {
 			LOGGER.finer("Detected array in array for " + eStructuralFeature.getName());
 
@@ -204,6 +219,11 @@ public class JsonInjector {
 	 * @return The converted value (as {@link JsonPrimitive})
 	 */
 	protected Object digestValue(EAttribute eAttribute, JsonElement value) {
+		if(eAttribute == null)
+			throw new IllegalArgumentException("The eAttribute cannot be null");
+		if(value == null)
+			throw new IllegalArgumentException("The value cannot be null");
+		
 		if (eAttribute.getEType().equals(EcorePackage.Literals.ESTRING)) {
 			if(value.isJsonArray() || value.isJsonObject()) return ""; // TODO Improve discovery process to deal with this
 			else return value.getAsJsonPrimitive().getAsString();
@@ -223,6 +243,9 @@ public class JsonInjector {
 	 * @return The digested identifier
 	 */
 	private String digestId(String id) {
+		if(id == null)
+			throw new IllegalArgumentException("The id cannot be null");
+		
 		String result = id;
 		if(result.length() > 1 && result.endsWith("s")) 
 			result = result.substring(0, result.length()-1);

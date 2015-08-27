@@ -65,12 +65,15 @@ public class JsonSource extends AbstractJsonSource {
 	 * Adds a new JSON document as well as the input JSON document to get such a document (if given). 
 	 * The input must be provided as a valid JSON object.
 	 * 
-	 * @param input The {@link Reader} from which obtain JSON document used as input
+	 * @param input The {@link Reader} from which obtain JSON document used as input (optional)
 	 * @param output The {@link Reader} from which obtain the JSON document
 	 * @throws IllegalArgumentException If reader is null 
 	 * @return The {@link JsonData} with the JSON document and the input
 	 */
 	private JsonData buildJsonData(Reader input, Reader output) {
+		if(output == null) 
+			throw new IllegalArgumentException("output cannot be null");
+		
 		if(output == null) 
 			throw new IllegalArgumentException("The new document cannot be null and must exist");
 		
@@ -95,12 +98,15 @@ public class JsonSource extends AbstractJsonSource {
 	 * Warning: Once the source has been created with input (or without), subsequent 
 	 * calls must also include (or not) inputs
 	 * 
-	 * @param input The {@link Reader} from which obtain the JSON document used as input
+	 * @param input The {@link Reader} from which obtain the JSON document used as input (optional)
 	 * @param output The {@link Reader} from which obtain the JSON document
 	 * @throws IllegalArgumentException If input is null
 	 * @throws IllegalStateException If the JSON source was initially created to not hold input data
 	 */
 	public void addJsonData(Reader input, Reader output) {
+		if(output == null) 
+			throw new IllegalArgumentException("output cannot be null");
+		
 		if(this.jsonData.size() > 0 && this.withInput == false && input != null) 
 			throw new IllegalStateException("This JSON source was initially created to hold JSON data *without* input");
 		if(this.jsonData.size() > 0 && this.withInput == true && input == null) 

@@ -33,6 +33,8 @@ public abstract class AbstractJsonSource {
 	private EPackage metamodel;
 
 	public AbstractJsonSource(String name) {
+		if(name == null || name.equals("")) 
+			throw new IllegalArgumentException("Name cannot be null or empty");
 		this.name = name;
 	}
 

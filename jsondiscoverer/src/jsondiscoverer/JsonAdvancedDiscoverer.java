@@ -117,6 +117,8 @@ public class JsonAdvancedDiscoverer {
 	 * @param resultPaths The path where the coverage information will be saved
 	 */
 	public void saveCoverage(List<File> resultPaths) {
+		if(resultPaths == null) 
+			throw new IllegalArgumentException("ResultPath has to be provided");
 		if(resultPaths.size() == coverageCreators.size()) {
 			int i = 0;
 			for(CoverageCreator coverageCreator : coverageCreators.values()) {
@@ -137,6 +139,9 @@ public class JsonAdvancedDiscoverer {
 	 * @throws FileNotFoundException
 	 */
 	public EPackage discover(File resultPath) throws FileNotFoundException {
+		if(resultPath == null) 
+			throw new IllegalArgumentException("ResultPath has to be provided");
+		
 		EPackage result = discover();
 		ModelHelper.saveEPackage(result, resultPath);
 		return result;
@@ -254,6 +259,13 @@ public class JsonAdvancedDiscoverer {
 	 * @param coverageCreator Coverage manager to track changes
 	 */
 	private void composeAttributes(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) {
+		if(existingClass == null) 
+			throw new IllegalArgumentException("The discovered class (existingClass param) is required");
+		if(otherClass == null) 
+			throw new IllegalArgumentException("The class to compare with (otherClass param) is required");
+		if(coverageCreator == null) 
+			throw new IllegalArgumentException("The coverage creator is required");
+		
 		// Iterate over the structural features of the other class (to be composed into the existingClass)
 		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
 			// Only attributes
@@ -309,6 +321,13 @@ public class JsonAdvancedDiscoverer {
 	 * @param coverageCreator Coverage manager to track changes
 	 */
 	private void composeReferences(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) {
+		if(existingClass == null) 
+			throw new IllegalArgumentException("The discovered class (existingClass param) is required");
+		if(otherClass == null) 
+			throw new IllegalArgumentException("The class to compare with (otherClass param) is required");
+		if(coverageCreator == null) 
+			throw new IllegalArgumentException("The coverage creator is required");
+		
 		// Iterate over the structural features
 		for(EStructuralFeature otherFeature : otherClass.getEStructuralFeatures()) {
 			// Only references
@@ -344,6 +363,9 @@ public class JsonAdvancedDiscoverer {
 	 * @return Duplicated attribute
 	 */
 	private EAttribute duplicateAttribute(EAttribute otherAttribute) {
+		if(otherAttribute == null) 
+			throw new IllegalArgumentException("The attribute to be duplicated is required");
+		
 		EAttribute newAttribute = EcoreFactory.eINSTANCE.createEAttribute();
 		newAttribute.setName(otherAttribute.getName());
 		newAttribute.setEType(otherAttribute.getEType());
@@ -361,6 +383,9 @@ public class JsonAdvancedDiscoverer {
 	 * @return Duplicated reference
 	 */
 	private EReference duplicateReference(EReference otherReference) {
+		if(otherReference == null) 
+			throw new IllegalArgumentException("The reference to be duplicated is required");
+		
 		EReference newReference = EcoreFactory.eINSTANCE.createEReference();
 		newReference.setName(otherReference.getName());
 		newReference.setEType(otherReference.getEType());
@@ -377,6 +402,11 @@ public class JsonAdvancedDiscoverer {
 	 * @return Duplicated class
 	 */
 	private EClass duplicateEClass(EClass otherClass, CoverageCreator coverageCreator) {
+		if(otherClass == null) 
+			throw new IllegalArgumentException("The class to be duplicated is required");
+		if(coverageCreator == null) 
+			throw new IllegalArgumentException("The coverageCreator is required");
+		
 		EClass newClass = EcoreFactory.eINSTANCE.createEClass();
 		newClass.setName(otherClass.getName());
 		newClass.setAbstract(otherClass.isAbstract());
@@ -421,6 +451,13 @@ public class JsonAdvancedDiscoverer {
 	 * @param coverageCreator Coverage manager to track changes
 	 */
 	private void composeEClass(EClass existingClass, EClass otherClass, CoverageCreator coverageCreator) {
+		if(existingClass == null) 
+			throw new IllegalArgumentException("The discovered class (existingClass param) is required");
+		if(otherClass == null) 
+			throw new IllegalArgumentException("The class to compare with (otherClass param) is required");
+		if(coverageCreator == null) 
+			throw new IllegalArgumentException("The coverage creator is required");
+		
 		composeAttributes(existingClass, otherClass, coverageCreator);
 		composeReferences(existingClass, otherClass, coverageCreator);
 		AnnotationHelper.INSTANCE.registerName(existingClass, otherClass.getName());
@@ -439,6 +476,9 @@ public class JsonAdvancedDiscoverer {
 	 * @return 
 	 */
 	private EClass lookForSimilarEClass(EClass existingClass) { 
+		if(existingClass == null) 
+			throw new IllegalArgumentException("The class (existingClass param) is required");
+		
 		LOGGER.finer("  " + "Looking for classes similar to " + existingClass.getName());
 		
 		// If it is the input class, ignore it!
@@ -487,6 +527,13 @@ public class JsonAdvancedDiscoverer {
 	 * @return The similar attribute (null if not found)
 	 */
 	private EAttribute lookForSimilarAttribute(EClass existingClass, EAttribute otherAttribute, CoverageCreator coverageCreator)  {
+		if(existingClass == null) 
+			throw new IllegalArgumentException("The class (existingClass param) is required");
+		if(otherAttribute == null) 
+			throw new IllegalArgumentException("The attribute to compare with (otherAttribute param) is required");
+		if(coverageCreator == null) 
+			throw new IllegalArgumentException("The coverage creator is required");
+		
 		List<Object> jsonValues = getJSONValues(otherAttribute, coverageCreator.getName());
 
 		Iterator<EAttribute> it = cacheValues.keySet().iterator();
@@ -593,6 +640,9 @@ public class JsonAdvancedDiscoverer {
 	 * @return Digested identifier
 	 */
 	private String digestId(String id) {
+		if(id == null) 
+			throw new IllegalArgumentException("The id cannot be null");
+
 		String result = id;
 		if(result.endsWith("s")) 
 			result = result.substring(0, result.length()-1);

@@ -13,6 +13,7 @@
 package jsondiscoverer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -52,12 +53,27 @@ public class JsonComposer {
 
 	/**
 	 * Compose the sourceSet's received in the constructor and returns the composed metamodel. 
-	 * If resultPath is not null, serializes the metamodel into a file
+	 * Serializes the resulting metamodel.
 	 * 
-	 * @param resultPath The path to store the composed metamodel
+	 * @param resultPath The path where the resulting metamodel will be stored
+	 * @return The resulting metamodel as EPackage
+	 * @throws FileNotFoundException
+	 */
+	public EPackage discover(File resultPath) throws FileNotFoundException {
+		if(resultPath == null) 
+			throw new IllegalArgumentException("The file cannot be null");
+		
+		EPackage result = compose();
+		ModelHelper.saveEPackage(result, resultPath);
+		return result;
+	}
+	
+	/**
+	 * Compose the sourceSet's received in the constructor and returns the composed metamodel. 
+	 * 
 	 * @return The composed metamodel
 	 */
-	public EPackage compose(File resultPath) {
+	public EPackage compose() {
 		EPackage result = EcoreFactory.eINSTANCE.createEPackage();
 
 		HashMap<String, List<EClassifier>> cache = new HashMap<String, List<EClassifier>>();
@@ -116,12 +132,15 @@ public class JsonComposer {
 			EPackage sourceMetamodel = sourceSet.getMetamodel();
 			result.getEClassifiers().addAll(sourceMetamodel.getEClassifiers());
 		}
-		if(resultPath != null)
-			ModelHelper.saveEPackage(result, resultPath);
 		return result;
 	}
 
 	private boolean isSimilar(EClass sourceEClass, EClass targetEClass) { 
+		if(sourceEClass == null) 
+			throw new IllegalArgumentException("The sourceEClass cannot be null");
+		if(targetEClass == null) 
+			throw new IllegalArgumentException("The targetEClass cannot be null");
+		
 		LOGGER.finer("Comparing " + sourceEClass.getName() + " with " + targetEClass.getName());
 
 		double matchingFeatures = 0;
@@ -164,6 +183,11 @@ public class JsonComposer {
 	}
 	
 	private boolean nameIsSimilar(List<String> sourceNames, List<String> targetNames) {
+		if(sourceNames == null) 
+			throw new IllegalArgumentException("The sourceNames cannot be null");
+		if(targetNames == null) 
+			throw new IllegalArgumentException("The targetNames cannot be null");
+		
 		for(String sourceName : sourceNames) 
 			for(String targetName : targetNames) 
 				if(sourceName.equals(targetName)) return true;

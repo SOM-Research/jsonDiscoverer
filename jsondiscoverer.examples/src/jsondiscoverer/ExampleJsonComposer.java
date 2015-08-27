@@ -83,7 +83,7 @@ public class ExampleJsonComposer {
 		sourceSetList.add(api2SourceSet);
 		
 		JsonComposer composer = new JsonComposer(sourceSetList);
-		EPackage composed = composer.compose(null);
+		EPackage composed = composer.compose();
 		ModelHelper.saveEPackage(composed, new File("./exampleData/composer/exampleComposer-composed.ecore"));
 		
 	}

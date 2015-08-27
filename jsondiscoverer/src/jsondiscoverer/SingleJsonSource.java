@@ -30,6 +30,9 @@ public class SingleJsonSource extends JsonSource {
 	}
 	
 	public void addJsonData(Reader output) throws FileNotFoundException {
+		if(output == null) 
+			throw new IllegalArgumentException("output cannot be null");
+		
 		if(getJsonData().size() > 0) 
 			throw new IllegalStateException("SingleJsonSource can have only one source");
 		super.addJsonData(null, output);
