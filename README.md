@@ -16,16 +16,27 @@ The tool is inspired in the research papers:
 What can you find in this repository?
 -------------------------------------
 
-So far, these are the projects:
+So far, these are the projects (all of them developed as Eclipse plugins):
 
-* **jsonDiscoverer**. Includes the core implementation of the discoverers to get Ecore models from JSON documents.
-* **jsonDiscoverer.coverage**. EMF-generated Java Code defining an Ecore model to represent coverage models.
-* **jsonDiscoverer.web**. Web project including (1) an angularJS-based client-side application and (2) a servlet-based server-side application to provide access to the discoverers. 
+* **jsonDiscoverer**. Includes the core implementation of the discoverers to get schemas (and data models) out of JSON documents. Schemas are represented as Ecore files while data models are XMI files conforming to the Ecore ones. This means that the tool depends on [Eclipse Modeling Framework](https://eclipse.org/modeling/emf/).
+* **jsonDiscoverer.coverage**. EMF-generated Java Code from an Ecore model to represent coverage models. Coverage models are used to specify which parts in a general Ecore model are covered by smaller Ecore models.
+* **jsonDiscoverer.web**. Web project including (1) an angularJS-based client-side application and (2) a servlet-based server-side application to provide access to the discoverers. Servlets are basically the facade to the discoverers implemented in the jsonDiscoverer project.
 * **jsonDiscoverer.tests**. Includes some JUnit-based classes to test the discoverers. 
 * **jsonDiscoverer.examples**. Includes some code examples to launch the discoverers.
 * **jsonDiscoverer.zoo**. Some JSON documents collected from several Web APIs to test the discoverers.
 
 The project uses the [GSON library](https://github.com/google/gson) to parse JSON documents.
+
+Using JSONDiscoverer 
+---
+You can use the tool in three ways:
+* **Accesing the tool website**. The easiest to use our tool is to access to the [webpage of the project](http://som-research.uoc.edu/tools/jsonDiscoverer)
+* **In Java**. You can directly use the Java implementation of the discoverers provided in the jsonDiscoverer project. Refer to project jsonDiscoverer.examples to see some Java example code to use the discoverers
+* **As Web application**. You can create the WAR container file out of the jsonDiscoverer.web project and deploy it in your Tomcat (currently tested in Tomcat 7). The WAR is not provided because some tuning has to be made, in particular, see the file `config.properties` located in the `WebContent/WEB-INF`folder
+
+Can I collaborate?
+---
+Absolutely!. This project is licensed under the EPL license so feel free to contribute. You can find our (simple) governance rules in this [file](https://github.com/SOM-Research/jsonDiscoverer/blob/master/governance.md)
 
 Who is behind this project?
 ---------------------------
