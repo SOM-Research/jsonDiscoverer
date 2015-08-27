@@ -48,12 +48,13 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	/**
 	 * Name of the folder where the temp files will be stored
 	 */
-	private String folderName;
-	
-	public JsonSimpleDiscovererServlet() {
-		super();
+	private static String folderName;
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
 		folderName = properties.getProperty(SIMPLEDISCOVERER_FOLDER);
-		if(folderName == null) throw new IllegalStateException("ID for Simple Discoverer not found in properties");
+		if(folderName == null) throw new ServletException("ID for Simple Discoverer not found in properties");
 	}
 	
     /* 

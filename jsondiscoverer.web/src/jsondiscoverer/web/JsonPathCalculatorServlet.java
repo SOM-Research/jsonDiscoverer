@@ -62,7 +62,7 @@ public class JsonPathCalculatorServlet extends JsonComposerServlet {
 
 		// 2. Composition
 		JsonComposer composer = new JsonComposer(sourceSets);
-		EPackage finalMetamodel = composer.compose(null);
+		EPackage finalMetamodel = composer.compose();
 
 		EClass sourceEClass = null;
 		EClass targetEClass = null;

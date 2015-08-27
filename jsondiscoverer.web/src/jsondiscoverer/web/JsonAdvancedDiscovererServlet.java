@@ -53,17 +53,18 @@ public class JsonAdvancedDiscovererServlet extends AbstractJsonDiscoverer {
 	/**
 	 * Name of the folder where the temp files will be stored
 	 */
-	private String folderName;
+	private static String folderName;
 
 	/** This pattern is used to analyze the params
 	  * The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?
 	  * The important part is the JSON_SOURCE_NAME which provides the name of the parameter */
 	private static String paramsPattern = Pattern.quote("sources[") + "([a-zA-Z]*)"+ Pattern.quote("][") + "[\\$a-zA-Z]*" + Pattern.quote("]") + "(" + Pattern.quote("[]") + ")?";
-	
-	public JsonAdvancedDiscovererServlet() {
-		super();
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
 		folderName = properties.getProperty(ADVANCEDDISCOVERER_FOLDER);
-		if(folderName == null) throw new IllegalStateException("ID for Advanced Discoverer not found in properties");
+		if(folderName == null) throw new ServletException("ID for Advanced Discoverer not found in properties");
 	}
 	
 	/**

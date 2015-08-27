@@ -12,6 +12,7 @@
 package jsondiscoverer.zoo.test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import jsondiscoverer.zoo.ModelDrawer;
 import jsondiscoverer.zoo.ZooDiscoverer;
@@ -28,11 +29,11 @@ public class ExampleZooDiscoverer {
 	private static final String DOT_EXE = "C:/Program Files (x86)/Graphviz 2.28/bin/dot.exe"; // Path to DOT executable
 	private static final String WORKING_DIR = "./exampleData/workingDir";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		ExampleZooDiscoverer.exampleDiscover();
 	}
 	
-	public static void exampleDiscover() {
+	public static void exampleDiscover() throws FileNotFoundException {
 		ZooDiscoverer zooDiscoverer = new ZooDiscoverer(new File("./exampleData/zooDiscoverer"));
 		zooDiscoverer.discover(true);
 		

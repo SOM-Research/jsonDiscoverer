@@ -58,13 +58,13 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	public static String dotExePath = null;
 
 	// Version of the app
-	String version = "";
+	public static String version = "";
 	
 	// The jsonParam used for discovery (where the json code is stored)
 	static String jsonParam = null;
 	
 	// Server for the CORS
-	String serverURL = "";
+	static String serverURL = "";
 
 	Properties properties = null;
 
@@ -83,7 +83,6 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			workingDirString = properties.getProperty("workingDir");
 			dotExePath = properties.getProperty("dotExePath");
 			jsonParam = properties.getProperty("JsonParameter");
-
 			serverURL = properties.getProperty("serverURL");
 			version = properties.getProperty("version");
 			if(serverURL == null) 
@@ -106,6 +105,9 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	 * @throws IOException
 	 */
 	String encodeToString(File imagePath) throws IOException {
+		if(imagePath == null)
+			throw new IllegalArgumentException("imagePath cannot be null");
+		
 		BufferedImage image = ImageIO.read(imagePath);
 
 		String imageString = null;
@@ -134,6 +136,11 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	 * @throws ServletException
 	 */
 	String encodeToString(EPackage ePackage,  String uniqueId) throws ServletException {
+		if(ePackage == null)
+			throw new IllegalArgumentException("ePackage cannot be null");
+		if(uniqueId == null)
+			throw new IllegalArgumentException("uniqueId cannot be null");
+		
 		File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
 		if(!uniqueWorkingDir.isDirectory()) throw new ServletException("The working dir could not be set:" + uniqueWorkingDir.getAbsolutePath());
 
@@ -179,6 +186,11 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	 * @throws ServletException
 	 */
 	String encodeToString(List<EObject> elements,  String uniqueId) throws ServletException {
+		if(elements == null)
+			throw new IllegalArgumentException("elements cannot be null");
+		if(uniqueId == null)
+			throw new IllegalArgumentException("uniqueId cannot be null");
+		
 		File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
 		if(!uniqueWorkingDir.isDirectory()) throw new ServletException("The working dir could not be set:" + uniqueWorkingDir.getAbsolutePath());
 
@@ -225,6 +237,11 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	 * @throws ServletException
 	 */
 	File drawModel(List<EObject> elements, String uniqueId) throws ServletException {
+		if(elements == null)
+			throw new IllegalArgumentException("elements cannot be null");
+		if(uniqueId == null)
+			throw new IllegalArgumentException("uniqueId cannot be null");
+		
 		EcorePackage.eINSTANCE.eClass();
 		GraphdescPackage.eINSTANCE.eClass();
 
@@ -253,6 +270,9 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	 * @param response
 	 */
 	protected void addResponseOptions(HttpServletResponse response) {
+		if(response == null)
+			throw new IllegalArgumentException("response cannot be null");
+		
 		response.setHeader("Access-Control-Allow-Origin", serverURL);
 		response.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
 		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -260,7 +280,10 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	}
 
 	@Override
-	protected void doOptions(HttpServletRequest arg0, HttpServletResponse response)	throws ServletException, IOException {
+	protected void doOptions(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+		if(response == null)
+			throw new IllegalArgumentException("response cannot be null");
+		
 		addResponseOptions(response);
 	}
 }

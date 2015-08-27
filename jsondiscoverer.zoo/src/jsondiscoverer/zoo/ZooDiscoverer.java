@@ -86,11 +86,11 @@ public class ZooDiscoverer {
 		this.rootPath = rootPath;
 	}
 
-	public void discover() {
+	public void discover() throws FileNotFoundException {
 		discover(true); 
 	}
 
-	public void discover(boolean overwrite) {
+	public void discover(boolean overwrite) throws FileNotFoundException {
 		List<JsonSourceSet> sourceSets = new ArrayList<>();
 		for(File parentFile : rootPath.listFiles()) {
 			if(parentFile.isDirectory()) {
@@ -132,7 +132,6 @@ public class ZooDiscoverer {
 		JsonComposer composer = new JsonComposer(sourceSets);
 		File finalResultPath = new File(rootPath.getAbsoluteFile() + File.separator + rootPath.getName() + ".ecore");  
 		composer.compose(finalResultPath);
-
 	}
 
 	private JsonSource discoverSource(File rootPath, boolean overwrite) throws FileNotFoundException, IOException {

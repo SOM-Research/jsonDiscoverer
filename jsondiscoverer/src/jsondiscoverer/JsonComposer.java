@@ -59,7 +59,7 @@ public class JsonComposer {
 	 * @return The resulting metamodel as EPackage
 	 * @throws FileNotFoundException
 	 */
-	public EPackage discover(File resultPath) throws FileNotFoundException {
+	public EPackage compose(File resultPath) throws FileNotFoundException {
 		if(resultPath == null) 
 			throw new IllegalArgumentException("The file cannot be null");
 		

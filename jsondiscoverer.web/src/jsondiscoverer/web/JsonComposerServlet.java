@@ -113,7 +113,7 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 
 		// 2. Composition
 		JsonComposer composer = new JsonComposer(sourceSets);
-		EPackage finalMetamodel = composer.compose(null);
+		EPackage finalMetamodel = composer.compose();
 
 		// 3. Getting the graph
 		String gexfString = GexfConverter.convert(finalMetamodel);
