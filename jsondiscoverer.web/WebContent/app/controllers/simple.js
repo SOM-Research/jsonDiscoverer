@@ -62,7 +62,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
                 function(data) {
                     $scope.model = "data:image/jpg;base64," + data.image;
                     $scope.modelFile = "data:text/octet-stream;base64," + data.xmi;
-					$window.ga('send', 'event', 'JSON Discoverer', 'SimpleDiscoverer-DataModel')
+					$window.ga('send', 'event', 'JSON Discoverer', 'SimpleDiscoverer-Data')
                 },
                 function(data, status, headers, config) {
                     $scope.model = "";
