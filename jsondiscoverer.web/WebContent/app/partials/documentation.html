@@ -6,7 +6,7 @@
 			<li><a href="" ng-click="scrollTo('doc-problem')">Problem</a></li>
 			<li><a href="" ng-click="scrollTo('doc-simple')">Simple Discoverer</a></li>
 			<li><a href="" ng-click="scrollTo('doc-advanced')">Advanced Discoverer</a></li>
-			<li><a href="" ng-click="scrollTo('doc-composer')">Composer</a></li>
+			<li><a href="" ng-click="scrollTo('doc-composer')">API Composer</a></li>
 			<li><a href="" ng-click="scrollTo('doc-backend')">The Backend</a></li>		
 		</div>
 
@@ -43,7 +43,7 @@
 					<ul>
 						<li><strong><a href="#/simple">Simple discovery</a></strong>, which discovers the schema (and data models) from a JSON document.
 						<li><strong><a href="#/advanced">Advanced discovery</a></strong>, which discovers the schema (and data models) from a set of JSON-based services. First, the schema of each JSON-based service is discovered (by using the simple discoverer), then the resulting schemas are composed to obtain a general one.
-						<li><strong><a href="#/composer">Composer</a></strong>, which takes a set of API schemas, looks for composition links (i.e., common concepts or attributes) and generates a composition graph. The result is used to assist developers to compose APIs. The tool currently incoporates a sequence diagram generator to visualize API compositions.
+						<li><strong><a href="#/composer">API Composer</a></strong>, which takes a set of API schemas, looks for composition links (i.e., common concepts or attributes) and generates a composition graph. The result is used to assist developers to compose APIs. The tool currently incoporates a sequence diagram generator to visualize API compositions.
 						</li>
 					</ul>
 				</div>
@@ -127,9 +127,9 @@
 			</div>
 	
 			<div class="row">
-				<h2 id="doc-composer">The Composer</h2>
+				<h2 id="doc-composer">The API Composer</h2>
 				<div class="col-md-12">
-					<p>The composer approach applies a discovery process which first analyzes the schema behind each involved API (using the simple and advanced discoverers) and then takes the discovered schemas to obtain composition links. The discovered information is used to render a graph to assist developers to compose APIs. For instance, sequence diagrams are curretnly generated to visualize API compositions. </p>
+					<p>The API composer applies a discovery process which first analyzes the schema behind each involved API (using the simple and advanced discoverers) and then takes the discovered schemas to obtain composition links. The discovered information is used to render a graph to assist developers to compose APIs. For instance, sequence diagrams are curretnly generated to visualize API compositions. </p>
 					<p>Composition links among APIs are discovered by means of matching concepts among their schemas and analyzing whether they are part of the input parameters of API services. We have currently defined the following rules:</p>
 				</div>
 			</div>
@@ -176,7 +176,7 @@
 				<h2 id="doc-backend">The Backend</h2>
 				<div class="col-md-12">
 					<p>The tool provides a Java-based backend, which implements the functionalities commented before The main classes included in the backend are shown in the figure below. The backend defines a set of classes to represent JSON documents (see <code>AbstractJsonSource</code> hierarchy) returned by JSON-based Web services. They are called JSON sources and range from single JSON documents (i.e., <code>SingleJsonSource</code>) to a set of them (i.e., <code>JsonSourceSet</code>). JSON sources can also define the input of the service (i.e., <code>withInput</code>) if it is given as a JSON document. The parsing and management of JSON data is performed by using the <a href="https://github.com/google/gson">GSON library</a>. </p>
-					<p>The main functionalities provided by the tool are implemented in their corresponding classes. The simple discoverer is implemented by the classes <code>JsonSimpleDiscoverer</code> and <code>JsonInjector</code>, which provide the discovery of the schema and the data model, respectively. The advanced discoverer is implemented by the classes <code>JsonAdvancedDiscoverer</code>. Finally, the composer discovery is implemented by the class <code>JsonComposer</code>. Other classes not included in the Figure for the sake of simplicity are in charge of managing the coverage information, the management of models (i.e., loading and saving) and the sequence diagram generator. Our solution leverages on the modeling technology to represent the API schemas and the data models. In particular, the tool uses the <a href="https://eclipse.org/modeling/emf/">Eclipse Modeling Framework (EMF)</a></code>. 
+					<p>The main functionalities provided by the tool are implemented in their corresponding classes. The simple discoverer is implemented by the classes <code>JsonSimpleDiscoverer</code> and <code>JsonInjector</code>, which provide the discovery of the schema and the data model, respectively. The advanced discoverer is implemented by the classes <code>JsonAdvancedDiscoverer</code>. Finally, the API composer is implemented by the class <code>JsonComposer</code>. Other classes not included in the Figure for the sake of simplicity are in charge of managing the coverage information, the management of models (i.e., loading and saving) and the sequence diagram generator. Our solution leverages on the modeling technology to represent the API schemas and the data models. In particular, the tool uses the <a href="https://eclipse.org/modeling/emf/">Eclipse Modeling Framework (EMF)</a></code>. 
 					<p>The backend is made web-accessible by means of a set of servlets giving access to the classes implementing the core functionalities. The resulting web API allows using the developed service on any website. The first use of this web API is this webpage itself. </p>
 					<p class="text-center">
 						<img style="margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/doc-architecture.png" alt="Architecture of the tool"/>
