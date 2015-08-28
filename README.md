@@ -22,7 +22,7 @@ So far, these are the projects (all of them developed as Eclipse plugins):
 * **jsonDiscoverer.coverage**. EMF-generated Java Code from an Ecore model to represent coverage models. Coverage models are used to specify which parts in a general Ecore model are covered by smaller Ecore models.
 * **jsonDiscoverer.web**. Web project including (1) an angularJS-based client-side application and (2) a servlet-based server-side application to provide access to the discoverers. Servlets are basically the facade to the discoverers implemented in the jsonDiscoverer project.
 * **jsonDiscoverer.tests**. Includes some JUnit-based classes to test the discoverers. 
-* **jsonDiscoverer.examples**. Includes some code examples to launch the discoverers.
+* **jsonDiscoverer.examples**. Includes some code examples to launch the discoverers from Java. The project also includes some generation examples for the discoverers (see folder `exampleData` in the project). 
 * **jsonDiscoverer.zoo**. Some JSON documents collected from several Web APIs to test the discoverers.
 
 The project uses the [GSON library](https://github.com/google/gson) to parse JSON documents.
