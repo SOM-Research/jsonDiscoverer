@@ -10,14 +10,12 @@
 	    </div>
 	</div>
 	<div class="col-md-6">
-		<p>The composition discoverer <strong>infers a set of matching elements</strong> from a set of JSON documents (coming from the same or several sources). 
-		   It generates that allows you to easily visualize how your APIs can be composed.</p>
-		<p>To use the composition discoverer follow these steps:</p>
+		<p>The API composer <strong>looks for matching elements in different API schemas and generates a composition graph</strong>. The result is used to assist developers to compose APIs. The tool currently incoporates a sequence diagram generator to visualize API compositions.</p>
+		<p>To use the API composer follow these steps:</p>
 	    <ul>
-	    	<li><strong>Step 1. Provision.</strong> You have to provide two or more JSON sources. For each source you have to give a name and provide the input (optional) and one or more JSON definitions.</li>
-	    	<li><strong>Step 2. Composition discovery.</strong> For each JSON source we will discovery the schema information and then we all (sub)schemas will be composed in a graph where
-            graph nodes represents schema concepts and attributes. We will discover as well possible links among these concepts.</li>
-            <li><strong>Step 3. Composition Graph.</strong> You can apply the layout to better read the graph.</li>
+	    	<li><strong>Step 1. Provision.</strong> You have to provide two or more JSON sources. For each source you have to give a name and provide the input (optional) and one or more JSON documents.</li>
+	    	<li><strong>Step 2. Composition discovery.</strong> For each JSON source we will discover the schema information.</li>
+            <li><strong>Step 3. Composition Graph.</strong> The discovered schemas will be composed in a graph where graph nodes represents schema concepts and attributes. We will discover as well possible links among these concepts. You can apply the layout to better read the graph.</li>
             <li><strong>Step 4. Calculate a Path.</strong> Paths in the graph can represent API compositions. Given a source and a target nodes, you can calculate a path, which we will represent
             as a sequence diagram.</li>
 
