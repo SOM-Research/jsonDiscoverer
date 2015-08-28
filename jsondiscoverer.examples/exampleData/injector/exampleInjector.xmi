@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ASCII"?>
+<discoS:Stop xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discoS="http://jsonDiscoverer/discovered/Stop" codeLieu="CRQU4" libelle="Place du Cirque" distance="21 m">
+  <ligne numLigne="2"/>
+  <ligne numLigne="C1"/>
+</discoS:Stop>

@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore">
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayDistanceOutput">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="ArrayDistanceOutput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="googleMaps"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination_addresses"
+        lowerBound="1" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="destination_addresses" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin_addresses" lowerBound="1"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="origin_addresses" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rows" lowerBound="1" upperBound="-1"
+        eType="#//Row">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="rows" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="status" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Element">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Element" value="1"/>
+        <details key="PositionElevationOutput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="2"/>
+      <details key="source" value="googleMaps"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="distance" lowerBound="1"
+        eType="#//Duration">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="distance" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Element" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="duration" lowerBound="1"
+        eType="#//Duration">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="duration" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Element" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="status" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Element" value="1"/>
+          <details key="PositionElevationOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="results" lowerBound="1"
+        upperBound="-1" eType="#//Result">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="results" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="PositionElevationOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PositionElevationInput">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="PositionElevationInput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="googleMaps"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locations" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="locations" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="PositionElevationInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="sensor" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="PositionElevationInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="positionElevationOutput"
+        lowerBound="1" eType="#//Element">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="positionElevationOutput" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="PositionElevationInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Duration">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Duration" value="1"/>
+        <details key="Distance" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="2"/>
+      <details key="source" value="googleMaps"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="text" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Duration" value="1"/>
+          <details key="Distance" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="value" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Duration" value="1"/>
+          <details key="Distance" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Row">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Row" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="googleMaps"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" lowerBound="1"
+        upperBound="-1" eType="#//Element">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="elements" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Row" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayDistanceInput">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="ArrayDistanceInput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="googleMaps"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="origins" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="origins" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destinations" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="destinations" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mode" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="mode" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="language" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sensor" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="sensor" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arrayDistanceOutput" lowerBound="1"
+        eType="#//ArrayDistanceOutput">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="arrayDistanceOutput" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="ArrayDistanceInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Result">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Result" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="googleMaps"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="elevation" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="elevation" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Result" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="location" lowerBound="1"
+        eType="#//Location">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="location" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Result" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolution" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="resolution" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Result" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Location">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Location" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="googleMaps"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="lat" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Location" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lng" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="lng" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Location" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//StopPositionInput">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs"/>
+        <details key="totalFound" value="0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Ligne">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Ligne" value="2"/>
+      </eAnnotations>
+      <details key="totalFound" value="2"/>
+      <details key="source" value="tan"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numLigne" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="numLigne" value="2"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Ligne" value="2"/>
+        </eAnnotations>
+        <details key="totalFound" value="2"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeLigne" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="typeLigne" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Ligne" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="0.5"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WaitingTimeStopInput">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="WaitingTimeStopInput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="tan"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="stopName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="stopName" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WaitingTimeStopInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="waitingTimeStopOutput"
+        lowerBound="1" upperBound="-1" eType="#//WaitingTimeStopOutput">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="waitingTimeStopOutput" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WaitingTimeStopInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StopPositionInput">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="StopPositionInput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="tan"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lat" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="lat" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="StopPositionInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lon" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="lon" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="StopPositionInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stopPositionOutput" lowerBound="1"
+        upperBound="-1" eType="#//StopPositionOutput">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="stopPositionOutput" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="StopPositionInput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mapping" eType="#//Location"
+        eOpposite="#//Location/mapping">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs"/>
+        <details key="totalFound" value="0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StopPositionOutput">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="StopPositionOutput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="tan"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeLieu" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="codeLieu" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="StopPositionOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelle" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="libelle" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="StopPositionOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distance" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="distance" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="StopPositionOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" upperBound="-1"
+        eType="#//Ligne">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="ligne" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="StopPositionOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Arret">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="Arret" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="tan"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeArret" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="codeArret" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="Arret" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WaitingTimeStopOutput">
+    <eAnnotations source="coverage">
+      <eAnnotations source="AlsoKnownAs">
+        <details key="WaitingTimeStopOutput" value="1"/>
+      </eAnnotations>
+      <details key="totalFound" value="1"/>
+      <details key="source" value="tan"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sens" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="sens" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WaitingTimeStopOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminus" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="terminus" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WaitingTimeStopOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="infotrafic" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="infotrafic" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WaitingTimeStopOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="temps" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="temps" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WaitingTimeStopOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" eType="#//Ligne">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="ligne" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WaitingTimeStopOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arret" lowerBound="1" eType="#//Arret">
+      <eAnnotations source="coverage">
+        <eAnnotations source="AlsoKnownAs">
+          <details key="arret" value="1"/>
+        </eAnnotations>
+        <eAnnotations source="foundIn">
+          <details key="WaitingTimeStopOutput" value="1"/>
+        </eAnnotations>
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>

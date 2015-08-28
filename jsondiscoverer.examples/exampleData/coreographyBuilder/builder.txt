@@ -1,0 +1,6 @@
+User->GOOGLEMAPS:pathCalculator(origin : EString, destination : EString, waypoints : EString, sensor : EBoolean)
+GOOGLEMAPS-->User:response(lat : ESTRING, lng : ESTRING)
+Note right of User:LOOP
+Note right of User: lat -> lat, lng -> lon
+User->TAN:stopPosition(lat : EInt, lon : EInt)
+TAN-->User:response(numLigne : ESTRING, directionSens1 : ESTRING, directionSens2 : ESTRING, accessible : EBOOLEAN, etatTrafic : EINT, libelleTrafic : ESTRING, typeLigne : EINT)

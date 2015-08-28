@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<discop:PositionElevationInput xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discop="http://jsonDiscoverer/discovered/positionElevation" locations="-104" sensor="true">
+  <positionElevationOutput status="OK">
+    <results elevation="1608" resolution="4">
+      <location lat="39" lng="-104"/>
+    </results>
+  </positionElevationOutput>
+</discop:PositionElevationInput>

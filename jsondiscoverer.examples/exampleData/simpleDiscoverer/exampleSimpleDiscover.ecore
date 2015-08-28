@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="example" nsURI="http://jsonDiscoverer/discovered/example" nsPrefix="discoe">
+  <eClassifiers xsi:type="ecore:EClass" name="Ligne">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="4"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numLigne" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="4"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Example">
+    <eAnnotations source="coverage">
+      <details key="totalFound" value="1"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codeLieu" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="libelle" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distance" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ligne" lowerBound="1" upperBound="-1"
+        eType="#//Ligne" containment="true">
+      <eAnnotations source="coverage">
+        <details key="totalFound" value="1"/>
+        <details key="ratioTotalFound" value="1.0"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>

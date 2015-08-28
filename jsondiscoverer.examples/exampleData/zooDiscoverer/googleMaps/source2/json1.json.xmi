@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<discoa:ArrayDistanceInput xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:discoa="http://jsonDiscoverer/discovered/arrayDistance" origins="Vancouver..." destinations="San Francisco..." mode="bicycling" language="fr" sensor="true">
+  <arrayDistanceOutput status="OK">
+    <destination_addresses>San Francisco, Californie, &#xc9;tats-Unis</destination_addresses>
+    <destination_addresses>Victoria, BC, Canada</destination_addresses>
+    <origin_addresses>Vancouver, BC, Canada</origin_addresses>
+    <origin_addresses>Seattle, &#xc9;tat de Washington, &#xc9;tats-Unis</origin_addresses>
+    <rows>
+      <elements status="OK">
+        <distance text="1 715 km" value="1715150"/>
+        <duration text="3 jours 20 heures" value="331422"/>
+      </elements>
+      <elements status="OK">
+        <distance text="136 km" value="135607"/>
+        <duration text="6 heures 37 minutes" value="23797"/>
+      </elements>
+    </rows>
+    <rows>
+      <elements status="OK">
+        <distance text="1 462 km" value="1461663"/>
+        <duration text="3 jours 5 heures" value="278612"/>
+      </elements>
+      <elements status="OK">
+        <distance text="146 km" value="146498"/>
+        <duration text="2 heures 51 minutes" value="10257"/>
+      </elements>
+    </rows>
+  </arrayDistanceOutput>
+</discoa:ArrayDistanceInput>

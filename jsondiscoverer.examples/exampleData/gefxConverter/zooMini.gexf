@@ -1,0 +1,259 @@
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd">
+	<meta lastmodifieddate="2015-08-28 14:35:21.732">
+		<creator>JSON Discovorer</creator>
+		<description>Conversion from Ecore</description>
+	</meta>
+	<graph mode="static" defaultedgetype="directed">
+		<attributes class="node">
+			<attribute id="at1" title="type" type="string"></attribute>
+			<attribute id="at2" title="sourceName" type="string"></attribute>
+		</attributes>
+		<attributes class="edge">
+			<attribute id="at1" title="type" type="string"></attribute>
+		</attributes>
+		<nodes>
+			<node id ="0" label="PositionElevationOutput">
+				<attvalues>
+					<attvalue for="type" value="concept"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="66" g="31" b="158"></viz:color>
+			</node>
+			<node id ="1" label="status">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="2" label="PositionElevationInput">
+				<attvalues>
+					<attvalue for="type" value="concept"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="0" b="0"></viz:color>
+			</node>
+			<node id ="3" label="locations">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="4" label="sensor">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="5" label="Result">
+				<attvalues>
+					<attvalue for="type" value="concept"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="66" g="31" b="158"></viz:color>
+			</node>
+			<node id ="6" label="elevation">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="7" label="resolution">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="8" label="Location">
+				<attvalues>
+					<attvalue for="type" value="concept"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="66" g="31" b="158"></viz:color>
+			</node>
+			<node id ="9" label="lat">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="10" label="lng">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="googleMaps"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="11" label="Ligne">
+				<attvalues>
+					<attvalue for="type" value="concept"></attvalue>
+					<attvalue for="sourceName" value="tan"></attvalue>
+				</attvalues>
+				<viz:color r="126" g="74" b="6"></viz:color>
+			</node>
+			<node id ="12" label="numLigne">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="tan"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="13" label="StopPositionInput">
+				<attvalues>
+					<attvalue for="type" value="concept"></attvalue>
+					<attvalue for="sourceName" value="tan"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="0" b="0"></viz:color>
+			</node>
+			<node id ="14" label="lat">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="tan"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="15" label="lon">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="tan"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="16" label="StopPositionOutput">
+				<attvalues>
+					<attvalue for="type" value="concept"></attvalue>
+					<attvalue for="sourceName" value="tan"></attvalue>
+				</attvalues>
+				<viz:color r="126" g="74" b="6"></viz:color>
+			</node>
+			<node id ="17" label="codeLieu">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="tan"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="18" label="libelle">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="tan"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+			<node id ="19" label="distance">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+					<attvalue for="sourceName" value="tan"></attvalue>
+				</attvalues>
+				<viz:color r="255" g="255" b="255"></viz:color>
+			</node>
+		</nodes>
+		<edges>
+			<edge id ="0" source="0" target="1">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="1" source="2" target="3">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="2" source="2" target="4">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="3" source="5" target="6">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="4" source="5" target="7">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="5" source="8" target="9">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="6" source="8" target="10">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="7" source="11" target="12">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="8" source="13" target="14">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="9" source="13" target="15">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="10" source="16" target="17">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="11" source="16" target="18">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="12" source="16" target="19">
+				<attvalues>
+					<attvalue for="type" value="attribute"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="13" source="0" target="5">
+				<attvalues>
+					<attvalue for="type" value="reference"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="14" source="2" target="0">
+				<attvalues>
+					<attvalue for="type" value="reference"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="15" source="5" target="8">
+				<attvalues>
+					<attvalue for="type" value="reference"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="16" source="8" target="13">
+				<attvalues>
+					<attvalue for="type" value="reference"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="17" source="13" target="16">
+				<attvalues>
+					<attvalue for="type" value="reference"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="18" source="13" target="8">
+				<attvalues>
+					<attvalue for="type" value="reference"></attvalue>
+				</attvalues>
+			</edge>
+			<edge id ="19" source="16" target="11">
+				<attvalues>
+					<attvalue for="type" value="reference"></attvalue>
+				</attvalues>
+			</edge>
+		</edges>
+	</graph>
+	</gexf>
