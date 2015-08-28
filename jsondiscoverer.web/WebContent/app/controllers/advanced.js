@@ -63,6 +63,7 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
                     $scope.metamodel = "data:image/jpg;base64," + data.image;
                     $scope.metamodelFile = "data:text/octet-stream;base64," + data.xmi;
                     $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://som-research.uoc.edu/tools/jsonDiscoverer/#/contact">contact us</a> to improve our tool!' });
+					$window.ga('send', 'event', 'JSON Discoverer', 'AdvancedDiscoverer-Schema')
                 },
                 function(data, status, headers, config) {
                     $scope.metamodel = "";

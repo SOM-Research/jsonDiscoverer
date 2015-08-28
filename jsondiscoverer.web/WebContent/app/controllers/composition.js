@@ -86,6 +86,7 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
                     }
                     $scope.sigmaGraph.refresh();
                     $scope.layoutPosible = true;
+					$window.ga('send', 'event', 'JSON Discoverer', 'Composer-Graph')
                 },
                 function(data, status, headers, config) {
                     $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the composition discovery process. Could you check your JSON and try again?' });
@@ -144,6 +145,7 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
                 function(data) {
                     var diagram = Diagram.parse(data);
                     diagram.drawSVG("sequence-diagram", {theme: 'simple'});
+					$window.ga('send', 'event', 'JSON Discoverer', 'SimpleDiscoverer-SequenceDiagram')
                 },
                 function(data, status, headers, config) {
 
