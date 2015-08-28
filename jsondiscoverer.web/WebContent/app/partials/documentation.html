@@ -18,10 +18,10 @@
 				</div>
 				<div class="col-md-10">
 					<p>
-					With the emergence of the Web 2.0, asynchronous-based web technologies are becoming mainstream mainly thanks to their ability to provide richer, faster and more interactive web experiences. For a long time, these applications have been using XML as interchange format, however, in the last years the JavaScript Object  Notation (<a href="http://json.org/>">JSON</a>) has been gaining in popularity since it provides a lightweigth data exchange format with a significant performance improvement.
+					With the emergence of the Web 2.0, asynchronous-based web technologies are becoming mainstream mainly thanks to their ability to provide richer, faster and more interactive web experiences. For a long time, these applications have been using XML as interchange format, however, in the last years the JavaScript Object Notation (<a href="http://json.org/>">JSON</a>) has been gaining in popularity since it provides a lightweigth data exchange format with a significant performance improvement.
 					</p>
 					<p>
-					JSON consists in sets of Object described by name/value pairs. It is <strong>schemaless</strong>, i.e., there is no a structural definition of JSON objects, instead it is implicit. Schemaless data is particularly <a href="http://martinfowler.com/articles/schemaless">interesting in cases dealing with non-uniform data or in schema migration</a>, however, it can become a burden in data integration scenarios (e.g., consuming JSONbased APIs) where it becomes necessary to discover at least partially the underlying structure in order to properly process the data.
+					JSON consists in sets of objects described by name/value pairs. It is <strong>schemaless</strong>, i.e., there is no a structural definition of JSON objects, instead it is implicit. Schemaless data is particularly <a href="http://martinfowler.com/articles/schemaless">interesting in cases dealing with non-uniform data or in schema migration</a>, however, it can become a burden in data integration scenarios (e.g., consuming JSONbased APIs) where it becomes necessary to discover at least partially the underlying structure in order to properly process the data.
 					</p>
 					<p>
 					Nowadays, a considerable number of web applications provide an external API consisting in a set of JSON-based services where all services are interrelated. Indeed, each service gives access to a subset of the application domain and developers must combine them to build any kind of non-trivial functionality on top of that API. Since JSON data is a schemaless format, deducing the right way of combining those services is not a trivial task. JSONDiscoverer aims at discovering (and visualizing) the implicit schema of the JSON data as well as the possible composition links among JSON-based Web APIs.
@@ -38,18 +38,18 @@
 				<h2 id="doc-problem">The problem</h2>
 				<div class="col-md-6">
 					<p>The figure on the right illustrates the typical development scenario where JSON-based Web APIs define a set of services, each one returning JSON documents when they are called.</p>
-					<p>To select and use these Web APIs, developers usually test each service and reverse engineering the implicit structure of the data they return. When developers want to compose Web APIs, they look for common elements among the Web APIs, which is not a trivial task and sometime not successful (i.e., when the APIs cannot be composed).</p>
-					<p>Our tool applies a discovery process to uncover the schema (i.e., schema) behind JSON-based Web APIs and assist on the discovery of composition links among them. These arre currently the main functionalities provided:</p>
+					<p>To select and use these Web APIs, developers usually test each service and reverse engineer the implicit structure of the data they return. When developers want to compose Web APIs, they look for common elements among the Web APIs, which is not a trivial task.</p>
+					<p>Our tool applies a discovery process to uncover the schema (i.e., schema) behind JSON-based Web APIs and assist on the discovery of composition links among them. These are currently the main functionalities provided:</p>
 					<ul>
-						<li><strong><a href="#/simple">Simple discovery</a></strong>, which discovers the schema (and data models) from a JSON document.
-						<li><strong><a href="#/advanced">Advanced discovery</a></strong>, which discovers the schema (and data models) from a set of JSON-based services. First, the schema of each JSON-based service is discovered (by using the simple discoverer), then the resulting schemas are composed to obtain a general one.
+						<li><strong><a href="#/simple">Simple discovery</a></strong>, which discovers the schema model from a JSON document.
+						<li><strong><a href="#/advanced">Advanced discovery</a></strong>, which discovers the schema from a set of JSON-based services. First, the schema of each JSON-based service is discovered (by using the simple discoverer), then the resulting schemas are composed to obtain a global one.
 						<li><strong><a href="#/composer">API Composer</a></strong>, which takes a set of API schemas, looks for composition links (i.e., common concepts or attributes) and generates a composition graph. The result is used to assist developers to compose APIs. The tool currently incoporates a sequence diagram generator to visualize API compositions.
 						</li>
 					</ul>
 				</div>
 				<div class="col-md-6">
 					<img style="margin-bottom: 20px; padding:10px;" class="img-thumbnail" src="images/doc-example.png" alt="Problem Example">
-					<p>Our tool represents schema information as class diagrams, including concepts (i.e., classes) and their relationships (i.e., attributes/associations), while composition links will be represented as relationships between concepts from different schemas.The tool leverages on model-driven techniques to represent both the schema and composition information as models and model associations, respectively. 
+					<p>Our tool represents schema information as class diagrams, including concepts (i.e., classes) and their properties (i.e., attributes/associations).The tool leverages on model-driven techniques to represent both the schema and composition information as models and model associations, respectively. 
 					</p>
 				</div>    
 			</div>
@@ -57,11 +57,11 @@
 			<div class="row">
 				<h2 id="doc-simple">The Simple Discoverer</h2>
 				<div class="col-md-12">
-					<p>JSON documents include both metadata (i.e., the name side of the object name/value pair elements) and data (i.e., their value). Note that, however, two objects in the same (or different) JSON document(s) generated by a call to the same service do not necessarily have the same exact structure, e.g., it is possible that some of them include only a subset of the metadata/data, thus removing some name/value pairs (e.g., to reduce network traffic). Therefore, the accuracy of the simple discovery increases when a number of JSON objects to infer their common structure are analyzed.</p>
+					<p>JSON documents include both metadata (i.e., the name side of the object name/value pair elements) and data (i.e., their value). Note that, however, two objects in the same (or different) JSON document(s) generated by a call to the same service do not necessarily have the same exact structure, e.g., it is possible that some of them include only a subset of the metadata/data, thus removing some name/value pairs (e.g., to reduce network traffic). Therefore, the accuracy of the simple discovery increases when a number of JSON objects are provided for the analysis.</p>
 					
-					<p>The simple discovery process is therefore launched for each JSON object and has two execution modes: creation and refinement. The former creates a root concept from an object representing a concept not yet existing in the service schema created so far whereas the latter enriches/refines an already existing concept with information coming from new objects representing such concept. </p>
+					<p>The simple discovery process is therefore launched for each JSON object and has two execution modes: creation and refinement. The former creates a root concept from an object representing a concept not yet existing in the service schema created so far whereas the latter enriches/refines an already existing concept with information coming from new objects of that concept appearing in other documents. </p>
 					
-					<p>When a JSON object  element representing a new concept is considered, the following creation rules are applied to build the corresponding elements in the schema (see figure on the left as example):</p>
+					<p>When a JSON object element representing a new concept is considered, the following creation rules are applied to build the corresponding elements in the schema (see figure on the left as example):</p>
 				</div>
 			</div>
 		
