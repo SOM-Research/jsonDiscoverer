@@ -49,7 +49,7 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 	/** This pattern is used to analyze the params
 	  * The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?([input|output])?
 	  * The important part is the JSON_SOURCE_NAME which provides the name of the parameter */
-	private static String paramsPattern = Pattern.quote("sources[") + "([a-zA-Z]*)"+ Pattern.quote("]") + 
+	private static String paramsPattern = Pattern.quote("sources[") + "([a-zA-Z0-9]*)"+ Pattern.quote("]") + 
 			Pattern.quote("[") + "[\\$a-zA-Z]*" + Pattern.quote("]") + 
 			"(" + Pattern.quote("[") + "[0-9]*" + Pattern.quote("]") + ")?" + 
 			"(" + Pattern.quote("[") + "[a-zA-Z]*" + Pattern.quote("]") + ")?";
