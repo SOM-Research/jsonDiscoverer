@@ -19,7 +19,6 @@ import java.util.HashMap;
  * (i.e., several examples of different JSON-based API calls)
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 public class JsonSourceSet extends AbstractJsonSource {

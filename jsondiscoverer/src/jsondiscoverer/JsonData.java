@@ -20,7 +20,6 @@ import com.google.gson.JsonObject;
  * the input (as JSON) and the output (as JSON) of the service given such an input.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 class JsonData {

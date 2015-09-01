@@ -26,7 +26,6 @@ import com.google.gson.stream.JsonReader;
  * (i.e., set of JSON documents returned by the same JSON-based Web API)
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 public class JsonSource extends AbstractJsonSource {

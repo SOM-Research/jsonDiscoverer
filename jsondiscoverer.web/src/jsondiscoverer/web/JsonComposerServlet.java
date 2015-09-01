@@ -39,7 +39,6 @@ import jsondiscoverer.util.GexfConverter;
  * ervlet to access to {@link JsonComposer}
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 @WebServlet("/composer")

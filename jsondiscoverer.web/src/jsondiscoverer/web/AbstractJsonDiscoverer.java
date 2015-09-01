@@ -45,7 +45,6 @@ import sun.misc.BASE64Encoder;
  * Abstract class to factor some common behavior
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 public abstract class AbstractJsonDiscoverer extends HttpServlet {

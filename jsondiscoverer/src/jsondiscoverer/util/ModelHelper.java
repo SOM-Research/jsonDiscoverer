@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
  * Utility class con basic model actions
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 1.0.0
  *
  */
 public class ModelHelper {

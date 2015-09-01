@@ -31,7 +31,6 @@ import javax.servlet.http.HttpServletResponse;
  * LIMIT_LINES to avoid overloading the server.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 @WebServlet("/getJson")

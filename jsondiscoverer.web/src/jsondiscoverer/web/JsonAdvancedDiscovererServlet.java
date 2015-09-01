@@ -40,7 +40,6 @@ import jsondiscoverer.JsonSourceSet;
  * Main servlet to provide access to {@link JsonAdvancedDiscoverer}
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 @WebServlet("/advancedDiscover")

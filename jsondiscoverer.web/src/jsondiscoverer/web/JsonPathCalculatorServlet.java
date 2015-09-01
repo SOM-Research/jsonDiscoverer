@@ -34,7 +34,6 @@ import jsondiscoverer.JsonSourceSet;
  * This servlet allows calculating paths between nodes of the discovered metamodel
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 @WebServlet("/calculatePath")

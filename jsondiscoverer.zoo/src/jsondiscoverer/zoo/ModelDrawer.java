@@ -32,6 +32,12 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.processor.core.StandaloneProcessor;
 
+/**
+ * This class traverses a folder and generates the pictures for each model found
+ * 
+ * @author Javier Canovas (me@jlcanovas.es)
+ *
+ */
 public class ModelDrawer {
 	private final static Logger LOGGER = Logger.getLogger(ModelDrawer.class.getName());
 

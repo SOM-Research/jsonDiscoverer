@@ -35,7 +35,6 @@ import jsondiscoverer.JsonSource;
  * Main class that provides the main access to {@link JsonSimpleDiscoverer}
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 @WebServlet("/simpleDiscoverMetamodel")

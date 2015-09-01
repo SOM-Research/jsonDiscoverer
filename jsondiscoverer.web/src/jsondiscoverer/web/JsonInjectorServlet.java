@@ -33,7 +33,6 @@ import jsondiscoverer.SingleJsonSource;
  * This servlet gives access to the {@link JsonInjector}
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 @WebServlet("/simpleDiscoverModel")

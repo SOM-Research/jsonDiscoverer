@@ -14,7 +14,6 @@ import com.google.gson.JsonObject;
  * Super simple servlet to know the versio running in the server
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 @WebServlet("/version")

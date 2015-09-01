@@ -22,6 +22,14 @@ import org.eclipse.emf.ecore.EReference;
 
 import jsondiscoverer.util.DijkstraSolver;
 
+/**
+ * This class generates a sequence diagram description for the tool 
+ * js-sequene-diagrams (http://bramp.github.io/js-sequence-diagrams)
+ * out of a path in an EPackage. 
+ * 
+ * @author Javier Canovas (me@jlcanovas.es)
+ *
+ */
 public class CoreographyBuilder {
 	private EPackage domain;
 

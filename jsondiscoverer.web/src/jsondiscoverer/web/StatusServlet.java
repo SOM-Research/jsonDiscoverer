@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
  * Simple servlet to know the versions of the other servlets
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 @WebServlet("/status")

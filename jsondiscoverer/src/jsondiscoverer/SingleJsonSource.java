@@ -20,7 +20,6 @@ import java.io.Reader;
  * with ONE JSON document and WITHOUT input
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 public class SingleJsonSource extends JsonSource {

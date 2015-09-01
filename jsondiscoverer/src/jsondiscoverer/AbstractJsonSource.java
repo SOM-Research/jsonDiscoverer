@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EPackage;
  * Common implementation for JSON sources
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 public abstract class AbstractJsonSource {

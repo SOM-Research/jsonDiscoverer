@@ -58,7 +58,6 @@ import jsondiscoverer.util.ModelHelper;
  * This implementation does not depend on Xtext
  * 
  * @author Javier Canovas (me@jlcanovas.es)
- * @version 2.0.0
  *
  */
 public class JsonAdvancedDiscoverer {
