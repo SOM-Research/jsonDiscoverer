@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 
 import com.google.gson.JsonObject;
 
@@ -55,12 +56,13 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 		source.addJsonData(null, new StringReader(jsonCode));
 		JsonInjector injector = new JsonInjector(source); 
 		List<EObject> eObjects = injector.inject(); 
+		EPackage ePackage = injector.getEPackage();
 		
 		// 2. Get the picture
 		String id = properties.getProperty(INJECTOR_ID);
 		if(id == null) throw new ServletException("ID for injector not found in properties");
 		
-		File resultPath = drawModel(eObjects, id);		
+		File resultPath = drawObjectModel(eObjects, ePackage, id);
 		String resultImage = encodeToString(resultPath);
 		resultPath.delete();
 		

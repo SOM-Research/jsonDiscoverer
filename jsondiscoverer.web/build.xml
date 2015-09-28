@@ -42,6 +42,7 @@
         		<exclude name="META-INF/**/*"/>
         		<exclude name="WEB-INF/**/*"/>	
         		<exclude name="workingDir/**/*.xmi"/>	
+        		<exclude name="workingDir/**/*.graphdesc"/>	
         		<exclude name="workingDir/**/*.jpg"/>	
         		<exclude name="workingDir/**/*.ecore"/>	
         	</fileset>
