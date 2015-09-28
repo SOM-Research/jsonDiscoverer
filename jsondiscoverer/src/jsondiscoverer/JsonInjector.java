@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -250,6 +251,10 @@ public class JsonInjector {
 			result = result.substring(0, result.length()-1);
 		result = result.substring(0, 1).toUpperCase() + result.substring(1, result.length()); 
 		return result;
+	}
+	
+	public EPackage getEPackage() {
+		return jsonSource.getMetamodel();
 	}
 
 }

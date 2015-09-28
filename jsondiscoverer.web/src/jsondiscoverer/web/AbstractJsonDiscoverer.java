@@ -28,15 +28,27 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.cxf.helpers.IOUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.emftools.emf2gv.graphdesc.AttributeFigure;
+import org.emftools.emf2gv.graphdesc.ClassFigure;
+import org.emftools.emf2gv.graphdesc.GVFigureDescription;
+import org.emftools.emf2gv.graphdesc.GraphdescFactory;
 import org.emftools.emf2gv.graphdesc.GraphdescPackage;
+import org.emftools.emf2gv.graphdesc.Orientation;
+import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.processor.core.StandaloneProcessor;
 
 import sun.misc.BASE64Encoder;
@@ -58,10 +70,10 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 
 	// Version of the app
 	public static String version = "";
-	
+
 	// The jsonParam used for discovery (where the json code is stored)
 	static String jsonParam = null;
-	
+
 	// Server for the CORS
 	static String serverURL = "";
 
@@ -106,7 +118,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	String encodeToString(File imagePath) throws IOException {
 		if(imagePath == null)
 			throw new IllegalArgumentException("imagePath cannot be null");
-		
+
 		BufferedImage image = ImageIO.read(imagePath);
 
 		String imageString = null;
@@ -125,7 +137,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		}
 		return imageString;
 	}
-	
+
 	/**
 	 * Saves the EPackage into a XMI and then read it to return it as String in Base64
 	 * 
@@ -139,7 +151,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			throw new IllegalArgumentException("ePackage cannot be null");
 		if(uniqueId == null)
 			throw new IllegalArgumentException("uniqueId cannot be null");
-		
+
 		File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
 		if(!uniqueWorkingDir.isDirectory()) throw new ServletException("The working dir could not be set:" + uniqueWorkingDir.getAbsolutePath());
 
@@ -150,7 +162,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		} catch (IOException e1) {
 			throw new ServletException("Not possible to access to temp dir");
 		}
-		
+
 		// Saving into XMI
 		ResourceSet rSet = new ResourceSetImpl();
 		Resource res = rSet.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
@@ -160,7 +172,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		} catch (IOException e) {
 			throw new ServletException("Not possible to save the Epackage", e);
 		}
-		
+
 		// Loading XMI into String
 		String result;
 		try {
@@ -172,10 +184,10 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		} catch (IOException e) {
 			throw new ServletException("Error reading XMI to String", e);
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Saves a list of EObjects into a XMI and then read it to return it as String in Base64
 	 * 
@@ -189,7 +201,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			throw new IllegalArgumentException("elements cannot be null");
 		if(uniqueId == null)
 			throw new IllegalArgumentException("uniqueId cannot be null");
-		
+
 		File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
 		if(!uniqueWorkingDir.isDirectory()) throw new ServletException("The working dir could not be set:" + uniqueWorkingDir.getAbsolutePath());
 
@@ -200,7 +212,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		} catch (IOException e1) {
 			throw new ServletException("Not possible to access to temp dir");
 		}
-		
+
 		// Saving into XMI
 		ResourceSet rSet = new ResourceSetImpl();
 		Resource res = rSet.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
@@ -210,7 +222,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		} catch (IOException e) {
 			throw new ServletException("Not possible to save the Epackage", e);
 		}
-		
+
 		// Loading XMI into String
 		String result;
 		try {
@@ -222,25 +234,26 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		} catch (IOException e) {
 			throw new ServletException("Error reading XMI to String", e);
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * Draws a model into a picture. To avoid file access problems, an unique id has to be 
 	 * provided. A new directory using such id will be created.
 	 * 
 	 * @param elements Elements to be drawn
 	 * @param uniqueId Id of the process asking for the generation 
+	 * @param graphDesc Graphical description according to EMF2GV format
 	 * @return
 	 * @throws ServletException
 	 */
-	File drawModel(List<EObject> elements, String uniqueId) throws ServletException {
+	File drawModel(List<EObject> elements, String uniqueId, GVFigureDescription graphDesc) throws ServletException {
 		if(elements == null)
 			throw new IllegalArgumentException("elements cannot be null");
 		if(uniqueId == null)
 			throw new IllegalArgumentException("uniqueId cannot be null");
-		
+
 		EcorePackage.eINSTANCE.eClass();
 		GraphdescPackage.eINSTANCE.eClass();
 
@@ -255,12 +268,95 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		}
 
 		try {
-			StandaloneProcessor.process(elements, null, uniqueWorkingDir, resultPath.getAbsolutePath(), null, null, dotExePath, true, false, "UTF-8", null, null, null);
+			StandaloneProcessor.process(elements, graphDesc, uniqueWorkingDir, resultPath.getAbsolutePath(), null, null, dotExePath, true, false, "UTF-8", null, null, null);
 		} catch (CoreException e) {
 			throw new ServletException("Not possible to generate the image");
 		}
 
 		return resultPath;
+	}
+
+	/**
+	 * Draws a model into a picture following standard style. 
+	 * To avoid file access problems, an unique id has to be 
+	 * provided. A new directory using such id will be created.
+	 * 
+	 * @param elements Elements to be drawn
+	 * @param uniqueId Id of the process asking for the generation 
+	 * @return
+	 * @throws ServletException
+	 */
+	File drawModel(List<EObject> elements, String uniqueId) throws ServletException {
+		// Default Style will be used
+		return drawModel(elements, uniqueId, null);
+	}
+
+	/**
+	 * Draws an object model following a specific style which removes the name
+	 * of the class instances.
+	 * 
+	 * @param elements Elements to be drawn
+	 * @param ePackage The metamodel
+	 * @param uniqueId Id of the process asking for the generation 
+	 * @return
+	 * @throws ServletException
+	 */
+	File drawObjectModel(List<EObject> elements, EPackage ePackage, String uniqueId) throws ServletException {
+		// Main graphical description for the root
+		GVFigureDescription gvFigureDescription = GraphdescFactory.eINSTANCE.createGVFigureDescription();
+		gvFigureDescription.setOrientation(Orientation.LEFT_TO_RIGHT);
+		gvFigureDescription.setAlignSameEClasses(true);
+		gvFigureDescription.getEPackages().add(ePackage);
+
+		// Graphical description for metaclass instances
+		for(EClassifier eClassifier : ePackage.getEClassifiers()) {
+			if (eClassifier instanceof EClass) {
+				EClass eClass = (EClass) eClassifier;
+				ClassFigure classFigure = GraphdescFactory.eINSTANCE.createClassFigure();
+				classFigure.setEClass(eClass);
+
+				for(EStructuralFeature eStructuralFeature : eClass.getEAllStructuralFeatures()) {
+					if (eStructuralFeature instanceof EReference) {
+						EReference eReference = (EReference) eStructuralFeature;
+						ReferenceFigure referenceFigure = GraphdescFactory.eINSTANCE.createReferenceFigure();
+						referenceFigure.setEReference(eReference);
+						classFigure.getReferenceFigures().add(referenceFigure); 
+					} else if (eStructuralFeature instanceof EAttribute) {
+						EAttribute eAttribute = (EAttribute) eStructuralFeature;
+						AttributeFigure attributeFigure = GraphdescFactory.eINSTANCE.createAttributeFigure();
+						attributeFigure.setEAttribute(eAttribute);
+						classFigure.getAttributeFigures().add(attributeFigure);
+					}
+				}
+				gvFigureDescription.getClassFigures().add(classFigure);
+			}
+		}
+		
+		// To avoid validation problems, the GraphDescription has to be serialized :S
+		Resource res = new ResourceImpl();
+		res.getContents().add(ePackage);
+		res.getContents().add(gvFigureDescription);
+
+		ResourceSet rset = new ResourceSetImpl();
+		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		rset.getPackageRegistry().put(GraphdescPackage.eNS_URI, GraphdescPackage.eINSTANCE);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("graphdesc", new XMIResourceFactoryImpl());
+
+		try {
+			File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
+			File tempGraphDesc = File.createTempFile("temp", ".graphdesc", uniqueWorkingDir);
+			Resource res2 = rset.createResource(URI.createFileURI(tempGraphDesc.getAbsolutePath()));
+			
+			res2.getContents().add(ePackage);
+			res2.getContents().add(gvFigureDescription);
+			res2.save(null);
+		} catch (IOException e) {
+			throw new ServletException("Error generating the graphdesc file");
+		}
+		
+		return drawModel(elements, uniqueId, gvFigureDescription);
 	}
 
 	/**
@@ -271,7 +367,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	protected void addResponseOptions(HttpServletResponse response) {
 		if(response == null)
 			throw new IllegalArgumentException("response cannot be null");
-		
+
 		response.setHeader("Access-Control-Allow-Origin", serverURL);
 		response.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
 		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -282,7 +378,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	protected void doOptions(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		if(response == null)
 			throw new IllegalArgumentException("response cannot be null");
-		
+
 		addResponseOptions(response);
 	}
 }
