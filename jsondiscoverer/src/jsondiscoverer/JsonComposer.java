@@ -29,23 +29,52 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import jsondiscoverer.util.ModelHelper;
 
 /**
- * This class composes a set of ecore models representing json-based apis. Although some
- * of the calculations done here could be applied in a more-general process of composing
- * any ecore model, the current implementation is coupled to the data/structure of the
- * ecore models discovered by the {@link JSONAdvancedDsicoverer} 
+ * This class composes a set of ecore models representing JSON-based apis. 
+ * <p>
+ * Although some of the calculations done here could be applied in a more-general process 
+ * of composing any ecore model, the current implementation is coupled to the data/structure 
+ * of the ecore models discovered by the {@link JsonAdvancedDiscoverer}. 
+ * <p>
+ * In the context of the JSON discoverer, the {@link JsonComposer} is used to
+ * discover the metamodel out of a set of JSON-based APIs
+ * <p>
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class JsonComposer {
-
+	/**
+	 * The set of {@link JsonSourceSet}s to use in the discovery process
+	 */
 	private List<JsonSourceSet> sourceSets;
-
+	/**
+	 * Used to log all the activity
+	 */
 	private final static Logger LOGGER = Logger.getLogger(JsonComposer.class.getName());
 
+	/**
+	 * Threshold to consider when two attributes. 
+	 * <p>
+	 * To calculate the ratio, the number of matching attributes in the
+	 * two metamodel classes are compared. Thus, two metamodel classes with matching
+	 * attributes will give a ratio of 1
+	 */
 	private static final double ATTRIBUTE_MATCHING_THRESHOLD = 0.3;
+	
+	/**
+	 * Threshold to consider when two metamodel classes are similar. 
+	 * <p>
+	 * To calculate the ratio, the number of matching attributes/refereces in the
+	 * two metamodel classes are compared. Thus, two metamodel classes with matching
+	 * attributes/references will give a ratio of 1
+	 */
 	private static final double CLASS_MATCHING_THRESHOLD = 0.3;
 
+	/**
+	 * Constructs a new {@link JsonComposer} with a list of {@link JsonSourceSet}s
+	 * 
+	 * @param sourceSets A list of {@link JsonSourceSet}s
+	 */
 	public JsonComposer(List<JsonSourceSet> sourceSets) {
 		this.sourceSets = sourceSets;
 	}
@@ -56,7 +85,7 @@ public class JsonComposer {
 	 * 
 	 * @param resultPath The path where the resulting metamodel will be stored
 	 * @return The resulting metamodel as EPackage
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException There is no file to read from
 	 */
 	public EPackage compose(File resultPath) throws FileNotFoundException {
 		if(resultPath == null) 
@@ -134,6 +163,17 @@ public class JsonComposer {
 		return result;
 	}
 
+	/**
+	 * Compares if two metamodel classes (as {@link EClass} elements) are similar. 
+	 * <p>
+	 * The comparison takes into consideration the names of attributes/refrences and counts 
+	 * the ones that are similar. The ratio of similar vs. different is calculated and if it higher
+	 * that {@link JsonComposer#ATTRIBUTE_MATCHING_THRESHOLD}, the two classes are considered similar
+	 * 
+	 * @param sourceEClass The source {@link EClass}
+	 * @param targetEClass The target {@link EClass}
+	 * @return Boolean indicating if both classes are similar
+	 */
 	private boolean isSimilar(EClass sourceEClass, EClass targetEClass) { 
 		if(sourceEClass == null) 
 			throw new IllegalArgumentException("The sourceEClass cannot be null");
@@ -181,6 +221,14 @@ public class JsonComposer {
 		return false;		
 	}
 	
+	/**
+	 * Compares two list of {@link String} and returns true when two similar {@link String}s
+	 * are found. 
+	 * 
+	 * @param sourceNames Source list of {@link String}
+	 * @param targetNames Target list of {@link String}
+	 * @return True if at least two equal {@link String}s (one in each list) are found.
+	 */
 	private boolean nameIsSimilar(List<String> sourceNames, List<String> targetNames) {
 		if(sourceNames == null) 
 			throw new IllegalArgumentException("The sourceNames cannot be null");

@@ -36,21 +36,41 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
- * Main class to discover/refine metamodels (i.e., ecore file) from json documents (i.e., json file).
- * 
- * This implementation does not depend on Xtext (v0.1.0)
+ * This class is used to discover/refine metamodels (as {@link EPackage} elements) 
+ * from JSON documents (i.e., json file).
+ * <p>
+ * Once created, a metamodel out of a {@link JsonSource} element can be discovered by 
+ * calling the method {@link JsonSimpleDiscoverer#discover(JsonSource)}. 
+ * <p>
+ * To refine a metamodel, you have to call to {@link JsonSimpleDiscoverer#refine(EPackage, JsonSource)}
+ * giving the metamodel to refine and a new {@link JsonSource}.
+ * <p> 
+ * This implementation does not depend on Xtext (since v0.1.0)
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class JsonSimpleDiscoverer {
+	/**
+	 * Default prefix for the discovered metamodel
+	 */
 	private static final String DEFAULT_NS_PREFIX = "disco";
+	/**
+	 * Default NS URI for the discovered metamodel
+	 */
 	private static final String DEFAULT_NS_URI = "http://jsonDiscoverer/discovered/";
-	
+	/**
+	 * Used to log all the activity
+	 */
 	private final static Logger LOGGER = Logger.getLogger(JsonSimpleDiscoverer.class.getName());
-
+	/**
+	 * The set of metamodel classes discovered
+	 */
 	HashMap<String, EClass> eClasses = new HashMap<String, EClass>();
 
+	/**
+	 * Constructs a new {@link JsonSimpleDiscoverer} element
+	 */
 	public JsonSimpleDiscoverer() {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
@@ -59,14 +79,16 @@ public class JsonSimpleDiscoverer {
 	}
 
 	/**
-	 * Launches the metamodel discoverer from a JSON document. The method receives a {@link JsonSource} 
-	 * element, which includes the set of JSON documents to be considered. 
-	 * 
+	 * Launches the metamodel discoverer from a JSON document.
+	 * <p>
+	 * The method receives a {@link JsonSource} element, which includes the set of JSON documents 
+	 * to be considered. 
+	 * <p>
 	 * The discovered metamodel is returned and also stored in the {@link JsonSource} 
-	 * received as param
+	 * received as param (calling {@link JsonSource#setMetamodel(EPackage)}).
 	 * 
 	 * @param source The {@link JsonSource} including the JSON documents
-	 * @return EPackage (Ecore model)
+	 * @return The metamodel (as {@link EPackage})
 	 */
 	public EPackage discover(JsonSource source) {
 		if(source == null) 
@@ -100,11 +122,11 @@ public class JsonSimpleDiscoverer {
 	}
 
 	/**
-	 * Refines an existing metamodel with new JSON definitions coming from a new {@link JsonSource}
+	 * Refines an existing metamodel with new JSON definitions coming from a new {@link JsonSource}.
 	 * 
 	 * @param toRefine The existing {@link EPackage} to refine
 	 * @param source The {@link JsonSource} including the JSON documents
-	 * @return
+	 * @return The metamodel (as {@link EPackage})
 	 */
 	public EPackage refine(EPackage toRefine, JsonSource source) {
 		if(toRefine == null) 
@@ -320,6 +342,11 @@ public class JsonSimpleDiscoverer {
 		return result;
 	}
 
+	/**
+	 * Returns the set of metamodel classes discovered
+	 * 
+	 * @return List of {@link EClass} elements
+	 */
 	private HashMap<String, EClass> geteClasses() {
 		return eClasses;
 	}

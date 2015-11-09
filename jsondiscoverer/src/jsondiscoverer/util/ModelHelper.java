@@ -27,14 +27,24 @@ import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 /**
- * Utility class con basic model actions
+ * Utility class con basic model actions.
+ * <p>
+ * In particular, the class helps to:
+ * <ul>
+ * <li>Load/Save metamodels (see {@link ModelHelper#loadEPackage(File)} and {@link ModelHelper#saveEPackage(EPackage, File)}</li>
+ * <li>Save models (see {@link ModelHelper#saveModel(List, File)})</li>
+ * </ul>
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class ModelHelper {
-	
-
+	/**
+	 * Saves a metamodel (as {@link EPackage}) into a file
+	 * 
+	 * @param ePackage The metamodel
+	 * @param resultPath The path to the file
+	 */
 	public static void saveEPackage(EPackage ePackage, File resultPath) {
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
@@ -47,6 +57,12 @@ public class ModelHelper {
 		}
 	}	
 	
+	/**
+	 * Loads  a metamodel (as {@link EPackage}) from a file
+	 * 
+	 * @param path The path to the file to read the metamodel
+	 * @return The metamodel
+	 */
 	public static EPackage loadEPackage(File path) {
 		ResourceSet rset = new ResourceSetImpl();
 		Resource res = rset.getResource(URI.createFileURI(path.getAbsolutePath()), true);
@@ -60,6 +76,12 @@ public class ModelHelper {
 		return (EPackage) res.getContents().get(0);
 	}
 
+	/**
+	 * Saves a model (as a list of {@link EObject}s) into a file
+	 * 
+	 * @param elements List of model elements (as {@link EObject}s)
+	 * @param resultPath The path to write the model
+	 */
 	public static void saveModel(List<EObject> elements, File resultPath) {
 		ResourceSet rset = new ResourceSetImpl();
 		rset.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
@@ -77,5 +99,4 @@ public class ModelHelper {
 			e.printStackTrace();
 		}
 	}
-
 }
