@@ -17,6 +17,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+/**
+ * Collects and launches all the test classes
+ * 
+ * @author Javier Canovas (me@jlcanovas.es)
+ *
+ */
 @RunWith(Suite.class)
 @SuiteClasses({ TestJsonSimpleDiscoverer.class, TestJsonInjector.class, TestAdvancedDiscoverer.class, TestJsonComposer.class})
 public class AllTests {

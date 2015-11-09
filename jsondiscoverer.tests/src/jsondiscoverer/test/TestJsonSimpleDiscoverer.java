@@ -26,8 +26,19 @@ import org.junit.Test;
 import jsondiscoverer.JsonSimpleDiscoverer;
 import jsondiscoverer.JsonSource;
 
+/**
+ * Test case for {@link JsonSimpleDiscoverer}
+ * 
+ * @author Javier Canovas (me@jlcanovas.es)
+ *
+ */
 public class TestJsonSimpleDiscoverer {
 	
+	/**
+	 * Test case for {@link JsonSimpleDiscoverer#discover(JsonSource)}
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found 
+	 */
 	@Test
 	public void testDiscover() throws FileNotFoundException {
 		JsonSource source = new JsonSource("Stop");
