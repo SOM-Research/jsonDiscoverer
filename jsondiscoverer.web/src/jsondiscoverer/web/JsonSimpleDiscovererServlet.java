@@ -27,12 +27,17 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import jsondiscoverer.JsonSimpleDiscoverer;
 import jsondiscoverer.JsonSource;
 
 /**
- * Main class that provides the main access to {@link JsonSimpleDiscoverer}
+ * Servlet providing providing access to {@link JsonSimpleDiscoverer}.
+ * <p>
+ * The servlet answers to POST HTTP calls. Receives as input a JSON document from which
+ * a metamodel is discovered. The discovered metamodel is returned as both image and xmi, 
+ * both of them encoded as base64.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -41,7 +46,9 @@ import jsondiscoverer.JsonSource;
 public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 83L;
 	
-	// The ID for this servlet which will be used to access to the working directory
+	/** 
+	 * The ID for this servlet which will be used to access to the working directory 
+	 */
 	public static final String SIMPLEDISCOVERER_FOLDER = "SubfolderSimpleDiscoverer";
 	
 	/**
@@ -49,16 +56,32 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	 */
 	private static String folderName;
 
-	@Override
+	
+	/**
+	 * Uses the super class init method and additionally initializes {@link JsonSimpleDiscovererServlet#folderName}
+	 * 
+	 * @see jsondiscoverer.web.AbstractJsonDiscoverer#init()
+	 */
 	public void init() throws ServletException {
 		super.init();
 		folderName = properties.getProperty(SIMPLEDISCOVERER_FOLDER);
 		if(folderName == null) throw new ServletException("ID for Simple Discoverer not found in properties");
 	}
 	
-    /* 
-	 * Performs a POST call to this servlet. The JSON_CODE parameter is queried to get the JSON code to
-	 * be discovered. The Discovered model is then transformed into a BASE64 image to be used in the web.
+    /** 
+	 * Performs a POST call to this servlet.
+	 * <p>
+	 * Receives a JSON document (in the parameter set in {@link AbstractJsonDiscoverer#jsonParam})
+	 * <p>
+	 * Discovers a metamodel (using {@link JsonSimpleDiscoverer}) and returns two params: 
+	 * <ul>
+	 * <li>An image of the metamodel encoded in base64</li>
+	 * <li>The XMI of the metamodel encoded as base64</li>
+	 * </ul>
+	 * <p>
+	 * 
+	 * @param request The Request of the call
+	 * @param response The Response to the call
 	 * 
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -82,17 +105,23 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	}
 	
 	/**
-	 * Discover a metamodel from JSON
+	 * Discover a metamodel from a JSON document.
+	 * <p> 
+	 * THe method uses {@link JsonSimpleDiscoverer} to discover the metamodel (as {@link EPackage})
 	 * 
-	 * @param jsonCode
-	 * @return The Epackage
-	 * @throws ServletException
+	 * @param jsonCode The JSON document
+	 * @return The Epackage The metamodel
+	 * @throws ServletException Usually triggered with IO-related issues
 	 */
 	private EPackage discoverMetamodel(String jsonCode) throws ServletException {
 		// Discovering
 		JsonSimpleDiscoverer discoverer = new JsonSimpleDiscoverer();
 		JsonSource source = new JsonSource("Discovered");
-		source.addJsonData(null, new StringReader(jsonCode));
+		try {
+			source.addJsonData(null, new StringReader(jsonCode));
+		} catch(JsonSyntaxException e) {
+			throw new ServletException(e.getMessage());
+		}
 		EPackage discoveredModel = discoverer.discover(source);
 		
 		return discoveredModel;
@@ -101,11 +130,13 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	
 	
 	/**
-	 * Converts a EPackage into a picture and saves it in disk
+	 * Converts a EPackage into a picture and saves it in disk.
+	 * <p>
+	 * The method relies on {@link AbstractJsonDiscoverer#drawModel(List, String)}
 	 * 
-	 * @param jsonCode
-	 * @return
-	 * @throws IOException
+	 * @param ePackage The metamodel
+	 * @return The file with the picture 
+	 * @throws IOException Something went wrong doing IO things
 	 */
 	private File convertToImage(EPackage ePackage) throws ServletException {
 		List<EObject> toDraw= new ArrayList<EObject>();
@@ -123,11 +154,14 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	
 	/**
 	 * Performs the discovery and returns a picture encoded in BASE64 with the 
-	 * pciture representing the discovered metamodel
+	 * picture representing the discovered metamodel
+	 * <p>
+	 * The method relies on {@link JsonSimpleDiscovererServlet#convertToImage(EPackage)} and
+	 * {@link JsonSimpleDiscovererServlet#encodeToString(File)}
 	 * 
-	 * @param jsonCode
-	 * @return
-	 * @throws IOException
+	 * @param ePackage The metamodel
+	 * @return A String encoded in base64 representing the picture of the metamodel
+	 * @throws IOException Something went wrong with IO
 	 */
 	private String discoverMetamodelBase64(EPackage ePackage) throws ServletException {
 		File resultPath = convertToImage(ePackage);

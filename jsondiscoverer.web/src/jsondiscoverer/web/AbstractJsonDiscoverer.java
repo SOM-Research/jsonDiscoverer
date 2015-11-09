@@ -54,7 +54,21 @@ import org.emftools.emf2gv.processor.core.StandaloneProcessor;
 import sun.misc.BASE64Encoder;
 
 /**
- * Abstract class to factor some common behavior
+ * Abstract class to factor some common behavior among the JSON discoverers.
+ * <p>
+ * In particular, this class helps to:
+ * <p>
+ * <ul>
+ * <li><b>Draw models</b>. Generates a picture (stored in a file) which is the 
+ * renderization of a list of EObjects 
+ * (see {@link AbstractJsonDiscoverer#drawModel(List, String)} 
+ * and {@link AbstractJsonDiscoverer#drawModel(List, String, GVFigureDescription)}</li>
+ * 
+ * <li><b>Encode files to String</b>. Generates the Base64 representation of files 
+ * (see {@link AbstractJsonDiscoverer#encodeToString(File)}, 
+ * {@link AbstractJsonDiscoverer#encodeToString(EPackage, String)} 
+ * and {@link AbstractJsonDiscoverer#encodeToString(List, String)}</li>
+ * </ul>
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -62,24 +76,35 @@ import sun.misc.BASE64Encoder;
 public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	private static final long serialVersionUID = 69L;
 
-	// The main path to the working dir (needed for generating the pictures)
+	/** The main path to the working dir (needed for generating the pictures) */
 	public static File workingDir = null;
 
-	// The path to the Graphviz DOT execitable (needed for generating the pictures)
+	/** The path to the Graphviz DOT execitable (needed for generating the pictures)*/
 	public static String dotExePath = null;
 
-	// Version of the app
+	/** Version of the app*/
 	public static String version = "";
 
-	// The jsonParam used for discovery (where the json code is stored)
+	/** The jsonParam used for discovery (where the json code is stored)*/
 	static String jsonParam = null;
 
-	// Server for the CORS
+	/** Server for the CORS*/
 	static String serverURL = "";
 
 	Properties properties = null;
 
-	@Override
+	
+	/**
+	 * Initilizes the servlet class. THis implementation is used in any JSON discoverer servlet.
+	 * <p>
+	 * It performs the following steps:
+	 * <ul>
+	 * <li>Registers the ecore and xmi extensions in EMF to enable the model management</li>
+	 * <li>Reads the properties file (called config.properties and located at WEB-INF folder)</li>
+	 * </ul>
+	 * 
+	 * @see javax.servlet.GenericServlet#init()
+	 */
 	public void init() throws ServletException {
 		super.init();
 
@@ -109,17 +134,21 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 
 
 	/**
-	 * Encodes a JPG picture into the BASE64 format
+	 * Encodes a file into BASE64 format. 
+	 * <p>
+	 * In the context of the tool, this method is used to encode generated pictures
+	 * (usually with @link {@link AbstractJsonDiscoverer#drawModel(List, String)}) into
+	 * BASE64 format, which is easy to exchange with the web client.
 	 * 
-	 * @param imagePath
-	 * @return
-	 * @throws IOException
+	 * @param path The path to the file to encode
+	 * @return A String in BASE64
+	 * @throws IOException 
 	 */
-	String encodeToString(File imagePath) throws IOException {
-		if(imagePath == null)
+	String encodeToString(File path) throws IOException {
+		if(path == null)
 			throw new IllegalArgumentException("imagePath cannot be null");
 
-		BufferedImage image = ImageIO.read(imagePath);
+		BufferedImage image = ImageIO.read(path);
 
 		String imageString = null;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -139,12 +168,25 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	}
 
 	/**
-	 * Saves the EPackage into a XMI and then read it to return it as String in Base64
+	 * Saves the EPackage into a XMI and then read it to return it as String in Base64.
+	 * <p>
+	 * The workflow followed is:
+	 * <ul>
+	 * <li>Creates a temp file where the metamodel (as {@link EPackage}) will be stored</li>
+	 * <li>Saves the metamodel in the temp file</li>
+	 * <li>Reads the file and encodes it as base64</li>
+	 * <li>Returns the {@link String} encoded as Base64</li>
+	 * </ul>
+	 * <p>
+	 * Metamodels are saved in a directory that is configred by providing a value to the 
+	 * corresponding property in the config.properties file. The key to retrieve the 
+	 * property is provided in the para uniqueId. 
 	 * 
-	 * @param ePackage
-	 * @param uniqueId
-	 * @return
-	 * @throws ServletException
+	 * @param ePackage The metamodel (as {@link EPackage}
+	 * @param uniqueId The key to retrieve the property in the config.properties file setting 
+	 * the folder where the metamodel will be saved
+	 * @return A {@link String} encoded in Base64 representing the metamodel
+	 * @throws ServletException Something went wrong (usually IO-related problem)
 	 */
 	String encodeToString(EPackage ePackage,  String uniqueId) throws ServletException {
 		if(ePackage == null)
@@ -155,7 +197,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
 		if(!uniqueWorkingDir.isDirectory()) throw new ServletException("The working dir could not be set:" + uniqueWorkingDir.getAbsolutePath());
 
-		// Getting a temp file
+		// 1. Getting a temp file
 		File resultPath;
 		try {
 			resultPath = File.createTempFile("temp", ".xmi", uniqueWorkingDir);
@@ -163,7 +205,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			throw new ServletException("Not possible to access to temp dir");
 		}
 
-		// Saving into XMI
+		// 2. Saving into XMI
 		ResourceSet rSet = new ResourceSetImpl();
 		Resource res = rSet.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
 		try {
@@ -173,7 +215,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			throw new ServletException("Not possible to save the Epackage", e);
 		}
 
-		// Loading XMI into String
+		// 3. Loading XMI into String
 		String result;
 		try {
 			FileInputStream fis = new FileInputStream(resultPath);
@@ -189,12 +231,27 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	}
 
 	/**
-	 * Saves a list of EObjects into a XMI and then read it to return it as String in Base64
+	 * Saves a list of EObjects into a XMI and then read it to return it as String in Base64. 
+	 * Similar to {@link AbstractJsonDiscoverer#encodeToString(EPackage, String)}
+	 * <p>
+	 * The workflow followed is:
+	 * <ul>
+	 * <li>Creates a temp file where the list of {@link EObject}s will be stored</li>
+	 * <li>Saves the list of {@link EObject}s in the temp file</li>
+	 * <li>Reads the file and encodes it as base64</li>
+	 * <li>Returns the {@link String} encoded as Base64</li>
+	 * </ul>
+	 * <p>
+	 * The list of {@link EObject}s are saved in a directory that is configred by providing 
+	 * a value to the corresponding property in the config.properties file. The key to retrieve
+	 * the property is provided in the para uniqueId. 
 	 * 
-	 * @param ePackage
-	 * @param uniqueId
-	 * @return
-	 * @throws ServletException
+	 * @param elements The list of {@link EObject}s
+	 * @param uniqueId The key to retrieve the property in the config.properties file setting 
+	 * the folder where the list of {@link EObject}s will be saved
+	 * @return A {@link String} encoded in Base64 representing the list 
+	 * of {@link EObject}s
+	 * @throws ServletException Something went wrong (usually IO-related problem)
 	 */
 	String encodeToString(List<EObject> elements,  String uniqueId) throws ServletException {
 		if(elements == null)
@@ -205,7 +262,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		File uniqueWorkingDir = new File(workingDir.getAbsolutePath() + File.separator + uniqueId);
 		if(!uniqueWorkingDir.isDirectory()) throw new ServletException("The working dir could not be set:" + uniqueWorkingDir.getAbsolutePath());
 
-		// Getting a temp file
+		// 1. Getting a temp file
 		File resultPath;
 		try {
 			resultPath = File.createTempFile("temp", ".xmi", uniqueWorkingDir);
@@ -213,7 +270,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			throw new ServletException("Not possible to access to temp dir");
 		}
 
-		// Saving into XMI
+		// 2. Saving into XMI
 		ResourceSet rSet = new ResourceSetImpl();
 		Resource res = rSet.createResource(URI.createFileURI(resultPath.getAbsolutePath()));
 		try {
@@ -223,7 +280,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			throw new ServletException("Not possible to save the Epackage", e);
 		}
 
-		// Loading XMI into String
+		// 3. Loading XMI into String
 		String result;
 		try {
 			FileInputStream fis = new FileInputStream(resultPath);
@@ -239,14 +296,29 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	}
 
 	/**
-	 * Draws a model into a picture. To avoid file access problems, an unique id has to be 
-	 * provided. A new directory using such id will be created.
+	 * Draws a model into a picture, stored a file.
+	 * <p>
+	 * The process follows these steps:
+	 * <p>
+	 * <ul>
+	 * <li>First the name of the folder is retrieved from the properties file</li>
+	 * <li>A temp file is created</li>
+	 * <li>Then the model is rendered into a picture and stored in the temp file</li>
+	 * </ul>
+	 * <p>
+	 * Files are stored in a folder configured in the config properties file. The
+	 * name of the property is set by the uniqueId param.
+	 * <p>
+	 * The generation of the picture is delegated to the method {@link StandaloneProcessor#process(EObject, GVFigureDescription, File, String, org.emftools.emf2gv.processor.core.IProcessorCallback, org.emftools.emf2gv.processor.core.IEObjectIconProvider, String, boolean, boolean, String, List, org.emftools.emf2gv.processor.core.ILogger, org.eclipse.core.runtime.IProgressMonitor)}
+	 * <p>
+	 * A graphical style has to be provided. See the documentation of <a href="https://marketplace.eclipse.org/content/emf-graphviz-emf2gv">EMF2GV</a> to know how to create it.
+	 * <p>
 	 * 
-	 * @param elements Elements to be drawn
-	 * @param uniqueId Id of the process asking for the generation 
-	 * @param graphDesc Graphical description according to EMF2GV format
-	 * @return
-	 * @throws ServletException
+	 * @param elements List of elements (as {@link EObject}s) to be drawn
+	 * @param uniqueId Id used to retrieve the folder name from the config properties file to store the file 
+	 * @param graphDesc Graphical description according to <a href="https://marketplace.eclipse.org/content/emf-graphviz-emf2gv">EMF2GV</a> format
+	 * @return The picture file
+	 * @throws ServletException If any problem appears (usually IO-related problems)
 	 */
 	File drawModel(List<EObject> elements, String uniqueId, GVFigureDescription graphDesc) throws ServletException {
 		if(elements == null)
@@ -277,14 +349,18 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	}
 
 	/**
-	 * Draws a model into a picture following standard style. 
-	 * To avoid file access problems, an unique id has to be 
-	 * provided. A new directory using such id will be created.
+	 * Draws a model into a picture following the standard graphical style.
+	 * <p>
+	 * This method relies on {@link AbstractJsonDiscoverer#drawModel(List, String, GVFigureDescription)}
+	 * <p>
+	 * Default graphical style will be used. The style is provided by
+	 * <a href="https://marketplace.eclipse.org/content/emf-graphviz-emf2gv">EMF2GV</a>
+	 * library, please refer to its documentation for further details.
 	 * 
-	 * @param elements Elements to be drawn
-	 * @param uniqueId Id of the process asking for the generation 
-	 * @return
-	 * @throws ServletException
+	 * @param elements List of elements (as {@link EObject}s) to be drawn
+	 * @param uniqueId Id used to retrieve the folder name from the config properties file to store the file 
+	 * @return The picture file
+	 * @throws ServletException If any problem appears (usually IO-related problems)
 	 */
 	File drawModel(List<EObject> elements, String uniqueId) throws ServletException {
 		// Default Style will be used
@@ -292,14 +368,16 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	}
 
 	/**
-	 * Draws an object model following a specific style which removes the name
-	 * of the class instances.
+	 * Draws a model into a picture with a UML-like graphical style.
+	 * <p>
+	 * This method relies on {@link AbstractJsonDiscoverer#drawModel(List, String, GVFigureDescription)}
+	 * <p>
 	 * 
-	 * @param elements Elements to be drawn
-	 * @param ePackage The metamodel
-	 * @param uniqueId Id of the process asking for the generation 
-	 * @return
-	 * @throws ServletException
+	 * @param elements List of elements (as {@link EObject}s) to be drawn
+	 * @apram ePackage The metamodel (as {@link EPackage}) which the element conform to
+	 * @param uniqueId Id used to retrieve the folder name from the config properties file to store the file 
+	 * @return The picture file
+	 * @throws ServletException If any problem appears (usually IO-related problems)
 	 */
 	File drawObjectModel(List<EObject> elements, EPackage ePackage, String uniqueId) throws ServletException {
 		// Main graphical description for the root
@@ -360,9 +438,14 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	}
 
 	/**
-	 * Adds the CORS headers
+	 * Generic method to aoid CORS problems.
+	 * <p>
+	 * Adds the CORS headers related to access-control-allow settings
+	 * <p>
+	 * The value for the header Access-Control-Allow-Origin is parameterized
+	 * with the value given in the config.properties with the key serverURL
 	 * 
-	 * @param response
+	 * @param response The response where the headers will be added
 	 */
 	protected void addResponseOptions(HttpServletResponse response) {
 		if(response == null)
@@ -374,7 +457,14 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		response.addHeader("Access-Control-Allow-Credentials", "true");
 	}
 
-	@Override
+	
+	/**
+	 * Overrides the method to add the CORS headers.
+	 * <p>
+	 * This method relies on {@link AbstractJsonDiscoverer#addResponseOptions(HttpServletResponse)}
+	 * 
+	 * @see javax.servlet.http.HttpServlet#doOptions(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doOptions(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
 		if(response == null)
 			throw new IllegalArgumentException("response cannot be null");

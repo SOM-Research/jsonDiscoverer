@@ -31,7 +31,11 @@ import jsondiscoverer.JsonInjector;
 import jsondiscoverer.SingleJsonSource;
 
 /**
- * This servlet gives access to the {@link JsonInjector}
+ * Servlet providing access to {@link JsonInjector}
+ * <p>
+ * The servlet answers to POST HTTP calls. Receives as input a JSON document from which
+ * a model is discovered. The discovered model is returned as both image and xmi, 
+ * both of them encoded as base64.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -39,11 +43,25 @@ import jsondiscoverer.SingleJsonSource;
 @WebServlet("/simpleDiscoverModel")
 public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 6L;
-	// The ID for this servlet which will be used to access to the working directory
+	/**
+	 * The ID for this servlet which will be used to access to the working directory 
+	 */
 	public static final String INJECTOR_ID = "IdInjector";
 
-	/* 
-	 * Performs a POST call and returns the a picture in BASE64 representing the model
+    /** 
+	 * Performs a POST call to this servlet.
+	 * <p>
+	 * Receives a JSON document (in the parameter set in {@link AbstractJsonDiscoverer#jsonParam})
+	 * <p>
+	 * Discovers a model (using {@link JsonInjector}) and returns two params: 
+	 * <ul>
+	 * <li>An image of the model encoded in base64</li>
+	 * <li>The XMI of the metamodel encoded as base64</li>
+	 * </ul>
+	 * <p>
+	 * 
+	 * @param request The Request of the call
+	 * @param response The Response to the call
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

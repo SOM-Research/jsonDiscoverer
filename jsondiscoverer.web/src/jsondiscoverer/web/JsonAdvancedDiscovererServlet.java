@@ -33,11 +33,18 @@ import org.eclipse.emf.ecore.EPackage;
 import com.google.gson.JsonObject;
 
 import jsondiscoverer.JsonAdvancedDiscoverer;
+import jsondiscoverer.JsonSimpleDiscoverer;
 import jsondiscoverer.JsonSource;
 import jsondiscoverer.JsonSourceSet;
 
 /**
- * Main servlet to provide access to {@link JsonAdvancedDiscoverer}
+ * Servlet providing acces to {@link JsonAdvancedDiscoverer}.
+ * <p>
+ * Answers to POST calls, receiving as input a JSON document including the set
+ * of JSON documents representing different JSON-based Web services (see {@link JsonAdvancedDiscovererServlet#paramsPattern} 
+ * to know the pattern of this param). A metamodel is discovered out of these
+ * JSON documents. The discovered metamodel is returned as both image and xmi, 
+ * both of them encoded as base64.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -46,7 +53,9 @@ import jsondiscoverer.JsonSourceSet;
 public class JsonAdvancedDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 23L;
 	
-	// The ID for this servlet which will be used to access to the working directory
+	/**
+	 * The ID for this servlet which will be used to access to the working directory
+	 */
 	public static final String ADVANCEDDISCOVERER_FOLDER = "SubfolderAdvancedDiscoverer";
 	
 	/**
@@ -58,8 +67,12 @@ public class JsonAdvancedDiscovererServlet extends AbstractJsonDiscoverer {
 	  * The format is sources[JSON_SOURCE_NAME][SOMETHING]([])?
 	  * The important part is the JSON_SOURCE_NAME which provides the name of the parameter */
 	private static String paramsPattern = Pattern.quote("sources[") + "([a-zA-Z0-9]*)"+ Pattern.quote("][") + "[\\$a-zA-Z]*" + Pattern.quote("]") + "(" + Pattern.quote("[]") + ")?";
-
-	@Override
+	
+	/**
+	 * Uses the super class init method and additionally initializes {@link JsonAdvancedDiscovererServlet#folderName}
+	 * 
+	 * @see jsondiscoverer.web.AbstractJsonDiscoverer#init()
+	 */
 	public void init() throws ServletException {
 		super.init();
 		folderName = properties.getProperty(ADVANCEDDISCOVERER_FOLDER);
@@ -68,10 +81,10 @@ public class JsonAdvancedDiscovererServlet extends AbstractJsonDiscoverer {
 	
 	/**
 	 * Digest the parameters of the request according to the pattern defined in
-	 * paramsPattern
+	 * {@link JsonAdvancedDiscovererServlet#paramsPattern}
 	 * 
-	 * @param request
-	 * @return
+	 * @param request The request from which the params are obtained
+	 * @return The digested {@link JsonSourceSet}
 	 */
 	protected JsonSourceSet digestSources(HttpServletRequest request ) {
 		Pattern pattern = Pattern.compile(paramsPattern);
@@ -105,8 +118,21 @@ public class JsonAdvancedDiscovererServlet extends AbstractJsonDiscoverer {
 		return sourceSet;
 	}
 	
-	/* 
-	 * Performs a POST call and returns a String in base64 with the picture of the metamodel
+    /** 
+	 * Performs a POST call to this servlet.
+	 * <p>
+	 * Receives a set of JSON documents representing different JSON-based Web services 
+	 * (see {@link JsonAdvancedDiscovererServlet#paramsPattern} to know the pattern of this param)
+	 * <p>
+	 * Discovers a metamodel (using {@link JsonAdvancedDiscoverer}) and returns two params: 
+	 * <ul>
+	 * <li>An image of the metamodel encoded in base64</li>
+	 * <li>The XMI of the metamodel encoded as base64</li>
+	 * </ul>
+	 * <p>
+	 * 
+	 * @param request The Request of the call
+	 * @param response The Response to the call
 	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

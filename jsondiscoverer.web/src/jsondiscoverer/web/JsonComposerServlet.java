@@ -36,7 +36,17 @@ import jsondiscoverer.JsonSourceSet;
 import jsondiscoverer.util.GexfConverter;
 
 /**
- * ervlet to access to {@link JsonComposer}
+ * Servlet providing access to {@link JsonComposer}
+ * <p>
+ * Answers to POST HTTP calls. Receives as input a set JSON documents
+ * representing several JSON-based Web APIs (see {@link JsonComposerServlet#paramsPattern} to
+ * know the pattern the param has to follow). 
+ * <p>
+ * Discovers a graph representing the different APIs (as subgraphs) where nodes represents
+ * concepts/attributes and edges link concepts with their attributes. Additionally, extra edges
+ * are added to represent similar concepts and therefore potential composition links
+ * <p>
+ * Graphs are encoded as <a href="http://gexf.net/format/">GEXF</a>. 
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -54,7 +64,7 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 			"(" + Pattern.quote("[") + "[a-zA-Z]*" + Pattern.quote("]") + ")?";
 	
 	/**
-	 * Digest the received sources according to the pattern (see {@link JsonComposerServlet.paramsPattern}
+	 * Digest the received sources according to the pattern (see {@link JsonComposerServlet.paramsPattern})
 	 * 
 	 * @param request The HTTP request
 	 * @return A list of {@link JsonSourceSet}
@@ -96,8 +106,23 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 
 		return result;
 	}
-
-	@Override
+	
+    /** 
+	 * Performs a POST call to this servlet.
+	 * <p>
+	 * Receives a set of JSON documents representing different JSON-based Web services 
+	 * (see {@link JsonComposerServlet.paramsPattern})to know the pattern of this param)
+	 * <p>
+	 * Discovers a graph representing the different APIs (as subgraphs) where nodes represents
+	 * concepts/attributes and edges link concepts with their attributes. Additionally, extra edges
+	 * are added to represent similar concepts and therefore potential composition links
+	 * <p>
+	 * Returns graph encoded as <a href="http://gexf.net/format/">GEXF</a>. 
+	 * 
+	 * @param request The Request of the call
+	 * @param response The Response to the call
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		addResponseOptions(response);
 		// 1. Digesting the params

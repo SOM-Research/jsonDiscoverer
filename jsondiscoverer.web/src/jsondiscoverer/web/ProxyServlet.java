@@ -25,10 +25,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jsondiscoverer.JsonSimpleDiscoverer;
+
 
 /**
- * This class acts as proxy to get the json coming from other websites. The result is filter to the first 
- * LIMIT_LINES to avoid overloading the server.
+ * This class acts as proxy to get the json coming from other websites. 
+ * <p> 
+ * The result is filter to the first LIMIT_LINES to avoid overloading the server.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -47,10 +50,21 @@ public class ProxyServlet extends AbstractJsonDiscoverer {
 	 */
 	public static final String LIMIT_CHARS = "LimitChars";
 	
+	/**
+	 * The name of the param which will be received in the POST call
+	 */
 	private String urlParam = "";
+	
+	/**
+	 * Limit of chars to read
+	 */
 	private int limitChar = 0;
-
-	@Override
+	
+	/**
+	 * Uses the super class init method and additionally initializes {@link ProxyServlet#urlParam} and {@link ProxyServlet#limitChar}
+	 * 
+	 * @see jsondiscoverer.web.AbstractJsonDiscoverer#init()
+	 */
 	public void init() throws ServletException {
 		super.init();
 		try {
@@ -63,7 +77,18 @@ public class ProxyServlet extends AbstractJsonDiscoverer {
 		}
 	}
 	
-	@Override
+    /** 
+	 * Performs a POST call to this servlet.
+	 * <p>
+	 * Receives a URL (in the parameter set in {@link ProxyServlet#urlParam}).
+	 * <p>
+	 * Reads a number of bytes (as many as {@link ProxyServlet#limitChar} sets) from 
+	 * the URL and returns them as text.
+	 * 
+	 * @param req The Request of the call
+	 * @param resp The Response to the call
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		addResponseOptions(resp);
 		// Getting the URL from the request
