@@ -10,7 +10,7 @@
  *******************************************************************************/
 
 
-package jsondiscoverer;
+package jsondiscoverer.examples;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,23 +21,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
+import jsondiscoverer.JsonComposer;
+import jsondiscoverer.JsonSimpleDiscoverer;
+import jsondiscoverer.JsonSource;
+import jsondiscoverer.JsonSourceSet;
 import jsondiscoverer.util.ModelHelper;
 
 /**
  * Class with some example code to illustrate how to call the {@link JsonComposer} 
+ * <p>
+ * We recommend play with the code to learn how to use the toolset.
  * 
  * @author Javier Canovas (me@jlcanovas.es) 
  *
  */
 public class ExampleJsonComposer {
-
+	/**
+	 * Main method to launch the example
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found
+	 * @throws IOException Thrown if any problem IO-related is found
+	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		ExampleJsonComposer.exampleCompose();
 	}
 	
+	/**
+	 * Launches the example
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found
+	 * @throws IOException Thrown if any problem IO-related is found
+	 */
 	public static void exampleCompose() throws FileNotFoundException, IOException {
 		// 1. Discovering the domain for the first JSON
 		Properties api1Info = new Properties();

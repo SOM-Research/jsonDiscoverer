@@ -30,10 +30,6 @@ public interface Coverage extends EObject {
 	 * Returns the value of the '<em><b>Mappings</b></em>' containment reference list.
 	 * The list contents are of type {@link jsondiscoverer.coverage.CoverageMapping}.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Mappings</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Mappings</em>' containment reference list.
 	 * @see jsondiscoverer.coverage.CoveragePackage#getCoverage_Mappings()
@@ -45,10 +41,6 @@ public interface Coverage extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Input</b></em>' reference.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Input</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Input</em>' reference.
 	 * @see #setInput(EAttribute)
@@ -71,10 +63,6 @@ public interface Coverage extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Service</b></em>' attribute.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Service</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Service</em>' attribute.
 	 * @see #setService(String)

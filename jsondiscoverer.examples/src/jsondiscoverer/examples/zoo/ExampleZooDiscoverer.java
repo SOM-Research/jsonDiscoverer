@@ -9,7 +9,7 @@
  *    Javier Canovas (me@jlcanovas.es) 
  *******************************************************************************/
 
-package jsondiscoverer.zoo.test;
+package jsondiscoverer.examples.zoo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,20 +19,39 @@ import jsondiscoverer.zoo.ZooDiscoverer;
 
 /**
  * This class shows how to call {@link ZooDiscoverer} and {@link ModelDrawer}
- * 
- * A link to the DOT executable is needed
+ * <p>
+ * A link to the DOT executable is needed (see {@link ExampleZooDiscoverer#DOT_EXE}
+ * <p>
+ * We recommend play with the code to learn how to use the toolset.
  * 
  * @author Javier Canovas (me@jlcanovas.es) 
  *
  */
 public class ExampleZooDiscoverer {
+	/**
+	 * Directory where the DOT executable can be found
+	 */
 	private static final String DOT_EXE = "C:/Program Files (x86)/Graphviz 2.28/bin/dot.exe"; // Path to DOT executable
+	
+	/**
+	 * Working directory where the files can be stored
+	 */
 	private static final String WORKING_DIR = "./exampleData/workingDir";
-
+	
+	/**
+	 * Main method to launch the example
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found
+	 */
 	public static void main(String[] args) throws FileNotFoundException {
 		ExampleZooDiscoverer.exampleDiscover();
 	}
 	
+	/**
+	 * Launches the example
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found
+	 */	
 	public static void exampleDiscover() throws FileNotFoundException {
 		ZooDiscoverer zooDiscoverer = new ZooDiscoverer(new File("./exampleData/zooDiscoverer"));
 		zooDiscoverer.discover(true);

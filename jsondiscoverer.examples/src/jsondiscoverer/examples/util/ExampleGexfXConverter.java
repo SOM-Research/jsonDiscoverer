@@ -10,7 +10,7 @@
  *******************************************************************************/
 
 
-package jsondiscoverer.util;
+package jsondiscoverer.examples.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -27,27 +25,39 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import jsondiscoverer.CoreographyBuilder;
+import jsondiscoverer.util.GexfConverter;
 
 /**
- * Example implementation to illustrate how to use the CoreographyBuilder
- * 
- * The result of is a text file formatted for the sequence diagram generator located
- * at http://bramp.github.io/js-sequence-diagrams/
+ * Example implementation to illustrate how to use the GEFX converter.
+ * <p>
+ * GEFX files can be visualized with tools such as Gephi
+ * <p>
+ * We recommend play with the code to learn how to use the toolset.
  * 
  * @author Javier Canovas (me@jlcanovas.es) 
  *
  */
-public class ExampleCoreographyBuilder {
+public class ExampleGexfXConverter {
+	
+	/**
+	 * Main method to launch the example
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found
+	 */
 	public static void main(String[] args) throws FileNotFoundException {
-		ExampleCoreographyBuilder.exampleCalculate();
+		ExampleGexfXConverter.exampleConvert();
 	}
 	
-	public static void exampleCalculate() throws FileNotFoundException {
+	/**
+	 * Launches the example
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found
+	 */
+	public static void exampleConvert() throws FileNotFoundException {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
 		ResourceSet rset = new ResourceSetImpl();
-		Resource res1 = rset.getResource(URI.createFileURI("./exampleData/coreographyBuilder/zoo.ecore"), true);
+		Resource res1 = rset.getResource(URI.createFileURI("./exampleData/gefxConverter/zoo.ecore"), true);
 		try {
 			res1.load(null); 
 		} catch (IOException e) {
@@ -55,27 +65,9 @@ public class ExampleCoreographyBuilder {
 		}
 		EPackage package1 = (EPackage) res1.getContents().get(0);
 		
-		EClass source = null;
-		EClass target = null;
-		
-		for(EClassifier eClassifier : package1.getEClassifiers()) {
-			if (eClassifier instanceof EClass) {
-				EClass eClass = (EClass) eClassifier;
-				if(eClass.getName().equals("pathCalculatorInput")) {
-					source = eClass;
-				}
-				if(eClass.getName().equals("Ligne")) {
-					target = eClass;
-				}
-				
-			}
-		}
-		
-		CoreographyBuilder builder = new CoreographyBuilder(package1);
-		String result = builder.calculate(source, target);
-		PrintWriter pw = new PrintWriter(new File("./exampleData/coreographyBuilder/builder.txt"));
+		String result = GexfConverter.convert(package1);
+		PrintWriter pw = new PrintWriter(new File("./exampleData/gefxConverter/zooMini.gexf"));
 		pw.print(result);
 		pw.close();
-		
 	}
 }
