@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import jsondiscoverer.JsonInjector;
 import jsondiscoverer.SingleJsonSource;
@@ -48,7 +49,7 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 	 */
 	public static final String INJECTOR_ID = "IdInjector";
 
-    /** 
+	/** 
 	 * Performs a POST call to this servlet.
 	 * <p>
 	 * Receives a JSON document (in the parameter set in {@link AbstractJsonDiscoverer#jsonParam})
@@ -68,31 +69,41 @@ public class JsonInjectorServlet extends AbstractJsonDiscoverer {
 		addResponseOptions(response);
 		String jsonCode = request.getParameter(jsonParam);
 		if(jsonCode == null || jsonCode.equals("")) throw new ServletException("No json data in the call");
-				
-		// 1. Inject the model
-		SingleJsonSource source = new SingleJsonSource("Discovered");
-		source.addJsonData(null, new StringReader(jsonCode));
-		JsonInjector injector = new JsonInjector(source); 
-		List<EObject> eObjects = injector.inject(); 
-		EPackage ePackage = injector.getEPackage();
-		
-		// 2. Get the picture
-		String id = properties.getProperty(INJECTOR_ID);
-		if(id == null) throw new ServletException("ID for injector not found in properties");
-		
-		File resultPath = drawObjectModel(eObjects, ePackage, id);
-		String resultImage = encodeToString(resultPath);
-		resultPath.delete();
-		
-		// 3. Get the model in string
-		String resultXMI = encodeToString(eObjects, id);
-		
-		// 4. Write the response
-		response.setContentType("text/x-json;charset=UTF-8");   
-		JsonObject jsonResponse = new JsonObject();
-		jsonResponse.addProperty("image", resultImage);
-		jsonResponse.addProperty("xmi", resultXMI);
-		PrintWriter out = response.getWriter();
-        out.print(jsonResponse.toString());
+
+		try {
+			// 1. Inject the model
+			SingleJsonSource source = new SingleJsonSource("Discovered");
+			source.addJsonData(null, new StringReader(jsonCode));
+			JsonInjector injector = new JsonInjector(source); 
+			List<EObject> eObjects = injector.inject(); 
+			EPackage ePackage = injector.getEPackage();
+
+			// 2. Get the picture
+			String id = properties.getProperty(INJECTOR_ID);
+			if(id == null) throw new ServletException("ID for injector not found in properties");
+
+			File resultPath = drawObjectModel(eObjects, ePackage, id);
+			String resultImage = encodeToString(resultPath);
+			resultPath.delete();
+
+			// 3. Get the model in string
+			String resultXMI = encodeToString(eObjects, id);
+
+			// 4. Write the response
+			response.setContentType("text/x-json;charset=UTF-8");   
+			JsonObject jsonResponse = new JsonObject();
+			jsonResponse.addProperty("image", resultImage);
+			jsonResponse.addProperty("xmi", resultXMI);
+			PrintWriter out = response.getWriter();
+			out.print(jsonResponse.toString());
+		} catch(JsonSyntaxException e) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			PrintWriter out = response.getWriter();
+			out.print(digestExceptionMessage(e.getMessage()));
+		} catch(ServletException e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			PrintWriter out = response.getWriter();
+			out.print(digestExceptionMessage(e.getMessage()));
+		}
 	}
 }

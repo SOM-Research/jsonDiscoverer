@@ -29,9 +29,22 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
         };
 
         $scope.discover = function() {
-            discoverMetamodel($scope.json.text);
-            injectModel($scope.json.text);
-            $scope.showTitles = true;
+            $scope.alertsGeneral = [ ];
+            $scope.alertsSchema = [ ];
+            $scope.alertsData = [ ];
+            $scope.metamodel = "";
+            $scope.metamodelFile = "";
+            $scope.model = "";
+            $scope.modelFile = "";
+            
+        	try {
+        		JSON.parse($scope.json.text);
+                discoverMetamodel($scope.json.text);
+                injectModel($scope.json.text);
+                $scope.showTitles = true;
+        	} catch(e) {
+        		$scope.alertsGeneral.push({ type: 'error', msg: 'There is an error in your JSON: ' + e});
+        	}
         }
 
         $scope.example = function() {
@@ -50,7 +63,10 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
                 function(data, status, headers, config) {
                     $scope.metamodel = "";
                     $scope.metamodelFile = "";
-                    $scope.alertsSchema.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
+                    if(status == 400)
+                    	$scope.alertsSchema.push({ type: 'error', msg: 'Oops, we found an error discovering the schema. Your JSON is not parseable: ' + data });
+                    else 
+                    	$scope.alertsSchema.push({ type: 'error', msg: 'Oops, this is embarrasing, the server had an internal error. This is the cause: ' + data });
                 }
             );
         }
@@ -67,7 +83,10 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
                 function(data, status, headers, config) {
                     $scope.model = "";
                     $scope.modelFile = "";
-                    $scope.alertsData.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
+                    if(status == 400)
+                    	$scope.alertsData.push({ type: 'error', msg: 'Oops, we found an error discovering the data. Your JSON is not parseable: ' + data });
+                    else 
+                    	$scope.alertsData.push({ type: 'error', msg: 'Oops, this is embarrasing, the server had an internal error. This is the cause: ' + data });
                 }
             );
         }

@@ -45,18 +45,18 @@ import jsondiscoverer.JsonSource;
 @WebServlet("/simpleDiscoverMetamodel")
 public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 83L;
-	
+
 	/** 
 	 * The ID for this servlet which will be used to access to the working directory 
 	 */
 	public static final String SIMPLEDISCOVERER_FOLDER = "SubfolderSimpleDiscoverer";
-	
+
 	/**
 	 * Name of the folder where the temp files will be stored
 	 */
 	private static String folderName;
 
-	
+
 	/**
 	 * Uses the super class init method and additionally initializes {@link JsonSimpleDiscovererServlet#folderName}
 	 * 
@@ -67,8 +67,8 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 		folderName = properties.getProperty(SIMPLEDISCOVERER_FOLDER);
 		if(folderName == null) throw new ServletException("ID for Simple Discoverer not found in properties");
 	}
-	
-    /** 
+
+	/** 
 	 * Performs a POST call to this servlet.
 	 * <p>
 	 * Receives a JSON document (in the parameter set in {@link AbstractJsonDiscoverer#jsonParam})
@@ -89,21 +89,30 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 		addResponseOptions(response);
 		String jsonCode = request.getParameter(jsonParam);
 		if(jsonCode == null || jsonCode.equals("")) throw new ServletException("No json data in the call");
-		
-		EPackage resultMetamodel = discoverMetamodel(jsonCode);
 
-		String resultImage = discoverMetamodelBase64(resultMetamodel);
-		String resultXMI = encodeToString(resultMetamodel, folderName);
-
-		// Building the response
-		response.setContentType("text/x-json;charset=UTF-8");   
-		JsonObject jsonResponse = new JsonObject();
-		jsonResponse.addProperty("image", resultImage);
-		jsonResponse.addProperty("xmi", resultXMI);
-		PrintWriter out = response.getWriter();
-        out.print(jsonResponse.toString());
-	}
+		try {
+			EPackage resultMetamodel = discoverMetamodel(jsonCode);
+			String resultImage = discoverMetamodelBase64(resultMetamodel);
+			String resultXMI = encodeToString(resultMetamodel, folderName);
 	
+			// Building the response
+			response.setContentType("text/x-json;charset=UTF-8");   
+			JsonObject jsonResponse = new JsonObject();
+			jsonResponse.addProperty("image", resultImage);
+			jsonResponse.addProperty("xmi", resultXMI);
+			PrintWriter out = response.getWriter();
+			out.print(jsonResponse.toString());
+		} catch(JsonSyntaxException e) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			PrintWriter out = response.getWriter();
+			out.print(digestExceptionMessage(e.getMessage()));
+		} catch(ServletException e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			PrintWriter out = response.getWriter();
+			out.print(digestExceptionMessage(e.getMessage()));
+		}
+	}
+
 	/**
 	 * Discover a metamodel from a JSON document.
 	 * <p> 
@@ -117,18 +126,14 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 		// Discovering
 		JsonSimpleDiscoverer discoverer = new JsonSimpleDiscoverer();
 		JsonSource source = new JsonSource("Discovered");
-		try {
-			source.addJsonData(null, new StringReader(jsonCode));
-		} catch(JsonSyntaxException e) {
-			throw new ServletException(e.getMessage());
-		}
+		source.addJsonData(null, new StringReader(jsonCode));
 		EPackage discoveredModel = discoverer.discover(source);
-		
+
 		return discoveredModel;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Converts a EPackage into a picture and saves it in disk.
 	 * <p>
@@ -141,17 +146,17 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	private File convertToImage(EPackage ePackage) throws ServletException {
 		List<EObject> toDraw= new ArrayList<EObject>();
 		toDraw.add(ePackage);	
-		
+
 		String id = properties.getProperty(SIMPLEDISCOVERER_FOLDER);
 		if(id == null) throw new ServletException("ID for discoverer not found in properties");
-		
+
 		File resultPath = drawModel(toDraw, id);
 
 		return resultPath;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Performs the discovery and returns a picture encoded in BASE64 with the 
 	 * picture representing the discovered metamodel
@@ -174,6 +179,6 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 		resultPath.delete(); 
 		return resultImage;
 	}
-	
-	
+
+
 }

@@ -471,4 +471,19 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 
 		addResponseOptions(response);
 	}
+	
+	/**
+	 * Digest an exception message to remove the name of the exception and take
+	 * the real message
+	 * 
+	 * @param message The undigested exception message
+	 * @return The digested exception message
+	 */
+	protected String digestExceptionMessage(String message) {
+		int colonIndex = message.indexOf(":");
+		String cause = message;
+		if(colonIndex > 0)
+			cause = message.substring(colonIndex+2, message.length());
+		return cause;
+	}
 }
