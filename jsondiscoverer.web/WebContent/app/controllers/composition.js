@@ -157,6 +157,18 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
         $scope.activateHelp = function() {
         	$('body').chardinJs('start')
         };
+        
+
+        $scope.example = function() {
+        	input2 = '{ "lat" : 2, "lon" : 3 }'
+        	ex2 = '[\n  {\n    "direction": 2,\n    "terminus": "Gare de Pont-Rousseau",\n    "infotrafic": false,\n    "time": "Close",\n    "line": {\n      "lineNumber": "2",\n      "lineType": 1\n    },\n    "arret": {\n      "stopCode": "CRQU2"\n    }\n  },\n  {\n    "direction": 1,\n   "terminus": "Orvault-Grand Val",\n    "infotrafic": false,\n    "time": "Close",\n    "line": {\n      "lineNumber": "2",\n      "lineType": 1\n    },\n    "arret": {\n      "stopCode": "CRQU1"\n    }\n  },\n  {\n    "direction": 2,\n    "terminus": "Perray",\n    "infotrafic": false,\n    "time": "Close",\n    "line": {\n      "lineNumber": "11",\n      "lineType": 3\n    },\n    "arret": {\n      "stopCode": "CRQU4"\n    }\n  }\n]';
+        	input1 = '{ "locations" : -104.9847034, "sensor" : true }'
+        	ex1 = '{\n\   "results" : [\n      {\n         "elevation" : 1608.637939453125,\n         "location" : {\n            "lat" : 39.7391536,\n            \n"lng" : -104.9847034\n         },\n         "resolution" : 4.771975994110107\n      }\n   ],\n   "status" : "OK"\n}';
+
+            $scope.defs['example1'] = { name : 'example1', jsonDefs : [ { input: input1, output: ex1} ]};
+            $scope.defs['example2'] = { name : 'example2', jsonDefs : [ { input: input2, output: ex2} ]};
+            $scope.updateCompositionPosible();
+        }
     }
 ]);
 
