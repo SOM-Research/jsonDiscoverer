@@ -76,6 +76,16 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
         $scope.activateHelp = function() {
         	$('body').chardinJs('start')
         }
+        
+        $scope.example = function() {
+        	ex1 = '[\n  {\n    "direction": 2,\n    "terminus": "Gare de Pont-Rousseau",\n    "infotrafic": false,\n    "time": "Close",\n    "line": {\n      "lineNumber": "2",\n      "lineType": 1\n    },\n    "arret": {\n      "stopCode": "CRQU2"\n    }\n  },\n  {\n    "direction": 1,\n   "terminus": "Orvault-Grand Val",\n    "infotrafic": false,\n    "time": "Close",\n    "line": {\n      "lineNumber": "2",\n      "lineType": 1\n    },\n    "arret": {\n      "stopCode": "CRQU1"\n    }\n  },\n  {\n    "direction": 2,\n    "terminus": "Perray",\n    "infotrafic": false,\n    "time": "Close",\n    "line": {\n      "lineNumber": "11",\n      "lineType": 3\n    },\n    "arret": {\n      "stopCode": "CRQU4"\n    }\n  }\n]';
+        	ex2 = '[\n  {\n    "stopCode": "CRQU",\n    "stopName": "Place du Cirque",\n    "distance": "27 m",\n    "line": [\n      {\n        "lineNumber": "2"\n      },\n      {\n        "lineNumber": "C1"\n      },\n      {\n        "lineNumber": "C2"\n      },\n      {\n        "lineNumber": "C6"\n      },\n      {\n        "lineNumber": "11"\n      },\n      {\n        "lineNumber": "23"\n      },\n      {\n        "lineNumber": "LU"\n      }\n    ]\n  },\n  {\n    "stopCode": "BRTA",\n    "stopName": "Bretagne",\n    "distance": "138 m",\n    "line": [\n      {\n        "lineNumber": "3"\n      }\n    ]\n  }\n]';
+
+            $scope.defs['example1'] = { name : 'example1', jsonDefs : [ ex1 ]};
+            $scope.defs['example2'] = { name : 'example2', jsonDefs : [ ex2 ]};
+            $scope.updateDiscoveryPosible();
+        }
+
     }
 ]);
 
