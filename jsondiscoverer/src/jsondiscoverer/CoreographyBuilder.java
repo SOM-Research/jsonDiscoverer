@@ -84,10 +84,14 @@ public class CoreographyBuilder {
 			throw new IllegalArgumentException("The source cannot be null");
 		if(target == null)
 			throw new IllegalArgumentException("The target cannot be null");
+		if(!source.getName().endsWith("Input"))
+			throw new IllegalArgumentException("The source element has to be the Input of an API");
 		
 		DijkstraSolver algorithm = new DijkstraSolver(domain);
 		algorithm.execute(source);
 		List<EClass> result = algorithm.getPath(target);
+		if(result == null)
+			return null;
 
 		String resultString = "";
 		EClass last = null;
