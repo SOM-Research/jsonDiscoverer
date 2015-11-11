@@ -17,6 +17,8 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
         $scope.targetPreviousColor = "";
 
         $scope.alertsGeneral = [ ];
+        
+        $scope.showError = false;
 
         $scope.$on('$viewContentLoaded', function(event) {
             $window.ga('send', 'pageview', {'page': '/tools/jsonDiscoverer' + $location.path()});
@@ -143,12 +145,15 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
         $scope.calculatePath = function() {
             DiscovererService.calculatePath($scope.defs, $scope.sourcePath, $scope.targetPath,
                 function(data) {
+                	$scope.showError = false;
                     var diagram = Diagram.parse(data);
+                    $("#sequence-diagram").empty();
                     diagram.drawSVG("sequence-diagram", {theme: 'simple'});
 					$window.ga('send', 'event', 'JSON Discoverer', 'SimpleDiscoverer-SequenceDiagram')
                 },
                 function(data, status, headers, config) {
-
+                    $scope.showError = true;
+                    $scope.errorMsg = 'There is no a path between the selected nodes'
                 }
             )
         };
