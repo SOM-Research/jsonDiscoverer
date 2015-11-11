@@ -30,12 +30,44 @@ public class FeedbackServlet extends AbstractJsonDiscoverer {
 	 */
 	public static final String FEEDBACK_ID = "IdFeedback";
 
+	/**
+	 * Param to get the source of the feedback.
+	 * <p>
+	 * For instance: simplediscoverer, advanced discoverer, etc. It is set by 
+	 * the client
+	 */
 	public static final String sourceParam = "source";
+	/**
+	 * The param holding the comment from the user
+	 */
 	public static final String commentParam = "comment";
+	/**
+	 * The param holding the JSON code for the feedback
+	 */
 	public static final String jsonParam = "json";
+	/**
+	 * The param to get the discovered metamodel (as picture) which is the subject of the feedback.
+	 * <p>
+	 * It is usually transferred in base64 encoding (as it was received like that by the client)
+	 */
 	public static final String metamodelParam = "metamodel";
+	/**
+	 * The param to get the discovered metamodel (as ECORE file) which is the subject of the feedback
+	 * <p>
+	 * It is usually transferred in base64 encoding (as it was received like that by the client)
+	 */
 	public static final String metamodelParamFile = "metamodelFile";
+	/**
+	 * The param to get the discovered model (as picture) which is the subject of the feedback
+	 * <p>
+	 * It is usually transferred in base64 encoding (as it was received like that by the client)
+	 */
 	public static final String modelParam = "model";
+	/**
+	 * The param to get the discovered model (as XMI file) which is the subject of the feedback
+	 * <p>
+	 * It is usually transferred in base64 encoding (as it was received like that by the client)
+	 */
 	public static final String modelParamFile = "modelFile";
 	
 	/** 
