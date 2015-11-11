@@ -5,7 +5,10 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
         $scope.name = "";
         $scope.metamodel = "";
         $scope.metamodelFile = "";
+        
         $scope.showTitles = false;
+        $scope.showFeedback = false;
+		$scope.showError = false;
 
         $scope.alertsGeneral = [ ];
 
@@ -57,9 +60,12 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
         $scope.discover = function() {
             $scope.metamodel = "images/loading.gif";
             $scope.showTitles = true;
+    		$scope.showError = false;
 
             DiscovererService.compose($scope.defs,
                 function(data) {
+                	$scope.showFeedback = true;
+            		$scope.showError = false;
                     $scope.metamodel = "data:image/jpg;base64," + data.image;
                     $scope.metamodelFile = "data:text/octet-stream;base64," + data.xmi;
                     $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://som-research.uoc.edu/tools/jsonDiscoverer/#/contact">contact us</a> to improve our tool!' });
@@ -68,7 +74,9 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
                 function(data, status, headers, config) {
                     $scope.metamodel = "";
                     $scope.metamodelFile = "";
-                    $scope.alertsGeneral.push({ type: 'error', msg: 'Oops, we found an error in the discovery process. Could you check your JSON and try again?' });
+            		$scope.showError = true;
+                	$scope.showFeedback = false;
+            		$scope.errorMsg = 'Oops, we found an error in the discovery process. Could you check your JSON and try again?';
                 }
             );
         };
@@ -84,6 +92,50 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
             $scope.defs['example1'] = { name : 'example1', jsonDefs : [ ex1 ]};
             $scope.defs['example2'] = { name : 'example2', jsonDefs : [ ex2 ]};
             $scope.updateDiscoveryPosible();
+        }
+        
+        $scope.sendFeedback = function() {
+            var modalInstance = $modal.open({
+                templateUrl: 'app/partials/modal/feedback.html',
+                controller: function($scope, $modalInstance) {
+                	$scope.feedback = []
+                	$scope.ok = function(result) {
+    					$modalInstance.close($scope.feedback);
+  					};
+
+  					// When clicking on CANCEL
+  					$scope.cancel = function() {
+    					$modalInstance.dismiss('closed');
+  					}
+                },
+                resolve: {
+                	
+                }
+            });
+            
+            modalInstance.result.then(
+                function(result) {
+	                var feedbackToSend = {
+	                	source : 'advancedDiscoverer',
+	                	comment : result.comment,
+	                	json : $.param($scope.defs),
+	                	metamodel : $scope.metamodel,
+	                	metamodelFile : $scope.metamodelFile
+	                }
+	                
+	                DiscovererService.sendFeedback(feedbackToSend,
+	                        function(data) {
+	                            //console.log("fine")
+	                        },
+	                        function(data, status, headers, config) {
+	                            //console.log("wrong")
+	                        }
+	                    );
+                },
+	            function(result) {
+                	// nothing
+	            }
+            );
         }
 
     }

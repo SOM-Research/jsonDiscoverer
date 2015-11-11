@@ -9,6 +9,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
 
         $scope.showTitles = false;
         $scope.showFeedback = false;
+		$scope.showError = false;
 
         $scope.$on('$viewContentLoaded', function(event) {
             $window.ga('send', 'pageview', {'page': '/tools/jsonDiscoverer' + $location.path()});   
@@ -51,7 +52,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
         	} catch(e) {
                 $scope.showFeedback = false;
         		$scope.showError = true;
-        		$scope.errorMsg = e.toString();
+        		$scope.errorMsg = 'There is an error in your JSON:'  + e.toString();
         	}
         }
 
@@ -117,7 +118,6 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
         }
         
         $scope.sendFeedback = function() {
-        	console.log("entering")
             var modalInstance = $modal.open({
                 templateUrl: 'app/partials/modal/feedback.html',
                 controller: function($scope, $modalInstance) {
@@ -138,7 +138,6 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
             
             modalInstance.result.then(
                 function(result) {
-	                console.log("Closed")
 	                var feedbackToSend = {
 	                	source : 'simpleDiscoverer',
 	                	comment : result.comment,
