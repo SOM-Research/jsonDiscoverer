@@ -1,12 +1,14 @@
-angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "DiscovererService", "$window", "$location" ,"$log",
-    function($scope, DiscovererService, $window, $location, $log) {
+angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "DiscovererService", "$window", "$location" ,"$log", "$modal",
+    function($scope, DiscovererService, $window, $location, $log, $modal) {
         $scope.json = { text: '' };
         $scope.metamodel = "";
         $scope.metamodelFile = "";
         $scope.modelFile = "";
         $scope.model = "";
-        $scope.showTitles = false;
         $scope.url = ""
+
+        $scope.showTitles = false;
+        $scope.showFeedback = false;
 
         $scope.$on('$viewContentLoaded', function(event) {
             $window.ga('send', 'pageview', {'page': '/tools/jsonDiscoverer' + $location.path()});   
@@ -37,13 +39,19 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
             $scope.model = "";
             $scope.modelFile = "";
             
+            $scope.showFeedback = false;
+    		$scope.showError = false;
+            
         	try {
         		JSON.parse($scope.json.text);
                 discoverMetamodel($scope.json.text);
                 injectModel($scope.json.text);
                 $scope.showTitles = true;
+        		$scope.showError = false;
         	} catch(e) {
-        		$scope.alertsGeneral.push({ type: 'error', msg: 'There is an error in your JSON: ' + e});
+                $scope.showFeedback = false;
+        		$scope.showError = true;
+        		$scope.errorMsg = e.toString();
         	}
         }
 
@@ -57,7 +65,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
                 function(data) {
                     $scope.metamodel = "data:image/jpg;base64," + data.image;
                     $scope.metamodelFile = "data:text/octet-stream;base64," + data.xmi;
-                    $scope.alertsGeneral.push({ type: 'warning', msg: 'Did you expect other schema? Please <a href="http://som-research.uoc.edu/tools/jsonDiscoverer/#/contact">contact us</a> to improve our tool!' });
+                    $scope.showFeedback = true;
 					$window.ga('send', 'event', 'JSON Discoverer', 'SimpleDiscoverer-Schema')
                 },
                 function(data, status, headers, config) {
@@ -78,6 +86,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
                 function(data) {
                     $scope.model = "data:image/jpg;base64," + data.image;
                     $scope.modelFile = "data:text/octet-stream;base64," + data.xmi;
+                    $scope.showFeedback = true;
 					$window.ga('send', 'event', 'JSON Discoverer', 'SimpleDiscoverer-Data')
                 },
                 function(data, status, headers, config) {
@@ -105,6 +114,54 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
         
         $scope.activateHelp = function() {
         	$('body').chardinJs('start')
+        }
+        
+        $scope.sendFeedback = function() {
+        	console.log("entering")
+            var modalInstance = $modal.open({
+                templateUrl: 'app/partials/modal/feedback.html',
+                controller: function($scope, $modalInstance) {
+                	$scope.feedback = []
+                	$scope.ok = function(result) {
+    					$modalInstance.close($scope.feedback);
+  					};
+
+  					// When clicking on CANCEL
+  					$scope.cancel = function() {
+    					$modalInstance.dismiss('closed');
+  					}
+                },
+                resolve: {
+                	
+                }
+            });
+            
+            modalInstance.result.then(
+                function(result) {
+	                console.log("Closed")
+	                var feedbackToSend = {
+	                	source : 'simpleDiscoverer',
+	                	comment : result.comment,
+	                	json : $scope.json.text,
+	                	metamodel : $scope.metamodel,
+	                	metamodelFile : $scope.metamodelFile,
+	                	model : $scope.model,
+	                	modelFile : $scope.modelFile
+	                }
+	                
+	                DiscovererService.sendFeedback(feedbackToSend,
+	                        function(data) {
+	                            //console.log("fine")
+	                        },
+	                        function(data, status, headers, config) {
+	                            //console.log("wrong")
+	                        }
+	                    );
+                },
+	            function(result) {
+                	// nothing
+	            }
+            );
         }
     }
 ]);

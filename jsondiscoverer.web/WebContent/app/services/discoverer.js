@@ -15,6 +15,12 @@ angular.module("jsonDiscoverer").service('DiscovererService', ["$http",
                 failure(data, status, headers, config);
             });
         };
+        
+        this.sendFeedback = function(params, success, failure) {
+            var dataToSend = $.param(params);
+
+            this.callService(this.prefix + "/feedback", dataToSend, success, failure);
+        }
 
         this.discoverMetamodel = function(jsonText, success, failure) {
             var dataToSend = $.param( {
