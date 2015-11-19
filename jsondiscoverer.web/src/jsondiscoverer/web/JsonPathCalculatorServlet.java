@@ -105,13 +105,17 @@ public class JsonPathCalculatorServlet extends JsonComposerServlet {
 		
 		// 4. Getting the path
 		CoreographyBuilder builder = new CoreographyBuilder(finalMetamodel);
-		String diagram = builder.calculate(sourceEClass, targetEClass);
-		if(diagram == null) {
+		try {
+			String diagram = builder.calculate(sourceEClass, targetEClass);
+			if(diagram == null) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			} else {
+				// 5. Write the response
+				PrintWriter out = response.getWriter();
+				out.print(diagram);
+			}
+		} catch(IllegalArgumentException e) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-		} else {
-			// 5. Write the response
-			PrintWriter out = response.getWriter();
-			out.print(diagram);
 		}
 	}
 }

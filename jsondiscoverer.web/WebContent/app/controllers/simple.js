@@ -44,7 +44,8 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
     		$scope.showError = false;
             
         	try {
-        		JSON.parse($scope.json.text);
+        		jsonlint.parse($scope.json.text);
+        		//JSON.parse($scope.json.text);
                 discoverMetamodel($scope.json.text);
                 injectModel($scope.json.text);
                 $scope.showTitles = true;
@@ -52,7 +53,9 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
         	} catch(e) {
                 $scope.showFeedback = false;
         		$scope.showError = true;
-        		$scope.errorMsg = 'There is an error in your JSON:'  + e.toString();
+                $("#modelImg").empty();
+                $("#metamodelImg").empty();
+        		$scope.errorMsg = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');;
         	}
         }
 

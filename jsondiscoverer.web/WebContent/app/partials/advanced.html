@@ -58,29 +58,6 @@
 							<div class="col-md-3"><strong>JSONs provided:</strong></div>
 							<div class="col-md-1">{{jsonDef.jsonDefs.length}}</div>
 							<div class="col-md-2"><button class="btn btn-xs" ng-click="provideJson(jsonDef.name)">Provide JSON</button></div>
-							<script type="text/ng-template" id="jsonProvisionModal.html">
-								<div>
-									<div class="modal-content">
-										<div class="model-header">
-											<h3 class="modal-title">Provide your JSON for your {{json.name}} source</h3>
-										</div>
-										<div class="modal-body">
-											<form class="form-horizontal" role="form">
-												<div class="form-group">
-													<label for="inputJson" class="col-md-12">Copy/Paste your JSON here:</label>
-													<div class="col-md-12">
-														<textarea rows="12" id="inputJson" ng-model="json.text" resizable="false"></textarea>
-													</div>			
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button class="btn" ng-disabled="json.text == ''" ng-click="ok()">OK</button>
-											<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-										</div>
-									</div>
-								</div>			
-							</script>
 						</div> 
 					</div>
 				</div>

@@ -32,8 +32,49 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
 
         $scope.provideJson = function (jsonName) {
             var modalInstance = $modal.open({
-                templateUrl: 'jsonProvisionModalWithInput.html',
-                controller: JsonProvisionModalWithInputInstanceCtrlVar,
+                templateUrl: 'app/partials/modal/provideJSON-Input.html',
+                controller: function($scope, $modalInstance, $log, jsonName) {
+                    $scope.json = { name: jsonName, input: '', output: '' };
+
+                    $scope.ok = function() {
+                		$scope.showError = false;
+                		var errorInput = null;
+                		var errorOutput = null;
+                    	try {
+                    		jsonlint.parse($scope.json.input);
+                    	} catch(e) {
+                    		errorInput = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    	}
+                    	try {
+                    		jsonlint.parse($scope.json.output);
+                    	} catch(e) {
+                    		errorOutput = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    	}
+                    	
+                    	if(errorInput != null || errorOutput != null) {
+                    		if(errorInput != null) {
+                    			$scope.showErrorInput = true;
+                        		$scope.errorMsgInput = errorInput;
+                    		} else {
+                    			$scope.showErrorInput = false;
+                        		$scope.errorMsgInput = null;
+                    		}
+                    		if(errorOutput != null) {
+                    			$scope.showErrorOutput = true;
+                        		$scope.errorMsgOutput = errorOutput;
+                    		} else {
+                    			$scope.showErrorOutput = false;
+                        		$scope.errorMsgOutput = null;
+                    		}
+                    	} else {
+                            $modalInstance.close({ name : jsonName, input: $scope.json.input, output: $scope.json.output });
+                    	}
+                    };
+
+                    $scope.cancel = function() {
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
                 resolve: {
                     jsonName : function() {
                         return jsonName;
@@ -153,6 +194,7 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
                 },
                 function(data, status, headers, config) {
                     $scope.showError = true;
+                    $("#sequence-diagram").empty();
                     $scope.errorMsg = 'There is no a path between the selected nodes'
                 }
             )
@@ -177,14 +219,3 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
     }
 ]);
 
-var JsonProvisionModalWithInputInstanceCtrlVar = function($scope, $modalInstance, $log, jsonName) {
-    $scope.json = { name: jsonName, input: '', output: '' };
-
-    $scope.ok = function() {
-        $modalInstance.close({ name : jsonName, input: $scope.json.input, output: $scope.json.output });
-    };
-
-    $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
-    };
-}

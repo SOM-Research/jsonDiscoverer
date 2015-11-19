@@ -1,0 +1,36 @@
+<div>
+	<div class="modal-content">
+		<div class="model-header">
+			<h3 class="modal-title">Provide your JSON for your {{json.name}}
+				source</h3>
+		</div>
+		<div class="modal-body">
+			<form class="form-horizontal" role="form" action="">
+				<div class="form-group">
+					<label for="inputJson" class="col-md-12">Input (as JSON)</label>
+					<div class="col-md-12">
+						<textarea rows="4" id="inputJson" ng-model="json.input"
+							resizable="false" cols=""></textarea>
+					</div>
+				</div>
+				<alert ng-show="showErrorInput" type="error"> There is an error in your JSON:
+					<div class="error-report" ng-bind-html="errorMsgInput"></div>
+				</alert>
+				<div class="form-group">
+					<label for="outputJson" class="col-md-12">Copy/Paste the JSON returned:</label>
+					<div class="col-md-12">
+						<textarea rows="12" id="outputJson" ng-model="json.output"
+							resizable="false" cols=""></textarea>
+					</div>
+				</div>
+				<alert ng-show="showErrorOutput" type="error"> There is an error in your JSON:
+					<div class="error-report" ng-bind-html="errorMsgOutput"></div>
+				</alert>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" ng-disabled="json.output == ''" ng-click="ok()">OK</button>
+			<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+		</div>
+	</div>
+</div>

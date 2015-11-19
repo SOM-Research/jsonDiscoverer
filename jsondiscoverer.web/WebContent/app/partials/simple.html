@@ -82,12 +82,12 @@
     <div class="row">
 		<div class="col-md-6">
 			<h3 ng-show="showTitles">Your Schema</h3>
-	    	<p class="text-center"><img ng-src="{{metamodel}}" class="img-rounded"></p>
+	    	<p id="metamodelImg" class="text-center"><img ng-src="{{metamodel}}" class="img-rounded"></p>
 	    	<alert ng-repeat="alert in alertsSchema" type="{{alert.type}}" close="closeSchemaAlert($index)">{{alert.msg}}</alert>
 		</div>
 		<div class="col-md-6">
 			<h3 ng-show="showTitles">Your Data</h3>
-	    	<p class="text-center"><img ng-src="{{model}}" class="img-rounded"></p>
+	    	<p id="modelImg" class="text-center"><img ng-src="{{model}}" class="img-rounded"></p>
 	    	<alert ng-repeat="alert in alertsData" type="{{alert.type}}" close="closeDataAlert($index)">{{alert.msg}}</alert>
 		</div>
 	</div>
@@ -98,7 +98,8 @@
 				Did you expect other schema? Please <a ng-click="sendFeedback()">send us your feedback</a> to improve our tool!
 			</alert>
 			<alert ng-show="showError" type="error">
-				There is an error in your JSON: {{errorMsg}}
+				There is an error in your JSON: 
+				<div class="error-report" ng-bind-html="errorMsg"></div>
 			</alert>
 		</div>
 	</div>

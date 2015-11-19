@@ -1,0 +1,27 @@
+<div>
+	<div class="modal-content">
+		<div class="model-header">
+			<h3 class="modal-title">Provide your JSON for your {{json.name}}
+				source</h3>
+		</div>
+		<div class="modal-body">
+			<form class="form-horizontal" role="form" action="">
+				<div class="form-group">
+					<label for="inputJson" class="col-md-12">Copy/Paste your
+						JSON here:</label>
+					<div class="col-md-12">
+						<textarea rows="12" id="inputJson" ng-model="json.text"
+							resizable="false" cols=""></textarea>
+					</div>
+				</div>
+			</form>
+			<alert ng-show="showError" type="error"> There is an error in your JSON:
+				<div class="error-report" ng-bind-html="errorMsg"></div>
+			</alert>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" ng-disabled="json.text == ''" ng-click="ok()">OK</button>
+			<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+		</div>
+	</div>
+</div>
