@@ -92,8 +92,7 @@ public class JsonInjector {
 	/**
 	 * Injects a model conforming to the metamodel from a set of Json Objects
 	 * 
-	 * @param rootElement The root element of the JSON document
-	 * @param ePackage The metamodel
+	 * @param elements List of JSON objects (as list of {@link JsonObject}) 
 	 * @return The set of injected {@link EObject}s
 	 */
 	private List<EObject> inject(List<JsonObject> elements) {
@@ -233,7 +232,7 @@ public class JsonInjector {
 	/**
 	 * Analyzes the type of the attribute to convert the JSON value
 	 * 
-	 * @param eAttribute The {@EAttribute}
+	 * @param eAttribute The {@link EAttribute}
 	 * @param value The value to convert
 	 * @return The converted value (as {@link JsonPrimitive})
 	 */

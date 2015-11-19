@@ -493,7 +493,7 @@ public class JsonAdvancedDiscoverer {
 	 * Input elements (represented as {@link EClass}es named "Input") are not considered
 	 * 
 	 * @param existingClass {@link EClass} to check with already discovered EClasses
-	 * @return 
+	 * @return The similar class (as {@link EClass})
 	 */
 	private EClass lookForSimilarEClass(EClass existingClass) { 
 		if(existingClass == null) 
@@ -579,10 +579,9 @@ public class JsonAdvancedDiscoverer {
 	/**
 	 * Gets the values for a particular key
 	 * 
-	 * @param name
-	 * @param sourceName
-	 * @return
-	 * @throws FileNotFoundException
+	 * @param eAttribute The contained attribute
+	 * @param sourceName The name acting as key
+	 * @return The list of matching values
 	 */
 	private List<Object> getJSONValues(EAttribute eAttribute, String sourceName) {
 		if(eAttribute == null) 

@@ -147,7 +147,7 @@ public class JsonSource extends AbstractJsonSource {
 	
 	/**
 	 * Generates a list of JSON objects according to the {@link JsonData} of this source.
-	 * <p>
+	 * <p></p>
 	 * 
 	 * <ul>
 	 * <li>If the source DOES include inputs, the list will include the set of input elements as roots for the

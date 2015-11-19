@@ -173,7 +173,8 @@ public class JsonSimpleDiscoverer {
 	 * an identifier.
 	 * 
 	 * @param id Unique identifier of the {@link JsonObject} 
-	 * @param The new {@link JsonObject} 
+	 * @param jsonObject The new {@link JsonObject} 
+	 * @return The create metaclass (as {@link EClass})
 	 */
 	private EClass createMetaclass(String id, JsonObject jsonObject) {
 		if(id == null) 
@@ -206,6 +207,7 @@ public class JsonSimpleDiscoverer {
 	 * 
 	 * @param eClass The existing {@link EClass}
 	 * @param jsonObject The {@link JsonObject} to use as input to refine
+	 * @return The refined class (as {@link EClass})
 	 */
 	private EClass refineMetaclass(EClass eClass, JsonObject jsonObject) {
 		if(eClass == null) 

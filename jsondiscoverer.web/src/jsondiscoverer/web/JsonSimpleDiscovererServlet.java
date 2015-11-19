@@ -141,7 +141,7 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	 * 
 	 * @param ePackage The metamodel
 	 * @return The file with the picture 
-	 * @throws IOException Something went wrong doing IO things
+	 * @throws ServletException Something went wrong doing IO things
 	 */
 	private File convertToImage(EPackage ePackage) throws ServletException {
 		List<EObject> toDraw= new ArrayList<EObject>();
@@ -166,7 +166,7 @@ public class JsonSimpleDiscovererServlet extends AbstractJsonDiscoverer {
 	 * 
 	 * @param ePackage The metamodel
 	 * @return A String encoded in base64 representing the picture of the metamodel
-	 * @throws IOException Something went wrong with IO
+	 * @throws ServletException Something went wrong with IO
 	 */
 	private String discoverMetamodelBase64(EPackage ePackage) throws ServletException {
 		File resultPath = convertToImage(ePackage);

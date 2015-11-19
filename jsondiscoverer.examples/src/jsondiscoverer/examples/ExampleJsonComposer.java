@@ -41,6 +41,7 @@ public class ExampleJsonComposer {
 	/**
 	 * Main method to launch the example
 	 * 
+	 * @param args The main args. None is needed
 	 * @throws FileNotFoundException Thrown if the file is not found
 	 * @throws IOException Thrown if any problem IO-related is found
 	 */

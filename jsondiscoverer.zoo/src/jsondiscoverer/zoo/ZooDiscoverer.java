@@ -55,7 +55,7 @@ import jsondiscoverer.SingleJsonSource;
  * including the json text and the property "call" to invoke the service.
  * <p>
  * This is and example of such an organization:
- * <p> 
+ * <p></p>
  * <pre>
  * - RootPath
  *   +-- API1
@@ -74,6 +74,8 @@ import jsondiscoverer.SingleJsonSource;
  *       +-- ...
  * </pre>
  * <p>
+ * We recommend you to have a look at the existing examples on this project to better understand how to configure
+ * the folder and the files.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -169,13 +171,38 @@ public class ZooDiscoverer {
 	}
 
 	/**
+	 * Performs the discovery for a specific directory.
+	 * <p></p>
+	 * The folder has to follow this pattern (example with two JSON sources):
+	 * <p></p>
+	 * <pre>
+	 *   +-- source1
+	 *      +-- info.properties
+	 *      +-- json1.json
+	 *      +-- json1.properties
+	 *      +-- json2.json
+	 *      +-- json2.properties
+	 *  </pre>
+	 *  <p></p>
+	 *  The discovery process follow these steps:
+	 *  <p></p>
+	 *  <ol>
+	 *  <li>First the info.properties is checked</li>
+	 *  <li>For each JSON source (composed by a .json and a .properties file):</li>
+	 *    <ol>
+	 *     <li> The properties files is read (e.g., json1.properties)</li>
+	 *     <li> The JSON file is read (e.g., json1.json)</li>
+	 *    </ol>
+	 *  </ol>
+	 *  <p></p>
+	 *  As a result, a {@link JsonSource} is built, which includes all the JSON sources plus the discovered metamodel (as a {@link EPackage})
+	 *  <p></p>
 	 * 
-	 * 
-	 * @param rootPath
-	 * @param overwrite
-	 * @return
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * @param rootPath The folder to analyze
+	 * @param overwrite If the results have to overwrite previous ones
+	 * @return A {@link JsonSource} with the JSON sources provided and the metamodel
+	 * @throws FileNotFoundException A file required in the folder (check the doc to see the expected structure) was not found
+	 * @throws IOException Thrown when having problem while reading/writing files
 	 */
 	private JsonSource discoverSource(File rootPath, boolean overwrite) throws FileNotFoundException, IOException {
 		if(!rootPath.isDirectory())

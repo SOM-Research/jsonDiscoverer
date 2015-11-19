@@ -37,6 +37,7 @@ public class ExampleJsonInjector {
 	/**
 	 * Main method to launch the example
 	 * 
+	 * @param args The main args. None is needed
 	 * @throws FileNotFoundException Thrown if the file is not found
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
