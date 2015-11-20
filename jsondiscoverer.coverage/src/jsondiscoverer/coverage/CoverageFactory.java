@@ -5,26 +5,22 @@ package jsondiscoverer.coverage;
 import org.eclipse.emf.ecore.EFactory;
 
 /**
- * <!-- begin-user-doc -->
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
- * <!-- end-user-doc -->
  * @see jsondiscoverer.coverage.CoveragePackage
  * @generated
  */
 public interface CoverageFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	CoverageFactory eINSTANCE = jsondiscoverer.coverage.impl.CoverageFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Coverage</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Coverage</em>'.
 	 * @generated
 	 */
@@ -32,8 +28,7 @@ public interface CoverageFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>Att Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Att Mapping</em>'.
 	 * @generated
 	 */
@@ -41,8 +36,7 @@ public interface CoverageFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>Ref Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Ref Mapping</em>'.
 	 * @generated
 	 */
@@ -50,8 +44,7 @@ public interface CoverageFactory extends EFactory {
 
 	/**
 	 * Returns a new object of class '<em>Concept Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return a new object of class '<em>Concept Mapping</em>'.
 	 * @generated
 	 */
@@ -59,8 +52,7 @@ public interface CoverageFactory extends EFactory {
 
 	/**
 	 * Returns the package supported by this factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the package supported by this factory.
 	 * @generated
 	 */

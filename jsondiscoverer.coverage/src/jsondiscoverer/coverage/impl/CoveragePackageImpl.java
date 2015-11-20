@@ -19,43 +19,35 @@ import jsondiscoverer.coverage.CoveragePackage;
 import jsondiscoverer.coverage.RefMapping;
 
 /**
- * <!-- begin-user-doc -->
  * An implementation of the model <b>Package</b>.
- * <!-- end-user-doc -->
  * @generated
  */
 public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass coverageEClass = null;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass coverageMappingEClass = null;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	private EClass attMappingEClass = null;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	private EClass refMappingEClass = null;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	private EClass conceptMappingEClass = null;
@@ -68,8 +60,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * factory method {@link #init init()}, which also performs
 	 * initialization of the package, or returns the registered package,
 	 * if one already exists.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
 	 * @see jsondiscoverer.coverage.CoveragePackage#eNS_URI
 	 * @see #init()
@@ -80,8 +72,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	private static boolean isInited = false;
@@ -91,11 +83,12 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	 * 
 	 * <p>This method is used to initialize {@link CoveragePackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @see #eNS_URI
 	 * @see #createPackageContents()
 	 * @see #initializePackageContents()
+	 * @return The {@link CoveragePackage}
 	 * @generated
 	 */
 	public static CoveragePackage init() {
@@ -125,8 +118,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EClass getCoverage() {
@@ -134,8 +127,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EReference getCoverage_Mappings() {
@@ -143,8 +136,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EReference getCoverage_Input() {
@@ -152,8 +145,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EAttribute getCoverage_Service() {
@@ -161,8 +154,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EClass getCoverageMapping() {
@@ -170,8 +163,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EClass getAttMapping() {
@@ -179,8 +172,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EReference getAttMapping_Source() {
@@ -188,8 +181,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EReference getAttMapping_Target() {
@@ -197,8 +190,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EClass getRefMapping() {
@@ -206,8 +199,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EReference getRefMapping_Source() {
@@ -215,8 +208,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EReference getRefMapping_Target() {
@@ -224,8 +217,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EClass getConceptMapping() {
@@ -233,8 +226,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EReference getConceptMapping_Source() {
@@ -242,8 +235,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public EReference getConceptMapping_Target() {
@@ -251,8 +244,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public CoverageFactory getCoverageFactory() {
@@ -260,8 +253,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	private boolean isCreated = false;
@@ -269,8 +262,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	/**
 	 * Creates the meta-model objects for the package.  This method is
 	 * guarded to have no affect on any invocation but its first.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public void createPackageContents() {
@@ -299,8 +292,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	private boolean isInitialized = false;
@@ -308,8 +301,8 @@ public class CoveragePackageImpl extends EPackageImpl implements CoveragePackage
 	/**
 	 * Complete the initialization of the package and its meta-model.  This
 	 * method is guarded to have no affect on any invocation but its first.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * 
 	 * @generated
 	 */
 	public void initializePackageContents() {

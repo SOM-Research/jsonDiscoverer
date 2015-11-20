@@ -52,8 +52,7 @@ public class JsonPathCalculatorServlet extends JsonComposerServlet {
 	 * Performs a POST call to this servlet.
 	 * <p>
 	 * Receives a set of JSON documents representing different JSON-based Web services 
-	 * (see {@link JsonComposerServlet.paramsPattern})to know the pattern of this param) plus
-	 * the source/target nodes.
+	 * plus the source/target nodes.
 	 * <p>
 	 * Calculates a path between source/target nodes (using {@link CoreographyBuilder}) and returns
 	 * a sequence diagram (if the path exists) indicanting the calls to perform to obtain the

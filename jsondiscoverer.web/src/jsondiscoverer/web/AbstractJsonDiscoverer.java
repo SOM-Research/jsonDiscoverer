@@ -55,7 +55,6 @@ import sun.misc.BASE64Encoder;
 
 /**
  * Abstract class to factor some common behavior among the JSON discoverers.
- * <p>
  * <p>In particular, this class helps to:</p>
  * <ul>
  * <li><b>Draw models</b>. Generates a picture (stored in a file) which is the 
@@ -296,9 +295,7 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 
 	/**
 	 * Draws a model into a picture, stored a file.
-	 * <p>
-	 * The process follows these steps:
-	 * <p></p>
+	 * <p>The process follows these steps:</p>
 	 * <ul>
 	 * <li>First the name of the folder is retrieved from the properties file</li>
 	 * <li>A temp file is created</li>
@@ -307,11 +304,8 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 	 * <p>
 	 * Files are stored in a folder configured in the config properties file. The
 	 * name of the property is set by the uniqueId param.
-	 * <p></p>
-	 * The generation of the picture is delegated to the method {@link StandaloneProcessor#process(EObject, GVFigureDescription, File, String, org.emftools.emf2gv.processor.core.IProcessorCallback, org.emftools.emf2gv.processor.core.IEObjectIconProvider, String, boolean, boolean, String, List, org.emftools.emf2gv.processor.core.ILogger, org.eclipse.core.runtime.IProgressMonitor)}
-	 * <p></p>
-	 * A graphical style has to be provided. See the documentation of <a href="https://marketplace.eclipse.org/content/emf-graphviz-emf2gv">EMF2GV</a> to know how to create it.
-	 * <p></p>
+	 * <p>The generation of the picture is delegated to the method {@link StandaloneProcessor#process(EObject, GVFigureDescription, File, String, org.emftools.emf2gv.processor.core.IProcessorCallback, org.emftools.emf2gv.processor.core.IEObjectIconProvider, String, boolean, boolean, String, List, org.emftools.emf2gv.processor.core.ILogger, org.eclipse.core.runtime.IProgressMonitor)}</p>
+	 * <p>A graphical style has to be provided. See the documentation of <a href="https://marketplace.eclipse.org/content/emf-graphviz-emf2gv">EMF2GV</a> to know how to create it.</p>
 	 * 
 	 * @param elements List of elements (as {@link EObject}s) to be drawn
 	 * @param uniqueId Id used to retrieve the folder name from the config properties file to store the file 

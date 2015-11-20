@@ -64,7 +64,7 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 			"(" + Pattern.quote("[") + "[a-zA-Z]*" + Pattern.quote("]") + ")?";
 	
 	/**
-	 * Digest the received sources according to the pattern (see {@link JsonComposerServlet.paramsPattern})
+	 * Digest the received sources according to the pattern 
 	 * 
 	 * @param request The HTTP request
 	 * @return A list of {@link JsonSourceSet}
@@ -110,8 +110,7 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
     /** 
 	 * Performs a POST call to this servlet.
 	 * <p>
-	 * Receives a set of JSON documents representing different JSON-based Web services 
-	 * (see {@link JsonComposerServlet.paramsPattern})to know the pattern of this param)
+	 * Receives a set of JSON documents representing different JSON-based Web services.
 	 * <p>
 	 * Discovers a graph representing the different APIs (as subgraphs) where nodes represents
 	 * concepts/attributes and edges link concepts with their attributes. Additionally, extra edges

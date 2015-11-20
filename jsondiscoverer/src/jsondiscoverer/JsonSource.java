@@ -147,12 +147,11 @@ public class JsonSource extends AbstractJsonSource {
 	
 	/**
 	 * Generates a list of JSON objects according to the {@link JsonData} of this source.
-	 * <p></p>
-	 * 
 	 * <ul>
 	 * <li>If the source DOES include inputs, the list will include the set of input elements as roots for the
 	 * {@link JsonData}. For instance:</li> 
-	 * <p>
+	 * </ul>
+	 * 
 	 * <pre>
 	 * - [input JSON element 1]
 	 *   +-- Output
@@ -162,15 +161,15 @@ public class JsonSource extends AbstractJsonSource {
 	 *       +-- [output JSON element 2]  
 	 * -...
 	 * </pre>
+	 * <ul>
 	 * <li>If the source DOES NOT include inputs, the list will include all the objects from {@link JsonData}. For instance</li>
-	 * <p>
+	 * </ul>
 	 * <pre>
 	 * - [output JSON element 1]  
 	 * - [output JSON element 2] 
 	 * - [output JSON element 3] 
 	 * -...
 	 * </pre>
-	 * </ul>
 	 * 
 	 * @return The list of {@link JsonObject}s
 	 */

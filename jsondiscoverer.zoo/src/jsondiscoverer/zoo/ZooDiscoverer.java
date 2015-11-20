@@ -43,19 +43,15 @@ import jsondiscoverer.SingleJsonSource;
 
 /**
  * This class traverses a given path to discover the metamodels for JSON files.
- * <p>
- * The path has to conform to a particular structure. Thus, the root path has to be
+ * <p>The path has to conform to a particular structure. Thus, the root path has to be
  * composed by a set of folder (one per API), where each folder contains subfolders 
- * (one per JSON source). 
- * <p>
- * For each JSON source, it is expected to find a "info.properties" file which the "name"
+ * (one per JSON source).</p>
+ * <p>For each JSON source, it is expected to find a "info.properties" file which the "name"
  * and "shortname" properties describing the source. Furthermore, a set of JSON files
  * have to be included in the JSON source. Each JSON file name must start with "json" 
  * string and it is expected both a .json * and a .properties file (with the same name), 
- * including the json text and the property "call" to invoke the service.
- * <p>
- * This is and example of such an organization:
- * <p></p>
+ * including the json text and the property "call" to invoke the service.</p>
+ * <p>This is and example of such an organization:</p>
  * <pre>
  * - RootPath
  *   +-- API1
@@ -172,9 +168,7 @@ public class ZooDiscoverer {
 
 	/**
 	 * Performs the discovery for a specific directory.
-	 * <p></p>
-	 * The folder has to follow this pattern (example with two JSON sources):
-	 * <p></p>
+	 * <p>The folder has to follow this pattern (example with two JSON sources):</p>
 	 * <pre>
 	 *   +-- source1
 	 *      +-- info.properties
@@ -183,21 +177,13 @@ public class ZooDiscoverer {
 	 *      +-- json2.json
 	 *      +-- json2.properties
 	 *  </pre>
-	 *  <p></p>
-	 *  The discovery process follow these steps:
-	 *  <p></p>
+	 *  <p>The discovery process follow these steps:</p>
 	 *  <ol>
 	 *  <li>First the info.properties is checked</li>
-	 *  <li>For each JSON source (composed by a .json and a .properties file):</li>
-	 *    <ol>
-	 *     <li> The properties files is read (e.g., json1.properties)</li>
-	 *     <li> The JSON file is read (e.g., json1.json)</li>
-	 *    </ol>
+	 *  <li>For each JSON source (composed by a .json and a .properties file): The properties files is read (e.g., json1.properties) and the JSON file is read (e.g., json1.json)</li>
 	 *  </ol>
-	 *  <p></p>
-	 *  As a result, a {@link JsonSource} is built, which includes all the JSON sources plus the discovered metamodel (as a {@link EPackage})
-	 *  <p></p>
-	 * 
+	 *  <p>As a result, a {@link JsonSource} is built, which includes all the JSON sources plus the discovered metamodel (as a {@link EPackage})</p>
+	 *  
 	 * @param rootPath The folder to analyze
 	 * @param overwrite If the results have to overwrite previous ones
 	 * @return A {@link JsonSource} with the JSON sources provided and the metamodel
