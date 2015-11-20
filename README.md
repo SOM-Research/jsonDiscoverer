@@ -48,11 +48,13 @@ You can use the tool in three different ways:
 
 **Accesing the tool website**. The easiest to use our tool is to access to the [webpage of the project](http://som-research.uoc.edu/tools/jsonDiscoverer). Once in the landing page you can use the menus on the top bar to access to the different functionalities.
 
-**In Java**. We recommend you to dowload all the Eclipse projects included in this GitHub project and import them in your Eclipse instalacion. 
+**In Java**. We recommend you to dowload all the Eclipse projects included in this GitHub project and import them in your Eclipse instalation. 
 
-You can directly use the Java implementation of the discoverers provided in the `jsonDiscoverer` project. To understand better how each class work you can have a look at the [inner workings](http://som-research.uoc.edu/tools/jsonDiscoverer/#/doc) section of the webpage. and the [javadoc documentation](http://som-research.uoc.edu/tools/jsonDiscoverer/#/javadoc).
+You can directly use the Java implementation of the discoverers provided in the `jsonDiscoverer` and `jsonDiscoverer.coverage` projects. You will also find the corresponding jar files in the root of these projects (you need both jars if you want to integrate our tool in you projects). Also, you can build the jars by using the Ant build file located at the root of the projects. The `build.xml` file defines a default target that will build the JAR file automatically.
 
-We also recomment you to have a look at project `jsonDiscoverer.examples`,where you will be able to find some Java examples to use the discoverers and the toolset.
+To understand better how each class work you can have a look at the [inner workings](http://som-research.uoc.edu/tools/jsonDiscoverer/#/doc) section of the webpage. and the [javadoc documentation](http://som-research.uoc.edu/tools/jsonDiscoverer/#/javadoc).
+
+We also recomment you to have a look at project `jsonDiscoverer.examples`, where you will be able to find some Java examples to use the discoverers and the toolset.
 
 **As Web application**. The web application can be deployed as a WAR container file in your Tomcat (currently tested in Tomcat 7). As it is need some configuration before generating the WAR, we cannot provided a pre-compiled one. 
 
@@ -61,7 +63,7 @@ To configure your JSONDiscoverer WAR, please follow these steps:
  1. Download the **jsonDiscoverer.web** project
  2. Go to `WebContent/WEB-INF`folder 
  3. Open and configure the `config.properties` file. Each line in this file has been commented to help you configure the tool
- 4. Once you have edited the file, you can build the WAR by using the ANT build file located at the root of the project. The `build.xml` file defines a default target that will build the WAR file automatically
+ 4. Once you have edited the file, you can build the WAR by using the Ant build file located at the root of the project. The `build.xml` file defines a default target that will build the WAR file automatically
  5. Take the generated WAR and copy to the `webapps` folder of your Tomcat instalation.
 
 Can I collaborate?
