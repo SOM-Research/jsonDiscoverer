@@ -9,6 +9,7 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
         $scope.showTitles = false;
         $scope.showFeedback = false;
 		$scope.showError = false;
+        $scope.showThanks = false;
 
         $scope.alertsGeneral = [ ];
 
@@ -78,6 +79,7 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
             $scope.metamodel = "images/loading.gif";
             $scope.showTitles = true;
     		$scope.showError = false;
+            $scope.showThanks = false;
 
             DiscovererService.compose($scope.defs,
                 function(data) {
@@ -148,6 +150,8 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
 	                            //console.log("wrong")
 	                        }
 	                    );
+	                $scope.showFeedback = false;
+	                $scope.showThanks = true;
                 },
 	            function(result) {
                 	// nothing

@@ -10,6 +10,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
         $scope.showTitles = false;
         $scope.showFeedback = false;
 		$scope.showError = false;
+        $scope.showThanks = false;
 
         $scope.$on('$viewContentLoaded', function(event) {
             $window.ga('send', 'pageview', {'page': '/tools/jsonDiscoverer' + $location.path()});   
@@ -42,6 +43,7 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
             
             $scope.showFeedback = false;
     		$scope.showError = false;
+            $scope.showThanks = false;
             
         	try {
         		jsonlint.parse($scope.json.text);
@@ -159,6 +161,8 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
 	                            //console.log("wrong")
 	                        }
 	                    );
+	                $scope.showFeedback = false;
+	                $scope.showThanks = true;
                 },
 	            function(result) {
                 	// nothing
