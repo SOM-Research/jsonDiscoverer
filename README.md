@@ -32,9 +32,9 @@ So far, these are the projects (all of them developed as Eclipse plugins):
 * **jsonDiscoverer.web**. Web project including (1) an angularJS-based client-side application and (2) a servlet-based server-side application to provide access to the discoverers. Servlets are basically the facade to the discoverers implemented in the jsonDiscoverer project.
 * **jsonDiscoverer.tests**. Includes some JUnit-based classes to test the discoverers. 
 * **jsonDiscoverer.examples**. Includes some code examples to launch the discoverers from Java. The project also includes some generation examples for the discoverers (see folder `exampleData` in the project). 
-* **jsonDiscoverer.zoo**. Some JSON documents collected from several Web APIs to test the discoverers.
+* **jsonDiscoverer.zoo**. Some JSON documents collected from several Web APIs to test the discoverers. The project depends on [EMF2GV](https://marketplace.eclipse.org/content/emf-graphviz-emf2gv).
 
-The project uses the [GSON library](https://github.com/google/gson) to parse JSON documents.
+Additionally, the projects use the [GSON library](https://github.com/google/gson) to parse JSON documents.
 
 Documentation
 ---
@@ -48,7 +48,7 @@ You can use the tool in three different ways:
 
 **Accesing the tool website**. The easiest to use our tool is to access to the [webpage of the project](http://som-research.uoc.edu/tools/jsonDiscoverer). Once in the landing page you can use the menus on the top bar to access to the different functionalities.
 
-**In Java**. We recommend you to dowload all the Eclipse projects included in this GitHub project and import them in your Eclipse instalation. 
+**In Java**. We recommend you to dowload all the Eclipse projects included in this GitHub project and import them in your Eclipse instalation. The project dependencies require your Eclipse to include: [EMF](https://eclipse.org/modeling/emf/) and [EMF2GV](https://marketplace.eclipse.org/content/emf-graphviz-emf2gv)
 
 You can directly use the Java implementation of the discoverers provided in the `jsonDiscoverer` and `jsonDiscoverer.coverage` projects. You will also find the corresponding jar files in the root of these projects (you need both jars if you want to integrate our tool in you projects). Also, you can build the jars by using the Ant build file located at the root of the projects. The `build.xml` file defines a default target that will build the JAR file automatically.
 
