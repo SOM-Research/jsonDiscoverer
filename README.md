@@ -40,7 +40,7 @@ Documentation
 ---
 You can find further details about how the tool works in the [Inner Workings](http://som-research.uoc.edu/tools/jsonDiscoverer/#/doc) section of the webpage.
 
-The generated javadoc is also available [here](http://som-research.uoc.edu/tools/jsonDiscoverer/#/javadoc)
+The generated javadoc is also available [here](http://som-research.uoc.edu/tools/jsonDiscoverer/javadoc/)
 
 Using JSONDiscoverer 
 ---
@@ -52,7 +52,7 @@ You can use the tool in three different ways:
 
 You can directly use the Java implementation of the discoverers provided in the `jsonDiscoverer` and `jsonDiscoverer.coverage` projects. You will also find the corresponding jar files in the root of these projects (you need both jars if you want to integrate our tool in you projects). Also, you can build the jars by using the Ant build file located at the root of the projects. The `build.xml` file defines a default target that will build the JAR file automatically.
 
-To understand better how each class work you can have a look at the [inner workings](http://som-research.uoc.edu/tools/jsonDiscoverer/#/doc) section of the webpage. and the [javadoc documentation](http://som-research.uoc.edu/tools/jsonDiscoverer/#/javadoc).
+To understand better how each class work you can have a look at the [inner workings](http://som-research.uoc.edu/tools/jsonDiscoverer/#/doc) section of the webpage. and the [javadoc documentation](http://som-research.uoc.edu/tools/jsonDiscoverer/javadoc/).
 
 We also recomment you to have a look at project `jsonDiscoverer.examples`, where you will find some Java examples to use the discoverers and the toolset.
 
