@@ -16,6 +16,10 @@ These are currently the main functionalities provided:
 
 Our tool draws schema information as UML class diagrams, including concepts (i.e., classes) and their properties (i.e., attributes and associations linking the different concepts). Potential API compositions are represented by means of UML sequence diagrams showing the possible sequence of API calls.
 
+This video summarizes the main features of the tool:
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/0705qZ-GD40" frameborder="0" allowfullscreen/>
+
 The tool is inspired in the research papers:
 
  - [Discovering Implicit Schemas in JSON Data](https://www.researchgate.net/publication/262317804_Discovering_implicit_schemas_in_JSON_data?ev=prf_pub) published at [ICWE'13 conference](http://icwe2013.webengineering.org/)
