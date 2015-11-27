@@ -28,7 +28,7 @@ So far, these are the projects (all of them developed as Eclipse plugins):
 
 * **jsonDiscoverer**. Includes the core implementation of the discoverers to get schemas (and data models) out of JSON documents. Schemas are represented as Ecore files while data models are XMI files conforming to the Ecore ones. This therefore means that the tool depends on [Eclipse Modeling Framework](https://eclipse.org/modeling/emf/).
 * **jsonDiscoverer.coverage**. EMF-generated Java Code from an Ecore model to represent coverage models. Coverage models are used to specify which parts in a global Ecore model are covered by smaller Ecore models.
-* **jsonDiscoverer.docs**. The javadoc documentation generated out of the classes of the other projects. Also available [here](http://som-research.uoc.edu/tools/jsonDiscoverer/#/javadoc)
+* **jsonDiscoverer.docs**. The javadoc documentation generated out of the classes of the other projects. Also available [here](http://som-research.uoc.edu/tools/jsonDiscoverer/#/javadoc).
 * **jsonDiscoverer.web**. Web project including (1) an angularJS-based client-side application and (2) a servlet-based server-side application to provide access to the discoverers. Servlets are basically the facade to the discoverers implemented in the jsonDiscoverer project.
 * **jsonDiscoverer.tests**. Includes some JUnit-based classes to test the discoverers. 
 * **jsonDiscoverer.examples**. Includes some code examples to launch the discoverers from Java. The project also includes some generation examples for the discoverers (see folder `exampleData` in the project). 
@@ -54,7 +54,7 @@ You can directly use the Java implementation of the discoverers provided in the 
 
 To understand better how each class work you can have a look at the [inner workings](http://som-research.uoc.edu/tools/jsonDiscoverer/#/doc) section of the webpage. and the [javadoc documentation](http://som-research.uoc.edu/tools/jsonDiscoverer/#/javadoc).
 
-We also recomment you to have a look at project `jsonDiscoverer.examples`, where you will be able to find some Java examples to use the discoverers and the toolset.
+We also recomment you to have a look at project `jsonDiscoverer.examples`, where you will find some Java examples to use the discoverers and the toolset.
 
 **As Web application**. The web application can be deployed as a WAR container file in your Tomcat (currently tested in Tomcat 7). As it is need some configuration before generating the WAR, we cannot provided a pre-compiled one. 
 
@@ -63,7 +63,8 @@ To configure your JSONDiscoverer WAR, please follow these steps:
  1. Download the **jsonDiscoverer.web** project
  2. Go to `WebContent/WEB-INF`folder 
  3. Open and configure the `config.properties` file. Each line in this file has been commented to help you configure the tool
- 4. Once you have edited the file, you can build the WAR by using the Ant build file located at the root of the project. The `build.xml` file defines a default target that will build the WAR file automatically
+ 4. Open and edit the variable `this.prefix` in the file `discoverer.js` located at `jsonDiscoverer.web/WebContent/app/services`. This variable configures the endpoint in the Web client. You will see that there are two definitions: one is used in development time (included the comment `%DEVELOPMENT%`) and the other is used for production (including the comment `%PRODUCTION%`). You have to edit the second one.  
+ 4. Once you have edited these files, you can build the WAR by using the Ant build file located at the root of the project. The `build.xml` file defines a default target that will build the WAR file automatically
  5. Take the generated WAR and copy to the `webapps` folder of your Tomcat instalation.
 
 Can I collaborate?
