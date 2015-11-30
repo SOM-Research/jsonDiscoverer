@@ -1,0 +1,12 @@
+jsondiscoverer
+jsondiscoverer.coverage
+jsondiscoverer.coverage.impl
+jsondiscoverer.coverage.util
+jsondiscoverer.examples
+jsondiscoverer.examples.util
+jsondiscoverer.examples.zoo
+jsondiscoverer.test
+jsondiscoverer.util
+jsondiscoverer.util.test
+jsondiscoverer.web
+jsondiscoverer.zoo

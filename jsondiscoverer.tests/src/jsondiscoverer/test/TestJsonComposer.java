@@ -34,8 +34,21 @@ import jsondiscoverer.JsonSimpleDiscoverer;
 import jsondiscoverer.JsonSource;
 import jsondiscoverer.JsonSourceSet;
 
+
+/**
+ * Test case for {@link JsonComposer}
+ * 
+ * @author Javier Canovas (me@jlcanovas.es)
+ *
+ */
 public class TestJsonComposer {
 
+	/**
+	 * Test case for {@link JsonComposer#compose()}
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found 
+	 * @throws IOException Something went wrong with IO
+	 */
 	@Test
 	public void testCompose() throws FileNotFoundException, IOException {
 

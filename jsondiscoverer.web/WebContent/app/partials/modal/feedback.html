@@ -1,0 +1,22 @@
+<div>
+    <div class="modal-content">
+        <div class="model-header">
+            <h3 class="modal-title">Send us your feedback!</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="inputJson" class="col-md-12">Your comment:</label>
+                    <div class="col-md-12">
+                        <textarea rows="10" id="inputComment" ng-model="feedback.comment" resizable="false"></textarea>
+                    </div>
+                </div>
+                <div class="alert alert-info" role="alert">Together with your comment you will also send us the JSON and discovered models.</div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</div>

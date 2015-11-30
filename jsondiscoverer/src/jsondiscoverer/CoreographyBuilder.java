@@ -23,16 +23,36 @@ import org.eclipse.emf.ecore.EReference;
 import jsondiscoverer.util.DijkstraSolver;
 
 /**
- * This class generates a sequence diagram description for the tool 
- * js-sequene-diagrams (http://bramp.github.io/js-sequence-diagrams)
- * out of a path in an EPackage. 
+ * 
+ * 
+ * This class generates a sequence diagram describing how two JSON-based Web APIs can be composed.
+ * <p>
+ * The main entry method is {@link CoreographyBuilder#calculate(EClass, EClass)}, which performs 
+ * the following actions:
+ * <ol>
+ * <li>Calculate the shortest path between each node in the model (see {@link DijkstraSolver}) </li>
+ * <li>Retrieve the shortest path for a given source/target nodes</li>
+ * <li>Generate the {@link String} representing the sequence diagram</li>
+ * </ol>
+ * <p>pñ'-
+ * 
+ * The sequence diagram is represented as a {@link String} to be transformed into a picture
+ * by means of the tool <a href="http://bramp.github.io/js-sequence-diagrams">js-sequene-diagrams</a>
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class CoreographyBuilder {
+	/**
+	 * The general APIs domain discovered
+	 */
 	private EPackage domain;
 
+	/**
+	 * Constructs a new {@link CoreographyBuilder} element given a metamodel (as {@link EPackage}
+	 * 
+	 * @param ePackage The metamodel (as {@link EPackage}
+	 */
 	public CoreographyBuilder(EPackage ePackage) {
 		if(ePackage == null) 
 			throw new IllegalArgumentException("The ePackage cannot be null");
@@ -40,15 +60,38 @@ public class CoreographyBuilder {
 		this.domain = ePackage;
 	}
 
+	
+	
+	
+
+/**
+	 * Searches for a possible path between two metamodel classes (as {@link EClass} elements), if 
+	 * exists, a sequence diagram is returned as {@link String}.
+	 * <p>
+	 * This method applies first the Dijsktra algorithm to calculate all the possible shortest 
+	 * path for a given source node (see {@link DijkstraSolver}). Then, the shortest path with regard
+	 * to a target node is retrieve (if exists) and finally the sequence diagram is generated.
+	 * <p>
+	 * The sequence diagram is represented as a {@link String} to be transformed into a picture
+	 * by means of the tool <a href="http://bramp.github.io/js-sequence-diagrams">js-sequene-diagrams</a>
+	 * 
+	 * @param source The source node (as {@link EClass})
+	 * @param target The target node (as {@link EClass})
+	 * @return The path between the nodes represented as a sequence diagram
+	 */
 	public String calculate(EClass source, EClass target) {
 		if(source == null)
 			throw new IllegalArgumentException("The source cannot be null");
 		if(target == null)
 			throw new IllegalArgumentException("The target cannot be null");
+		if(!source.getName().endsWith("Input"))
+			throw new IllegalArgumentException("The source element has to be the Input of an API");
 		
 		DijkstraSolver algorithm = new DijkstraSolver(domain);
 		algorithm.execute(source);
 		List<EClass> result = algorithm.getPath(target);
+		if(result == null)
+			return null;
 
 		String resultString = "";
 		EClass last = null;
@@ -104,6 +147,23 @@ public class CoreographyBuilder {
 		return resultString;
 	}
 
+	/**
+	 * Searches for mappings between two metamodel class (as {@link EClass} elements)
+	 * <p>
+	 * Attributes of each metamodel class are traversed and, if they are similar (calculated
+	 * with method {@link CoreographyBuilder#isSimilar(EAttribute, EAttribute)}) a mapping between
+	 * such attributes is created.
+	 * <p>
+	 * Mappings are currently represented as {@link String}s following the pattern:
+	 * <p>
+	 * [source attribute name] -&gt; [target attribute name]
+	 * <p>
+	 * If several mappings are located, the resulting {@link String} is a comma-separated result 
+	 * 
+	 * @param source The source metamodel class (as {@link EClass})
+	 * @param target The target metamodel class (as {@link EClass})
+	 * @return A comma-separated {@link String} with the discovered mappings
+	 */
 	public String discoverMapping(EClass source, EClass target) {
 		if(source == null) 
 			throw new IllegalArgumentException("A source has to be provided");
@@ -127,6 +187,17 @@ public class CoreographyBuilder {
 		return result;
 	}
 
+	/**
+	 * Calculates if two attributes (as {@link EAttribute} elements) are similar. 
+	 * <p>
+	 * The similarity is checked according to number of matching characters between
+	 * the two given {@link String}s. Currently the threshold to be considered similar
+	 * is 0.25.
+	 * 
+	 * @param source The source {@link EAttribute}
+	 * @param target The target {@link EAttribute}
+	 * @return True if the two {@link EAttribute} are considered similar
+	 */
 	private boolean isSimilar(EAttribute source, EAttribute target) {
 		if(source == null) 
 			throw new IllegalArgumentException("A source has to be provided");

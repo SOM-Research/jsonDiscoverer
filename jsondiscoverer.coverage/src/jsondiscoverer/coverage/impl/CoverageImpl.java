@@ -41,8 +41,7 @@ import jsondiscoverer.coverage.CoveragePackage;
 public class CoverageImpl extends EObjectImpl implements Coverage {
 	/**
 	 * The cached value of the '{@link #getMappings() <em>Mappings</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getMappings()
 	 * @generated
 	 * @ordered
@@ -51,8 +50,7 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 
 	/**
 	 * The cached value of the '{@link #getInput() <em>Input</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getInput()
 	 * @generated
 	 * @ordered
@@ -61,8 +59,7 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 
 	/**
 	 * The default value of the '{@link #getService() <em>Service</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getService()
 	 * @generated
 	 * @ordered
@@ -71,8 +68,7 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 
 	/**
 	 * The cached value of the '{@link #getService() <em>Service</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getService()
 	 * @generated
 	 * @ordered
@@ -80,8 +76,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	protected String service = SERVICE_EDEFAULT;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected CoverageImpl() {
@@ -89,8 +83,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -99,8 +91,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList<CoverageMapping> getMappings() {
@@ -111,8 +101,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute getInput() {
@@ -128,8 +116,7 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @return The {@link EAttribute}
 	 * @generated
 	 */
 	public EAttribute basicGetInput() {
@@ -137,8 +124,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setInput(EAttribute newInput) {
@@ -149,8 +134,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getService() {
@@ -158,8 +141,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setService(String newService) {
@@ -170,8 +151,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -184,8 +163,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -203,8 +180,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
@@ -226,8 +201,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -247,8 +220,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -265,8 +236,6 @@ public class CoverageImpl extends EObjectImpl implements Coverage {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

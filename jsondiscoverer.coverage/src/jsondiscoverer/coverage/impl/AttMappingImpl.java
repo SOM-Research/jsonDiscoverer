@@ -14,24 +14,19 @@ import jsondiscoverer.coverage.AttMapping;
 import jsondiscoverer.coverage.CoveragePackage;
 
 /**
- * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Att Mapping</b></em>'.
- * <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
+ * <p>The following features are implemented:</p>
  * <ul>
  *   <li>{@link jsondiscoverer.coverage.impl.AttMappingImpl#getSource <em>Source</em>}</li>
  *   <li>{@link jsondiscoverer.coverage.impl.AttMappingImpl#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getSource()
 	 * @generated
 	 * @ordered
@@ -40,8 +35,7 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
@@ -49,8 +43,7 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	protected EAttribute target;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @see AttMapping
 	 * @generated
 	 */
 	protected AttMappingImpl() {
@@ -58,8 +51,7 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @see CoveragePackage.Literals#ATT_MAPPING
 	 * @generated
 	 */
 	@Override
@@ -68,8 +60,7 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @see AttMapping#getSource()
 	 * @generated
 	 */
 	public EAttribute getSource() {
@@ -85,8 +76,7 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @return The {@link EAttribute}
 	 * @generated
 	 */
 	public EAttribute basicGetSource() {
@@ -94,8 +84,6 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setSource(EAttribute newSource) {
@@ -106,8 +94,6 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EAttribute getTarget() {
@@ -123,8 +109,7 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @return The {@link EAttribute}
 	 * @generated
 	 */
 	public EAttribute basicGetTarget() {
@@ -132,8 +117,6 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setTarget(EAttribute newTarget) {
@@ -144,8 +127,6 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -162,8 +143,6 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -180,8 +159,6 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -198,8 +175,6 @@ public class AttMappingImpl extends CoverageMappingImpl implements AttMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

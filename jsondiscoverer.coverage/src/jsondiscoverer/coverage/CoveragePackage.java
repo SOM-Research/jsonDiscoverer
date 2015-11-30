@@ -8,7 +8,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 /**
- * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
  * It contains accessors for the meta objects to represent
  * <ul>
@@ -17,7 +16,7 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>each enum,</li>
  *   <li>and each data type</li>
  * </ul>
- * <!-- end-user-doc -->
+ * 
  * @see jsondiscoverer.coverage.CoverageFactory
  * @model kind="package"
  * @generated
@@ -25,40 +24,35 @@ import org.eclipse.emf.ecore.EReference;
 public interface CoveragePackage extends EPackage {
 	/**
 	 * The package name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	String eNAME = "coverage";
 
 	/**
 	 * The package namespace URI.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	String eNS_URI = "http://jsondiscoverer/coverage";
 
 	/**
 	 * The package namespace name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	String eNS_PREFIX = "coverage";
 
 	/**
 	 * The singleton instance of the package.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	CoveragePackage eINSTANCE = jsondiscoverer.coverage.impl.CoveragePackageImpl.init();
 
 	/**
 	 * The meta object id for the '{@link jsondiscoverer.coverage.impl.CoverageImpl <em>Coverage</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see jsondiscoverer.coverage.impl.CoverageImpl
 	 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getCoverage()
 	 * @generated
@@ -67,8 +61,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Mappings</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -76,8 +69,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Input</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -85,8 +77,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Service</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -94,8 +85,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>Coverage</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -103,8 +93,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link jsondiscoverer.coverage.impl.CoverageMappingImpl <em>Mapping</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see jsondiscoverer.coverage.impl.CoverageMappingImpl
 	 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getCoverageMapping()
 	 * @generated
@@ -113,8 +102,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>Mapping</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -122,8 +110,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link jsondiscoverer.coverage.impl.AttMappingImpl <em>Att Mapping</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see jsondiscoverer.coverage.impl.AttMappingImpl
 	 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getAttMapping()
 	 * @generated
@@ -132,8 +119,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -141,8 +127,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -150,8 +135,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>Att Mapping</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -159,8 +143,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link jsondiscoverer.coverage.impl.RefMappingImpl <em>Ref Mapping</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see jsondiscoverer.coverage.impl.RefMappingImpl
 	 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getRefMapping()
 	 * @generated
@@ -169,8 +152,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -178,8 +160,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -187,8 +168,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>Ref Mapping</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -196,8 +176,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The meta object id for the '{@link jsondiscoverer.coverage.impl.ConceptMappingImpl <em>Concept Mapping</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see jsondiscoverer.coverage.impl.ConceptMappingImpl
 	 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getConceptMapping()
 	 * @generated
@@ -206,8 +185,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -215,8 +193,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -224,8 +201,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * The number of structural features of the '<em>Concept Mapping</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 * @ordered
 	 */
@@ -234,8 +210,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link jsondiscoverer.coverage.Coverage <em>Coverage</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Coverage</em>'.
 	 * @see jsondiscoverer.coverage.Coverage
 	 * @generated
@@ -244,8 +219,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link jsondiscoverer.coverage.Coverage#getMappings <em>Mappings</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the containment reference list '<em>Mappings</em>'.
 	 * @see jsondiscoverer.coverage.Coverage#getMappings()
 	 * @see #getCoverage()
@@ -255,8 +229,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the reference '{@link jsondiscoverer.coverage.Coverage#getInput <em>Input</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the reference '<em>Input</em>'.
 	 * @see jsondiscoverer.coverage.Coverage#getInput()
 	 * @see #getCoverage()
@@ -266,8 +239,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute '{@link jsondiscoverer.coverage.Coverage#getService <em>Service</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the attribute '<em>Service</em>'.
 	 * @see jsondiscoverer.coverage.Coverage#getService()
 	 * @see #getCoverage()
@@ -277,8 +249,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link jsondiscoverer.coverage.CoverageMapping <em>Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Mapping</em>'.
 	 * @see jsondiscoverer.coverage.CoverageMapping
 	 * @generated
@@ -287,8 +258,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link jsondiscoverer.coverage.AttMapping <em>Att Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Att Mapping</em>'.
 	 * @see jsondiscoverer.coverage.AttMapping
 	 * @generated
@@ -297,8 +267,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the reference '{@link jsondiscoverer.coverage.AttMapping#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the reference '<em>Source</em>'.
 	 * @see jsondiscoverer.coverage.AttMapping#getSource()
 	 * @see #getAttMapping()
@@ -308,8 +277,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the reference '{@link jsondiscoverer.coverage.AttMapping#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the reference '<em>Target</em>'.
 	 * @see jsondiscoverer.coverage.AttMapping#getTarget()
 	 * @see #getAttMapping()
@@ -319,8 +287,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link jsondiscoverer.coverage.RefMapping <em>Ref Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Ref Mapping</em>'.
 	 * @see jsondiscoverer.coverage.RefMapping
 	 * @generated
@@ -329,8 +296,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the reference '{@link jsondiscoverer.coverage.RefMapping#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the reference '<em>Source</em>'.
 	 * @see jsondiscoverer.coverage.RefMapping#getSource()
 	 * @see #getRefMapping()
@@ -340,8 +306,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the reference '{@link jsondiscoverer.coverage.RefMapping#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the reference '<em>Target</em>'.
 	 * @see jsondiscoverer.coverage.RefMapping#getTarget()
 	 * @see #getRefMapping()
@@ -351,8 +316,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for class '{@link jsondiscoverer.coverage.ConceptMapping <em>Concept Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for class '<em>Concept Mapping</em>'.
 	 * @see jsondiscoverer.coverage.ConceptMapping
 	 * @generated
@@ -361,8 +325,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the reference '{@link jsondiscoverer.coverage.ConceptMapping#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the reference '<em>Source</em>'.
 	 * @see jsondiscoverer.coverage.ConceptMapping#getSource()
 	 * @see #getConceptMapping()
@@ -372,8 +335,7 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the reference '{@link jsondiscoverer.coverage.ConceptMapping#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the meta object for the reference '<em>Target</em>'.
 	 * @see jsondiscoverer.coverage.ConceptMapping#getTarget()
 	 * @see #getConceptMapping()
@@ -383,15 +345,14 @@ public interface CoveragePackage extends EPackage {
 
 	/**
 	 * Returns the factory that creates the instances of the model.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
 	CoverageFactory getCoverageFactory();
 
 	/**
-	 * <!-- begin-user-doc -->
+	 * 
 	 * Defines literals for the meta objects that represent
 	 * <ul>
 	 *   <li>each class,</li>
@@ -399,14 +360,13 @@ public interface CoveragePackage extends EPackage {
 	 *   <li>each enum,</li>
 	 *   <li>and each data type</li>
 	 * </ul>
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	interface Literals {
 		/**
 		 * The meta object literal for the '{@link jsondiscoverer.coverage.impl.CoverageImpl <em>Coverage</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @see jsondiscoverer.coverage.impl.CoverageImpl
 		 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getCoverage()
 		 * @generated
@@ -415,32 +375,28 @@ public interface CoveragePackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Mappings</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference COVERAGE__MAPPINGS = eINSTANCE.getCoverage_Mappings();
 
 		/**
 		 * The meta object literal for the '<em><b>Input</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference COVERAGE__INPUT = eINSTANCE.getCoverage_Input();
 
 		/**
 		 * The meta object literal for the '<em><b>Service</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EAttribute COVERAGE__SERVICE = eINSTANCE.getCoverage_Service();
 
 		/**
 		 * The meta object literal for the '{@link jsondiscoverer.coverage.impl.CoverageMappingImpl <em>Mapping</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @see jsondiscoverer.coverage.impl.CoverageMappingImpl
 		 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getCoverageMapping()
 		 * @generated
@@ -449,8 +405,7 @@ public interface CoveragePackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '{@link jsondiscoverer.coverage.impl.AttMappingImpl <em>Att Mapping</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @see jsondiscoverer.coverage.impl.AttMappingImpl
 		 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getAttMapping()
 		 * @generated
@@ -459,24 +414,21 @@ public interface CoveragePackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference ATT_MAPPING__SOURCE = eINSTANCE.getAttMapping_Source();
 
 		/**
 		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference ATT_MAPPING__TARGET = eINSTANCE.getAttMapping_Target();
 
 		/**
 		 * The meta object literal for the '{@link jsondiscoverer.coverage.impl.RefMappingImpl <em>Ref Mapping</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @see jsondiscoverer.coverage.impl.RefMappingImpl
 		 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getRefMapping()
 		 * @generated
@@ -485,24 +437,21 @@ public interface CoveragePackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference REF_MAPPING__SOURCE = eINSTANCE.getRefMapping_Source();
 
 		/**
 		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference REF_MAPPING__TARGET = eINSTANCE.getRefMapping_Target();
 
 		/**
 		 * The meta object literal for the '{@link jsondiscoverer.coverage.impl.ConceptMappingImpl <em>Concept Mapping</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @see jsondiscoverer.coverage.impl.ConceptMappingImpl
 		 * @see jsondiscoverer.coverage.impl.CoveragePackageImpl#getConceptMapping()
 		 * @generated
@@ -511,16 +460,14 @@ public interface CoveragePackage extends EPackage {
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference CONCEPT_MAPPING__SOURCE = eINSTANCE.getConceptMapping_Source();
 
 		/**
 		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
+		 * 
 		 * @generated
 		 */
 		EReference CONCEPT_MAPPING__TARGET = eINSTANCE.getConceptMapping_Target();

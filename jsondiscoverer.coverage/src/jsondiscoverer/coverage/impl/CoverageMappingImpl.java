@@ -10,18 +10,12 @@ import jsondiscoverer.coverage.CoverageMapping;
 import jsondiscoverer.coverage.CoveragePackage;
 
 /**
- * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Mapping</b></em>'.
- * <!-- end-user-doc -->
- * <p>
- * </p>
- *
+ * 
  * @generated
  */
 public abstract class CoverageMappingImpl extends EObjectImpl implements CoverageMapping {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected CoverageMappingImpl() {
@@ -29,8 +23,6 @@ public abstract class CoverageMappingImpl extends EObjectImpl implements Coverag
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

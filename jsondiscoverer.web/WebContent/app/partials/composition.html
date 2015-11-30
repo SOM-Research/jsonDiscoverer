@@ -33,8 +33,9 @@
 	<div ng-controller="CompositionCtrl">
 	    <div class="row">
             <div class="row">
-                <div class="col-md-4">
-                    <h4>Step 1. Providing your JSON sources</h4>
+                <div class="col-md-5">
+                    <h4>Step 1. Provide your JSON sources <a ng-click="example()" 
+			data-intro="If you just want to test the service, click here to get a test JSON document" data-position="right"> (or use an example)</a></h4>
                     <div class="row">
                         <form class="form-horizontal" role="form">
                             <label for="inputName" class="col-md-2 control-label">Name</label>
@@ -50,7 +51,7 @@
                     data-intro="Once you have provided your JSON sources, you can launch the garph discovery" data-position="right">Discover Graph</button>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div ng-repeat="jsonDef in defs">
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -108,7 +109,8 @@
             </p>
 
             <h4 style="padding-top: 20px;">Step 4. Calculate a Path</h4>
-            <p>Select two nodes of the graph. If a path exists, we will show it as a sequence diagram (generated with <a href="http://bramp.github.io/js-sequence-diagrams/">js-sequence-diagrams</a> library)</p>
+            <div style="margin-top: -10px; margin-bottom: 5px"><small>(or select <code>Example1Input</code> and <code>Line</code> nodes in the example, and then click on <em>Calculate</em>)</small></div>
+            <p>Select two nodes of the graph. Note that the first node must be an input node (suffixed with <code>Input</code>). If a path exists, we will show it as a sequence diagram (generated with <a href="http://bramp.github.io/js-sequence-diagrams/">js-sequence-diagrams</a> library)</p>
             <form class="form-horizontal" role="form">
                 <label for="sourceNode" class="col-md-2 control-label">Source Node</label>
                 <div class="col-md-2">
@@ -133,9 +135,9 @@
 
         <div class="row">
             <div class="col-md-12">
-                <alert ng-repeat="alert in alertsGeneral" type="{{alert.type}}" close="closeGeneralAlert($index)">
-                    <div ng-bind-html="alert.msg"></div>
-                </alert>
+				<alert ng-show="showError" type="error">
+					{{errorMsg}}
+				</alert>
             </div>
         </div>
 

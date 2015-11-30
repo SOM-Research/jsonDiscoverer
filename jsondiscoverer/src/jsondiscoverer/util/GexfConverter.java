@@ -29,13 +29,20 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import jsondiscoverer.AnnotationHelper;
 
 /**
- * This class converts a metamodel discoverer into a graph GEXF file. As it is pretty simple, I preferred not
- * to use model-to-text transformations :D
+ * This class converts a metamodel discoverer into a graph GEXF file. 
+ * <p>
+ * As the GEXF format is pretty simple, the transformation is done programmatically
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class GexfConverter {
+	/**
+	 * Converts a metamodel (as {@link EPackage} element) into a String which compliant to the GEXF format.
+	 * 
+	 * @param ePackage The metamodel (as {@link EPackage})
+	 * @return A {@link String} compliant to the GEXF format
+	 */
 	public static String convert(EPackage ePackage) {
 		StringBuffer result = new StringBuffer();
 		Timestamp timeStamp = new Timestamp(Calendar.getInstance().getTimeInMillis());

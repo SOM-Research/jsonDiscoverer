@@ -31,7 +31,15 @@ import jsondiscoverer.JsonComposer;
 import jsondiscoverer.JsonSourceSet;
 
 /**
- * This servlet allows calculating paths between nodes of the discovered metamodel
+ * This servlet allows calculating paths between nodes of the 
+ * graph discovered by {@link JsonComposerServlet}.
+ * <p>
+ * Answers to POST HTTP calls. Source and target nodes ar given as input and
+ * paths (if exists) are returned as sequence diagrams indicating the set of
+ * calls to follow such path.
+ * <p>
+ * As the web application does not save the state, this servlet repeats the
+ * functinality provided by {@link JsonComposerServlet}.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -40,7 +48,21 @@ import jsondiscoverer.JsonSourceSet;
 public class JsonPathCalculatorServlet extends JsonComposerServlet {
 	private static final long serialVersionUID = 333L;
 	
-	@Override
+    /** 
+	 * Performs a POST call to this servlet.
+	 * <p>
+	 * Receives a set of JSON documents representing different JSON-based Web services 
+	 * plus the source/target nodes.
+	 * <p>
+	 * Calculates a path between source/target nodes (using {@link CoreographyBuilder}) and returns
+	 * a sequence diagram (if the path exists) indicanting the calls to perform to obtain the
+	 * target node from the source node 
+	 * <p> 
+	 * 
+	 * @param request The Request of the call
+	 * @param response The Response to the call
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		addResponseOptions(response);
 		// 1. Digesting the params
@@ -82,10 +104,17 @@ public class JsonPathCalculatorServlet extends JsonComposerServlet {
 		
 		// 4. Getting the path
 		CoreographyBuilder builder = new CoreographyBuilder(finalMetamodel);
-		String diagram = builder.calculate(sourceEClass, targetEClass);
-		
-		// 5. Write the response
-		PrintWriter out = response.getWriter();
-		out.print(diagram);
+		try {
+			String diagram = builder.calculate(sourceEClass, targetEClass);
+			if(diagram == null) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			} else {
+				// 5. Write the response
+				PrintWriter out = response.getWriter();
+				out.print(diagram);
+			}
+		} catch(IllegalArgumentException e) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		}
 	}
 }

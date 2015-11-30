@@ -13,7 +13,6 @@ package jsondiscoverer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -22,7 +21,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -31,9 +29,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -46,27 +41,49 @@ import jsondiscoverer.util.ModelHelper;
  * Performs a discovery process among several {@link JsonSource}s (i.e., receiving a 
  * {@link JsonSourceSet} as input). The resulting metamodels are combined to obtain a 
  * general one.
- * 
- * Note that this process is actually a metamodel composition one, where metamodels 
- * discovered for a set of @link JsonSource}s are analyzed to create a new one covering
- * all of them. Thus, the advanced discovery process follows these steps:
- * 1. Receive a set of {@link JsonSource}s (as {@link JsonSourceSet}
- * 2. Discover the metamodel for each {@link JsonSource}
- * 3. Analyze the discovered metamodels and create a new one covering them
- * 4. As a result, a metamodel plus a set of {@link CoverageCreator}s are returned
- * 
+ * <p>
+ * In the context of the JSON discoverer, the {@link JsonAdvancedDiscoverer} is used to
+ * discover the metamodel out of a set of JSON-based Web services of the same API.
+ * <p>
+ * Note that this process is actually a metamodel composition process, where metamodels 
+ * discovered from a set of {@link JsonSource}s are analyzed to create a new one covering
+ * all of them. 
+ * <p>
+ * Thus, the advanced discovery process follows these steps:
+ * <ol>
+ * <li> Receive a set of {@link JsonSource}s (as {@link JsonSourceSet}</li>
+ * <li> Discover the metamodel for each {@link JsonSource}</li>
+ * <li> Analyze the discovered metamodels and create a new one covering them</li>
+ * <li> As a result, a metamodel plus a set of {@link CoverageCreator}s are returned</li>
+ * </ol>
+ * <p>
  * This implementation does not depend on Xtext
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class JsonAdvancedDiscoverer {
+	/**
+	 * Default prefix for the discovered metamodel
+	 */
 	private static final String DEFAULT_NS_URI = "http://jsondiscoverer/discovered/";
+	/**
+	 * Default NS URI for the discovered metamodel
+	 */
 	private static final String DEFAULT_NS_PREFIX = "composed";
-
-	final static double CLASS_MATCHING_THRESHOLD = 0.3;
-
+	/**
+	 * Used to log all the activity
+	 */
 	private final static Logger LOGGER = Logger.getLogger(JsonAdvancedDiscoverer.class.getName());
+	
+	/**
+	 * Threshold to consider when two metamodel classes are similar. 
+	 * <p>
+	 * To calculate the ratio, the number of matching attributes/refereces in the
+	 * two metamodel classes are compared. Thus, two metamodel classes with matching
+	 * attributes/references will give a ratio of 1
+	 */
+	final static double CLASS_MATCHING_THRESHOLD = 0.3;
 	
 	/**
 	 * The set of JsonSources to use in the discovery process
@@ -88,6 +105,11 @@ public class JsonAdvancedDiscoverer {
 	 */
 	HashMap<EAttribute, List<Object>> cacheValues;
 	
+	/**
+	 * Constructs a new {@link JsonAdvancedDiscoverer} with a set of {@link JsonSourceSet} elements
+	 * 
+	 * @param sourceSet A {@link JsonSourceSet} to represent a set of JSON documents 
+	 */
 	public JsonAdvancedDiscoverer(JsonSourceSet sourceSet) {
 		if(sourceSet == null) 
 			throw new IllegalArgumentException("SourceSet cannot be null");
@@ -135,7 +157,7 @@ public class JsonAdvancedDiscoverer {
 	 * 
 	 * @param resultPath The path where the resulting metamodel will be stored
 	 * @return The resulting metamodel as EPackage
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException There is no file to read from
 	 */
 	public EPackage discover(File resultPath) throws FileNotFoundException {
 		if(resultPath == null) 
@@ -150,7 +172,6 @@ public class JsonAdvancedDiscoverer {
 	 * Launches the advanced discover process
 	 * 
 	 * @return The resulting metamodel as EPackage
-	 * @throws FileNotFoundException
 	 */
 	public EPackage discover() {
 		// Creating the resulting metamodel (the one gathering all the info)
@@ -472,7 +493,7 @@ public class JsonAdvancedDiscoverer {
 	 * Input elements (represented as {@link EClass}es named "Input") are not considered
 	 * 
 	 * @param existingClass {@link EClass} to check with already discovered EClasses
-	 * @return 
+	 * @return The similar class (as {@link EClass})
 	 */
 	private EClass lookForSimilarEClass(EClass existingClass) { 
 		if(existingClass == null) 
@@ -558,10 +579,9 @@ public class JsonAdvancedDiscoverer {
 	/**
 	 * Gets the values for a particular key
 	 * 
-	 * @param name
-	 * @param sourceName
-	 * @return
-	 * @throws FileNotFoundException
+	 * @param eAttribute The contained attribute
+	 * @param sourceName The name acting as key
+	 * @return The list of matching values
 	 */
 	private List<Object> getJSONValues(EAttribute eAttribute, String sourceName) {
 		if(eAttribute == null) 

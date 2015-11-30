@@ -145,3 +145,9 @@ footer p {
     background-color: #aeaeae;
 }
 
+.error-report {
+	margin-left: 10px;
+	margin-top: 10px;
+	font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+}
+

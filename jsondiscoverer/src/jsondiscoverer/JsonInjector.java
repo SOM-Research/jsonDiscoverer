@@ -35,16 +35,35 @@ import com.google.gson.JsonPrimitive;
 
 /**
  * This class performs the injection process (obtaining models from JSON files)
+ * <p>
+ * In the context of the JSON discoverer, the {@link JsonInjector} is used to represent the 
+ * data model of a JSON-based Web service during the Simple discovery process.
+ * <p>
  * This implementation does not depend on Xtext
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class JsonInjector {
+	/**
+	 * Used to log all the activity
+	 */
 	private final static Logger LOGGER = Logger.getLogger(JsonInjector.class.getName());
 	
+	/**
+	 * The source to inject.
+	 * <p>
+	 * Note that it must be a {@link SingleJsonSource}
+	 */
 	private SingleJsonSource jsonSource;
 
+	/**
+	 * Constructs a new {@link JsonInjector} with a {@link SingleJsonSource}. 
+	 * <p>
+	 * Note that the input parameter is a {@link SingleJsonSource}.
+	 * 
+	 * @param jsonSource The {@link SingleJsonSource} used to inject
+	 */
 	public JsonInjector(SingleJsonSource jsonSource) {
 		if(jsonSource == null) 
 			throw new IllegalArgumentException("The jsonSource cannot be null");
@@ -73,8 +92,7 @@ public class JsonInjector {
 	/**
 	 * Injects a model conforming to the metamodel from a set of Json Objects
 	 * 
-	 * @param rootElement The root element of the JSON document
-	 * @param ePackage The metamodel
+	 * @param elements List of JSON objects (as list of {@link JsonObject}) 
 	 * @return The set of injected {@link EObject}s
 	 */
 	private List<EObject> inject(List<JsonObject> elements) {
@@ -214,7 +232,7 @@ public class JsonInjector {
 	/**
 	 * Analyzes the type of the attribute to convert the JSON value
 	 * 
-	 * @param eAttribute The {@EAttribute}
+	 * @param eAttribute The {@link EAttribute}
 	 * @param value The value to convert
 	 * @return The converted value (as {@link JsonPrimitive})
 	 */
@@ -253,6 +271,11 @@ public class JsonInjector {
 		return result;
 	}
 	
+	/**
+	 * Returns the metamodel of the {@link JsonSource}
+	 * 
+	 * @return The metamodel (as {@link EPackage})
+	 */
 	public EPackage getEPackage() {
 		return jsonSource.getMetamodel();
 	}

@@ -30,8 +30,19 @@ import jsondiscoverer.JsonAdvancedDiscoverer;
 import jsondiscoverer.JsonSource;
 import jsondiscoverer.JsonSourceSet;
 
+/**
+ * Test case for {@link JsonAdvancedDiscoverer}
+ * 
+ * @author Javier Canovas (me@jlcanovas.es)
+ *
+ */
 public class TestAdvancedDiscoverer {
 
+	/**
+	 * Test case for {@link JsonAdvancedDiscoverer#discover()}
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found 
+	 */
 	@Test
 	public void testDiscover() throws FileNotFoundException  {
 		JsonSource source1 = new JsonSource("stopPosition");

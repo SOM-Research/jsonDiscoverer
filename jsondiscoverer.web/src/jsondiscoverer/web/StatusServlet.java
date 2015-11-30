@@ -22,7 +22,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Simple servlet to know the versions of the other servlets
+ * Simple servlet to know the versions of other servlets
+ * <p>
+ * This servlet is used just as maintainance to check that everything is working
+ * properly in the servlet side.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -30,8 +33,19 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/status")
 public class StatusServlet extends AbstractJsonDiscoverer {
 	private static final long serialVersionUID = 1983L;
-
-	@Override
+	/**
+	 * Returns the value of several options:
+	 * <ul>
+	 * <li>The value for the {@link AbstractJsonDiscoverer#serverURL}</li>
+	 * <li>The working dir (stored in {@link AbstractJsonDiscoverer#workingDir}</li>
+	 * <li>The ids used by the different servlets (see {@link JsonInjectorServlet#INJECTOR_ID}, {@link JsonSimpleDiscovererServlet#SIMPLEDISCOVERER_FOLDER}
+	 * {@link JsonAdvancedDiscovererServlet#ADVANCEDDISCOVERER_FOLDER}).
+	 * </ul>
+	 * 
+	 * @param req The Request of the call
+	 * @param resp The Response to the call
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		addResponseOptions(resp);
 		PrintWriter out = resp.getWriter();

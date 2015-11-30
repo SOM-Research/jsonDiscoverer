@@ -13,16 +13,14 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import jsondiscoverer.coverage.*;
 
 /**
- * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
- * <!-- end-user-doc -->
  * @generated
  */
 public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory {
 	/**
 	 * Creates the default factory implementation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
+	 * @return The {@link CoverageFactory}
 	 * @generated
 	 */
 	public static CoverageFactory init() {
@@ -40,8 +38,7 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 
 	/**
 	 * Creates an instance of the factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	public CoverageFactoryImpl() {
@@ -49,8 +46,6 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -66,8 +61,6 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Coverage createCoverage() {
@@ -76,8 +69,6 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public AttMapping createAttMapping() {
@@ -86,8 +77,6 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public RefMapping createRefMapping() {
@@ -96,8 +85,6 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public ConceptMapping createConceptMapping() {
@@ -106,8 +93,6 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public CoveragePackage getCoveragePackage() {
@@ -115,9 +100,8 @@ public class CoverageFactoryImpl extends EFactoryImpl implements CoverageFactory
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @deprecated
+	 * @return The {@link CoveragePackage}
 	 * @generated
 	 */
 	@Deprecated

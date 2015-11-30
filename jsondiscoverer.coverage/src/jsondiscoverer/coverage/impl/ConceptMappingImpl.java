@@ -13,24 +13,19 @@ import jsondiscoverer.coverage.ConceptMapping;
 import jsondiscoverer.coverage.CoveragePackage;
 
 /**
- * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Concept Mapping</b></em>'.
- * <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
+ * <p>The following features are implemented:</p>
  * <ul>
  *   <li>{@link jsondiscoverer.coverage.impl.ConceptMappingImpl#getSource <em>Source</em>}</li>
  *   <li>{@link jsondiscoverer.coverage.impl.ConceptMappingImpl#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMapping {
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getSource()
 	 * @generated
 	 * @ordered
@@ -39,8 +34,7 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
@@ -48,8 +42,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	protected EClass target;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected ConceptMappingImpl() {
@@ -57,8 +49,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -67,8 +57,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EClass getSource() {
@@ -84,8 +72,7 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @return the {@link EClass}
 	 * @generated
 	 */
 	public EClass basicGetSource() {
@@ -93,8 +80,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setSource(EClass newSource) {
@@ -105,8 +90,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EClass getTarget() {
@@ -122,8 +105,7 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @return The {@link EClass}
 	 * @generated
 	 */
 	public EClass basicGetTarget() {
@@ -131,8 +113,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setTarget(EClass newTarget) {
@@ -143,8 +123,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -161,8 +139,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -179,8 +155,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -197,8 +171,6 @@ public class ConceptMappingImpl extends CoverageMappingImpl implements ConceptMa
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

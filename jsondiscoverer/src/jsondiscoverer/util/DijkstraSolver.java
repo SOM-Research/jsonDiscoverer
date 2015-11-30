@@ -30,24 +30,49 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * This class applies the Dijkstra algorithm to get the shortest path between
- * two nodes. This code has been adapted from the one published by Lars Vogel
+ * two nodes. 
+ * <p>
+ * Applied to EMF models, nodes are {@link EClass} elements and links are {@link EReference} elements. 
+ * We consider the distance between two nodes as the number of {@link EReference}s existing between
+ * such nodes (or infinite if there is not a path). 
+ * <p>
+ * This code has been adapted from the one published by Lars Vogel published 
+ * <a href="http://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html">here</a>
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class DijkstraSolver {
+	/**
+	 * The list of nodes of the graph
+	 */
 	private final List<EClass> nodes;
+	/**
+	 * The list of edges of the graph
+	 */
 	private final List<EReference> edges;
+	/**
+	 * Visited nodes
+	 */
 	private Set<EClass> settledNodes;
+	/**
+	 * Unvisited nodes
+	 */
 	private Set<EClass> unSettledNodes;
+	/**
+	 * The list of predecesors in the set of calculated paths
+	 */
 	private Map<EClass, EClass> predecessors;
+	/**
+	 * Distance matrix between each pair of nodes
+	 */
 	private Map<EClass, Integer> distance;
 
 	/**
-	 * Constructs a new Dijkstra solver taking all the EClasses as nodes and their
-	 * EReferences as references
+	 * Constructs a new Dijkstra solver taking all the {@link EClass} elements as nodes and 
+	 * their {@link EReference}s as references/links between the nodes.
 	 * 
-	 * @param ePackage
+	 * @param ePackage The metamodel (as {@link EPackage})
 	 */
 	public DijkstraSolver(EPackage ePackage) {
 		this.nodes = new ArrayList<EClass>();
@@ -68,6 +93,12 @@ public class DijkstraSolver {
 		}
 	}
 
+	/**
+	 * Executes the algorithm to create the auciliar table with all the possible
+	 * shortest paths
+	 * 
+	 * @param source The source element of the path (as {@link EClass})
+	 */
 	public void execute(EClass source) {
 		settledNodes = new HashSet<EClass>();
 		unSettledNodes = new HashSet<EClass>();
@@ -83,6 +114,11 @@ public class DijkstraSolver {
 		}
 	}
 
+	/**
+	 * Looks for the minimal distance between two nodes given a source node (as {@link EClass} elements)
+	 * 
+	 * @param node The source node to start the calculation (as {@link EClass})
+	 */
 	private void findMinimalDistances(EClass node) {
 		List<EClass> adjacentNodes = getNeighbors(node);
 		for (EClass target : adjacentNodes) {
@@ -95,6 +131,13 @@ public class DijkstraSolver {
 
 	}
 
+	/**
+	 * Returns the distance between two nodes (as {@link EClass} elements)
+	 * 
+	 * @param node The sourcce node (as {@link EClass})
+	 * @param target The target node (as {@link EClass})
+	 * @return The distance between the two nodes (a value between 1 and {@link Integer#MAX_VALUE})
+	 */
 	private int getDistance(EClass node, EClass target) {
 		for (EReference edge : edges) {
 			if (edge.getEContainingClass().equals(node) && edge.getEType().equals(target)) {
@@ -104,6 +147,15 @@ public class DijkstraSolver {
 		throw new RuntimeException("Should not happen");
 	}
 
+	/**
+	 * Returns the list of neighbors for a given node. 
+	 * <p>
+	 * As we deal with {@link EClass} elements, the neighbors of an {@link EClass} are all the {@link EClass}
+	 * elements linked with at least one {@link EReference}.
+	 * 
+	 * @param node The target node
+	 * @return The list of neighbors (as {@link EClass} elements)
+	 */
 	private List<EClass> getNeighbors(EClass node) {
 		List<EClass> neighbors = new ArrayList<EClass>();
 		for (EReference edge : edges) { 
@@ -114,6 +166,12 @@ public class DijkstraSolver {
 		return neighbors;
 	}
 
+	/**
+	 * Obtained the nearest node of a set of nodes (as {@link EClass}es)
+	 * 
+	 * @param vertexes The set of nodes (as {@link EClass})
+	 * @return The nearest node (as {@link EClass})
+	 */
 	private EClass getMinimum(Set<EClass> vertexes) {
 		EClass minimum = null;
 		for (EClass vertex : vertexes) {
@@ -128,10 +186,22 @@ public class DijkstraSolver {
 		return minimum;
 	}
 
+	/**
+	 * Checks if a node has already been visited by the algorithm 
+	 * 
+	 * @param vertex The node (as {@link EClass})
+	 * @return True if the node has already been visited
+	 */
 	private boolean isSettled(EClass vertex) {
 		return settledNodes.contains(vertex);
 	}
 
+	/**
+	 * Calculates the shortest distance with regard to a ndoe (as {@link EClass})
+	 * 
+	 * @param destination The target node (as {@link EClass})
+	 * @return The distance (a value between 1 and {@link Integer#MAX_VALUE})
+	 */
 	private int getShortestDistance(EClass destination) {
 		Integer d = distance.get(destination);
 		if (d == null) {
@@ -142,10 +212,10 @@ public class DijkstraSolver {
 	}
 	
 	/**
-	 * Gets the path to a node
+	 * Gets the path to a node as a list of {@link EClass} elements to be crossed.
 	 * 
-	 * @param target
-	 * @return
+	 * @param target The target element to visit (as {@link EClass})
+	 * @return List of {@link EClass} elements
 	 */
 	public LinkedList<EClass> getPath(EClass target) {
 		LinkedList<EClass> path = new LinkedList<EClass>();

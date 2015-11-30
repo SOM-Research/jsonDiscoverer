@@ -13,11 +13,9 @@
 
 package jsondiscoverer.util.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -32,6 +30,12 @@ import org.junit.Test;
 
 import jsondiscoverer.CoreographyBuilder;
 
+/**
+ * Test case for {@link CoreographyBuilder}
+ * 
+ * @author Javier Canovas (me@jlcanovas.es)
+ *
+ */
 public class TestCoreographyBuilder {
 	
 	public static String EXPECTED = "User->GOOGLEMAPS:pathCalculator(origin : EString, destination : EString, waypoints : EString, sensor : EBoolean)\n" +
@@ -41,6 +45,9 @@ public class TestCoreographyBuilder {
 		"User->TAN:stopPosition(lat : EInt, lon : EInt)\n" +
 		"TAN-->User:response(numLigne : ESTRING, directionSens1 : ESTRING, directionSens2 : ESTRING, accessible : EBOOLEAN, etatTrafic : EINT, libelleTrafic : ESTRING, typeLigne : EINT)";	
 
+	/**
+	 * Test case for {@link CoreographyBuilder#calculate(EClass, EClass)}
+	 */
 	@Test
 	public void testCalculate() {
 		

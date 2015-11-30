@@ -1,0 +1,18 @@
+<body>
+<p>Servlets for the JSON discoverer website.</p>
+
+<p>In particular, it provides access to the main functionalities of the website, namely</p>
+<ul>
+<li><b>Simple discovery process</b>, which uses <code>JsonSimpleDiscovererServlet</code> and <code>JsonInjectorServlet</code>. Also, to
+provide support for gathering JSON documents out of websites, the <code>ProxyServlet</code> has been implemented.</li>
+<li><b>Advanced discovery process</b>, which uses <code>JsonAdvancedDiscovererServlet</code></li>
+<li><b>Composer</b>, which uses <code>JsonComposerServlet</code> and <code>JsonPathCalculatorServlet</code></li>
+</ul>
+<p>Common functionality is provided by <code>AbstractJsonDiscoverer</code> (i.e., encoding files and generating pictures). </p>
+<p>Finally, management servlets are also implemented, specifically:</p>
+<ul>
+<li><code>VersionServlet</code>, to know the version deployed in the server</li>
+<li><code>StatusServlet</code>, which checks the status of the different servelts and creates a report</li>
+</ul>
+
+</body>

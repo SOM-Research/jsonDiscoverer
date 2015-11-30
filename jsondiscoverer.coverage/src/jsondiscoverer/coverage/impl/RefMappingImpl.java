@@ -14,24 +14,19 @@ import jsondiscoverer.coverage.CoveragePackage;
 import jsondiscoverer.coverage.RefMapping;
 
 /**
- * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Ref Mapping</b></em>'.
- * <!-- end-user-doc -->
- * <p>
- * The following features are implemented:
+ * <p>The following features are implemented:</p>
  * <ul>
  *   <li>{@link jsondiscoverer.coverage.impl.RefMappingImpl#getSource <em>Source</em>}</li>
  *   <li>{@link jsondiscoverer.coverage.impl.RefMappingImpl#getTarget <em>Target</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getSource()
 	 * @generated
 	 * @ordered
@@ -40,8 +35,7 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getTarget()
 	 * @generated
 	 * @ordered
@@ -49,8 +43,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	protected EReference target;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected RefMappingImpl() {
@@ -58,8 +50,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -68,8 +58,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EReference getSource() {
@@ -85,8 +73,7 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @return The {@link EReference}
 	 * @generated
 	 */
 	public EReference basicGetSource() {
@@ -94,8 +81,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setSource(EReference newSource) {
@@ -106,8 +91,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EReference getTarget() {
@@ -123,8 +106,7 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * @return The {@link EReference}
 	 * @generated
 	 */
 	public EReference basicGetTarget() {
@@ -132,8 +114,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public void setTarget(EReference newTarget) {
@@ -144,8 +124,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -162,8 +140,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -180,8 +156,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
@@ -198,8 +172,6 @@ public class RefMappingImpl extends CoverageMappingImpl implements RefMapping {
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

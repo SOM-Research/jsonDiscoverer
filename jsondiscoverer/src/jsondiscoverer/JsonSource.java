@@ -22,8 +22,24 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 /**
- * This class represents a JSON source: a set of JSON documents with the same meaning
- * (i.e., set of JSON documents returned by the same JSON-based Web API)
+ * This class represents a JSON source. A JSON source is represented by
+ * a set of JSON documents with the same meaning (i.e., set of JSON documents 
+ * returned by the same JSON-based Web API). 
+ * <p>
+ * In the context of JSON Discoverer, it is used to model a single JSON-based Web service.
+ * <p>
+ * JSON documents are represented as {@link JsonData} elements. 
+ * <p>
+ * The set of JSON documents can be retrieved by calling the method {@link JsonSource#getJsonData()}.
+ * <p>
+ * As {@link JsonData} elements can include input elements (to represent which JSON data
+ * has triggered such JSON document), a {@link JsonSource} can include {@link JsonData} elements with
+ * or without input. To know whether the {@link JsonData} elements included in the {@link JsonSource}
+ * have input elements, you have to call the method {@link JsonSource#withInput}.
+ * <p>
+ * Note that all the {@link JsonData} elements included in a {@link JsonSource} have to include (or 
+ * not include) inputs.
+ * <p>
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
@@ -40,6 +56,12 @@ public class JsonSource extends AbstractJsonSource {
 	 */
 	public boolean withInput; 
 	
+	/**
+	 * Builds a new JsonSource with a name. Once created, the JsonSource has to 
+	 * be populated by calling {@link JsonSource#addJsonData(Reader, Reader)}.
+	 * 
+	 * @param name The name of the JsonSource
+	 */
 	public JsonSource(String name) {
 		super(name);
 		this.jsonData = new ArrayList<JsonData>();
@@ -47,7 +69,7 @@ public class JsonSource extends AbstractJsonSource {
 	}
 	
 	/**
-	 * Gets the set of JSON documents linked to this source. 
+	 * Gets the set of {@link JsonData} elements linked to this source. 
 	 * Warning: the returned list is mutable
 	 * 
 	 * @return The set of JSON documents (as {@link JsonData}
@@ -56,25 +78,31 @@ public class JsonSource extends AbstractJsonSource {
 		return jsonData;
 	}
 
+	/**
+	 * Indicates if the JsonSource includes input elements. 
+	 * <p>
+	 * Note that all of them have to include (or not include) input elements
+	 * 
+	 * @return Boolean indicating the status
+	 */
 	public boolean includesInput() {
 		return this.withInput;
 	}
 	
 	/**
-	 * Adds a new JSON document as well as the input JSON document to get such a document (if given). 
-	 * The input must be provided as a valid JSON object.
+	 * Builds a {@link JsonData} element out of a JSON document representing the input and another
+	 * JSON document representing the output. 
+	 * <p>
+	 * The input/output must be provided as a valid JSON objects.
 	 * 
 	 * @param input The {@link Reader} from which obtain JSON document used as input (optional)
 	 * @param output The {@link Reader} from which obtain the JSON document
-	 * @throws IllegalArgumentException If reader is null 
+	 * @throws IllegalArgumentException If any reader is null 
 	 * @return The {@link JsonData} with the JSON document and the input
 	 */
 	private JsonData buildJsonData(Reader input, Reader output) {
 		if(output == null) 
-			throw new IllegalArgumentException("output cannot be null");
-		
-		if(output == null) 
-			throw new IllegalArgumentException("The new document cannot be null and must exist");
+			throw new IllegalArgumentException("The JSON document cannot be null and must exist");
 		
 		JsonObject inputJsonObject = null;
 		if(input != null) {
@@ -90,10 +118,10 @@ public class JsonSource extends AbstractJsonSource {
 	}
 	
 	/**
-	 * Adds a new JSON document as well as the input JSON document to get such a document. 
-	 * 
-	 * The input (if given) must be provided as a valid JSON object. 
-	 * 
+	 * Adds a new JSON document as well as the input JSON document (optional) to get such a document. 
+	 * <p>
+	 * The input/output must be provided as a valid JSON objects.
+	 * <p>
 	 * Warning: Once the source has been created with input (or without), subsequent 
 	 * calls must also include (or not) inputs
 	 * 
@@ -119,10 +147,29 @@ public class JsonSource extends AbstractJsonSource {
 	
 	/**
 	 * Generates a list of JSON objects according to the {@link JsonData} of this source.
+	 * <ul>
+	 * <li>If the source DOES include inputs, the list will include the set of input elements as roots for the
+	 * {@link JsonData}. For instance:</li> 
+	 * </ul>
 	 * 
-	 * - If the source DOES include inputs, the list will include the set of input elements as roots for the 
-	 * {@link JsonData}.
-	 * - If the source DOES NOT include inputs, the list will include all the objects from {@link JsonData}
+	 * <pre>
+	 * - [input JSON element 1]
+	 *   +-- Output
+	 *       +-- [output JSON element 1]  
+	 * - [input JSON element 2]
+	 *   +-- Output
+	 *       +-- [output JSON element 2]  
+	 * -...
+	 * </pre>
+	 * <ul>
+	 * <li>If the source DOES NOT include inputs, the list will include all the objects from {@link JsonData}. For instance</li>
+	 * </ul>
+	 * <pre>
+	 * - [output JSON element 1]  
+	 * - [output JSON element 2] 
+	 * - [output JSON element 3] 
+	 * -...
+	 * </pre>
 	 * 
 	 * @return The list of {@link JsonObject}s
 	 */

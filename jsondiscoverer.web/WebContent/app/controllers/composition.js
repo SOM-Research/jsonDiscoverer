@@ -17,6 +17,8 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
         $scope.targetPreviousColor = "";
 
         $scope.alertsGeneral = [ ];
+        
+        $scope.showError = false;
 
         $scope.$on('$viewContentLoaded', function(event) {
             $window.ga('send', 'pageview', {'page': '/tools/jsonDiscoverer' + $location.path()});
@@ -30,8 +32,49 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
 
         $scope.provideJson = function (jsonName) {
             var modalInstance = $modal.open({
-                templateUrl: 'jsonProvisionModalWithInput.html',
-                controller: JsonProvisionModalWithInputInstanceCtrlVar,
+                templateUrl: 'app/partials/modal/provideJSON-Input.html',
+                controller: function($scope, $modalInstance, $log, jsonName) {
+                    $scope.json = { name: jsonName, input: '', output: '' };
+
+                    $scope.ok = function() {
+                		$scope.showError = false;
+                		var errorInput = null;
+                		var errorOutput = null;
+                    	try {
+                    		jsonlint.parse($scope.json.input);
+                    	} catch(e) {
+                    		errorInput = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    	}
+                    	try {
+                    		jsonlint.parse($scope.json.output);
+                    	} catch(e) {
+                    		errorOutput = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    	}
+                    	
+                    	if(errorInput != null || errorOutput != null) {
+                    		if(errorInput != null) {
+                    			$scope.showErrorInput = true;
+                        		$scope.errorMsgInput = errorInput;
+                    		} else {
+                    			$scope.showErrorInput = false;
+                        		$scope.errorMsgInput = null;
+                    		}
+                    		if(errorOutput != null) {
+                    			$scope.showErrorOutput = true;
+                        		$scope.errorMsgOutput = errorOutput;
+                    		} else {
+                    			$scope.showErrorOutput = false;
+                        		$scope.errorMsgOutput = null;
+                    		}
+                    	} else {
+                            $modalInstance.close({ name : jsonName, input: $scope.json.input, output: $scope.json.output });
+                    	}
+                    };
+
+                    $scope.cancel = function() {
+                        $modalInstance.dismiss('cancel');
+                    };
+                },
                 resolve: {
                     jsonName : function() {
                         return jsonName;
@@ -143,12 +186,16 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
         $scope.calculatePath = function() {
             DiscovererService.calculatePath($scope.defs, $scope.sourcePath, $scope.targetPath,
                 function(data) {
+                	$scope.showError = false;
                     var diagram = Diagram.parse(data);
+                    $("#sequence-diagram").empty();
                     diagram.drawSVG("sequence-diagram", {theme: 'simple'});
 					$window.ga('send', 'event', 'JSON Discoverer', 'SimpleDiscoverer-SequenceDiagram')
                 },
                 function(data, status, headers, config) {
-
+                    $scope.showError = true;
+                    $("#sequence-diagram").empty();
+                    $scope.errorMsg = 'There is no a path between the selected nodes'
                 }
             )
         };
@@ -157,17 +204,18 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
         $scope.activateHelp = function() {
         	$('body').chardinJs('start')
         };
+        
+
+        $scope.example = function() {
+        	input2 = '{ "lat" : 2, "lon" : 3 }'
+        	ex2 = '[\n  {\n    "direction": 2,\n    "terminus": "Gare de Pont-Rousseau",\n    "infotrafic": false,\n    "time": "Close",\n    "line": {\n      "lineNumber": "2",\n      "lineType": 1\n    },\n    "stop": {\n      "stopCode": "CRQU2"\n    }\n  },\n  {\n    "direction": 1,\n   "terminus": "Orvault-Grand Val",\n    "infotrafic": false,\n    "time": "Close",\n    "line": {\n      "lineNumber": "2",\n      "lineType": 1\n    },\n    "stop": {\n      "stopCode": "CRQU1"\n    }\n  },\n  {\n    "direction": 2,\n    "terminus": "Perray",\n    "infotrafic": false,\n    "time": "Close",\n    "line": {\n      "lineNumber": "11",\n      "lineType": 3\n    },\n    "stop": {\n      "stopCode": "CRQU4"\n    }\n  }\n]';
+        	input1 = '{ "locations" : -104.9847034, "sensor" : true }'
+        	ex1 = '{\n\   "results" : [\n      {\n         "elevation" : 1608.637939453125,\n         "location" : {\n            "lat" : 39.7391536,\n            \n"lng" : -104.9847034\n         },\n         "resolution" : 4.771975994110107\n      }\n   ],\n   "status" : "OK"\n}';
+
+            $scope.defs['example1'] = { name : 'example1', jsonDefs : [ { input: input1, output: ex1} ]};
+            $scope.defs['example2'] = { name : 'example2', jsonDefs : [ { input: input2, output: ex2} ]};
+            $scope.updateCompositionPosible();
+        }
     }
 ]);
 
-var JsonProvisionModalWithInputInstanceCtrlVar = function($scope, $modalInstance, $log, jsonName) {
-    $scope.json = { name: jsonName, input: '', output: '' };
-
-    $scope.ok = function() {
-        $modalInstance.close({ name : jsonName, input: $scope.json.input, output: $scope.json.output });
-    };
-
-    $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
-    };
-}

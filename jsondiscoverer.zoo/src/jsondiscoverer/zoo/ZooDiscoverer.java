@@ -43,19 +43,16 @@ import jsondiscoverer.SingleJsonSource;
 
 /**
  * This class traverses a given path to discover the metamodels for JSON files.
- * 
- * The path has to conform to a particular structure. Thus, the root path has to be
+ * <p>The path has to conform to a particular structure. Thus, the root path has to be
  * composed by a set of folder (one per API), where each folder contains subfolders 
- * (one per JSON source). 
- * 
- * For each JSON source, it is expected to find a "info.properties" file which the "name"
+ * (one per JSON source).</p>
+ * <p>For each JSON source, it is expected to find a "info.properties" file which the "name"
  * and "shortname" properties describing the source. Furthermore, a set of JSON files
  * have to be included in the JSON source. Each JSON file name must start with "json" 
  * string and it is expected both a .json * and a .properties file (with the same name), 
- * including the json text and the property "call" to invoke the service.
- * 
- * This is and example of such an organization: 
- * 
+ * including the json text and the property "call" to invoke the service.</p>
+ * <p>This is and example of such an organization:</p>
+ * <pre>
  * - RootPath
  *   +-- API1
  *       +-- source1
@@ -71,27 +68,62 @@ import jsondiscoverer.SingleJsonSource;
  *       +-- ...
  *   +-- APIn
  *       +-- ...
+ * </pre>
+ * <p>
+ * We recommend you to have a look at the existing examples on this project to better understand how to configure
+ * the folder and the files.
  * 
  * @author Javier Canovas (me@jlcanovas.es)
  *
  */
 public class ZooDiscoverer {
+	/**
+	 * The logger to keep track of all the execution traces
+	 */
 	private final static Logger LOGGER = Logger.getLogger(ZooDiscoverer.class.getName());
 
+	/**
+	 * The root from where the process will start
+	 */
 	private File rootPath;
 
+	/**
+	 * Constructs a new {@link ZooDiscoverer} element. Requires the starting directory path
+	 * 
+	 * @param rootPath The path from where the process will start
+	 */
 	public ZooDiscoverer(File rootPath) {
 		if(rootPath == null || !rootPath.isDirectory()) 
 			throw new IllegalArgumentException("The rootPath must be a directory");
 		this.rootPath = rootPath;
 	}
 
+	/**
+	 * Launches the discovery process. 
+	 * <p>
+	 * This method relies on {@link ZooDiscoverer#discoverSource(File, boolean)} with the second
+	 * parameter (overwriting) active.
+	 * 
+	 * @throws FileNotFoundException Something went wrong when looking for a file
+	 */
 	public void discover() throws FileNotFoundException {
 		discover(true); 
 	}
 
+	/**
+	 * Main method to start the discovery process. The result can overwrites (or not)
+	 * accodirng to the param.
+	 * <p>
+	 * Basically traverses the {@link ZooDiscoverer#rootPath} folder and calls to 
+	 * {@link ZooDiscoverer#discoverSource(File, boolean)} to discover a {@link JsonSource} 
+	 * element for each source (see class desc
+	 * <p>
+	 * 
+	 * @param overwrite The result has to overwrite (or not) previous executions
+	 * @throws FileNotFoundException Something went wrong when looking for a file
+	 */
 	public void discover(boolean overwrite) throws FileNotFoundException {
-		List<JsonSourceSet> sourceSets = new ArrayList<>();
+		List<JsonSourceSet> sourceSets = new ArrayList();
 		for(File parentFile : rootPath.listFiles()) {
 			if(parentFile.isDirectory()) {
 				// Each API in ZOO directory
@@ -134,6 +166,30 @@ public class ZooDiscoverer {
 		composer.compose(finalResultPath);
 	}
 
+	/**
+	 * Performs the discovery for a specific directory.
+	 * <p>The folder has to follow this pattern (example with two JSON sources):</p>
+	 * <pre>
+	 *   +-- source1
+	 *      +-- info.properties
+	 *      +-- json1.json
+	 *      +-- json1.properties
+	 *      +-- json2.json
+	 *      +-- json2.properties
+	 *  </pre>
+	 *  <p>The discovery process follow these steps:</p>
+	 *  <ol>
+	 *  <li>First the info.properties is checked</li>
+	 *  <li>For each JSON source (composed by a .json and a .properties file): The properties files is read (e.g., json1.properties) and the JSON file is read (e.g., json1.json)</li>
+	 *  </ol>
+	 *  <p>As a result, a {@link JsonSource} is built, which includes all the JSON sources plus the discovered metamodel (as a {@link EPackage})</p>
+	 *  
+	 * @param rootPath The folder to analyze
+	 * @param overwrite If the results have to overwrite previous ones
+	 * @return A {@link JsonSource} with the JSON sources provided and the metamodel
+	 * @throws FileNotFoundException A file required in the folder (check the doc to see the expected structure) was not found
+	 * @throws IOException Thrown when having problem while reading/writing files
+	 */
 	private JsonSource discoverSource(File rootPath, boolean overwrite) throws FileNotFoundException, IOException {
 		if(!rootPath.isDirectory())
 			throw new IllegalArgumentException("The file must be a directory");
@@ -236,6 +292,12 @@ public class ZooDiscoverer {
 		return null;
 	}
 
+	/**
+	 * Saves a metamodel (as {@link EPackage}) into a file
+	 * 
+	 * @param metamodel The metamodel
+	 * @param target The file where the metamodel will be stored
+	 */
 	private void saveEcore(EPackage metamodel, File target) {
 		if(target == null)
 			throw new IllegalArgumentException("The file cannot be null");
@@ -254,6 +316,12 @@ public class ZooDiscoverer {
 		}
 	}
 
+	/**
+	 * Loads a metamodel (as {@link EPackage})
+	 * 
+	 * @param target The path to the metamodel
+	 * @return The metamodel (as {@link EPackage})
+	 */
 	private EPackage loadEcore(File target) {
 		if(target == null)
 			throw new IllegalArgumentException("The file cannot be null");
@@ -273,6 +341,12 @@ public class ZooDiscoverer {
 		return ePackage;
 	}
 
+	/**
+	 * Save a list of model elements (as {@link EObject}s) into a file
+	 * 
+	 * @param elements List of model elements (as {@link EObject}s)
+	 * @param target The path for the file 
+	 */
 	private static void saveModel(List<EObject> elements, File target) {
 		if(elements == null)
 			throw new IllegalArgumentException("Elements to serialize the model cannot be null");

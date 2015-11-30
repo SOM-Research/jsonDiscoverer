@@ -27,8 +27,19 @@ import org.junit.Test;
 import jsondiscoverer.JsonInjector;
 import jsondiscoverer.SingleJsonSource;
 
+/**
+ * Test case for {@link JsonInjector}
+ * 
+ * @author Javier Canovas (me@jlcanovas.es)
+ *
+ */
 public class TestJsonInjector {
 
+	/**
+	 * Test case for {@link JsonInjector#inject()}
+	 * 
+	 * @throws FileNotFoundException Thrown if the file is not found 
+	 */
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testInject() throws FileNotFoundException {
