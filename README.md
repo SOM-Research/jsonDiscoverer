@@ -66,7 +66,7 @@ To configure your JSONDiscoverer WAR, please follow these steps:
 
  1. Download the **jsonDiscoverer.web** project
  2. Go to `WebContent/WEB-INF`folder 
- 3. Open and configure the `config.properties` file. Each line in this file has been commented to help you configure the tool. Please, pay special attention to those variables regarding configuration folders (e.g., `workingDir) and the path to the [DOT](http://www.graphviz.org/) executable (e.g., `dotExePath`), which is required to generate the pictures.
+ 3. Open and configure the `config.properties` file. Each line in this file has been commented to help you configure the tool. Please, pay special attention to those variables regarding configuration folders (e.g., `workingDir`) and the path to the [DOT](http://www.graphviz.org/) executable (e.g., `dotExePath`), which is required to generate the pictures.
  4. Open and edit the variable `this.prefix` in the file `discoverer.js` located at `jsonDiscoverer.web/WebContent/app/services`. This variable configures the endpoint in the Web client. You will see that there are two definitions: one is used in development time (included the comment `%DEVELOPMENT%`) and the other is used for production (including the comment `%PRODUCTION%`). You have to edit the second one.  
  4. Once you have edited these files, you can build the WAR by using the Ant build file located at the root of the project. The `build.xml` file defines a default target that will build the WAR file automatically
  5. Take the generated WAR and copy to the `webapps` folder of your Tomcat instalation.
