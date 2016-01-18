@@ -48,15 +48,20 @@ angular.module("jsonDiscoverer").controller("SimpleDiscovererCtrl", ["$scope", "
         	try {
         		jsonlint.parse($scope.json.text);
         		//JSON.parse($scope.json.text);
-                discoverMetamodel($scope.json.text);
-                injectModel($scope.json.text);
                 $scope.showTitles = true;
         		$scope.showError = false;
+                discoverMetamodel($scope.json.text);
+                injectModel($scope.json.text);
+                $scope.errorMsg = "";
         	} catch(e) {
                 $scope.showFeedback = false;
         		$scope.showError = true;
-                $("#modelImg").empty();
-                $("#metamodelImg").empty();
+        		$scope.metamodel = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+        		$scope.model = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+        		//$("#actualMetamodel").attr("ng-src", "" );
+        		//$("#actualModel").attr("ng-src", "" );
+                //$("#modelImg").empty();
+                //$("#metamodelImg").empty();
         		$scope.errorMsg = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');;
         	}
         }
