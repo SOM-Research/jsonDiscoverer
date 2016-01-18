@@ -1,0 +1,23 @@
+<div>
+	<div class="modal-content">
+		<div class="model-header">
+			<h3 class="modal-title">JSON provided for {{json.name}} source {{jsonDefs.length}}</h3>
+		</div>
+		<div class="modal-body">
+			<form class="form-horizontal" role="form" action="">
+				<div class="form-group">
+					<label for="inputJson" class="col-md-12">JSON provided:</label>
+					<div class="col-md-12">
+						<textarea rows="12" id="inputJson" ng-model="json.toShow"
+							resizable="false" cols=""></textarea>
+					</div>
+				</div>
+			</form>
+			<button style="background-color: #BFAB73; border-color : #A68527;" class="btn" ng-disabled="json.showing == 0" ng-click="prev()"><span aria-hidden="true">&larr;</span>Previous</button>
+			<button style="background-color: #BFAB73; border-color : #A68527; float: right;" ng-disabled="json.showing == json.jsonDefs.length - 1" class="btn" ng-click="next()">Next<span aria-hidden="true">&rarr;</button>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" ng-click="ok()">OK</button>
+		</div>
+	</div>
+</div>

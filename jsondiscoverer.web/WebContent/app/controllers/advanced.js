@@ -74,6 +74,37 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
         };
+        
+        $scope.viewJson = function (jsonName) {
+        	defs = $scope.defs[jsonName]["jsonDefs"];
+        	
+            var modalInstance = $modal.open({
+                templateUrl: 'app/partials/modal/viewJSON-noInput.html',
+                controller:  function($scope, $modalInstance, $log, jsonName) {
+                    $scope.json = { name: jsonName, jsonDefs: defs, toShow: defs[0], showing : 0 };
+
+                    $scope.ok = function() {
+                    	$modalInstance.close();
+                    };
+
+                    $scope.next = function() {
+                    	console.log($scope.json);
+                    	if($scope.json.showing < $scope.json.jsonDefs.length - 1) $scope.json.showing = $scope.json.showing + 1;
+                    	$scope.json.toShow = $scope.json.jsonDefs[$scope.json.showing];
+                    }
+                    
+                    $scope.prev = function() {
+                    	console.log($scope.json);
+                    	if($scope.json.showing > 0) $scope.json.showing = $scope.json.showing - 1;
+                    	$scope.json.toShow = $scope.json.jsonDefs[$scope.json.showing];
+                    }
+                },
+                resolve: {
+                    jsonName : function() {
+                        return jsonName;
+                    }}
+            });
+        };
 
         $scope.discover = function() {
             $scope.metamodel = "images/loading.gif";
