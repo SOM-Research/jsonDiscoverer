@@ -88,13 +88,11 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
                     };
 
                     $scope.next = function() {
-                    	console.log($scope.json);
                     	if($scope.json.showing < $scope.json.jsonDefs.length - 1) $scope.json.showing = $scope.json.showing + 1;
                     	$scope.json.toShow = $scope.json.jsonDefs[$scope.json.showing];
                     }
                     
                     $scope.prev = function() {
-                    	console.log($scope.json);
                     	if($scope.json.showing > 0) $scope.json.showing = $scope.json.showing - 1;
                     	$scope.json.toShow = $scope.json.jsonDefs[$scope.json.showing];
                     }

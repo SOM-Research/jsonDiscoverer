@@ -90,6 +90,38 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
         };
+        
+        $scope.viewJson = function (jsonName) {
+        	defs = $scope.defs[jsonName]["jsonDefs"];
+        	
+            var modalInstance = $modal.open({
+                templateUrl: 'app/partials/modal/viewJSON-Input.html',
+                controller:  function($scope, $modalInstance, $log, jsonName) {
+                    $scope.json = { name: jsonName, jsonDefs: defs, inputToShow: defs[0].input, outputToShow: defs[0].output, showing : 0 };
+
+                    $scope.ok = function() {
+                    	$modalInstance.close();
+                    };
+
+                    $scope.next = function() {
+                    	if($scope.json.showing < $scope.json.jsonDefs.length - 1) $scope.json.showing = $scope.json.showing + 1;
+                    	$scope.json.inputToShow = $scope.json.jsonDefs[$scope.json.showing].input;
+                    	$scope.json.outputToShow = $scope.json.jsonDefs[$scope.json.showing].output;
+                    }
+                    
+                    $scope.prev = function() {
+                    	if($scope.json.showing > 0) $scope.json.showing = $scope.json.showing - 1;
+                    	$scope.json.inputToShow = $scope.json.jsonDefs[$scope.json.showing].input;
+                    	$scope.json.outputToShow = $scope.json.jsonDefs[$scope.json.showing].output;
+                    }
+                },
+                resolve: {
+                    jsonName : function() {
+                        return jsonName;
+                    }}
+            });
+        };
+
 
         $scope.closeGeneralAlert = function(index) {
             $scope.alertsGeneral.splice(index, 1);
