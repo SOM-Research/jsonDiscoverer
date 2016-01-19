@@ -42,7 +42,7 @@
             </filterchain>
         </copy>
 		
-		<javac srcdir="src" destdir="target/classes" debug="off" verbose="off">
+		<javac srcdir="src" destdir="target/classes" debug="off" includeantruntime="false" verbose="off">
 			<classpath refid="master-classpath"/>
 			<!-- this removes warning messages regarding BASE64Encoder and Timestamp -->
 			<compilerarg value="-XDignore.symbol.file"/> 
