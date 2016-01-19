@@ -52,7 +52,7 @@ You can use the tool in three different ways:
 
 **Accesing the tool website**. The easiest to use our tool is to access to the [webpage of the project](http://som-research.uoc.edu/tools/jsonDiscoverer). Once in the landing page you can use the menus on the top bar to access to the different functionalities.
 
-**In Java**. We recommend you to dowload all the Eclipse projects included in this GitHub project and import them in your Eclipse instalation. The project dependencies require your Eclipse to include: [EMF](https://eclipse.org/modeling/emf/) and [EMF2GV](https://marketplace.eclipse.org/content/emf-graphviz-emf2gv)
+**In Java**. We recommend you to download all the Eclipse projects included in this GitHub project and import them in your Eclipse instalation. The project dependencies require your Eclipse to include: [EMF](https://eclipse.org/modeling/emf/) and [EMF2GV](https://marketplace.eclipse.org/content/emf-graphviz-emf2gv)
 
 You can directly use the Java implementation of the discoverers provided in the `jsonDiscoverer` and `jsonDiscoverer.coverage` projects. You will also find the corresponding jar files in the root of these projects (you need both jars if you want to integrate our tool in you projects). Also, you can build the jars by using the Ant build file located at the root of the projects. The `build.xml` file defines a default target that will build the JAR file automatically.
 
@@ -60,9 +60,19 @@ To understand better how each class work you can have a look at the [inner worki
 
 We also recomment you to have a look at project `jsonDiscoverer.examples`, where you will find some Java examples to use the discoverers and the toolset.
 
-**As Web application**. The web application can be deployed as a WAR container file in your Tomcat (currently tested in Tomcat 7). As it is need some configuration before generating the WAR, we cannot provided a pre-compiled one. 
+**As Web application**. The web application can be deployed as a WAR container file in your Tomcat (currently tested in Tomcat 7). We provide two ways in this option: (1) using a pre-compiled WAR or (2) create your own WAR file. 
 
-To configure your JSONDiscoverer WAR, please follow these steps:
+The pre-compiled version of the WAR has to be configured as follows. 
+
+ 1. Download the **jsonDiscoverer.web** project
+ 2. Locate the file `jsonDiscoverer.war` on the root of the project
+ 2. Open the file with any container manager (e.g., WinRAR, WinZIP, etc...)
+ 2. Go to `WebContent/WEB-INF`folder and edit the file `config.properties`. Each line in this file has been commented to help you configure the tool. Please, pay special attention to those variables regarding configuration folders (e.g., `workingDir`) and the path to the [DOT](http://www.graphviz.org/) executable (e.g., `dotExePath`), which is required to generate the pictures.
+ 3. Go to `app/services` folder and edit the variable `this.prefix` in the file `discoverer.js`. This variable configures the endpoint in the Web client.
+ 4. Close the WAR file in your container manager
+ 5. Deploy the file in your Tomcat.
+
+If this option does not work, follow the indications provided below to build your own WAR. 
 
  1. Download the **jsonDiscoverer.web** project
  2. Go to `WebContent/WEB-INF`folder 
