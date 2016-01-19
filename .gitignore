@@ -8,7 +8,6 @@ jsondiscoverer.zoo/zooBig/*
 jsondiscoverer.zoo/zooMini/*
 jsondiscoverer/bin/**/*
 jsondiscoverer.web/build/**/*
-jsondiscoverer.web/jsonDiscoverer.war
 jsondiscoverer.web/**/workingDir/**/*.xmi
 jsondiscoverer.web/**/workingDir/**/*.ecore
 jsondiscoverer.web/**/workingDir/**/*.graphdesc
