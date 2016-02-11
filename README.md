@@ -54,7 +54,7 @@ You can use the tool in three different ways:
 
 **In Java**. We recommend you to download all the Eclipse projects included in this GitHub project and import them in your Eclipse instalation. The project dependencies require your Eclipse to include: [EMF](https://eclipse.org/modeling/emf/) and [EMF2GV](https://marketplace.eclipse.org/content/emf-graphviz-emf2gv)
 
-You can directly use the Java implementation of the discoverers provided in the `jsonDiscoverer` and `jsonDiscoverer.coverage` projects. You will also find the corresponding jar files in the root of these projects (you need both jars if you want to integrate our tool in you projects). Also, you can build the jars by using the Ant build file located at the root of the projects. The `build.xml` file defines a default target that will build the JAR file automatically.
+You can directly use the Java implementation of the discoverers provided in the `jsonDiscoverer` and `jsonDiscoverer.coverage` projects. You will also find the corresponding jar files in the root of these projects (you need both jars if you want to integrate our tool in your projects). Also, you can build the jars by using the Ant build file located at the root of the projects. The `build.xml` file defines a default target that will build the JAR file automatically.
 
 To understand better how each class works you can have a look at the [inner workings](http://som-research.uoc.edu/tools/jsonDiscoverer/#/doc) section of the webpage. and the [javadoc documentation](http://som-research.uoc.edu/tools/jsonDiscoverer/javadoc/).
 
