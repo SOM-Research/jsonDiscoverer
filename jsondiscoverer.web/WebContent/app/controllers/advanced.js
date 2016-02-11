@@ -84,15 +84,10 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
                     $scope.json = { name: jsonName, jsonDefs: defs, toShow: defs[0], showing : 0 };
 
                     $scope.ok = function() {
-                    	try {
-                    		$scope.showError = false;
-                    		jsonlint.parse($scope.json.toShow);
+                    	if($scope.validate()) {
                     		$scope.save();
                             $modalInstance.close({ name : $scope.json.name, jsonDefs: $scope.json.jsonDefs });
-                    	} catch(e) {
-                    		$scope.showError = true;
-                    		$scope.errorMsg = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');;
-                    	}
+                    	} 
                     };
 
                     $scope.next = function() {
@@ -135,7 +130,6 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
             
             modalInstance.result.then(
                     function(data) {
-                    	console.log(data);
                         $scope.defs[data.name]["jsonDefs"] = data.jsonDefs;
                         $scope.updateDiscoveryPosible();
                     }, 

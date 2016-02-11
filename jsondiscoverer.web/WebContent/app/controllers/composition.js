@@ -174,7 +174,6 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
 
             modalInstance.result.then(
                     function(data) {
-                    	console.log(data);
                         $scope.defs[data.name]["jsonDefs"] = data.jsonDefs;
                         $scope.updateDiscoveryPosible();
                     }, 
