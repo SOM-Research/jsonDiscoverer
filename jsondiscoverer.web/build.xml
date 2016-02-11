@@ -12,11 +12,18 @@
     	Build WAR
     </description>
 	
+	<path id="master-classpath">
+		<fileset dir="WebContent/WEB-INF/lib">
+	    	<include name="*.jar"/>
+		</fileset>
+	</path>
+	
 	<target name="buildProductionWAR" description="Builds the WAR with the production configuration">
-		<delete dir="production"/>
-		<mkdir dir="production"/>
+		<delete dir="target"/>
+		<mkdir dir="target/production"/>
+		<mkdir dir="target/classes"/>
 		
-		<copy todir="production">
+		<copy todir="target/production">
 			<fileset dir="WebContent">
 				<exclude name="**/discoverer.js"/>
 				<exclude name="**/*.xmi"/>
@@ -25,20 +32,26 @@
 			</fileset>
 		</copy>
 		
-		<copy file="WebContent/WEB-INF/config.properties.server" tofile="production/WEB-INF/config.properties"/>
+		<copy file="WebContent/WEB-INF/config.properties.server" tofile="target/production/WEB-INF/config.properties"/>
 
-        <copy file="WebContent/app/services/discoverer.js" tofile="production/app/services/discoverer.js" >
+        <copy file="WebContent/app/services/discoverer.js" tofile="target/production/app/services/discoverer.js" >
             <filterchain>
                 <linecontains negate="true">
                     <contains value="%DEVELOPMENT%"/>
                 </linecontains>
             </filterchain>
         </copy>
+		
+		<javac srcdir="src" destdir="target/classes" debug="off" includeantruntime="false" verbose="off">
+			<classpath refid="master-classpath"/>
+			<!-- this removes warning messages regarding BASE64Encoder and Timestamp -->
+			<compilerarg value="-XDignore.symbol.file"/> 
+		</javac>
 
-        <war destfile="jsonDiscoverer.war" webxml="production/WEB-INF/web.xml">
-        	<classes dir="build/classes"/>
-        	<webinf dir="production/WEB-INF"/>
-        	<fileset dir="production">
+        <war destfile="jsonDiscoverer.war" webxml="target/production/WEB-INF/web.xml">
+        	<classes dir="target/classes"/>
+        	<webinf dir="target/production/WEB-INF"/>
+        	<fileset dir="target/production">
         		<exclude name="META-INF/**/*"/>
         		<exclude name="WEB-INF/**/*"/>	
         		<exclude name="workingDir/**/*.xmi"/>	
@@ -48,6 +61,6 @@
         	</fileset>
         </war>
 
-		<delete dir="production"/>
+		<delete dir="target"/>
 	</target>
 </project>

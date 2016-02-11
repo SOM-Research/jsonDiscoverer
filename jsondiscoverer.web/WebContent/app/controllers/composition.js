@@ -90,6 +90,98 @@ angular.module("jsonDiscoverer").controller("CompositionCtrl", ["$scope", "$wind
                     //$log.info('Modal dismissed at: ' + new Date());
                 });
         };
+        
+        $scope.viewJson = function (jsonName) {
+        	defs = $scope.defs[jsonName]["jsonDefs"];
+        	
+            var modalInstance = $modal.open({
+                templateUrl: 'app/partials/modal/viewJSON-Input.html',
+                controller:  function($scope, $modalInstance, $log, jsonName) {
+                    $scope.json = { name: jsonName, jsonDefs: defs, inputToShow: defs[0].input, outputToShow: defs[0].output, showing : 0 };
+
+                    $scope.ok = function() {
+                    	if($scope.validate()) {
+                    		$scope.save();
+                    		$modalInstance.close({ name : jsonName, jsonDefs: $scope.json.jsonDefs });
+                    	}
+                    };
+
+                    $scope.next = function() {
+                    	if($scope.validate()) {
+                    		$scope.save();
+	                    	if($scope.json.showing < $scope.json.jsonDefs.length - 1) $scope.json.showing = $scope.json.showing + 1;
+	                    	$scope.json.inputToShow = $scope.json.jsonDefs[$scope.json.showing].input;
+	                    	$scope.json.outputToShow = $scope.json.jsonDefs[$scope.json.showing].output;
+                    	}
+                    }
+                    
+                    $scope.prev = function() {
+                    	if($scope.validate()) {
+                    		$scope.save();
+	                    	if($scope.json.showing > 0) $scope.json.showing = $scope.json.showing - 1;
+	                    	$scope.json.inputToShow = $scope.json.jsonDefs[$scope.json.showing].input;
+	                    	$scope.json.outputToShow = $scope.json.jsonDefs[$scope.json.showing].output;
+                    	}
+                    }
+                    
+                    $scope.validate = function() {
+                    	$scope.showError = false;
+                		var errorInput = null;
+                		var errorOutput = null;
+                    	try {
+                    		jsonlint.parse($scope.json.inputToShow);
+                    	} catch(e) {
+                    		errorInput = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    	}
+                    	try {
+                    		jsonlint.parse($scope.json.outputToShow);
+                    	} catch(e) {
+                    		errorOutput = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    	}
+                    	
+                    	if(errorInput != null || errorOutput != null) {
+                    		if(errorInput != null) {
+                    			$scope.showErrorInput = true;
+                        		$scope.errorMsgInput = errorInput;
+                    		} else {
+                    			$scope.showErrorInput = false;
+                        		$scope.errorMsgInput = null;
+                    		}
+                    		if(errorOutput != null) {
+                    			$scope.showErrorOutput = true;
+                        		$scope.errorMsgOutput = errorOutput;
+                    		} else {
+                    			$scope.showErrorOutput = false;
+                        		$scope.errorMsgOutput = null;
+                    		}
+                    		return false;
+                    	} else {
+                			$scope.showErrorInput = false;
+                			$scope.showErrorOutput = false;
+                            return true;
+                    	}
+                    }
+                    
+                    $scope.save = function() {
+                		$scope.json.jsonDefs[$scope.json.showing] = { "input" : $scope.json.inputToShow, "output" : $scope.json.outputToShow};
+                    }
+                },
+                resolve: {
+                    jsonName : function() {
+                        return jsonName;
+                    }}
+            });
+
+            modalInstance.result.then(
+                    function(data) {
+                        $scope.defs[data.name]["jsonDefs"] = data.jsonDefs;
+                        $scope.updateDiscoveryPosible();
+                    }, 
+                    function(data) {
+                        //$log.info('Modal dismissed at: ' + new Date());
+                    });
+        };
+
 
         $scope.closeGeneralAlert = function(index) {
             $scope.alertsGeneral.splice(index, 1);

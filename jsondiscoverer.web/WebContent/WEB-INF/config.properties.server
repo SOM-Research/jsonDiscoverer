@@ -21,5 +21,5 @@ UrlParameter=url
 # Max. number of bytes to read by the proxy
 LimitChars=16384
 # Version of the tool deployed
-version=2.1.1
+version=2.1.2
 

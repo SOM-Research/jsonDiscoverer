@@ -54,9 +54,10 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="col-md-1"><strong>Name:</strong></div>
-							<div class="col-md-5">{{jsonDef.name}}</div>
+							<div class="col-md-4">{{jsonDef.name}}</div>
 							<div class="col-md-3"><strong>JSONs provided:</strong></div>
 							<div class="col-md-1">{{jsonDef.jsonDefs.length}}</div>
+							<div class="col-md-1"><button class="btn btn-xs" ng-disabled="jsonDef.jsonDefs.length == 0" ng-click="viewJson(jsonDef.name)">View</button></div>
 							<div class="col-md-2"><button class="btn btn-xs" ng-click="provideJson(jsonDef.name)">Provide JSON</button></div>
 						</div> 
 					</div>
