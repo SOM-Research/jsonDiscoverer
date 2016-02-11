@@ -18,7 +18,7 @@ Our tool draws schema information as UML class diagrams, including concepts (i.e
 
 This video summarizes the main features of the tool:
 
-[![JSON Discoverer v2.1.1](http://img.youtube.com/vi/0705qZ-GD40/0.jpg)](http://www.youtube.com/watch?v=0705qZ-GD40)
+[![JSON Discoverer v2.1.1](http://img.youtube.com/vi/FifSRxWHjIU/0.jpg)](http://www.youtube.com/watch?v=FifSRxWHjIU)
 
 The tool is inspired in the research papers:
 
