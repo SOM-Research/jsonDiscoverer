@@ -27,6 +27,7 @@
 			<fileset dir="WebContent">
 				<exclude name="**/discoverer.js"/>
 				<exclude name="**/*.xmi"/>
+				<exclude name="**/*.feedback"/>
 				<exclude name="**/*.svg"/>
 				<exclude name="**/config.properties*"/>
 			</fileset>

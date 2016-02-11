@@ -3,14 +3,10 @@ package jsondiscoverer.web;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sun.jmx.snmp.Timestamp;
 
 /**
  * Servlet to provide support for receiving feedback
@@ -97,8 +93,6 @@ public class FeedbackServlet extends AbstractJsonDiscoverer {
 		File tempFile = File.createTempFile("temp", ".feedback", uniqueWorkingDir);
 		
 		FileWriter fw = new FileWriter(tempFile);
-		fw.write("## Timestamp:\n");
-		fw.write((new Timestamp((new Date()).getTime())).toString() + "\n");
 		fw.write("## Source:\n");
 		fw.write(source + "\n");
 		fw.write("## Comment:\n");
