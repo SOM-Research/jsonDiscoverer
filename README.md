@@ -50,15 +50,15 @@ Using JSONDiscoverer
 ---
 You can use the tool in three different ways:
 
-**Accesing the tool website**. The easiest to use our tool is to access to the [webpage of the project](http://som-research.uoc.edu/tools/jsonDiscoverer). Once in the landing page you can use the menus on the top bar to access to the different functionalities.
+**Accesing the tool website**. The easiest way to use our tool is to access to the [webpage of the project](http://som-research.uoc.edu/tools/jsonDiscoverer). Once in the landing page you can use the menus on the top bar to access to the different functionalities.
 
 **In Java**. We recommend you to download all the Eclipse projects included in this GitHub project and import them in your Eclipse instalation. The project dependencies require your Eclipse to include: [EMF](https://eclipse.org/modeling/emf/) and [EMF2GV](https://marketplace.eclipse.org/content/emf-graphviz-emf2gv)
 
 You can directly use the Java implementation of the discoverers provided in the `jsonDiscoverer` and `jsonDiscoverer.coverage` projects. You will also find the corresponding jar files in the root of these projects (you need both jars if you want to integrate our tool in you projects). Also, you can build the jars by using the Ant build file located at the root of the projects. The `build.xml` file defines a default target that will build the JAR file automatically.
 
-To understand better how each class work you can have a look at the [inner workings](http://som-research.uoc.edu/tools/jsonDiscoverer/#/doc) section of the webpage. and the [javadoc documentation](http://som-research.uoc.edu/tools/jsonDiscoverer/javadoc/).
+To understand better how each class works you can have a look at the [inner workings](http://som-research.uoc.edu/tools/jsonDiscoverer/#/doc) section of the webpage. and the [javadoc documentation](http://som-research.uoc.edu/tools/jsonDiscoverer/javadoc/).
 
-We also recomment you to have a look at project `jsonDiscoverer.examples`, where you will find some Java examples to use the discoverers and the toolset.
+We also recomment you to have a look at the project `jsonDiscoverer.examples`, where you will find some Java examples to use the discoverers and the toolset.
 
 **As Web application**. The web application can be deployed as a WAR container file in your Tomcat (currently tested in Tomcat 7). We provide two ways in this option: (1) using a pre-compiled WAR or (2) create your own WAR file. 
 
