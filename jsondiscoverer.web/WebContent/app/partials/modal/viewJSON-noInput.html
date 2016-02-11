@@ -15,6 +15,9 @@
 			</form>
 			<button style="background-color: #BFAB73; border-color : #A68527;" class="btn" ng-disabled="json.showing == 0" ng-click="prev()"><span aria-hidden="true">&larr;</span>Previous</button>
 			<button style="background-color: #BFAB73; border-color : #A68527; float: right;" ng-disabled="json.showing == json.jsonDefs.length - 1" class="btn" ng-click="next()">Next<span aria-hidden="true">&rarr;</button>
+			<alert style="margin-top: 15px;" ng-show="showError" type="error"> There is an error in your JSON:
+				<div class="error-report" ng-bind-html="errorMsg"></div>
+			</alert>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" ng-click="ok()">OK</button>

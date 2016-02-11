@@ -84,17 +84,47 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
                     $scope.json = { name: jsonName, jsonDefs: defs, toShow: defs[0], showing : 0 };
 
                     $scope.ok = function() {
-                    	$modalInstance.close();
+                    	try {
+                    		$scope.showError = false;
+                    		jsonlint.parse($scope.json.toShow);
+                    		$scope.save();
+                            $modalInstance.close({ name : $scope.json.name, jsonDefs: $scope.json.jsonDefs });
+                    	} catch(e) {
+                    		$scope.showError = true;
+                    		$scope.errorMsg = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');;
+                    	}
                     };
 
                     $scope.next = function() {
-                    	if($scope.json.showing < $scope.json.jsonDefs.length - 1) $scope.json.showing = $scope.json.showing + 1;
-                    	$scope.json.toShow = $scope.json.jsonDefs[$scope.json.showing];
+                    	if($scope.validate()) {
+                    		$scope.save();
+                    		if($scope.json.showing < $scope.json.jsonDefs.length - 1) $scope.json.showing = $scope.json.showing + 1;
+                    		$scope.json.toShow = $scope.json.jsonDefs[$scope.json.showing];
+                    	}
                     }
                     
                     $scope.prev = function() {
-                    	if($scope.json.showing > 0) $scope.json.showing = $scope.json.showing - 1;
-                    	$scope.json.toShow = $scope.json.jsonDefs[$scope.json.showing];
+                    	if($scope.validate()) {
+                    		$scope.save();
+                    		if($scope.json.showing > 0) $scope.json.showing = $scope.json.showing - 1;
+                    		$scope.json.toShow = $scope.json.jsonDefs[$scope.json.showing];
+                    	}
+                    }
+                    
+                    $scope.validate = function() {
+                    	try {
+                    		$scope.showError = false;
+                    		jsonlint.parse($scope.json.toShow);
+                    		return true;
+                    	} catch(e) {
+                    		$scope.showError = true;
+                    		$scope.errorMsg = e.message.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                    		return false;
+                    	}
+                    }
+                    
+                    $scope.save = function() {
+                		$scope.json.jsonDefs[$scope.json.showing] = $scope.json.toShow;
                     }
                 },
                 resolve: {
@@ -102,6 +132,16 @@ angular.module("jsonDiscoverer").controller("AdvancedDiscovererCtrl", ["$scope",
                         return jsonName;
                     }}
             });
+            
+            modalInstance.result.then(
+                    function(data) {
+                    	console.log(data);
+                        $scope.defs[data.name]["jsonDefs"] = data.jsonDefs;
+                        $scope.updateDiscoveryPosible();
+                    }, 
+                    function(data) {
+                        //$log.info('Modal dismissed at: ' + new Date());
+                    });
         };
 
         $scope.discover = function() {
