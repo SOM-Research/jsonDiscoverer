@@ -1,7 +1,7 @@
 jsonDiscoverer
 ===============
 
-Visit the [webpage of the project](http://som-research.uoc.edu/tools/jsonDiscoverer) to play with the service.
+Visit the [webpage of the project](http://som-research.uoc.edu/tools/jsonDiscoverer/#/) to play with the service.
 
 What is this project about?
 ---------------------------
