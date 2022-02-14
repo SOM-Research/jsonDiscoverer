@@ -16,6 +16,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.List;
 import java.util.Properties;
 
@@ -50,8 +52,6 @@ import org.emftools.emf2gv.graphdesc.GraphdescPackage;
 import org.emftools.emf2gv.graphdesc.Orientation;
 import org.emftools.emf2gv.graphdesc.ReferenceFigure;
 import org.emftools.emf2gv.processor.core.StandaloneProcessor;
-
-import sun.misc.BASE64Encoder;
 
 /**
  * Abstract class to factor some common behavior among the JSON discoverers.
@@ -155,8 +155,8 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 			ImageIO.write(image, "JPG", bos);
 			byte[] imageBytes = bos.toByteArray();
 
-			BASE64Encoder encoder = new BASE64Encoder();
-			imageString = encoder.encode(imageBytes);
+			Encoder encoder = Base64.getEncoder();
+			imageString = encoder.encodeToString(imageBytes);
 
 			bos.close();
 		} catch (IOException e) {
@@ -218,8 +218,8 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		try {
 			FileInputStream fis = new FileInputStream(resultPath);
 			String content = IOUtils.readStringFromStream(fis);
-			BASE64Encoder encoder = new BASE64Encoder();
-			result = encoder.encode(content.getBytes());
+			Encoder encoder = Base64.getEncoder();
+			result = encoder.encodeToString(content.getBytes());
 			fis.close();
 		} catch (IOException e) {
 			throw new ServletException("Error reading XMI to String", e);
@@ -283,8 +283,8 @@ public abstract class AbstractJsonDiscoverer extends HttpServlet {
 		try {
 			FileInputStream fis = new FileInputStream(resultPath);
 			String content = IOUtils.readStringFromStream(fis);
-			BASE64Encoder encoder = new BASE64Encoder();
-			result = encoder.encode(content.getBytes());
+			Encoder encoder = Base64.getEncoder();
+			result = encoder.encodeToString(content.getBytes());
 			fis.close();
 		} catch (IOException e) {
 			throw new ServletException("Error reading XMI to String", e);
