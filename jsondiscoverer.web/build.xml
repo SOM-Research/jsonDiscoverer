@@ -25,7 +25,6 @@
 		
 		<copy todir="target/production">
 			<fileset dir="WebContent">
-				<exclude name="**/discoverer.js"/>
 				<exclude name="**/*.xmi"/>
 				<exclude name="**/*.feedback"/>
 				<exclude name="**/*.svg"/>
@@ -35,18 +34,8 @@
 		
 		<copy file="WebContent/WEB-INF/config.properties.server" tofile="target/production/WEB-INF/config.properties"/>
 
-        <copy file="WebContent/app/services/discoverer.js" tofile="target/production/app/services/discoverer.js" >
-            <filterchain>
-                <linecontains negate="true">
-                    <contains value="%DEVELOPMENT%"/>
-                </linecontains>
-            </filterchain>
-        </copy>
-		
-		<javac srcdir="src" destdir="target/classes" debug="off" includeantruntime="false" verbose="off">
+		<javac srcdir="src" destdir="target/classes" debug="off" includeantruntime="false" verbose="off" source="1.6" target="1.6">
 			<classpath refid="master-classpath"/>
-			<!-- this removes warning messages regarding BASE64Encoder and Timestamp -->
-			<compilerarg value="-XDignore.symbol.file"/> 
 		</javac>
 
         <war destfile="jsonDiscoverer.war" webxml="target/production/WEB-INF/web.xml">
