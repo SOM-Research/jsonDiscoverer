@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.EPackage;
 import com.google.gson.JsonObject;
 
 import jsondiscoverer.JsonAdvancedDiscoverer;
-import jsondiscoverer.JsonSimpleDiscoverer;
 import jsondiscoverer.JsonSource;
 import jsondiscoverer.JsonSourceSet;
 

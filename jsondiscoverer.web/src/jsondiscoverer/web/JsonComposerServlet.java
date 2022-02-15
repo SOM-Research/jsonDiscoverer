@@ -87,7 +87,7 @@ public class JsonComposerServlet extends AbstractJsonDiscoverer {
 					
 					Integer maxDetected = detectedSources.get(sourceName);
 					if(maxDetected == null || (maxDetected != null && maxDetected.intValue() < numberValue)) 
-						detectedSources.put(sourceName, new Integer(numberValue));
+						detectedSources.put(sourceName, Integer.valueOf(numberValue));
 				}
 			}
 		}
