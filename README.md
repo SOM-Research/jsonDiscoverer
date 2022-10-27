@@ -24,6 +24,7 @@ The tool is inspired in the research papers:
 
  - [Discovering Implicit Schemas in JSON Data](https://www.researchgate.net/publication/262317804_Discovering_implicit_schemas_in_JSON_data?ev=prf_pub) published at [ICWE'13 conference](http://icwe2013.webengineering.org/)
  - [Composing JSON-based Web APIs](https://www.researchgate.net/publication/272824956_Composing_JSON-based_Web_APIs?ev=prf_pub)  published at [ICWE'14 conference](http://icwe2014.webengineering.org/)
+ - [JSONDiscoverer: Visualizing the schema lurking behind JSON documents](https://linkinghub.elsevier.com/retrieve/pii/S0950705116300119) published at the Knowledge-Based Systems journal
 
 What can you find in this repository?
 -------------------------------------

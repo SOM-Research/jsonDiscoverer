@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Cánovas Izquierdo"
+  given-names: "Javier Luis"
+  orcid: "https://orcid.org/0000-0002-2326-1700"
+- family-names: "Cabot"
+  given-names: "Jordi"
+  orcid: "https://orcid.org/0000-0003-2418-2489"
+title: "JSONDiscoverer: Visualizing the schema lurking behind JSON documents"
+version: 1.0.0
+doi: 10.1016/j.knosys.2016.03.020
+url: "https://github.com/SOM-Research/jsonDiscoverer"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Cánovas Izquierdo"
+    given-names: "Javier Luis"
+    orcid: "https://orcid.org/0000-0002-2326-1700"
+  - family-names: "Cabot"
+    given-names: "Jordi"
+    orcid: "https://orcid.org/0000-0003-2418-2489"
+  doi: "10.1016/j.knosys.2016.03.020"
+  journal: "Knowl. Based Syst."
+  start: 52 # First page number
+  end: 55 # Last page number
+  title: "JSONDiscoverer: Visualizing the schema lurking behind JSON documents"
+  volume: 103
+  year: 2016
