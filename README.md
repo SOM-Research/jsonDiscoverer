@@ -82,14 +82,14 @@ If this option does not work, follow the indications provided below to build you
 
 Can I collaborate?
 ---
-Absolutely!. You can follow the typical GitHub contribution flow to ask/contribute:
+Absolutely!.You can follow the typical GitHub contribution flow to ask/contribute:
 
  - For bugs or feature requests you can directly create an [issue](https://github.com/SOM-Research/jsonDiscoverer/issues). 
  - For implementing new features or directly address any issue, please fork the project, perform the patch and send us a [pull request](https://github.com/SOM-Research/jsonDiscoverer/pulls).
 
-Whatever your contribution is, you will have an answer from us in less than 7 days.
+Please refer to our [contribution guidelines](https://github.com/SOM-Research/jsonDiscoverer/blob/master/CONTRIBUTING.md) for more details.
 
-You can find our (simple) governance rules in this [file](https://github.com/SOM-Research/jsonDiscoverer/blob/master/governance.md).
+You can find our governance rules in this [file](https://github.com/SOM-Research/jsonDiscoverer/blob/master/governance.md).
 
 Who is behind this project?
 ---------------------------
